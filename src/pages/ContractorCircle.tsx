@@ -1784,7 +1784,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       const stack = root.querySelector<HTMLElement>(".cc-card-stack");
       const stackStage = root.querySelector<HTMLElement>(".cc-stack-sticky");
       const stackCards = gsap.utils.toArray<HTMLElement>(".cc-stack-card");
-      const usePinnedStack = !isCompact;
+      const usePinnedStack = false;
       if (stack && stackStage && stackCards.length && usePinnedStack) {
         const compactPinnedStack = window.matchMedia(
           "(max-height: 840px)"
