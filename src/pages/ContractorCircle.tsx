@@ -414,93 +414,47 @@ const testimonials = [
   },
 ];
 
-function ProductProofCard({
+function ProductDeckCard({
   item,
   index,
 }: {
   item: (typeof productProofItems)[number];
   index: number;
 }) {
-  const shotClassName = [
-    "cc-product-shot",
-    "cc-detail-reveal",
-    "cc-product-shot-image",
-  ].join(" ");
-
   return (
     <article
-      className="cc-stack-card cc-stack-card-product-proof"
+      className="cc-product-deck-card cc-detail-reveal"
       data-product-card={index + 1}
+      aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")}`}
     >
-      <div className="cc-product-proof">
-        <div className="cc-product-proof-copy cc-caption">
-          <div className="cc-product-copy-main">
-            <p className="cc-eyebrow" data-caption>
-              {item.number} / {item.eyebrow}
-            </p>
-            <h2>
-              {item.headlineLines.map(line => (
-                <span data-caption key={line}>
-                  {line}
-                </span>
-              ))}
-            </h2>
-            <p className="cc-subhead" data-caption>
-              {item.body}
-            </p>
-            {item.walkthrough ? (
-              <a
-                className="cc-aos-walkthrough-strip cc-detail-reveal"
-                href={item.walkthrough.href}
-                target="_blank"
-                rel="noreferrer"
-              >
-                <span>{item.walkthrough.label}</span>
-                <strong>{item.walkthrough.title}</strong>
-                <small>{item.walkthrough.body}</small>
-                <b>
-                  {item.walkthrough.cta}
-                  <ArrowUpRight aria-hidden="true" />
-                </b>
-              </a>
-            ) : null}
-            {item.links ? (
-              <div className="cc-product-links cc-detail-reveal">
-                {item.links.map(link => (
-                  <a
-                    key={link.href}
-                    className={
-                      link.variant
-                        ? `cc-product-link-${link.variant}`
-                        : undefined
-                    }
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {link.label}
-                    <ArrowUpRight aria-hidden="true" />
-                  </a>
-                ))}
-              </div>
-            ) : null}
-          </div>
-          <div className="cc-proof-points">
-            {item.points.map(point => (
-              <div
-                className="cc-proof-point cc-detail-reveal"
-                key={point.label}
-              >
-                <span>{point.label}</span>
-                <strong>{point.value}</strong>
-              </div>
-            ))}
-          </div>
+      <figure className="cc-product-deck-media">
+        <img src={item.image} alt={item.imageAlt} />
+      </figure>
+      <div className="cc-product-deck-body">
+        <p className="cc-product-deck-label">
+          <span>{item.number}</span>
+          {item.eyebrow}
+        </p>
+        <h3>{item.headlineLines.join(" ")}</h3>
+        <p>{item.body}</p>
+        <p className="cc-product-deck-signal">
+          <b>{item.points[0]?.label}</b>
+          <span>{item.points[0]?.value}</span>
+        </p>
+        <div className="cc-product-deck-actions">
+          {item.walkthrough ? (
+            <a href={item.walkthrough.href} target="_blank" rel="noreferrer">
+              {item.walkthrough.cta}
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+          ) : null}
+          {item.links?.slice(0, 1).map(link => (
+            <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
+              {link.label}
+              <ArrowUpRight aria-hidden="true" />
+            </a>
+          ))}
         </div>
-
-        <figure className={shotClassName}>
-          <img src={item.image} alt={item.imageAlt} />
-        </figure>
       </div>
     </article>
   );
@@ -542,6 +496,7 @@ export default function ContractorCircle() {
   const rootRef = useRef<HTMLDivElement>(null);
   const streamFrameRef = useRef<HTMLIFrameElement>(null);
   const streamPlayerRef = useRef<CloudflareStreamPlayer | null>(null);
+  const mutedPreferenceRef = useRef(true);
   const [muted, setMuted] = useState(true);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
@@ -562,6 +517,19 @@ export default function ContractorCircle() {
       void player.play().catch(() => undefined);
     });
   }, []);
+
+  const scheduleHeroVideoPlayback = useCallback(() => {
+    if (typeof window === "undefined") return () => undefined;
+
+    const retryDelays = [0, 180, 640, 1380, 2600, 4200];
+    const timers = retryDelays.map(delay =>
+      window.setTimeout(() => ensureHeroVideoPlayback(true), delay)
+    );
+
+    return () => {
+      timers.forEach(timer => window.clearTimeout(timer));
+    };
+  }, [ensureHeroVideoPlayback]);
 
   useEffect(() => {
     document.title =
@@ -598,31 +566,28 @@ export default function ContractorCircle() {
     player.autoplay = true;
     player.controls = false;
     player.loop = true;
-    player.muted = true;
-    setMuted(true);
+    player.muted = mutedPreferenceRef.current;
+    setMuted(mutedPreferenceRef.current);
     player.addEventListener?.("canplay", markReady);
     player.addEventListener?.("playing", markReady);
     player.addEventListener?.("error", markUnavailable);
-    ensureHeroVideoPlayback(true);
+    const cancelPlaybackRetries = scheduleHeroVideoPlayback();
 
     return () => {
+      cancelPlaybackRetries();
       player.removeEventListener?.("canplay", markReady);
       player.removeEventListener?.("playing", markReady);
       player.removeEventListener?.("error", markUnavailable);
       streamPlayerRef.current = null;
     };
-  }, [ensureHeroVideoPlayback, streamRuntimeReady]);
+  }, [scheduleHeroVideoPlayback, streamRuntimeReady]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!heroFrameLoaded || heroVideoReady || videoUnavailable) return;
+    if (!heroFrameLoaded || !streamRuntimeReady) return;
 
-    const fallbackReadyTimer = window.setTimeout(() => {
-      setHeroVideoReady(true);
-    }, 3200);
-
-    return () => window.clearTimeout(fallbackReadyTimer);
-  }, [heroFrameLoaded, heroVideoReady, videoUnavailable]);
+    return scheduleHeroVideoPlayback();
+  }, [heroFrameLoaded, scheduleHeroVideoPlayback, streamRuntimeReady]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -725,7 +690,16 @@ export default function ContractorCircle() {
     const mobileQuery = window.matchMedia("(max-width: 860px)");
     const updateMobileCta = () => {
       const threshold = Math.min(760, window.innerHeight * 0.9);
-      const shouldShow = mobileQuery.matches && window.scrollY > threshold;
+      const productDeck =
+        document.querySelector<HTMLElement>(".cc-product-deck-section");
+      const deckRect = productDeck?.getBoundingClientRect();
+      const isInsideProductDeck = deckRect
+        ? deckRect.top < window.innerHeight * 0.82 && deckRect.bottom > 96
+        : false;
+      const shouldShow =
+        mobileQuery.matches &&
+        window.scrollY > threshold &&
+        !isInsideProductDeck;
       setShowMobileCta(current =>
         current === shouldShow ? current : shouldShow
       );
@@ -745,10 +719,13 @@ export default function ContractorCircle() {
 
   const toggleAudio = () => {
     const player = streamPlayerRef.current;
+    const nextMuted = !muted;
+    mutedPreferenceRef.current = nextMuted;
+    setMuted(nextMuted);
+
     if (!player) return;
-    player.muted = !player.muted;
-    setMuted(player.muted);
-    if (player.paused) ensureHeroVideoPlayback();
+    player.muted = nextMuted;
+    if (!nextMuted || player.paused) ensureHeroVideoPlayback();
   };
 
   return (
@@ -781,6 +758,12 @@ export default function ContractorCircle() {
           }`}
           aria-label="Contractor Circle introduction video"
         >
+          <img
+            className="cc-video-poster"
+            src={HERO_VIDEO_POSTER}
+            alt=""
+            aria-hidden="true"
+          />
           <div className="cc-video-media">
             <iframe
               ref={streamFrameRef}
@@ -948,13 +931,35 @@ export default function ContractorCircle() {
               </div>
             </article>
 
-            {productProofItems.map((item, index) => (
-              <ProductProofCard
-                key={item.number}
-                item={item}
-                index={index}
-              />
-            ))}
+            <section
+              className="cc-product-deck-section"
+              aria-label="Contractor Circle operating assets"
+            >
+              <div className="cc-product-deck-sticky">
+                <SystemsField className="cc-product-deck-field" variant="stack" />
+                <div className="cc-product-deck-copy cc-caption">
+                  <p className="cc-eyebrow" data-caption>
+                    Operating assets
+                  </p>
+                  <h2>
+                    <span data-caption>The system is visible.</span>
+                    <span data-caption>The work has somewhere to live.</span>
+                  </h2>
+                </div>
+                <div className="cc-product-deck-stage">
+                  {productProofItems.map((item, index) => (
+                    <ProductDeckCard
+                      key={item.number}
+                      item={item}
+                      index={index}
+                    />
+                  ))}
+                </div>
+                <div className="cc-product-deck-meter" aria-hidden="true">
+                  <span />
+                </div>
+              </div>
+            </section>
 
             <article className="cc-stack-card cc-stack-card-proof">
               <div className="cc-proof-ledger">
@@ -1264,12 +1269,16 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], .cc-reveal, .cc-chaos-panel img, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
+          "[data-caption], .cc-reveal, .cc-chaos-panel img, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-product-deck-card, .cc-product-deck-meter span, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
+            x: 0,
             scale: 1,
             filter: "none",
+            rotate: 0,
+            rotateX: 0,
+            rotateY: 0,
             clipPath: "inset(0% 0% 0% 0% round 0px)",
           }
         );
@@ -1279,18 +1288,130 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       const touchStackRisk = window.matchMedia(
         "(hover: none) and (pointer: coarse)"
       ).matches;
+      const widthCompact = window.matchMedia("(max-width: 860px)").matches;
+      const touchCompact =
+        touchStackRisk && window.matchMedia("(max-width: 1024px)").matches;
       const lowHeightDesktop = window.matchMedia(
         "(min-width: 861px) and (max-height: 840px)"
       ).matches;
-      const isCompact =
-        window.matchMedia("(max-width: 860px)").matches ||
-        touchStackRisk ||
-        lowHeightDesktop;
+      const isCompact = widthCompact || touchCompact;
       root.dataset.motionMode = lowHeightDesktop
         ? "flow"
         : isCompact
           ? "compact"
           : "desktop";
+
+      const setupProductDeck = () => {
+        const deck = root.querySelector<HTMLElement>(
+          ".cc-product-deck-section"
+        );
+        if (!deck) return;
+
+        const cards = Array.from(
+          deck.querySelectorAll<HTMLElement>(".cc-product-deck-card")
+        );
+        const meter = deck.querySelector<HTMLElement>(
+          ".cc-product-deck-meter span"
+        );
+        const mediaImages = cards.map(card =>
+          card.querySelector<HTMLElement>(".cc-product-deck-media img")
+        );
+
+        if (!cards.length) return;
+
+        if (isCompact) {
+          const deckCaptionItems =
+            deck.querySelectorAll<HTMLElement>("[data-caption]");
+          gsap.set(deckCaptionItems, {
+            autoAlpha: 1,
+            y: 0,
+            filter: "none",
+          });
+          gsap.set(cards, {
+            autoAlpha: 1,
+            y: 0,
+            x: 0,
+            scale: 1,
+            rotate: 0,
+            filter: "none",
+            clearProps: "transform",
+          });
+          gsap.set(mediaImages.filter(Boolean), {
+            scale: 1,
+            yPercent: 0,
+            filter: "contrast(1.02) saturate(1.02)",
+          });
+          return;
+        }
+
+        const cardGap = Math.min(window.innerWidth * 0.27, 390);
+        const clampRotation = gsap.utils.clamp(-15, 15);
+        const clampScale = gsap.utils.clamp(0.72, 1);
+        const clampAlpha = gsap.utils.clamp(0.28, 1);
+
+        gsap.set(cards, {
+          xPercent: -50,
+          yPercent: -50,
+          transformPerspective: 1400,
+          transformOrigin: "center center",
+        });
+
+        const updateDeck = (progress: number) => {
+          const activeIndex = progress * Math.max(cards.length - 1, 1);
+
+          cards.forEach((card, index) => {
+            const offset = index - activeIndex;
+            const absOffset = Math.abs(offset);
+            const direction = offset < 0 ? -1 : 1;
+            const rotation = clampRotation(offset * 5.8);
+            const scale = clampScale(1 - absOffset * 0.072);
+            const alpha = clampAlpha(1 - absOffset * 0.18);
+            const y = 18 + Math.min(absOffset * 28, 104);
+            const z = -Math.min(absOffset * 44, 190);
+            const x = offset * cardGap;
+            const blur = absOffset > 2.4 ? Math.min((absOffset - 2.4) * 1.3, 3) : 0;
+
+            gsap.set(card, {
+              x,
+              y,
+              z,
+              rotate: rotation,
+              rotateY: direction * Math.min(absOffset * 3.4, 13),
+              scale,
+              autoAlpha: alpha,
+              filter: `blur(${blur}px)`,
+              zIndex: Math.round(100 - absOffset * 10),
+            });
+
+            const image = mediaImages[index];
+            if (image) {
+              gsap.set(image, {
+                xPercent: gsap.utils.clamp(-4, 4, offset * -1.4),
+                yPercent: gsap.utils.clamp(-5, 5, offset * -1.1),
+                scale: 1.035 - Math.min(absOffset * 0.006, 0.022),
+              });
+            }
+          });
+
+          if (meter) {
+            gsap.set(meter, {
+              scaleX: 0.12 + progress * 0.88,
+            });
+          }
+        };
+
+        updateDeck(0);
+
+        ScrollTrigger.create({
+          trigger: deck,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 0.85,
+          invalidateOnRefresh: true,
+          onRefresh: self => updateDeck(self.progress),
+          onUpdate: self => updateDeck(self.progress),
+        });
+      };
 
       if (isCompact) {
         gsap.set("[data-caption]", {
@@ -1423,6 +1544,8 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           }
         }
 
+        setupProductDeck();
+
         const mobileStackCards =
           gsap.utils.toArray<HTMLElement>(".cc-stack-card");
         gsap.set(mobileStackCards, {
@@ -1441,7 +1564,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         mobileStackCards.forEach(card => {
           const lines = card.querySelectorAll<HTMLElement>("[data-caption]");
           const detailItems = card.querySelectorAll<HTMLElement>(
-            ".cc-problem-card, .cc-install-item, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-onboarding-step"
+          ".cc-problem-card, .cc-install-item, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-onboarding-step"
           );
           const productImage = card.querySelector<HTMLElement>(
             ".cc-product-shot img"
@@ -1843,6 +1966,8 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           );
         }
       };
+
+      setupProductDeck();
 
       const stack = root.querySelector<HTMLElement>(".cc-card-stack");
       const stackStage = root.querySelector<HTMLElement>(".cc-stack-sticky");
