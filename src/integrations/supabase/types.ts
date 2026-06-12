@@ -14,7 +14,152 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      drip_enrollments: {
+        Row: {
+          converted_at: string | null
+          created_at: string
+          current_step: number
+          email: string
+          enrolled_at: string
+          first_name: string | null
+          id: string
+          next_send_at: string | null
+          sequence_id: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          converted_at?: string | null
+          created_at?: string
+          current_step?: number
+          email: string
+          enrolled_at?: string
+          first_name?: string | null
+          id?: string
+          next_send_at?: string | null
+          sequence_id: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          converted_at?: string | null
+          created_at?: string
+          current_step?: number
+          email?: string
+          enrolled_at?: string
+          first_name?: string | null
+          id?: string
+          next_send_at?: string | null
+          sequence_id?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      drip_sent_emails: {
+        Row: {
+          email: string
+          enrollment_id: string
+          error_message: string | null
+          id: string
+          provider_message_id: string | null
+          sent_at: string
+          sequence_id: string
+          status: string
+          step_number: number
+        }
+        Insert: {
+          email: string
+          enrollment_id: string
+          error_message?: string | null
+          id?: string
+          provider_message_id?: string | null
+          sent_at?: string
+          sequence_id: string
+          status?: string
+          step_number: number
+        }
+        Update: {
+          email?: string
+          enrollment_id?: string
+          error_message?: string | null
+          id?: string
+          provider_message_id?: string | null
+          sent_at?: string
+          sequence_id?: string
+          status?: string
+          step_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "drip_sent_emails_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "drip_enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          source: string | null
+          suppression_reason: string | null
+          unsubscribed: boolean
+          unsubscribed_at: string | null
+          updated_at: string
+          verified: boolean
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          source?: string | null
+          suppression_reason?: string | null
+          unsubscribed?: boolean
+          unsubscribed_at?: string | null
+          updated_at?: string
+          verified?: boolean
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          source?: string | null
+          suppression_reason?: string | null
+          unsubscribed?: boolean
+          unsubscribed_at?: string | null
+          updated_at?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
+      leads: {
+        Row: {
+          created_at: string
+          email: string
+          first_name: string
+          id: string
+          source: string
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          first_name: string
+          id?: string
+          source: string
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          first_name?: string
+          id?: string
+          source?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
