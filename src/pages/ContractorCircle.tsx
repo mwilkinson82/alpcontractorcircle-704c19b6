@@ -825,6 +825,7 @@ export default function ContractorCircle() {
           className="cc-card-stack"
           aria-label="Contractor Circle story"
         >
+          <SystemsField className="cc-stack-field" variant="stack" />
           <div className="cc-stack-sticky">
             <article className="cc-stack-card cc-stack-card-problem">
               <div className="cc-stack-copy cc-caption">
@@ -1904,10 +1905,115 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           addCaptionToTimeline(stackTimeline, card, at);
         });
       } else {
-        stackCards.forEach(card => {
+        gsap.set(stackCards, {
+          autoAlpha: 0.72,
+          y: 94,
+          scale: 0.955,
+          transformPerspective: 1600,
+          transformOrigin: "center center",
+        });
+
+        stackCards.forEach((card, index) => {
+          const direction = index % 2 === 0 ? -1 : 1;
+          const productShot = card.querySelector<HTMLElement>(".cc-product-shot");
+          const productImage =
+            card.querySelector<HTMLElement>(".cc-product-shot img");
+
+          gsap.set(card, {
+            rotateX: 5.5,
+            rotateY: direction * 2.8,
+          });
+
+          const flowTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: card,
+              start: "top 92%",
+              end: "bottom 18%",
+              scrub: 0.85,
+              invalidateOnRefresh: true,
+            },
+          });
+
+          flowTimeline
+            .to(
+              card,
+              {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                rotateX: 0,
+                rotateY: 0,
+                ease: "power3.out",
+                duration: 0.5,
+              },
+              0
+            )
+            .to(
+              card,
+              {
+                y: -34,
+                scale: 0.982,
+                rotateX: -2.4,
+                rotateY: direction * -1.2,
+                ease: "none",
+                duration: 0.5,
+              },
+              0.5
+            );
+
+          if (productShot) {
+            gsap.fromTo(
+              productShot,
+              {
+                y: 42,
+                scale: 0.965,
+                rotateX: 4,
+                rotateY: direction * 2.4,
+              },
+              {
+                y: -22,
+                scale: 1,
+                rotateX: 0,
+                rotateY: direction * -1.2,
+                ease: "none",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 0.9,
+                  invalidateOnRefresh: true,
+                },
+              }
+            );
+          }
+
+          if (productImage) {
+            gsap.fromTo(
+              productImage,
+              {
+                yPercent: 7,
+                scale: 1.06,
+                filter: "contrast(1.03) saturate(1.04)",
+              },
+              {
+                yPercent: -5,
+                scale: 1.015,
+                filter: "contrast(1.06) saturate(1.05)",
+                ease: "none",
+                scrollTrigger: {
+                  trigger: card,
+                  start: "top bottom",
+                  end: "bottom top",
+                  scrub: 0.8,
+                  invalidateOnRefresh: true,
+                },
+              }
+            );
+          }
+
           ScrollTrigger.create({
             trigger: card,
-            start: "top 78%",
+            start: "top 74%",
             once: true,
             onEnter: () => animateCaption(card),
           });
@@ -1998,7 +2104,13 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
   }, [rootRef]);
 }
 
-function SystemsField({ className }: { className?: string }) {
+function SystemsField({
+  className,
+  variant = "hero",
+}: {
+  className?: string;
+  variant?: "hero" | "stack";
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -2011,10 +2123,11 @@ function SystemsField({ className }: { className?: string }) {
       antialias: true,
     });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setClearColor(0x000000, 0);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-    camera.position.set(0, 0, 7);
+    camera.position.set(0, 0, variant === "stack" ? 8.4 : 7);
 
     const group = new THREE.Group();
     scene.add(group);
@@ -2022,12 +2135,19 @@ function SystemsField({ className }: { className?: string }) {
     const warmLine = new THREE.LineBasicMaterial({
       color: 0xe26a2c,
       transparent: true,
-      opacity: 0.34,
+      opacity: variant === "stack" ? 0.22 : 0.34,
     });
     const inkLine = new THREE.LineBasicMaterial({
       color: 0x1b1b1a,
       transparent: true,
-      opacity: 0.12,
+      opacity: variant === "stack" ? 0.08 : 0.12,
+    });
+    const nodeMaterial = new THREE.PointsMaterial({
+      color: 0xe26a2c,
+      size: variant === "stack" ? 0.04 : 0.032,
+      sizeAttenuation: true,
+      transparent: true,
+      opacity: variant === "stack" ? 0.36 : 0.2,
     });
 
     const makeGrid = (
@@ -2051,14 +2171,40 @@ function SystemsField({ className }: { className?: string }) {
       return geometry;
     };
 
-    const geometries = [
-      makeGrid(3.6, 0.6, 0, warmLine),
-      makeGrid(4.4, 0.88, -0.35, inkLine),
-    ];
+    const makeNodes = (size: number, step: number, z: number) => {
+      const vertices: number[] = [];
+      for (let x = -size; x <= size; x += step) {
+        for (let y = -size; y <= size; y += step) {
+          if ((Math.round((x + y) / step) + 100) % 3 !== 0) continue;
+          vertices.push(x, y, z);
+        }
+      }
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(vertices, 3)
+      );
+      const points = new THREE.Points(geometry, nodeMaterial);
+      group.add(points);
+      return geometry;
+    };
+
+    const geometries =
+      variant === "stack"
+        ? [
+            makeGrid(5.4, 0.72, 0, warmLine),
+            makeGrid(7.2, 1.2, -0.85, inkLine),
+            makeNodes(5.4, 0.72, 0.18),
+          ]
+        : [
+            makeGrid(3.6, 0.6, 0, warmLine),
+            makeGrid(4.4, 0.88, -0.35, inkLine),
+          ];
 
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+    const stackSection = canvas.closest<HTMLElement>(".cc-card-stack");
     let frame = 0;
     let animationId = 0;
 
@@ -2071,12 +2217,36 @@ function SystemsField({ className }: { className?: string }) {
       camera.updateProjectionMatrix();
     };
 
+    const getScrollProgress = () => {
+      if (!stackSection) return 0;
+      const rect = stackSection.getBoundingClientRect();
+      const distance = rect.height + window.innerHeight;
+      if (distance <= 0) return 0;
+      return Math.min(1, Math.max(0, (window.innerHeight - rect.top) / distance));
+    };
+
     const render = () => {
       frame += 0.004;
       if (!reduceMotion) {
-        group.rotation.x = -0.42 + Math.sin(frame) * 0.035;
-        group.rotation.y = 0.44 + Math.cos(frame * 0.8) * 0.04;
-        group.position.y = Math.sin(frame * 0.7) * 0.05;
+        const progress = variant === "stack" ? getScrollProgress() : 0;
+        const targetRotationX =
+          variant === "stack"
+            ? -0.68 + progress * 0.74 + Math.sin(frame) * 0.04
+            : -0.42 + Math.sin(frame) * 0.035;
+        const targetRotationY =
+          variant === "stack"
+            ? 0.18 + progress * 1.28 + Math.cos(frame * 0.8) * 0.05
+            : 0.44 + Math.cos(frame * 0.8) * 0.04;
+        const targetCameraZ =
+          variant === "stack" ? 8.4 - progress * 2.05 : 7;
+
+        group.rotation.x += (targetRotationX - group.rotation.x) * 0.06;
+        group.rotation.y += (targetRotationY - group.rotation.y) * 0.06;
+        group.position.x = variant === "stack" ? (progress - 0.5) * 0.9 : 0;
+        group.position.y =
+          (variant === "stack" ? 0.18 - progress * 0.3 : 0) +
+          Math.sin(frame * 0.7) * 0.05;
+        camera.position.z += (targetCameraZ - camera.position.z) * 0.05;
       }
       renderer.render(scene, camera);
       animationId = window.requestAnimationFrame(render);
@@ -2093,9 +2263,10 @@ function SystemsField({ className }: { className?: string }) {
       geometries.forEach(geometry => geometry.dispose());
       warmLine.dispose();
       inkLine.dispose();
+      nodeMaterial.dispose();
       renderer.dispose();
     };
-  }, []);
+  }, [variant]);
 
   return <canvas ref={canvasRef} className={className} aria-hidden="true" />;
 }

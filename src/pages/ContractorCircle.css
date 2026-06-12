@@ -322,11 +322,26 @@
   position: relative;
   min-height: 100svh;
   min-height: 100dvh;
+  isolation: isolate;
   background: linear-gradient(180deg, #f5f1ea 0%, #ebe4d8 42%, #f8f5ef 100%);
+}
+
+.cc-stack-field {
+  position: sticky;
+  z-index: 0;
+  top: 0;
+  width: 100%;
+  height: 100svh;
+  height: 100dvh;
+  margin-bottom: -100svh;
+  margin-bottom: -100dvh;
+  opacity: 0.3;
+  pointer-events: none;
 }
 
 .cc-stack-sticky {
   position: relative;
+  z-index: 1;
   top: 0;
   height: 100svh;
   height: 100dvh;
@@ -351,6 +366,7 @@
   box-shadow: var(--cc-shadow);
   padding: clamp(26px, 4vw, 62px);
   transform-origin: center top;
+  transform-style: preserve-3d;
 }
 
 .cc-stack-card-problem,
@@ -1469,6 +1485,8 @@
   box-shadow:
     0 30px 86px rgb(21 21 21 / 0.18),
     inset 0 1px 0 rgb(255 255 255 / 0.8);
+  transform-origin: center center;
+  transform-style: preserve-3d;
 }
 
 .cc-product-shot img {
@@ -3143,6 +3161,8 @@
     min-height: auto;
     overflow: visible;
     padding: clamp(28px, 4vw, 56px) clamp(28px, 4vw, 64px);
+    perspective: 1800px;
+    perspective-origin: 50% 45%;
   }
 
   .cc-stack-card,
@@ -3166,7 +3186,8 @@
     max-height: none;
     margin: 0 auto;
     overflow: visible;
-    transform: none;
+    backface-visibility: hidden;
+    will-change: transform, opacity, filter;
   }
 
   .cc-stack-card-shift,
@@ -3225,6 +3246,7 @@
     min-height: clamp(420px, 44vw, 660px);
     max-height: none;
     padding: 10px;
+    will-change: transform, filter;
   }
 
   .cc-product-shot img {
@@ -3233,15 +3255,33 @@
     max-height: none;
     object-fit: contain;
     object-position: center center;
-    transform: none;
+    will-change: transform, filter;
+  }
+
+  .cc-stack-card-installed .cc-install-item,
+  .cc-stack-card-fit .cc-fit-item,
+  .cc-stack-card-onboarding .cc-onboarding-step,
+  .cc-stack-card-proof .cc-member-result,
+  .cc-stack-card-proof .cc-testimonial {
+    transform: translateZ(0);
+  }
+
+  .cc-stack-card-product-proof::before {
+    transform-origin: left center;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .cc-video,
   .cc-stack-card,
+  .cc-product-shot,
+  .cc-product-shot img,
   [data-caption] {
     transform: none !important;
     filter: none !important;
+  }
+
+  .cc-stack-field {
+    opacity: 0.14;
   }
 }
