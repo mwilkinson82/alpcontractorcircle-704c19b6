@@ -416,8 +416,10 @@ const testimonials = [
 
 function ProductProofCard({
   item,
+  index,
 }: {
   item: (typeof productProofItems)[number];
+  index: number;
 }) {
   const shotClassName = [
     "cc-product-shot",
@@ -426,7 +428,10 @@ function ProductProofCard({
   ].join(" ");
 
   return (
-    <article className="cc-stack-card cc-stack-card-product-proof">
+    <article
+      className="cc-stack-card cc-stack-card-product-proof"
+      data-product-card={index + 1}
+    >
       <div className="cc-product-proof">
         <div className="cc-product-proof-copy cc-caption">
           <div className="cc-product-copy-main">
@@ -539,6 +544,8 @@ export default function ContractorCircle() {
   const streamPlayerRef = useRef<CloudflareStreamPlayer | null>(null);
   const [muted, setMuted] = useState(true);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
+  const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
+  const [heroVideoReady, setHeroVideoReady] = useState(false);
   const [showMobileCta, setShowMobileCta] = useState(false);
 
   const streamRuntimeReady = useCloudflareStreamRuntime();
@@ -579,8 +586,14 @@ export default function ContractorCircle() {
 
     const player = window.Stream(streamFrameRef.current);
     streamPlayerRef.current = player;
-    const markReady = () => setVideoUnavailable(false);
-    const markUnavailable = () => setVideoUnavailable(true);
+    const markReady = () => {
+      setVideoUnavailable(false);
+      setHeroVideoReady(true);
+    };
+    const markUnavailable = () => {
+      setVideoUnavailable(true);
+      setHeroVideoReady(true);
+    };
 
     player.autoplay = true;
     player.controls = false;
@@ -599,6 +612,17 @@ export default function ContractorCircle() {
       streamPlayerRef.current = null;
     };
   }, [ensureHeroVideoPlayback, streamRuntimeReady]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!heroFrameLoaded || heroVideoReady || videoUnavailable) return;
+
+    const fallbackReadyTimer = window.setTimeout(() => {
+      setHeroVideoReady(true);
+    }, 3200);
+
+    return () => window.clearTimeout(fallbackReadyTimer);
+  }, [heroFrameLoaded, heroVideoReady, videoUnavailable]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -750,7 +774,11 @@ export default function ContractorCircle() {
 
       <main id="top">
         <section
-          className="cc-video-hero"
+          className={`cc-video-hero ${
+            heroVideoReady || videoUnavailable
+              ? "is-video-ready"
+              : "is-video-loading"
+          }`}
           aria-label="Contractor Circle introduction video"
         >
           <div className="cc-video-media">
@@ -762,9 +790,28 @@ export default function ContractorCircle() {
               allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
               loading="eager"
-              onLoad={() => setVideoUnavailable(false)}
-              onError={() => setVideoUnavailable(true)}
+              onLoad={() => {
+                setHeroFrameLoaded(true);
+                setVideoUnavailable(false);
+              }}
+              onError={() => {
+                setVideoUnavailable(true);
+                setHeroVideoReady(true);
+              }}
             />
+          </div>
+          <div className="cc-hero-loader" aria-hidden="true">
+            <SystemsField className="cc-hero-loader-field" variant="stack" />
+            <div className="cc-loader-deck">
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
+            <div className="cc-loader-readout">
+              <span>ALP</span>
+              <strong>Contractor Circle</strong>
+            </div>
           </div>
           {videoUnavailable ? (
             <img
@@ -901,8 +948,12 @@ export default function ContractorCircle() {
               </div>
             </article>
 
-            {productProofItems.map(item => (
-              <ProductProofCard key={item.number} item={item} />
+            {productProofItems.map((item, index) => (
+              <ProductProofCard
+                key={item.number}
+                item={item}
+                index={index}
+              />
             ))}
 
             <article className="cc-stack-card cc-stack-card-proof">
@@ -1151,6 +1202,17 @@ export default function ContractorCircle() {
             ))}
           </div>
         </section>
+
+        <section
+          className="cc-mega-close"
+          aria-label="Contractor Circle closing call to action"
+        >
+          <div className="cc-mega-close-bar">
+            <span>Build the company behind the projects.</span>
+            <a href={CHECKOUT_URL}>Join the Circle</a>
+          </div>
+          <h2 className="cc-mega-word">Contractor Circle</h2>
+        </section>
       </main>
 
       <footer className="cc-footer">
@@ -1202,7 +1264,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], .cc-reveal, .cc-chaos-panel img, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat",
+          "[data-caption], .cc-reveal, .cc-chaos-panel img, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
@@ -1237,7 +1299,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           filter: "blur(5px)",
         });
         gsap.set(
-          ".cc-reveal, .cc-chaos-panel img, .cc-hero-copy, .cc-stat",
+          ".cc-reveal, .cc-chaos-panel img, .cc-hero-copy, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 0,
             y: 54,
@@ -1906,22 +1968,33 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         });
       } else {
         gsap.set(stackCards, {
-          autoAlpha: 0.72,
-          y: 94,
-          scale: 0.955,
+          autoAlpha: 0.68,
+          y: 116,
+          scale: 0.94,
           transformPerspective: 1600,
           transformOrigin: "center center",
         });
 
         stackCards.forEach((card, index) => {
           const direction = index % 2 === 0 ? -1 : 1;
+          const isProductCard = card.classList.contains(
+            "cc-stack-card-product-proof"
+          );
+          const fanDistance = isProductCard
+            ? direction * (56 + (index % 3) * 18)
+            : direction * 18;
+          const fanRotation = isProductCard
+            ? direction * (index % 3 === 0 ? -4.2 : 3.2)
+            : direction * 1.1;
           const productShot = card.querySelector<HTMLElement>(".cc-product-shot");
           const productImage =
             card.querySelector<HTMLElement>(".cc-product-shot img");
 
           gsap.set(card, {
-            rotateX: 5.5,
-            rotateY: direction * 2.8,
+            x: fanDistance,
+            rotateX: isProductCard ? 7.2 : 5.5,
+            rotateY: direction * (isProductCard ? 4.8 : 2.8),
+            rotateZ: fanRotation,
           });
 
           const flowTimeline = gsap.timeline({
@@ -1939,10 +2012,12 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
               card,
               {
                 autoAlpha: 1,
+                x: 0,
                 y: 0,
                 scale: 1,
                 rotateX: 0,
                 rotateY: 0,
+                rotateZ: 0,
                 ease: "power3.out",
                 duration: 0.5,
               },
@@ -1951,10 +2026,12 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             .to(
               card,
               {
-                y: -34,
-                scale: 0.982,
-                rotateX: -2.4,
-                rotateY: direction * -1.2,
+                x: isProductCard ? direction * -16 : 0,
+                y: isProductCard ? -48 : -34,
+                scale: isProductCard ? 0.972 : 0.982,
+                rotateX: isProductCard ? -3.2 : -2.4,
+                rotateY: direction * (isProductCard ? -2 : -1.2),
+                rotateZ: isProductCard ? direction * -1.1 : 0,
                 ease: "none",
                 duration: 0.5,
               },
@@ -1965,16 +2042,20 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             gsap.fromTo(
               productShot,
               {
-                y: 42,
-                scale: 0.965,
-                rotateX: 4,
-                rotateY: direction * 2.4,
+                y: 18,
+                x: direction * 16,
+                scale: 0.97,
+                rotateX: 3.6,
+                rotateY: direction * 3.2,
+                rotateZ: direction * 1.8,
               },
               {
-                y: -22,
+                y: -28,
+                x: direction * -10,
                 scale: 1,
                 rotateX: 0,
                 rotateY: direction * -1.2,
+                rotateZ: direction * -0.9,
                 ease: "none",
                 scrollTrigger: {
                   trigger: card,
@@ -1991,13 +2072,13 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             gsap.fromTo(
               productImage,
               {
-                yPercent: 7,
-                scale: 1.06,
+                yPercent: 0,
+                scale: 1.04,
                 filter: "contrast(1.03) saturate(1.04)",
               },
               {
-                yPercent: -5,
-                scale: 1.015,
+                yPercent: -3,
+                scale: 1.01,
                 filter: "contrast(1.06) saturate(1.05)",
                 ease: "none",
                 scrollTrigger: {
@@ -2018,6 +2099,30 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             onEnter: () => animateCaption(card),
           });
         });
+      }
+
+      const megaWord = root.querySelector<HTMLElement>(".cc-mega-word");
+      if (megaWord) {
+        gsap.fromTo(
+          megaWord,
+          {
+            autoAlpha: 0,
+            yPercent: 16,
+            scale: 0.94,
+          },
+          {
+            autoAlpha: 1,
+            yPercent: 0,
+            scale: 1,
+            duration: 1.15,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: megaWord,
+              start: "top 88%",
+              once: true,
+            },
+          }
+        );
       }
 
       gsap.utils
