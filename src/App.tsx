@@ -3,10 +3,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
 import Circle from "./pages/Circle.tsx";
 import LeadMagnet from "./pages/LeadMagnet.tsx";
+import ContractorCircle from "./pages/ContractorCircle.tsx";
 
 const queryClient = new QueryClient();
 
@@ -17,7 +17,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Index />} />
+          <Route path="/" element={<ContractorCircle />} />
           <Route path="/circle" element={<Circle />} />
           <Route path="/estimating" element={<LeadMagnet magnet="estimating" />} />
           <Route path="/q2" element={<LeadMagnet magnet="q2" />} />
