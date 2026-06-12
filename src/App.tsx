@@ -5,6 +5,8 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import Circle from "./pages/Circle.tsx";
+import LeadMagnet from "./pages/LeadMagnet.tsx";
 
 const queryClient = new QueryClient();
 
@@ -16,7 +18,10 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/circle" element={<Circle />} />
+          <Route path="/estimating" element={<LeadMagnet magnet="estimating" />} />
+          <Route path="/q2" element={<LeadMagnet magnet="q2" />} />
+          <Route path="/silos" element={<LeadMagnet magnet="silos" />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
