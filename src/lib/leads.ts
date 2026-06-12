@@ -1,7 +1,11 @@
-// Lead capture adapter.
-// MVP: queues to localStorage so the form is functional immediately.
-// When Lovable Cloud is enabled, swap `captureLead` to insert into
-// public.leads + upsert public.email_subscribers (respecting suppression).
+// Lead capture adapter — writes to Lovable Cloud.
+// Inserts into public.leads and upserts public.email_subscribers.
+// Suppression: rows where unsubscribed = true are respected (the RLS
+// INSERT policy on email_subscribers enforces unsubscribed = false on
+// new rows; existing unsubscribed rows are left alone by the upsert
+// because we use ignoreDuplicates).
+
+import { supabase } from "@/integrations/supabase/client";
 
 export type LeadSource =
   | "estimating"
@@ -17,50 +21,37 @@ export interface LeadInput {
   source: LeadSource;
 }
 
-export interface StoredLead extends LeadInput {
-  id: string;
-  created_at: string;
-}
-
-const KEY = "alp_leads_queue_v1";
-
-function readQueue(): StoredLead[] {
-  try {
-    const raw = localStorage.getItem(KEY);
-    return raw ? (JSON.parse(raw) as StoredLead[]) : [];
-  } catch {
-    return [];
-  }
-}
-
-function writeQueue(rows: StoredLead[]) {
-  localStorage.setItem(KEY, JSON.stringify(rows));
-}
-
-export async function captureLead(input: LeadInput): Promise<StoredLead> {
+export async function captureLead(input: LeadInput): Promise<void> {
   const email = input.email.trim().toLowerCase();
   const first_name = input.first_name.trim();
 
   if (!first_name) throw new Error("First name is required.");
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error("Enter a valid email.");
+  if (first_name.length > 120) throw new Error("First name is too long.");
 
-  const row: StoredLead = {
-    id: crypto.randomUUID(),
-    first_name,
-    email,
-    source: input.source,
-    created_at: new Date().toISOString(),
-  };
+  const source = String(input.source).slice(0, 60);
 
-  const q = readQueue();
-  q.push(row);
-  writeQueue(q);
+  // 1) Append to leads (every submission is a row).
+  const leadInsert = await supabase
+    .from("leads")
+    .insert({ first_name, email, source });
 
-  // Future: await supabase.from('leads').insert(row);
-  //         await supabase.from('email_subscribers').upsert({...}, { onConflict: 'email' });
-  return row;
-}
+  if (leadInsert.error) {
+    console.error("[captureLead] leads insert failed", leadInsert.error);
+    throw new Error("We couldn't save that. Please try again.");
+  }
 
-export function getQueuedLeads(): StoredLead[] {
-  return readQueue();
+  // 2) Upsert subscriber. ignoreDuplicates avoids overwriting an
+  //    existing row's unsubscribed/verified state from the client.
+  const subUpsert = await supabase
+    .from("email_subscribers")
+    .upsert(
+      { email, source, unsubscribed: false },
+      { onConflict: "email", ignoreDuplicates: true },
+    );
+
+  if (subUpsert.error) {
+    // Non-fatal — the lead is already saved.
+    console.warn("[captureLead] subscriber upsert warning", subUpsert.error);
+  }
 }

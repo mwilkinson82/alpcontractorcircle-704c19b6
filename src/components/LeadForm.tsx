@@ -23,7 +23,7 @@ export const LeadForm = ({ source, cta, thanksTitle, thanksBody }: Props) => {
       setStatus("done");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
-      setStatus("error");
+      setStatus("idle");
     }
   };
 
