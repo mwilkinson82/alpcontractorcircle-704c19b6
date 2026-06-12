@@ -1216,9 +1216,18 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       const touchStackRisk = window.matchMedia(
         "(hover: none) and (pointer: coarse)"
       ).matches;
+      const lowHeightDesktop = window.matchMedia(
+        "(min-width: 861px) and (max-height: 840px)"
+      ).matches;
       const isCompact =
-        window.matchMedia("(max-width: 860px)").matches || touchStackRisk;
-      root.dataset.motionMode = isCompact ? "compact" : "desktop";
+        window.matchMedia("(max-width: 860px)").matches ||
+        touchStackRisk ||
+        lowHeightDesktop;
+      root.dataset.motionMode = lowHeightDesktop
+        ? "flow"
+        : isCompact
+          ? "compact"
+          : "desktop";
 
       if (isCompact) {
         gsap.set("[data-caption]", {
