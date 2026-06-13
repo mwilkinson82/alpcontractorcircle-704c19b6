@@ -1571,57 +1571,139 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           ? "compact"
           : "desktop";
 
+      const setupPillarFan = () => {
+        const fan = root.querySelector<HTMLElement>("[data-pillar-fan]");
+        if (!fan) return;
+        const cards = Array.from(
+          fan.querySelectorAll<HTMLElement>(".cc-pillar-card")
+        );
+        if (!cards.length) return;
+
+        // Read each card's CSS-applied tilt/translate so the scroll-in
+        // animation lands exactly on the fanned final state.
+        const finals = cards.map(card => {
+          const cs = getComputedStyle(card);
+          return { transform: cs.transform };
+        });
+
+        if (isCompact) {
+          gsap.set(cards, { clearProps: "all" });
+          return;
+        }
+
+        cards.forEach((card, i) => {
+          gsap.fromTo(
+            card,
+            {
+              y: 120,
+              rotate: 0,
+              scale: 0.7,
+              autoAlpha: 0,
+            },
+            {
+              y: 0,
+              rotate: () => {
+                // mirror the CSS rotation per index
+                const r = [-7, -2, 3, 8][i] ?? 0;
+                return r;
+              },
+              scale: 1,
+              autoAlpha: 1,
+              ease: "power3.out",
+              duration: 0.9,
+              delay: i * 0.08,
+              scrollTrigger: {
+                trigger: fan,
+                start: "top 78%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
+        void finals;
+      };
+
       const setupAssetDeck = () => {
-        const deck = root.querySelector<HTMLElement>(".cc-asset-deck");
+        const deck = root.querySelector<HTMLElement>("[data-asset-carousel]");
         if (!deck) return;
         const cards = Array.from(
           deck.querySelectorAll<HTMLElement>(".cc-asset-card")
         );
         if (!cards.length) return;
 
-        if (isCompact) {
-          gsap.set(cards, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            rotate: 0,
-            scale: 1,
-            filter: "none",
-            clearProps: "transform",
-          });
-          return;
-        }
-
-        const rotations = [-6, -3, -1, 2, 4, 6, -2, 3];
-
+        // Scroll-in stagger: each card rises and tilts into its CSS rest state.
         gsap.fromTo(
           cards,
-          (i: number) => ({
-            x: 0,
-            y: 60,
-            rotate: rotations[i % rotations.length],
-            scale: 0.86,
-            autoAlpha: 0.55,
-            transformOrigin: "center bottom",
-          }),
+          { y: 80, autoAlpha: 0, scale: 0.92 },
           {
-            x: 0,
             y: 0,
-            rotate: 0,
-            scale: 1,
             autoAlpha: 1,
+            scale: 1,
             ease: "power2.out",
-            stagger: { each: 0.04, from: "center" },
+            duration: 0.7,
+            stagger: 0.08,
             scrollTrigger: {
               trigger: deck,
               start: "top 82%",
-              end: "top 28%",
-              scrub: 0.6,
-              invalidateOnRefresh: true,
+              toggleActions: "play none none reverse",
             },
+            clearProps: "scale",
           }
         );
+
+        if (isCompact) return;
+
+        // Auto-drift: slow horizontal scroll while the deck is in view,
+        // paused on pointer interaction.
+        let raf = 0;
+        let last = performance.now();
+        let active = false;
+        let paused = false;
+        const speed = 22; // px/sec
+
+        const tick = (now: number) => {
+          const dt = (now - last) / 1000;
+          last = now;
+          if (active && !paused) {
+            const max = deck.scrollWidth - deck.clientWidth;
+            if (max > 0) {
+              let next = deck.scrollLeft + speed * dt;
+              if (next >= max) next = 0;
+              deck.scrollLeft = next;
+            }
+          }
+          raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+
+        ScrollTrigger.create({
+          trigger: deck,
+          start: "top 75%",
+          end: "bottom 25%",
+          onToggle: self => {
+            active = self.isActive;
+            last = performance.now();
+          },
+        });
+
+        const pause = () => { paused = true; };
+        const resume = () => { paused = false; last = performance.now(); };
+        deck.addEventListener("pointerenter", pause);
+        deck.addEventListener("pointerleave", resume);
+        deck.addEventListener("pointerdown", pause);
+        deck.addEventListener("focusin", pause);
+        deck.addEventListener("focusout", resume);
+
+        return () => {
+          cancelAnimationFrame(raf);
+          deck.removeEventListener("pointerenter", pause);
+          deck.removeEventListener("pointerleave", resume);
+          deck.removeEventListener("pointerdown", pause);
+          deck.removeEventListener("focusin", pause);
+          deck.removeEventListener("focusout", resume);
+        };
       };
+
 
 
       if (isCompact) {
