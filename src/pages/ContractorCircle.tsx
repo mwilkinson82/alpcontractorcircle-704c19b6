@@ -595,7 +595,7 @@ export default function ContractorCircle() {
   const rootRef = useRef<HTMLDivElement>(null);
   const streamFrameRef = useRef<HTMLIFrameElement>(null);
   const streamPlayerRef = useRef<CloudflareStreamPlayer | null>(null);
-  const offerWallViewportRef = useRef<HTMLDivElement>(null);
+  
   const mutedPreferenceRef = useRef(true);
   const heroRevealStartedRef = useRef(false);
   const heroIntroCompleteRef = useRef(false);
