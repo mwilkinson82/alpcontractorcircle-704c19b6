@@ -1560,127 +1560,58 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           ? "compact"
           : "desktop";
 
-      const setupProductDeck = () => {
-        const deck = root.querySelector<HTMLElement>(
-          ".cc-product-deck-section"
-        );
+      const setupAssetDeck = () => {
+        const deck = root.querySelector<HTMLElement>(".cc-asset-deck");
         if (!deck) return;
-        const deckSticky = deck.querySelector<HTMLElement>(
-          ".cc-product-deck-sticky"
-        );
-
         const cards = Array.from(
-          deck.querySelectorAll<HTMLElement>(".cc-product-deck-card")
+          deck.querySelectorAll<HTMLElement>(".cc-asset-card")
         );
-        const meter = deck.querySelector<HTMLElement>(
-          ".cc-product-deck-meter span"
-        );
-        const mediaImages = cards.map(card =>
-          card.querySelector<HTMLElement>(".cc-product-deck-media img")
-        );
-
         if (!cards.length) return;
 
         if (isCompact) {
-          const deckCaptionItems =
-            deck.querySelectorAll<HTMLElement>("[data-caption]");
-          gsap.set(deckCaptionItems, {
-            autoAlpha: 1,
-            y: 0,
-            filter: "none",
-          });
           gsap.set(cards, {
             autoAlpha: 1,
-            y: 0,
             x: 0,
-            scale: 1,
+            y: 0,
             rotate: 0,
+            scale: 1,
             filter: "none",
             clearProps: "transform",
-          });
-          gsap.set(mediaImages.filter(Boolean), {
-            scale: 1,
-            yPercent: 0,
-            filter: "contrast(1.02) saturate(1.02)",
           });
           return;
         }
 
-        const cardGap = Math.min(window.innerWidth * 0.31, 460);
-        const clampRotation = gsap.utils.clamp(-18, 18);
-        const clampScale = gsap.utils.clamp(0.7, 1);
-        const clampAlpha = gsap.utils.clamp(0.34, 1);
+        const rotations = [-6, -3, -1, 2, 4, 6, -2, 3];
 
-        gsap.set(cards, {
-          xPercent: -50,
-          yPercent: -50,
-          transformPerspective: 1400,
-          transformOrigin: "center center",
-        });
-
-        const updateDeck = (progress: number) => {
-          const activeIndex = gsap.utils.clamp(
-            1.35,
-            Math.max(cards.length - 2.15, 1.35),
-            1.35 + progress * Math.max(cards.length - 3.5, 1)
-          );
-
-          cards.forEach((card, index) => {
-            const offset = index - activeIndex;
-            const absOffset = Math.abs(offset);
-            const direction = offset < 0 ? -1 : 1;
-            const rotation = clampRotation(offset * 7.4);
-            const scale = clampScale(1 - absOffset * 0.066);
-            const alpha = clampAlpha(1 - absOffset * 0.14);
-            const y = Math.min(absOffset * 18, 76);
-            const z = -Math.min(absOffset * 58, 240);
-            const x = offset * cardGap;
-            const blur = absOffset > 2.4 ? Math.min((absOffset - 2.4) * 1.3, 3) : 0;
-
-            gsap.set(card, {
-              x,
-              y,
-              z,
-              rotate: rotation,
-              rotateY: direction * Math.min(absOffset * 3.4, 13),
-              scale,
-              autoAlpha: alpha,
-              filter: `blur(${blur}px)`,
-              zIndex: Math.round(100 - absOffset * 10),
-            });
-
-            const image = mediaImages[index];
-            if (image) {
-              gsap.set(image, {
-                xPercent: gsap.utils.clamp(-4, 4, offset * -1.4),
-                yPercent: gsap.utils.clamp(-5, 5, offset * -1.1),
-                scale: 1.035 - Math.min(absOffset * 0.006, 0.022),
-              });
-            }
-          });
-
-          if (meter) {
-            gsap.set(meter, {
-              scaleX: 0.12 + progress * 0.88,
-            });
+        gsap.fromTo(
+          cards,
+          (i: number) => ({
+            x: 0,
+            y: 60,
+            rotate: rotations[i % rotations.length],
+            scale: 0.86,
+            autoAlpha: 0.55,
+            transformOrigin: "center bottom",
+          }),
+          {
+            x: 0,
+            y: 0,
+            rotate: 0,
+            scale: 1,
+            autoAlpha: 1,
+            ease: "power2.out",
+            stagger: { each: 0.04, from: "center" },
+            scrollTrigger: {
+              trigger: deck,
+              start: "top 82%",
+              end: "top 28%",
+              scrub: 0.6,
+              invalidateOnRefresh: true,
+            },
           }
-        };
-
-        updateDeck(0);
-
-        ScrollTrigger.create({
-          trigger: deck,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.85,
-          pin: deckSticky,
-          pinSpacing: false,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onRefresh: self => updateDeck(self.progress),
-          onUpdate: self => updateDeck(self.progress),
-        });
+        );
       };
+
 
       if (isCompact) {
         gsap.set("[data-caption]", {
