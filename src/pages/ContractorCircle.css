@@ -1769,34 +1769,6 @@ body:has(.cc-page) {
   height: 100%;
 }
 
-.cc-memory-system::before,
-.cc-memory-system::after {
-  display: none;
-  content: none;
-}
-
-.cc-memory-system::before {
-  right: -10%;
-  top: -12%;
-  width: min(44vw, 620px);
-  height: min(38vw, 540px);
-  background: #ffb4ef;
-  clip-path: polygon(12% 0, 100% 12%, 84% 100%, 0 72%);
-  opacity: 0.6;
-  transform: rotate(8deg);
-}
-
-.cc-memory-system::after {
-  left: 44%;
-  bottom: -24%;
-  width: min(38vw, 560px);
-  height: min(28vw, 420px);
-  background: #44e886;
-  clip-path: polygon(0 12%, 100% 0, 78% 100%, 16% 84%);
-  opacity: 0.42;
-  transform: rotate(-11deg);
-}
-
 .cc-memory-copy,
 .cc-memory-board {
   position: relative;
