@@ -5921,17 +5921,8 @@ body:has(.cc-page) {
 }
 
 .cc-pillars-section::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  top: -8%;
-  right: -14%;
-  width: min(58vw, 880px);
-  height: min(58vw, 880px);
-  background: #44e886;
-  border-radius: 42% 58% 38% 62% / 56% 44% 60% 40%;
-  transform: rotate(-12deg);
-  pointer-events: none;
+  display: none;
+  content: none;
 }
 
 
