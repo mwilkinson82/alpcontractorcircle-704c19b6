@@ -1274,32 +1274,7 @@ export default function ContractorCircle() {
                   <p className="cc-eyebrow" data-caption>
                     The Shift
                   </p>
-                  <h2>
-                    <span data-caption>Memory is not</span>
-                    <span data-caption>management.</span>
-                  </h2>
-                  <p className="cc-subhead" data-caption>
-                    The owner remembering everything is not a system. Contractor
-                    Circle moves the work out of your head and into a weekly
-                    operating rhythm your team can see, use, and own.
-                  </p>
-                </div>
-                <div className="cc-memory-board cc-detail-reveal">
-                  <article>
-                    <span>01</span>
-                    <h3>Memory</h3>
-                    <p>Owner remembers. Team waits. Work disappears.</p>
-                  </article>
-                  <article>
-                    <span>02</span>
-                    <h3>Management</h3>
-                    <p>Roles, numbers, issues, decisions, and follow-through.</p>
-                  </article>
-                  <article>
-                    <span>03</span>
-                    <h3>Command</h3>
-                    <p>AOS plus the Circle turns pressure into next action.</p>
-                  </article>
+                  <ScrollFillText words={memoryFillWords} />
                 </div>
               </div>
             </article>
