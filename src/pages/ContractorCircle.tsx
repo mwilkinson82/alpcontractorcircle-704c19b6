@@ -16,8 +16,6 @@ import {
   BookOpen,
   CalendarDays,
   Check,
-  ChevronLeft,
-  ChevronRight,
   CircleDollarSign,
   ClipboardList,
   LockKeyhole,
@@ -513,27 +511,6 @@ const pillars: Pillar[] = [
   },
 ];
 
-type FloatingInsideWord = {
-  label: string;
-  className: string;
-  style: CSSProperties & {
-    "--word-x": string;
-    "--word-y": string;
-    "--word-delay": string;
-  };
-};
-
-const floatingInsideWords: FloatingInsideWord[] = [
-  { label: "Contract", className: "is-ink", style: { "--word-x": "8%", "--word-y": "22%", "--word-delay": "0ms" } },
-  { label: "Schedule Delay", className: "is-risk", style: { "--word-x": "70%", "--word-y": "18%", "--word-delay": "-1400ms" } },
-  { label: "Systems and Procedures", className: "is-green", style: { "--word-x": "48%", "--word-y": "11%", "--word-delay": "-2600ms" } },
-  { label: "General Conditions", className: "is-ink", style: { "--word-x": "18%", "--word-y": "72%", "--word-delay": "-3800ms" } },
-  { label: "CPM Schedule", className: "is-blue", style: { "--word-x": "78%", "--word-y": "66%", "--word-delay": "-5200ms" } },
-  { label: "Change Order", className: "is-risk", style: { "--word-x": "34%", "--word-y": "84%", "--word-delay": "-6100ms" } },
-  { label: "Cash Flow", className: "is-green", style: { "--word-x": "88%", "--word-y": "42%", "--word-delay": "-7200ms" } },
-  { label: "Buyout", className: "is-ink", style: { "--word-x": "10%", "--word-y": "46%", "--word-delay": "-8200ms" } },
-];
-
 const memoryFillWords = [
   "Memory",
   "is",
@@ -585,50 +562,8 @@ function ScrollFillText({ words }: { words: string[] }) {
 
 function PillarsSection() {
   const items = productProofItems;
-  const [active, setActive] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  const go = useCallback(
-    (dir: number) => {
-      const track = trackRef.current;
-      if (!track) return;
-      track.scrollBy({
-        left: dir * Math.min(track.clientWidth * 0.84, 680),
-        behavior: "smooth",
-      });
-    },
-    []
-  );
-
-  const updateActiveFromScroll = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const cards = Array.from(track.querySelectorAll<HTMLElement>(".cc-fan-card"));
-    const center = track.scrollLeft + track.clientWidth / 2;
-    let closestIndex = 0;
-    let closestDistance = Number.POSITIVE_INFINITY;
-    cards.forEach((card, index) => {
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const distance = Math.abs(cardCenter - center);
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
-    setActive(closestIndex);
-  }, []);
-
-  // Keyboard nav
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (openIndex !== null) return;
-      if (e.key === "ArrowLeft") go(-1);
-      if (e.key === "ArrowRight") go(1);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [go, openIndex]);
+  const centerIndex = (items.length - 1) / 2;
 
   const openItem = openIndex !== null ? items[openIndex] : null;
 
@@ -637,17 +572,6 @@ function PillarsSection() {
       className="cc-pillars-section"
       aria-label="Everything inside Contractor Circle"
     >
-      <div className="cc-inside-word-field" aria-hidden="true">
-        {floatingInsideWords.map(word => (
-          <span
-            key={word.label}
-            className={`cc-inside-word ${word.className}`}
-            style={word.style}
-          >
-            {word.label}
-          </span>
-        ))}
-      </div>
       <div className="cc-pillars-inner">
         <div className="cc-pillars-copy cc-caption">
           <h2>
@@ -657,22 +581,25 @@ function PillarsSection() {
 
         <div className="cc-fan-stage">
           <div
-            ref={trackRef}
             className="cc-fan-track"
+            data-circle-fan
             role="list"
-            onScroll={updateActiveFromScroll}
           >
             {items.map((item, index) => {
-              const tilt = [-5.5, 3.5, -2.2, 4.8, -3.8, 2.7, -4.6, 3.2, -1.8][index % 9];
-              const lift = [22, -8, 34, 4, 26, -2, 38, 10, 28][index % 9];
+              const slot = index - centerIndex;
+              const distance = Math.abs(slot);
               const style = {
-                "--fan-tilt": `${tilt}deg`,
-                "--fan-lift": `${lift}px`,
+                "--fan-slot": slot,
+                "--fan-distance": distance,
+                "--fan-x": `calc(${slot} * clamp(74px, 8vw, 122px))`,
+                "--fan-rotate": `${slot * 4.65}deg`,
+                "--fan-y": `${-42 + distance * 30 + Math.max(0, distance - 2) * 11}px`,
+                "--fan-z": 80 - distance,
               } as CSSProperties;
               return (
                 <div
                   key={item.number}
-                  className={`cc-fan-card${active === index ? " is-active" : ""}`}
+                  className="cc-fan-card"
                   style={style}
                   role="listitem"
                 >
@@ -680,7 +607,6 @@ function PillarsSection() {
                     type="button"
                     className="cc-fan-card-hit"
                     aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")} — open details`}
-                    aria-current={active === index ? "true" : undefined}
                     onClick={() => {
                       setOpenIndex(index);
                     }}
@@ -694,40 +620,9 @@ function PillarsSection() {
                       <p className="cc-fan-card-body-copy">{item.body}</p>
                     </div>
                   </button>
-                  <a
-                    href={CHECKOUT_URL}
-                    className="cc-fan-card-cta"
-                    onClick={e => e.stopPropagation()}
-                  >
-                    Join the Circle <ArrowUpRight aria-hidden="true" />
-                  </a>
                 </div>
               );
             })}
-          </div>
-
-          <div className="cc-fan-controls" aria-label="Cycle through assets">
-            <button
-              type="button"
-              className="cc-fan-arrow"
-              onClick={() => go(-1)}
-              aria-label="Previous asset"
-            >
-              <ChevronLeft aria-hidden="true" />
-            </button>
-            <div className="cc-fan-counter" aria-live="polite">
-              <span>{String(active + 1).padStart(2, "0")}</span>
-              <span className="cc-fan-counter-sep">/</span>
-              <span>{String(items.length).padStart(2, "0")}</span>
-            </div>
-            <button
-              type="button"
-              className="cc-fan-arrow"
-              onClick={() => go(1)}
-              aria-label="Next asset"
-            >
-              <ChevronRight aria-hidden="true" />
-            </button>
           </div>
         </div>
       </div>
@@ -1684,7 +1579,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], [data-fill-word], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-pillar-card, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
+          "[data-caption], [data-fill-word], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-fan-card, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
@@ -1717,11 +1612,11 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           ? "compact"
           : "desktop";
 
-      const setupPillarFan = () => {
-        const fan = root.querySelector<HTMLElement>("[data-pillar-fan]");
+      const setupPillarFan = (): (() => void) | undefined => {
+        const fan = root.querySelector<HTMLElement>("[data-circle-fan]");
         if (!fan) return;
         const cards = Array.from(
-          fan.querySelectorAll<HTMLElement>(".cc-pillar-card")
+          fan.querySelectorAll<HTMLElement>(".cc-fan-card")
         );
         if (!cards.length) return;
 
@@ -1730,97 +1625,42 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           return;
         }
 
-        const centerIndex = Math.floor(cards.length / 2);
-        let activeIndex = centerIndex;
-        const spread = Math.min(420, Math.max(260, window.innerWidth * 0.22));
-        const slotFor = (index: number) => {
-          let slot = index - activeIndex;
-          if (slot > cards.length / 2) slot -= cards.length;
-          if (slot < -cards.length / 2) slot += cards.length;
-          return slot;
-        };
-        const fanState = (index: number) => {
-          const slot = slotFor(index);
+        cards.forEach((card, index) => {
+          const slot = Number(card.style.getPropertyValue("--fan-slot")) || 0;
           const distance = Math.abs(slot);
-          return {
-            x: slot * spread * 0.62,
-            y: distance === 0 ? 0 : distance === 1 ? 24 : 76,
-            rotate: slot * 10,
-            scale: distance === 0 ? 1.04 : 1,
-            zIndex: 20 - distance,
-          };
-        };
-        const renderFan = () => {
-          cards.forEach((card, index) => {
-            gsap.to(card, {
-              ...fanState(index),
-              duration: 0.55,
-              ease: "power3.out",
-              overwrite: "auto",
-            });
-          });
-        };
+          const finalX =
+            slot * Math.min(122, Math.max(72, window.innerWidth * 0.082)) -
+            card.offsetWidth / 2;
+          const finalY = -42 + distance * 30 + Math.max(0, distance - 2) * 11;
+          const finalRotate = slot * 4.65;
 
-        cards.forEach((card, i) => {
-          const state = fanState(i);
           gsap.fromTo(
             card,
             {
-              y: 120,
-              x: state.x * 0.22,
+              x: slot * 12 - card.offsetWidth / 2,
+              y: 108,
               rotate: 0,
-              scale: 0.7,
+              scale: 0.88,
               autoAlpha: 0,
             },
             {
-              ...state,
+              x: finalX,
+              y: finalY,
+              rotate: finalRotate,
+              scale: 1,
               autoAlpha: 1,
               ease: "power3.out",
               duration: 0.9,
-              delay: i * 0.08,
+              delay: index * 0.035,
               scrollTrigger: {
                 trigger: fan,
                 start: "top 78%",
                 toggleActions: "play none none reverse",
+                invalidateOnRefresh: true,
               },
             }
           );
         });
-
-        let startX = 0;
-        let hasPointer = false;
-        const rotateDeck = (direction: number) => {
-          activeIndex =
-            (activeIndex + direction + cards.length) % cards.length;
-          renderFan();
-        };
-        const handlePointerDown = (event: PointerEvent) => {
-          hasPointer = true;
-          startX = event.clientX;
-          fan.setPointerCapture?.(event.pointerId);
-        };
-        const handlePointerUp = (event: PointerEvent) => {
-          if (!hasPointer) return;
-          hasPointer = false;
-          const delta = event.clientX - startX;
-          if (Math.abs(delta) > 42) rotateDeck(delta < 0 ? 1 : -1);
-        };
-        const handleWheel = (event: WheelEvent) => {
-          if (Math.abs(event.deltaX) < 18) return;
-          event.preventDefault();
-          rotateDeck(event.deltaX > 0 ? 1 : -1);
-        };
-        fan.addEventListener("pointerdown", handlePointerDown);
-        fan.addEventListener("pointerup", handlePointerUp);
-        fan.addEventListener("pointercancel", handlePointerUp);
-        fan.addEventListener("wheel", handleWheel, { passive: false });
-
-        return () => {
-          fan.removeEventListener("pointerdown", handlePointerDown);
-          fan.removeEventListener("pointerup", handlePointerUp);
-          fan.removeEventListener("pointercancel", handlePointerUp);
-          fan.removeEventListener("wheel", handleWheel);
-        };
       };
 
       const setupAssetDeck = () => {

@@ -1800,6 +1800,26 @@ body:has(.cc-page) {
   border-radius: 48% 52% 38% 62% / 54% 44% 56% 46%;
   transform: rotate(8deg);
   pointer-events: none;
+  animation: cc-memory-blob-drift 18s var(--cc-caption-ease) infinite alternate;
+  will-change: transform, border-radius;
+}
+
+
+@keyframes cc-memory-blob-drift {
+  0% {
+    border-radius: 48% 52% 38% 62% / 54% 44% 56% 46%;
+    transform: translate3d(0, 0, 0) rotate(8deg) scale(1);
+  }
+
+  46% {
+    border-radius: 58% 42% 51% 49% / 42% 58% 44% 56%;
+    transform: translate3d(-34px, 22px, 0) rotate(13deg) scale(1.035);
+  }
+
+  100% {
+    border-radius: 41% 59% 56% 44% / 60% 40% 52% 48%;
+    transform: translate3d(28px, -30px, 0) rotate(4deg) scale(0.985);
+  }
 }
 
 
@@ -5901,17 +5921,8 @@ body:has(.cc-page) {
 }
 
 .cc-pillars-section::before {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  top: -8%;
-  right: -14%;
-  width: min(58vw, 880px);
-  height: min(58vw, 880px);
-  background: #44e886;
-  border-radius: 42% 58% 38% 62% / 56% 44% 60% 40%;
-  transform: rotate(-12deg);
-  pointer-events: none;
+  display: none;
+  content: none;
 }
 
 
@@ -6722,5 +6733,118 @@ body:has(.cc-page) {
   }
   .cc-asset-deck-copy h2 {
     font-size: clamp(1.9rem, 8vw, 2.6rem);
+  }
+}
+
+/* Final Contractor Circle fan correction: no green blob, no word field, no carousel. */
+.cc-pillars-section {
+  padding: clamp(92px, 12vh, 138px) 0 clamp(92px, 12vh, 136px);
+  background: var(--cc-paper);
+}
+
+.cc-pillars-section::before,
+.cc-inside-word-field,
+.cc-inside-word {
+  display: none !important;
+  content: none !important;
+}
+
+.cc-fan-stage {
+  min-height: clamp(560px, 52vw, 760px);
+  padding: clamp(36px, 5vh, 64px) 0 0;
+  overflow: visible;
+}
+
+.cc-fan-track {
+  position: relative;
+  display: block;
+  width: min(1320px, 100vw);
+  min-height: clamp(520px, 48vw, 710px);
+  margin: 0 auto;
+  padding: 0;
+  overflow: visible;
+  perspective: 1800px;
+}
+
+.cc-fan-card {
+  position: absolute;
+  left: 50%;
+  top: clamp(30px, 5vw, 76px);
+  z-index: calc(var(--fan-z) * 1);
+  width: clamp(250px, 22vw, 342px);
+  height: clamp(392px, 34vw, 520px);
+  margin: 0;
+  padding: clamp(10px, 1vw, 14px);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow:
+    0 34px 80px -44px rgb(13 13 12 / 0.45),
+    0 1px 0 rgb(255 255 255 / 0.86) inset;
+  transform: translateX(calc(-50% + var(--fan-x))) translateY(var(--fan-y)) rotate(var(--fan-rotate));
+  transform-origin: 50% 116%;
+}
+
+.cc-fan-card:hover,
+.cc-fan-card:focus-within {
+  z-index: 120;
+  box-shadow: 0 54px 110px -42px rgb(13 13 12 / 0.58);
+}
+
+.cc-fan-card-media {
+  flex: 0 0 58%;
+  border-radius: 16px;
+}
+
+.cc-fan-card-media img {
+  object-fit: cover;
+  object-position: top center;
+  padding: 0;
+}
+
+.cc-fan-card-body {
+  padding: clamp(15px, 1.35vw, 20px) 4px clamp(10px, 1vw, 14px);
+}
+
+.cc-fan-card-body h3 {
+  font-size: clamp(1.05rem, 1.15vw, 1.28rem);
+  line-height: 1.12;
+}
+
+.cc-fan-card-body-copy {
+  -webkit-line-clamp: 5;
+}
+
+@media (max-width: 860px) {
+  .cc-fan-stage {
+    min-height: auto;
+    overflow: hidden;
+  }
+
+  .cc-fan-track {
+    display: flex;
+    gap: 28px;
+    width: 100%;
+    min-height: clamp(500px, 130vw, 620px);
+    padding: 36px 22px 62px;
+    overflow-x: auto;
+    scroll-padding-inline: 22px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .cc-fan-card {
+    position: relative;
+    left: auto;
+    top: auto;
+    flex: 0 0 clamp(300px, 86vw, 390px);
+    width: clamp(300px, 86vw, 390px);
+    height: clamp(430px, 116vw, 540px);
+    transform: translateY(var(--fan-y)) rotate(var(--fan-rotate));
+    scroll-snap-align: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-memory-system::before {
+    animation: none !important;
   }
 }
