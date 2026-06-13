@@ -5936,10 +5936,13 @@ body:has(.cc-page) {
 }
 
 .cc-inside-word {
+  --word-faded: rgb(21 21 21 / 0.11);
+  --word-active: rgb(21 21 21 / 0.44);
+  --word-rest: rgb(21 21 21 / 0.22);
   position: absolute;
   top: var(--word-y);
   left: var(--word-x);
-  color: rgb(21 21 21 / 0.14);
+  color: var(--word-faded);
   font-family: "Fira Sans", Arial, sans-serif;
   font-size: clamp(0.8rem, 1.15vw, 1.18rem);
   font-weight: 800;
@@ -5953,24 +5956,35 @@ body:has(.cc-page) {
   will-change: transform, color, opacity;
 }
 
-.cc-inside-word.is-risk { color: rgb(164 68 37 / 0.2); }
-.cc-inside-word.is-green { color: rgb(44 112 77 / 0.18); }
-.cc-inside-word.is-blue { color: rgb(45 91 130 / 0.18); }
+.cc-inside-word.is-risk {
+  --word-active: rgb(164 68 37 / 0.52);
+  --word-rest: rgb(164 68 37 / 0.24);
+}
+
+.cc-inside-word.is-green {
+  --word-active: rgb(44 112 77 / 0.48);
+  --word-rest: rgb(44 112 77 / 0.22);
+}
+
+.cc-inside-word.is-blue {
+  --word-active: rgb(45 91 130 / 0.46);
+  --word-rest: rgb(45 91 130 / 0.21);
+}
 
 @keyframes cc-inside-word-drift {
   0% {
-    color: rgb(21 21 21 / 0.11);
+    color: var(--word-faded);
     opacity: 0.38;
     transform: translate(calc(-50% - 18px), calc(-50% + 16px)) rotate(-1.5deg);
   }
 
   44% {
-    color: rgb(21 21 21 / 0.44);
+    color: var(--word-active);
     opacity: 0.78;
   }
 
   100% {
-    color: rgb(21 21 21 / 0.22);
+    color: var(--word-rest);
     opacity: 0.5;
     transform: translate(calc(-50% + 22px), calc(-50% - 18px)) rotate(1.8deg);
   }
