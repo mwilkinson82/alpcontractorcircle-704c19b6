@@ -588,13 +588,13 @@ function PillarsSection() {
             {items.map((item, index) => {
               const slot = index - centerIndex;
               const distance = Math.abs(slot);
-              const angle = slot * 5.2;
+              const angle = slot * 6.1;
               const style = {
                 "--fan-slot": slot,
                 "--fan-distance": distance,
                 "--fan-angle": `${angle}deg`,
                 "--fan-angle-final": `${angle}deg`,
-                "--fan-angle-start": `${slot * 4.05}deg`,
+                "--fan-angle-start": `${slot * 4.7}deg`,
                 "--fan-z": 90 - Math.round(distance * 4),
               } as CSSProperties;
               return (
@@ -1627,10 +1627,11 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
 
         gsap.set(cards, {
+          xPercent: -50,
           transformOrigin: "50% var(--fan-radius)",
           rotate: index => {
             const slot = Number(cards[index].style.getPropertyValue("--fan-slot")) || 0;
-            return slot * 4.05;
+            return slot * 4.7;
           },
           y: 118,
           scale: 0.96,
@@ -1640,7 +1641,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         gsap.to(cards, {
           rotate: index => {
             const slot = Number(cards[index].style.getPropertyValue("--fan-slot")) || 0;
-            return slot * 5.2;
+            return slot * 6.1;
           },
           y: 0,
           scale: 1,
