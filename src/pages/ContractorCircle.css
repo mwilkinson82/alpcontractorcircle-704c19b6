@@ -6736,10 +6736,11 @@ body:has(.cc-page) {
   }
 }
 
-/* Final Contractor Circle fan correction: no green blob, no word field, no carousel. */
+/* Final Contractor Circle fan correction: no green blob, no word field, Labs-style circular arc. */
 .cc-pillars-section {
-  padding: clamp(92px, 12vh, 138px) 0 clamp(92px, 12vh, 136px);
-  background: var(--cc-paper);
+  padding: clamp(92px, 12vh, 138px) 0 clamp(74px, 9vh, 112px);
+  background: #f3efea;
+  min-height: min(980px, 112svh);
 }
 
 .cc-pillars-section::before,
@@ -6750,38 +6751,49 @@ body:has(.cc-page) {
 }
 
 .cc-fan-stage {
-  min-height: clamp(560px, 52vw, 760px);
-  padding: clamp(36px, 5vh, 64px) 0 0;
+  position: relative;
+  height: clamp(500px, 48vw, 616px);
+  min-height: 0;
+  padding: clamp(30px, 4vh, 50px) 0 0;
   overflow: visible;
 }
 
 .cc-fan-track {
-  position: relative;
+  --fan-circle-size: clamp(4200px, 442vw, 8500px);
+  --fan-radius: calc(var(--fan-circle-size) / 2);
+  position: absolute;
+  left: 50%;
+  top: clamp(156px, 24vw, 276px);
   display: block;
-  width: min(1320px, 100vw);
-  min-height: clamp(520px, 48vw, 710px);
-  margin: 0 auto;
+  width: var(--fan-circle-size);
+  height: var(--fan-circle-size);
+  margin: 0;
   padding: 0;
   overflow: visible;
+  pointer-events: none;
+  transform: translateX(-50%);
+  transform-origin: 50% 50%;
   perspective: 1800px;
 }
 
 .cc-fan-card {
   position: absolute;
   left: 50%;
-  top: clamp(30px, 5vw, 76px);
+  top: 0;
   z-index: calc(var(--fan-z) * 1);
-  width: clamp(250px, 22vw, 342px);
-  height: clamp(392px, 34vw, 520px);
+  width: clamp(235px, 19.3vw, 370px);
+  height: clamp(350px, 29.2vw, 560px);
   margin: 0;
-  padding: clamp(10px, 1vw, 14px);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow:
-    0 34px 80px -44px rgb(13 13 12 / 0.45),
-    0 1px 0 rgb(255 255 255 / 0.86) inset;
-  transform: translateX(calc(-50% + var(--fan-x))) translateY(var(--fan-y)) rotate(var(--fan-rotate));
-  transform-origin: 50% 116%;
+  padding: 0;
+  border: 0;
+  border-radius: 26px;
+  background: transparent;
+  box-shadow: none;
+  overflow: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) rotate(var(--fan-angle));
+  transform-origin: 50% var(--fan-radius);
+  will-change: transform, opacity;
 }
 
 .cc-fan-card:hover,
