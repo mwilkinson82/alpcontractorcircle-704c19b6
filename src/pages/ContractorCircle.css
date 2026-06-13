@@ -991,7 +991,7 @@ body:has(.cc-page) {
 .cc-intro-project-title {
   position: absolute;
   z-index: 4;
-  top: clamp(36px, 5.5vh, 64px);
+  top: clamp(80px, 12vh, 140px);
   left: 50%;
   transform: translateX(-50%) translateY(8px);
 
