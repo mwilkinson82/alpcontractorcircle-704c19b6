@@ -595,32 +595,42 @@ function PillarsSection() {
                 pointerEvents: visible ? "auto" : "none",
               };
               return (
-                <button
-                  type="button"
+                <div
                   key={item.number}
                   className={`cc-fan-card${slot === 0 ? " is-active" : ""}`}
                   style={style}
                   data-slot={slot}
-                  aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")} — open details`}
-                  aria-current={slot === 0 ? "true" : undefined}
-                  onClick={() => {
-                    if (slot === 0) setOpenIndex(index);
-                    else setActive(index);
-                  }}
                   role="listitem"
                 >
-                  <figure className="cc-fan-card-media">
-                    <img src={item.image} alt={item.imageAlt} loading="lazy" />
-                  </figure>
-                  <div className="cc-fan-card-body">
-                    <p className="cc-fan-card-eyebrow">{item.eyebrow}</p>
-                    <h3>{item.headlineLines.join(" ")}</h3>
-                    <p className="cc-fan-card-body-copy">{item.body}</p>
-                    <span className="cc-fan-card-cta">
-                      Try It Now <ArrowUpRight aria-hidden="true" />
-                    </span>
-                  </div>
-                </button>
+                  <button
+                    type="button"
+                    className="cc-fan-card-hit"
+                    aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")} — open details`}
+                    aria-current={slot === 0 ? "true" : undefined}
+                    onClick={() => {
+                      if (slot === 0) setOpenIndex(index);
+                      else setActive(index);
+                    }}
+                  >
+                    <figure className="cc-fan-card-media">
+                      <img src={item.image} alt={item.imageAlt} loading="lazy" />
+                    </figure>
+                    <div className="cc-fan-card-body">
+                      <p className="cc-fan-card-eyebrow">{item.eyebrow}</p>
+                      <h3>{item.headlineLines.join(" ")}</h3>
+                      <p className="cc-fan-card-body-copy">{item.body}</p>
+                    </div>
+                  </button>
+                  <a
+                    href={CHECKOUT_URL}
+                    className="cc-fan-card-cta"
+                    onClick={e => e.stopPropagation()}
+                    tabIndex={slot === 0 ? 0 : -1}
+                    aria-hidden={slot === 0 ? undefined : true}
+                  >
+                    Join the Circle <ArrowUpRight aria-hidden="true" />
+                  </a>
+                </div>
               );
             })}
           </div>
