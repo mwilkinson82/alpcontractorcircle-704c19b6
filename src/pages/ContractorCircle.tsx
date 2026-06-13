@@ -588,13 +588,14 @@ function PillarsSection() {
             {items.map((item, index) => {
               const slot = index - centerIndex;
               const distance = Math.abs(slot);
+              const angle = slot * 6.1;
               const style = {
                 "--fan-slot": slot,
                 "--fan-distance": distance,
-                "--fan-x": `calc(${slot} * clamp(74px, 8vw, 122px))`,
-                "--fan-rotate": `${slot * 4.65}deg`,
-                "--fan-y": `${-42 + distance * 30 + Math.max(0, distance - 2) * 11}px`,
-                "--fan-z": 80 - distance,
+                "--fan-angle": `${angle}deg`,
+                "--fan-angle-final": `${angle}deg`,
+                "--fan-angle-start": `${slot * 4.7}deg`,
+                "--fan-z": 90 - Math.round(distance * 4),
               } as CSSProperties;
               return (
                 <div
@@ -1579,7 +1580,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], [data-fill-word], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-fan-card, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
+          "[data-caption], [data-fill-word], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
@@ -1621,45 +1622,44 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         if (!cards.length) return;
 
         if (isCompact) {
-          gsap.set(cards, { clearProps: "all" });
+          gsap.set(cards, {
+            clearProps: "transform,opacity,visibility,x,y,scale,rotate",
+          });
           return;
         }
 
-        cards.forEach((card, index) => {
-          const slot = Number(card.style.getPropertyValue("--fan-slot")) || 0;
-          const distance = Math.abs(slot);
-          const finalX =
-            slot * Math.min(122, Math.max(72, window.innerWidth * 0.082)) -
-            card.offsetWidth / 2;
-          const finalY = -42 + distance * 30 + Math.max(0, distance - 2) * 11;
-          const finalRotate = slot * 4.65;
+        gsap.set(cards, {
+          xPercent: -50,
+          transformOrigin: "50% var(--fan-radius)",
+          rotate: index => {
+            const slot = Number(cards[index].style.getPropertyValue("--fan-slot")) || 0;
+            return slot * 4.7;
+          },
+          y: 118,
+          scale: 0.96,
+          autoAlpha: 0,
+        });
 
-          gsap.fromTo(
-            card,
-            {
-              x: slot * 12 - card.offsetWidth / 2,
-              y: 108,
-              rotate: 0,
-              scale: 0.88,
-              autoAlpha: 0,
-            },
-            {
-              x: finalX,
-              y: finalY,
-              rotate: finalRotate,
-              scale: 1,
-              autoAlpha: 1,
-              ease: "power3.out",
-              duration: 0.9,
-              delay: index * 0.035,
-              scrollTrigger: {
-                trigger: fan,
-                start: "top 78%",
-                toggleActions: "play none none reverse",
-                invalidateOnRefresh: true,
-              },
-            }
-          );
+        gsap.to(cards, {
+          rotate: index => {
+            const slot = Number(cards[index].style.getPropertyValue("--fan-slot")) || 0;
+            return slot * 6.1;
+          },
+          y: 0,
+          scale: 1,
+          autoAlpha: 1,
+          ease: "power3.out",
+          duration: 1.05,
+          stagger: {
+            each: 0.045,
+            from: "center",
+          },
+          scrollTrigger: {
+            trigger: fan,
+            start: "top 76%",
+            toggleActions: "play none none reverse",
+            invalidateOnRefresh: true,
+          },
         });
       };
 
