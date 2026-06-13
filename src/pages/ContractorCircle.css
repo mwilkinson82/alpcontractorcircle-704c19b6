@@ -770,7 +770,7 @@ body:has(.cc-page) {
   opacity: 0;
   filter: blur(14px);
   transform: translateY(18px) scale(0.99);
-  animation: cc-intro-chart-build 3600ms var(--cc-caption-ease) 2860ms forwards;
+  animation: cc-intro-chart-build 6400ms var(--cc-caption-ease) 2860ms forwards;
 }
 
 .cc-intro-axis {
@@ -924,9 +924,9 @@ body:has(.cc-page) {
 
 .cc-intro-risk-item-title {
   display: block;
-  margin-bottom: clamp(8px, 1vw, 14px);
-  color: rgb(13 13 12 / 0.78);
-  font-size: clamp(0.9rem, 1.25vw, 1.2rem);
+  margin-bottom: clamp(10px, 1.2vw, 16px);
+  color: rgb(13 13 12 / 0.88);
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: 0;
@@ -941,30 +941,32 @@ body:has(.cc-page) {
   line-height: 1;
 }
 
+
 .cc-intro-current-profit {
   position: absolute;
   z-index: 6;
   left: 50%;
-  bottom: clamp(24px, 5vh, 56px);
+  bottom: clamp(28px, 6vh, 72px);
   display: grid;
-  gap: 6px;
-  width: min(620px, 58vw);
-  padding: clamp(18px, 2.4vw, 28px) clamp(22px, 2.8vw, 34px);
+  justify-items: center;
+  gap: 8px;
+  width: min(720px, 64vw);
+  padding: clamp(22px, 2.8vw, 34px) clamp(26px, 3.2vw, 42px);
   border: 1px solid rgb(59 130 246 / 0.45);
-  border-top: 3px solid rgb(30 58 138 / 0.9);
-  background: linear-gradient(135deg, rgb(219 234 254 / 0.97), rgb(191 219 254 / 0.9));
-  box-shadow: 0 28px 70px rgb(37 99 235 / 0.28);
+  border-top: 4px solid rgb(30 58 138 / 0.95);
+  background: linear-gradient(135deg, rgb(219 234 254 / 0.97), rgb(191 219 254 / 0.92));
+  box-shadow: 0 28px 70px rgb(37 99 235 / 0.3);
   opacity: 0;
-  text-align: left;
+  text-align: center;
   transform: translate(-50%, 18px) scale(0.98);
-  animation: cc-intro-current-profit 1500ms var(--cc-caption-ease) 6100ms forwards;
+  animation: cc-intro-current-profit 2400ms var(--cc-caption-ease) 5400ms forwards;
 }
 
 .cc-intro-current-profit small {
   display: block;
   margin-top: 4px;
-  color: rgb(30 58 138 / 0.7);
-  font-size: clamp(0.7rem, 0.95vw, 0.88rem);
+  color: rgb(30 58 138 / 0.75);
+  font-size: clamp(0.78rem, 1.05vw, 1rem);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -972,10 +974,11 @@ body:has(.cc-page) {
 
 
 .cc-intro-current-profit span {
-  color: rgb(30 58 138 / 0.85);
-  font-size: clamp(0.72rem, 1vw, 0.94rem);
+  color: rgb(30 58 138 / 0.9);
+  font-size: clamp(0.82rem, 1.1vw, 1.05rem);
   font-weight: 800;
   text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .cc-intro-current-profit strong {
@@ -983,10 +986,11 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(2.6rem, 5.8vw, 7.2rem);
+  font-size: clamp(3rem, 6.4vw, 7.8rem);
   font-weight: 500;
   line-height: 0.88;
 }
+
 
 .cc-intro-project-title {
   position: absolute;
