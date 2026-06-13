@@ -14,6 +14,8 @@ import {
   BookOpen,
   CalendarDays,
   Check,
+  ChevronLeft,
+  ChevronRight,
   CircleDollarSign,
   ClipboardList,
   LockKeyhole,
@@ -299,32 +301,32 @@ const onboardingSteps = [
   {
     number: "01",
     title: "Welcome email",
-    body: "Your receipt and first instructions arrive immediately, with the portal link, Discord invite, and the first moves.",
+    body: "Your receipt, portal link, Discord invite, and first move arrive immediately.",
   },
   {
     number: "02",
-    title: "Portal + Discord access",
-    body: "You get into the Contractor Circle portal and the private room where members keep working between sessions.",
+    title: "Get inside the room",
+    body: "Portal and Discord open so the work has one home from day one.",
   },
   {
     number: "03",
-    title: "Introduce yourself",
-    body: "Post who you are, what you build, and the operating pressure you want help solving first.",
+    title: "Post the real constraint",
+    body: "Introduce the company and the pressure you want solved first.",
   },
   {
     number: "04",
-    title: "Start with the assets",
-    body: "Watch the replays, move through the playbooks, and pull the templates you need before the next live room.",
+    title: "Pull the first asset",
+    body: "Use the replay, playbook, or template connected to that constraint.",
   },
   {
     number: "05",
-    title: "Get into AOS",
-    body: "Open AOS, watch the trainings, and start setting up the workspace your company will actually run from.",
+    title: "Set up AOS",
+    body: "Open the workspace that will hold numbers, rocks, issues, and to-dos.",
   },
   {
     number: "06",
-    title: "Prepare for the call",
-    body: "Bring one real constraint to the bi-weekly call so guidance turns into a decision, tool, or system.",
+    title: "Bring it to the call",
+    body: "One real issue comes into the live room and leaves with a next move.",
   },
 ];
 
@@ -556,6 +558,7 @@ export default function ContractorCircle() {
   const rootRef = useRef<HTMLDivElement>(null);
   const streamFrameRef = useRef<HTMLIFrameElement>(null);
   const streamPlayerRef = useRef<CloudflareStreamPlayer | null>(null);
+  const offerWallViewportRef = useRef<HTMLDivElement>(null);
   const mutedPreferenceRef = useRef(true);
   const [muted, setMuted] = useState(true);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
@@ -565,6 +568,17 @@ export default function ContractorCircle() {
 
   const streamRuntimeReady = useCloudflareStreamRuntime();
   useContractorCircleMotion(rootRef);
+
+  const scrollOfferWall = useCallback((direction: "previous" | "next") => {
+    const viewport = offerWallViewportRef.current;
+    if (!viewport) return;
+
+    const distance = viewport.clientWidth * 0.82;
+    viewport.scrollBy({
+      left: direction === "next" ? distance : -distance,
+      behavior: "smooth",
+    });
+  }, []);
 
   const ensureHeroVideoPlayback = useCallback((allowMutedFallback = false) => {
     const player = streamPlayerRef.current;
@@ -983,13 +997,13 @@ export default function ContractorCircle() {
                   What Gets Installed
                 </p>
                 <h2>
-                  <span data-caption>Command,</span>
-                  <span data-caption>not content.</span>
+                  <span data-caption>The operating rhythm</span>
+                  <span data-caption>leaves your head.</span>
                 </h2>
                 <p className="cc-subhead" data-caption>
-                  AOS holds the cadence. The room finds the constraint.
-                  Templates and tools turn the decision into work the team can
-                  execute. That is what gets installed.
+                  Vision, rocks, scorecard, issues, calls, templates, SOPs,
+                  and contract reads stop living as scattered tabs. They become
+                  one weekly command loop.
                 </p>
               </div>
               <div className="cc-install-grid">
@@ -1027,32 +1041,61 @@ export default function ContractorCircle() {
                   projects, calls, and decisions.
                 </p>
               </div>
-              <div className="cc-offer-wall-grid">
-                {productProofItems.map(item => (
-                  <article
-                    className="cc-offer-wall-card cc-detail-reveal"
-                    key={item.number}
+              <div className="cc-offer-wall-shell">
+                <div
+                  className="cc-offer-wall-viewport"
+                  ref={offerWallViewportRef}
+                  role="region"
+                  aria-label="Circle assets carousel"
+                  tabIndex={0}
+                >
+                  <div className="cc-offer-wall-grid">
+                    {productProofItems.map(item => (
+                      <article
+                        className="cc-offer-wall-card cc-detail-reveal"
+                        key={item.number}
+                      >
+                        <div className="cc-offer-card-tags">
+                          <span>{item.eyebrow}</span>
+                          <span>{item.points[0]?.label}</span>
+                        </div>
+                        <figure>
+                          <img src={item.image} alt="" aria-hidden="true" />
+                        </figure>
+                        <div className="cc-offer-wall-card-body">
+                          <span>{item.number} / Contractor Circle</span>
+                          <h3>{item.headlineLines.join(" ")}</h3>
+                          <p>{item.body}</p>
+                          <small>
+                            {item.links?.[0]?.label ??
+                              item.walkthrough?.cta ??
+                              "Member asset"}
+                            <ArrowUpRight aria-hidden="true" />
+                          </small>
+                        </div>
+                      </article>
+                    ))}
+                  </div>
+                </div>
+                <div
+                  className="cc-offer-wall-controls"
+                  aria-label="Circle asset carousel controls"
+                >
+                  <button
+                    type="button"
+                    onClick={() => scrollOfferWall("previous")}
+                    aria-label="Previous Circle assets"
                   >
-                    <div className="cc-offer-card-tags">
-                      <span>{item.eyebrow}</span>
-                      <span>{item.points[0]?.label}</span>
-                    </div>
-                    <figure>
-                      <img src={item.image} alt="" aria-hidden="true" />
-                    </figure>
-                    <div className="cc-offer-wall-card-body">
-                      <span>{item.number} / Contractor Circle</span>
-                      <h3>{item.headlineLines.join(" ")}</h3>
-                      <p>{item.body}</p>
-                      <small>
-                        {item.links?.[0]?.label ??
-                          item.walkthrough?.cta ??
-                          "Member asset"}
-                        <ArrowUpRight aria-hidden="true" />
-                      </small>
-                    </div>
-                  </article>
-                ))}
+                    <ChevronLeft aria-hidden="true" />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => scrollOfferWall("next")}
+                    aria-label="Next Circle assets"
+                  >
+                    <ChevronRight aria-hidden="true" />
+                  </button>
+                </div>
               </div>
             </article>
 
@@ -1063,13 +1106,12 @@ export default function ContractorCircle() {
                     Proof
                   </p>
                   <h2>
-                    <span data-caption>Real members.</span>
-                    <span data-caption>Real operating leverage.</span>
+                    <span data-caption>Not theory.</span>
+                    <span data-caption>Changed companies.</span>
                   </h2>
                   <p className="cc-subhead" data-caption>
-                    Contractor Circle is not a theory deck. It is built from
-                    live member results, the operating assets inside the portal,
-                    and the weekly room where contractors keep doing the work.
+                    The proof is not that a portal exists. The proof is what
+                    happens when owners stop carrying every decision themselves.
                   </p>
                   <a
                     href={CHECKOUT_URL}
@@ -1195,14 +1237,13 @@ export default function ContractorCircle() {
                     After Checkout
                   </p>
                   <h2>
-                    <span data-caption>What happens</span>
-                    <span data-caption>after you join.</span>
+                    <span data-caption>Installation starts</span>
+                    <span data-caption>immediately.</span>
                   </h2>
                   <p className="cc-subhead" data-caption>
-                    You are not buying a login and being left alone. The first
-                    week is designed to get you into the room, into the portal,
-                    into AOS, and into the next live conversation with a real
-                    issue.
+                    After checkout, the goal is not to browse a library. It is
+                    to get into the room, name the first operating constraint,
+                    and start moving the company into AOS.
                   </p>
                   <a
                     href={CHECKOUT_URL}
