@@ -892,7 +892,10 @@ export default function ContractorCircle() {
 
   return (
     <div ref={rootRef} className="cc-page">
-      <header className="cc-nav" aria-label="ALP Contractor Circle">
+      <header
+        className={`cc-nav ${heroIntroComplete ? "is-on-video" : "is-on-paper"}`}
+        aria-label="ALP Contractor Circle"
+      >
         <a
           href="#top"
           className="cc-brand"
