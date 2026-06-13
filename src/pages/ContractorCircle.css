@@ -115,11 +115,32 @@ body:has(.cc-page) {
 
 .cc-brand-mark,
 .cc-brand span:first-child {
-  color: var(--cc-orange);
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.cc-brand-mark + .cc-brand-name {
+  position: relative;
+  padding-left: 12px;
+}
+
+.cc-brand-mark + .cc-brand-name::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 14px;
+  background: currentColor;
+  opacity: 0.55;
 }
 
 .cc-brand-name {
   color: inherit;
+  font-weight: 500;
+  letter-spacing: 0.08em;
 }
 
 .cc-nav-actions {
@@ -809,6 +830,7 @@ body:has(.cc-page) {
 
 .cc-intro-profit-column {
   z-index: 5;
+  padding-top: clamp(96px, 14vh, 160px);
 }
 
 .cc-intro-risk-column {
@@ -966,8 +988,8 @@ body:has(.cc-page) {
 .cc-intro-project-title {
   position: absolute;
   z-index: 4;
-  top: clamp(108px, 16vh, 168px);
-  left: clamp(42px, 12vw, 172px);
+  top: clamp(56px, 8vh, 92px);
+  left: clamp(36px, 6vw, 88px);
 
   margin: 0;
   color: rgb(13 13 12 / 0.78);
@@ -6003,46 +6025,35 @@ body:has(.cc-page) {
 
 .cc-fan-card-cta {
   position: absolute;
-  left: 50%;
-  bottom: 18px;
-  transform: translate(-50%, 12px);
+  left: clamp(16px, 1.8vw, 24px);
+  bottom: clamp(16px, 1.8vw, 22px);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 11px 20px;
-  background: var(--cc-orange);
-  color: #ffffff;
-  font-size: 0.86rem;
-  font-weight: 700;
-  letter-spacing: 0.01em;
+  gap: 6px;
+  color: var(--cc-orange);
+  font-size: 0.85rem;
+  font-weight: 600;
   text-decoration: none;
-  border-radius: 999px;
-  box-shadow: 0 14px 32px -10px rgb(219 106 63 / 0.55);
   opacity: 0;
+  transform: translateY(4px);
   pointer-events: none;
-  transition:
-    opacity 0.35s ease,
-    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-    background 0.25s ease,
-    box-shadow 0.25s ease;
-  white-space: nowrap;
+  transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease;
 }
 
 .cc-fan-card-cta svg {
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   transition: transform 0.25s ease;
 }
 
 .cc-fan-card.is-active .cc-fan-card-cta {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
 .cc-fan-card-cta:hover {
-  background: #0d0d0c;
-  box-shadow: 0 18px 38px -10px rgb(13 13 12 / 0.55);
+  color: #0d0d0c;
 }
 
 .cc-fan-card-cta:hover svg {
@@ -6050,14 +6061,17 @@ body:has(.cc-page) {
 }
 
 .cc-fan-card-cta:focus-visible {
-  outline: 2px solid #0d0d0c;
+  outline: 2px solid var(--cc-orange);
   outline-offset: 3px;
+  border-radius: 4px;
 }
 
-/* Subtle lift on the active card so the CTA has room */
 .cc-fan-card.is-active .cc-fan-card-body {
-  padding-bottom: clamp(58px, 7vh, 76px);
+  padding-bottom: clamp(44px, 5vh, 56px);
 }
+
+
+
 
 
 /* Fan controls (two arrow buttons + counter) */
