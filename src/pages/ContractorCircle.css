@@ -5878,14 +5878,19 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(2.4rem, 5.4vw, 5.6rem);
-  font-weight: 600;
-  line-height: 0.96;
-  letter-spacing: -0.01em;
+  font-size: clamp(3rem, 7.2vw, 7.5rem);
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  color: #0d0d0c;
 }
 
 .cc-pillars-copy h2 span {
-  display: block;
+  display: inline;
+}
+
+.cc-pillars-copy h2 .cc-pillars-accent {
+  color: #c4654a;
 }
 
 .cc-pillars-copy .cc-subhead {
@@ -5893,6 +5898,7 @@ body:has(.cc-page) {
   font-size: clamp(1rem, 1.3vw, 1.2rem);
   line-height: 1.55;
   max-width: 760px;
+  margin-top: clamp(8px, 1vw, 16px);
 }
 
 
