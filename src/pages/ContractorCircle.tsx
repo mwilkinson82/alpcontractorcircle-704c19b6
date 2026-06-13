@@ -853,7 +853,7 @@ export default function ContractorCircle() {
     const updateMobileCta = () => {
       const threshold = Math.min(760, window.innerHeight * 0.9);
       const productDeck =
-        document.querySelector<HTMLElement>(".cc-product-deck-section");
+        document.querySelector<HTMLElement>(".cc-pillars-section");
       const deckRect = productDeck?.getBoundingClientRect();
       const isInsideProductDeck = deckRect
         ? deckRect.top < window.innerHeight * 0.82 && deckRect.bottom > 96
@@ -1528,7 +1528,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-product-deck-card, .cc-product-deck-meter span, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
+          "[data-caption], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-pillar-card, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
