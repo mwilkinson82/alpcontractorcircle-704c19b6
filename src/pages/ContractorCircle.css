@@ -465,24 +465,7 @@ body:has(.cc-page) {
 }
 
 .cc-video-shade {
-  position: absolute;
-  z-index: 4;
-  inset: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgb(0 0 0 / 0.38) 0%,
-      rgb(0 0 0 / 0.06) 46%,
-      rgb(0 0 0 / 0.42) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgb(0 0 0 / 0.34) 0%,
-      transparent 36%,
-      rgb(0 0 0 / 0.18) 100%
-    );
-  pointer-events: none;
-  transition: opacity 900ms var(--cc-caption-ease);
+  display: none;
 }
 
 .cc-hero-loader {
