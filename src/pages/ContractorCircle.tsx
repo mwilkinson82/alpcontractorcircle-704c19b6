@@ -559,8 +559,7 @@ function PillarsSection() {
       <div className="cc-pillars-inner">
         <div className="cc-pillars-copy cc-caption">
           <h2>
-            <span data-caption>Everything inside </span>
-            <span data-caption className="cc-pillars-accent">Contractor Circle</span>
+            <span data-caption>Everything inside the Circle</span>
           </h2>
           <p className="cc-subhead" data-caption>
             Every call, bootcamp, tool, template, replay, and SOP — laid out

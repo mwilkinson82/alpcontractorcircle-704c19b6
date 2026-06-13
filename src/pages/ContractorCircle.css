@@ -5867,7 +5867,7 @@ body:has(.cc-page) {
 .cc-pillars-copy {
   display: grid;
   gap: clamp(14px, 1.6vw, 22px);
-  max-width: 880px;
+  max-width: min(100%, 1320px);
   margin: 0 auto;
   text-align: center;
   justify-items: center;
@@ -5878,19 +5878,16 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(3rem, 7.2vw, 7.5rem);
+  font-size: clamp(2.25rem, 5.8vw, 5.8rem);
   font-weight: 700;
   line-height: 0.98;
-  letter-spacing: -0.025em;
+  letter-spacing: 0;
   color: #0d0d0c;
+  white-space: nowrap;
 }
 
 .cc-pillars-copy h2 span {
   display: inline;
-}
-
-.cc-pillars-copy h2 .cc-pillars-accent {
-  color: #c4654a;
 }
 
 .cc-pillars-copy .cc-subhead {
