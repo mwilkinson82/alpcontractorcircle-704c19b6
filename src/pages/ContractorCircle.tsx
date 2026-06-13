@@ -1197,11 +1197,15 @@ export default function ContractorCircle() {
                   membership.
                 </p>
               </div>
-              <div
-                className="cc-asset-deck"
-                role="list"
-                aria-label="Contractor Circle assets"
-              >
+              <div className="cc-asset-deck-stage">
+                <span className="cc-blob cc-blob-cool cc-blob-asset-left" aria-hidden="true" />
+                <span className="cc-blob cc-blob-warm cc-blob-asset-right" aria-hidden="true" />
+                <div
+                  className="cc-asset-deck"
+                  role="list"
+                  aria-label="Contractor Circle assets"
+                  data-asset-carousel
+                >
                 {productProofItems.map((item, index) => (
                   <article
                     className="cc-asset-card cc-detail-reveal"
