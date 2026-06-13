@@ -5903,6 +5903,66 @@ body:has(.cc-page) {
   margin-top: clamp(8px, 1vw, 16px);
 }
 
+.cc-labs-motion-shape {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+  border-radius: 999px;
+  opacity: 0.96;
+  filter: saturate(1.05);
+  animation: cc-labs-shape-drift 10s cubic-bezier(0.45, 0, 0.2, 1) infinite alternate;
+}
+
+.cc-labs-motion-yellow {
+  top: -15vw;
+  left: 24vw;
+  width: clamp(240px, 33vw, 560px);
+  height: clamp(240px, 33vw, 560px);
+  background: #ffd12f;
+}
+
+.cc-labs-motion-blue {
+  top: -8vw;
+  right: -10vw;
+  width: clamp(280px, 34vw, 620px);
+  height: clamp(420px, 52vw, 860px);
+  background: #5b93f6;
+  border-radius: 50% 0 0 50%;
+  animation-delay: -3.4s;
+}
+
+.cc-labs-motion-green {
+  right: -4vw;
+  bottom: -11vw;
+  width: clamp(300px, 42vw, 760px);
+  height: clamp(250px, 30vw, 560px);
+  background: #35f774;
+  border-radius: 48% 52% 0 0 / 68% 62% 0 0;
+  transform: rotate(-10deg);
+  animation-delay: -6.8s;
+}
+
+.cc-labs-motion-pink {
+  left: -13vw;
+  bottom: 18vw;
+  width: clamp(240px, 31vw, 560px);
+  height: clamp(280px, 39vw, 660px);
+  background: #f58af1;
+  border-radius: 52% 48% 46% 54% / 56% 42% 58% 44%;
+  animation-delay: -1.8s;
+}
+
+@keyframes cc-labs-shape-drift {
+  from {
+    transform: translate3d(-2.8vw, 1.5vw, 0) rotate(-8deg) scale(0.98);
+  }
+
+  to {
+    transform: translate3d(2.4vw, -1.8vw, 0) rotate(7deg) scale(1.04);
+  }
+}
+
 
 
 /* ---- Labs.google-style fan ---- */
