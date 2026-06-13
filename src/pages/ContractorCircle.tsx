@@ -441,7 +441,7 @@ const pillars: Pillar[] = [
       "Set curriculum, not open Q&A",
       "Replays stay in the portal for life",
     ],
-    image: "/manus-storage/portal-ask-reply_d776f93c.png",
+    image: "/manus-storage/exact-bootcamp_9c719283.png",
     imageAlt: "Bi-weekly Contractor Circle call session",
     icon: CalendarDays,
   },
@@ -455,7 +455,7 @@ const pillars: Pillar[] = [
       "Templates and SOPs walk out the door",
       "Replay and workbook stay for reference",
     ],
-    image: "/manus-storage/exact-bootcamp_9c719283.png",
+    image: "/manus-storage/exact-sop-builder_b6175c39.png",
     imageAlt: "Contractor Circle monthly bootcamp",
     icon: Rocket,
   },
@@ -477,16 +477,30 @@ const pillars: Pillar[] = [
     number: "04",
     eyebrow: "Portal",
     title: "One front door for everything else.",
-    outcome: "AOS, tools, templates, handbook, Ask Marshall, SOP Builder.",
+    outcome: "Replays, templates, the handbook, and Ask Marshall.",
     bullets: [
-      "AOS workspaces and seats included",
-      "26+ deployable templates, growing tool set",
-      "Ask Marshall, the handbook, and the SOP Builder live here",
+      "Replays stay organized by topic",
+      "Templates and the handbook are one click away",
+      "Ask Marshall lives inside the member portal",
     ],
     image: "/manus-storage/portal-ask-marshall_2e6c40e1.png",
     imageAlt: "Contractor Circle portal command center",
     icon: Network,
     isGateway: true,
+  },
+  {
+    number: "05",
+    eyebrow: "AOS + Proprietary Tools",
+    title: "The operating system is included.",
+    outcome: "AOS workspaces plus the tools that expose the constraint.",
+    bullets: [
+      "Unlimited AOS workspaces and seats",
+      "SOP Builder and Contract Readiness Scanner",
+      "Owner Dependency Scorecards",
+    ],
+    image: "/manus-storage/exact-aos_3819276c.png",
+    imageAlt: "AOS workspace scorecard and operating cadence",
+    icon: Settings2,
   },
 ];
 
@@ -513,8 +527,6 @@ function PillarsSection() {
           </p>
         </div>
         <div className="cc-pillars-stage">
-          <span className="cc-blob cc-blob-warm" aria-hidden="true" />
-          <span className="cc-blob cc-blob-cool" aria-hidden="true" />
           <div className="cc-pillars-fan" data-pillar-fan>
             {pillars.map((pillar, index) => {
               const Icon = pillar.icon;
@@ -1198,8 +1210,6 @@ export default function ContractorCircle() {
                 </p>
               </div>
               <div className="cc-asset-deck-stage">
-                <span className="cc-blob cc-blob-cool cc-blob-asset-left" aria-hidden="true" />
-                <span className="cc-blob cc-blob-warm cc-blob-asset-right" aria-hidden="true" />
                 <div
                   className="cc-asset-deck"
                   role="list"
@@ -1535,6 +1545,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
     let mobileCardObserver: IntersectionObserver | null = null;
     let revealVisibleMobileCards: (() => void) | null = null;
     let mobileRevealTimers: number[] = [];
+    const motionCleanups: Array<() => void> = [];
     const ctx = gsap.context(() => {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
@@ -1579,35 +1590,55 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         );
         if (!cards.length) return;
 
-        // Read each card's CSS-applied tilt/translate so the scroll-in
-        // animation lands exactly on the fanned final state.
-        const finals = cards.map(card => {
-          const cs = getComputedStyle(card);
-          return { transform: cs.transform };
-        });
-
         if (isCompact) {
           gsap.set(cards, { clearProps: "all" });
           return;
         }
 
+        const centerIndex = Math.floor(cards.length / 2);
+        let activeIndex = centerIndex;
+        const spread = Math.min(420, Math.max(260, window.innerWidth * 0.22));
+        const slotFor = (index: number) => {
+          let slot = index - activeIndex;
+          if (slot > cards.length / 2) slot -= cards.length;
+          if (slot < -cards.length / 2) slot += cards.length;
+          return slot;
+        };
+        const fanState = (index: number) => {
+          const slot = slotFor(index);
+          const distance = Math.abs(slot);
+          return {
+            x: slot * spread * 0.62,
+            y: distance === 0 ? 0 : distance === 1 ? 24 : 76,
+            rotate: slot * 10,
+            scale: distance === 0 ? 1.04 : 1,
+            zIndex: 20 - distance,
+          };
+        };
+        const renderFan = () => {
+          cards.forEach((card, index) => {
+            gsap.to(card, {
+              ...fanState(index),
+              duration: 0.55,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
+          });
+        };
+
         cards.forEach((card, i) => {
+          const state = fanState(i);
           gsap.fromTo(
             card,
             {
               y: 120,
+              x: state.x * 0.22,
               rotate: 0,
               scale: 0.7,
               autoAlpha: 0,
             },
             {
-              y: 0,
-              rotate: () => {
-                // mirror the CSS rotation per index
-                const r = [-7, -2, 3, 8][i] ?? 0;
-                return r;
-              },
-              scale: 1,
+              ...state,
               autoAlpha: 1,
               ease: "power3.out",
               duration: 0.9,
@@ -1620,7 +1651,41 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             }
           );
         });
-        void finals;
+
+        let startX = 0;
+        let hasPointer = false;
+        const rotateDeck = (direction: number) => {
+          activeIndex =
+            (activeIndex + direction + cards.length) % cards.length;
+          renderFan();
+        };
+        const handlePointerDown = (event: PointerEvent) => {
+          hasPointer = true;
+          startX = event.clientX;
+          fan.setPointerCapture?.(event.pointerId);
+        };
+        const handlePointerUp = (event: PointerEvent) => {
+          if (!hasPointer) return;
+          hasPointer = false;
+          const delta = event.clientX - startX;
+          if (Math.abs(delta) > 42) rotateDeck(delta < 0 ? 1 : -1);
+        };
+        const handleWheel = (event: WheelEvent) => {
+          if (Math.abs(event.deltaX) < 18) return;
+          event.preventDefault();
+          rotateDeck(event.deltaX > 0 ? 1 : -1);
+        };
+        fan.addEventListener("pointerdown", handlePointerDown);
+        fan.addEventListener("pointerup", handlePointerUp);
+        fan.addEventListener("pointercancel", handlePointerUp);
+        fan.addEventListener("wheel", handleWheel, { passive: false });
+
+        return () => {
+          fan.removeEventListener("pointerdown", handlePointerDown);
+          fan.removeEventListener("pointerup", handlePointerUp);
+          fan.removeEventListener("pointercancel", handlePointerUp);
+          fan.removeEventListener("wheel", handleWheel);
+        };
       };
 
       const setupAssetDeck = () => {
@@ -1821,8 +1886,10 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           }
         }
 
-        setupAssetDeck();
-        setupPillarFan();
+        const assetDeckCleanup = setupAssetDeck();
+        const pillarFanCleanup = setupPillarFan();
+        if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
+        if (pillarFanCleanup) motionCleanups.push(pillarFanCleanup);
 
         const mobileStackCards =
           gsap.utils.toArray<HTMLElement>(".cc-stack-card");
@@ -2219,8 +2286,10 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
       };
 
-      setupAssetDeck();
-      setupPillarFan();
+      const assetDeckCleanup = setupAssetDeck();
+      const pillarFanCleanup = setupPillarFan();
+      if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
+      if (pillarFanCleanup) motionCleanups.push(pillarFanCleanup);
 
       const stack = root.querySelector<HTMLElement>(".cc-card-stack");
       const stackStage = root.querySelector<HTMLElement>(".cc-stack-sticky");
@@ -2590,6 +2659,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         window.removeEventListener("resize", revealVisibleMobileCards);
       }
       mobileCardObserver?.disconnect();
+      motionCleanups.forEach(cleanup => cleanup());
       delete root.dataset.motionMode;
       ctx.revert();
     };

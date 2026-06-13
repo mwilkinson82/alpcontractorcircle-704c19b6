@@ -1268,36 +1268,6 @@ body:has(.cc-page) {
   will-change: filter, opacity, transform;
 }
 
-.cc-hero-copy::before,
-.cc-hero-copy::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  border-radius: 8px;
-  opacity: 0.18;
-  pointer-events: none;
-}
-
-.cc-hero-copy::before {
-  top: 8%;
-  right: -8vw;
-  width: min(34vw, 520px);
-  height: min(30vw, 440px);
-  background: #44e886;
-  clip-path: polygon(0 12%, 100% 0, 84% 100%, 12% 78%);
-  transform: rotate(8deg);
-}
-
-.cc-hero-copy::after {
-  left: -10vw;
-  bottom: 4%;
-  width: min(38vw, 560px);
-  height: min(28vw, 420px);
-  background: #ffcf35;
-  clip-path: polygon(8% 0, 100% 18%, 74% 100%, 0 68%);
-  transform: rotate(-9deg);
-}
-
 .cc-hero-field {
   position: absolute;
   inset: auto 0 4% 0;
@@ -1510,14 +1480,7 @@ body:has(.cc-page) {
 }
 
 .cc-stack-card-shift {
-  background:
-    linear-gradient(90deg, rgb(21 21 21 / 0.026) 1px, transparent 1px),
-    linear-gradient(0deg, rgb(21 21 21 / 0.022) 1px, transparent 1px),
-    linear-gradient(180deg, #fffdf8 0%, #f1eadf 100%);
-  background-size:
-    76px 76px,
-    76px 76px,
-    auto;
+  background: #fffdf8;
   color: var(--cc-ink);
   width: min(1500px, calc(100vw - 32px));
   min-height: min(820px, calc(100svh - 120px));
@@ -1529,16 +1492,7 @@ body:has(.cc-page) {
 
 .cc-stack-card-installed {
   overflow: hidden;
-  background:
-    linear-gradient(90deg, rgb(21 21 21 / 0.024) 1px, transparent 1px),
-    linear-gradient(0deg, rgb(21 21 21 / 0.02) 1px, transparent 1px),
-    radial-gradient(circle at 50% 66%, rgb(93 155 255 / 0.16), transparent 32%),
-    linear-gradient(180deg, #fffdf8 0%, #f4eee5 100%);
-  background-size:
-    76px 76px,
-    76px 76px,
-    auto,
-    auto;
+  background: #fffdf8;
 }
 
 .cc-stack-card-pricing,
@@ -1636,9 +1590,7 @@ body:has(.cc-page) {
 }
 
 .cc-stack-card-install-detail {
-  background:
-    radial-gradient(circle at 82% 16%, rgb(219 106 63 / 0.12), transparent 28%),
-    linear-gradient(135deg, #fbfaf7 0%, #f0eee7 100%);
+  background: #fbfaf7;
 }
 
 .cc-stack-card-product-proof {
@@ -1815,37 +1767,6 @@ body:has(.cc-page) {
   align-items: center;
   gap: clamp(36px, 5.4vw, 96px);
   height: 100%;
-}
-
-.cc-memory-system::before,
-.cc-memory-system::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  border-radius: 8px;
-  pointer-events: none;
-}
-
-.cc-memory-system::before {
-  right: -10%;
-  top: -12%;
-  width: min(44vw, 620px);
-  height: min(38vw, 540px);
-  background: #ffb4ef;
-  clip-path: polygon(12% 0, 100% 12%, 84% 100%, 0 72%);
-  opacity: 0.6;
-  transform: rotate(8deg);
-}
-
-.cc-memory-system::after {
-  left: 44%;
-  bottom: -24%;
-  width: min(38vw, 560px);
-  height: min(28vw, 420px);
-  background: #44e886;
-  clip-path: polygon(0 12%, 100% 0, 78% 100%, 16% 84%);
-  opacity: 0.42;
-  transform: rotate(-11deg);
 }
 
 .cc-memory-copy,
@@ -5961,27 +5882,34 @@ body:has(.cc-page) {
 .cc-pillars-stage {
   position: relative;
   isolation: isolate;
-  padding: clamp(40px, 6vh, 80px) 0 clamp(60px, 8vh, 110px);
+  padding: clamp(48px, 7vh, 96px) 0 clamp(70px, 9vh, 120px);
 }
 
 .cc-pillars-fan {
   position: relative;
   z-index: 2;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
+  display: grid;
+  place-items: end center;
   gap: clamp(-60px, -2.4vw, -28px);
-  padding: clamp(40px, 6vh, 80px) clamp(8px, 2vw, 32px);
+  min-height: clamp(520px, 58vw, 720px);
+  padding: clamp(54px, 8vh, 110px) clamp(8px, 2vw, 32px) clamp(42px, 6vh, 72px);
   perspective: 1600px;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.cc-pillars-fan:active {
+  cursor: grabbing;
 }
 
 .cc-pillars-fan .cc-pillar-card {
-  flex: 0 1 clamp(220px, 22vw, 320px);
+  width: clamp(220px, 21vw, 310px);
   aspect-ratio: 3 / 4.2;
   display: flex;
   flex-direction: column;
-  margin: 0 clamp(-32px, -1.6vw, -12px);
-  transform-origin: 50% 95%;
+  grid-area: 1 / 1;
+  margin: 0;
+  transform-origin: 50% 132%;
   transition:
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
@@ -5989,10 +5917,11 @@ body:has(.cc-page) {
   will-change: transform;
 }
 
-.cc-pillars-fan .cc-pillar-card[data-pillar-index="0"] { transform: rotate(-7deg) translateY(18px); z-index: 1; }
-.cc-pillars-fan .cc-pillar-card[data-pillar-index="1"] { transform: rotate(-2deg) translateY(4px); z-index: 2; }
-.cc-pillars-fan .cc-pillar-card[data-pillar-index="2"] { transform: rotate(3deg) translateY(2px); z-index: 3; }
-.cc-pillars-fan .cc-pillar-card[data-pillar-index="3"] { transform: rotate(8deg) translateY(20px); z-index: 4; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="0"] { transform: translateX(-360px) rotate(-20deg) translateY(76px); z-index: 1; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="1"] { transform: translateX(-180px) rotate(-10deg) translateY(24px); z-index: 2; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="2"] { transform: translateX(0) rotate(0deg) translateY(0); z-index: 5; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="3"] { transform: translateX(180px) rotate(10deg) translateY(24px); z-index: 4; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="4"] { transform: translateX(360px) rotate(20deg) translateY(76px); z-index: 3; }
 
 .cc-pillars-fan .cc-pillar-card:hover {
   transform: rotate(0deg) translateY(-32px) scale(1.04) !important;
@@ -6028,48 +5957,6 @@ body:has(.cc-page) {
 .cc-pillars-fan .cc-pillar-label {
   font-size: 0.68rem;
 }
-
-/* ---- Background blobs (shared) ---- */
-.cc-blob {
-  position: absolute;
-  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
-  filter: blur(60px);
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 1;
-  mix-blend-mode: multiply;
-}
-
-.cc-blob-warm {
-  width: clamp(420px, 48vw, 760px);
-  height: clamp(380px, 44vw, 680px);
-  background: radial-gradient(circle at 30% 30%, rgba(219, 106, 63, 0.55), rgba(219, 106, 63, 0));
-  top: -8%;
-  right: -10%;
-}
-
-.cc-blob-cool {
-  width: clamp(360px, 40vw, 620px);
-  height: clamp(340px, 38vw, 580px);
-  background: radial-gradient(circle at 60% 40%, rgba(120, 158, 140, 0.5), rgba(120, 158, 140, 0));
-  bottom: -12%;
-  left: -8%;
-}
-
-.cc-blob-asset-left {
-  top: -6%;
-  left: -10%;
-  right: auto;
-  bottom: auto;
-}
-
-.cc-blob-asset-right {
-  top: 30%;
-  right: -12%;
-  bottom: auto;
-  left: auto;
-}
-
 
 .cc-pillar-card {
   position: relative;
