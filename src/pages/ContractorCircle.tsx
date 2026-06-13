@@ -1186,8 +1186,11 @@ export default function ContractorCircle() {
           </div>
         </section>
 
+        <div id="whats-installed">
+          <PillarsSection />
+        </div>
+
         <section
-          id="whats-installed"
           className="cc-card-stack"
           aria-label="Contractor Circle story"
         >
@@ -1256,7 +1259,6 @@ export default function ContractorCircle() {
           </div>
         </section>
 
-        <PillarsSection />
 
         <section
           className="cc-card-stack"
