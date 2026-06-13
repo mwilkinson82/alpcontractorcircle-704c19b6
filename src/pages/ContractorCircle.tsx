@@ -984,9 +984,8 @@ export default function ContractorCircle() {
         </section>
 
         <section className="cc-hero-copy cc-caption">
-          <SystemsField className="cc-hero-field" />
           <p className="cc-eyebrow" data-caption>
-            Contractor Circle Operating System
+            Contractor Circle
           </p>
           <h2>
             <span data-caption>Build the company </span>
