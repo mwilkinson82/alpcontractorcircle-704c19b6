@@ -654,10 +654,10 @@ body:has(.cc-page) {
   inset: 0;
   overflow: hidden;
   background:
-    radial-gradient(circle at 24% 22%, rgb(219 106 63 / 0.13), transparent 27%),
-    radial-gradient(circle at 72% 64%, rgb(255 255 255 / 0.07), transparent 34%),
-    linear-gradient(135deg, #050505 0%, #0d0e0e 52%, #050505 100%);
-  color: #f6efe4;
+    radial-gradient(circle at 24% 22%, rgb(219 106 63 / 0.05), transparent 32%),
+    radial-gradient(circle at 72% 64%, rgb(0 0 0 / 0.03), transparent 38%),
+    linear-gradient(135deg, #ffffff 0%, #fafaf8 52%, #ffffff 100%);
+  color: #0d0d0c;
   font-family: "Fira Sans", Arial, sans-serif;
   isolation: isolate;
   pointer-events: none;
