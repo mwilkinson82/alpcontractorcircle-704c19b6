@@ -6342,9 +6342,10 @@ body:has(.cc-page) {
 .cc-asset-card:nth-child(3n) { transform: rotate(-1deg) translateY(14px); }
 
 .cc-asset-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 32px 72px -28px rgb(13 13 12 / 0.32);
+  transform: rotate(0deg) translateY(-18px) scale(1.03);
+  box-shadow: 0 44px 90px -28px rgb(13 13 12 / 0.38);
   border-color: rgb(13 13 12 / 0.18);
+  z-index: 10;
 }
 
 .cc-asset-card:hover .cc-asset-card-media img {
