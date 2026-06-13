@@ -6035,10 +6035,10 @@ body:has(.cc-page) {
   font-size: 0.85rem;
   font-weight: 600;
   text-decoration: none;
-  opacity: 0;
-  transform: translateY(4px);
-  pointer-events: none;
-  transition: opacity 0.3s ease, transform 0.3s ease, color 0.2s ease;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  transition: color 0.2s ease;
 }
 
 .cc-fan-card-cta svg {
