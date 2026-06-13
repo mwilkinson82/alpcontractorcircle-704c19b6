@@ -924,9 +924,9 @@ body:has(.cc-page) {
 
 .cc-intro-risk-item-title {
   display: block;
-  margin-bottom: clamp(8px, 1vw, 14px);
-  color: rgb(13 13 12 / 0.78);
-  font-size: clamp(0.9rem, 1.25vw, 1.2rem);
+  margin-bottom: clamp(10px, 1.2vw, 16px);
+  color: rgb(13 13 12 / 0.88);
+  font-size: clamp(1.15rem, 1.7vw, 1.6rem);
   font-weight: 600;
   line-height: 1.25;
   letter-spacing: 0;
@@ -940,6 +940,7 @@ body:has(.cc-page) {
   font-weight: 600;
   line-height: 1;
 }
+
 
 .cc-intro-current-profit {
   position: absolute;
