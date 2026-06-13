@@ -512,46 +512,51 @@ function PillarsSection() {
             that holds every tool, template, replay, and SOP between them.
           </p>
         </div>
-        <div className="cc-pillars-grid">
-          {pillars.map(pillar => {
-            const Icon = pillar.icon;
-            return (
-              <article
-                key={pillar.number}
-                className={`cc-pillar-card cc-detail-reveal${
-                  pillar.isGateway ? " is-gateway" : ""
-                }`}
-                aria-label={`${pillar.eyebrow}: ${pillar.title}`}
-              >
-                <figure className="cc-pillar-media">
-                  <img src={pillar.image} alt={pillar.imageAlt} />
-                </figure>
-                <div className="cc-pillar-body">
-                  <p className="cc-pillar-label">
-                    <span>{pillar.number}</span>
-                    <Icon aria-hidden="true" />
-                    {pillar.eyebrow}
-                  </p>
-                  <h3>{pillar.title}</h3>
-                  <p className="cc-pillar-outcome">{pillar.outcome}</p>
-                  <ul className="cc-pillar-bullets">
-                    {pillar.bullets.map(bullet => (
-                      <li key={bullet}>
-                        <Check aria-hidden="true" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {pillar.isGateway ? (
-                    <a className="cc-pillar-handoff" href="#asset-deck">
-                      …and every asset has a job to do
-                      <ArrowDown aria-hidden="true" />
-                    </a>
-                  ) : null}
-                </div>
-              </article>
-            );
-          })}
+        <div className="cc-pillars-stage">
+          <span className="cc-blob cc-blob-warm" aria-hidden="true" />
+          <span className="cc-blob cc-blob-cool" aria-hidden="true" />
+          <div className="cc-pillars-fan" data-pillar-fan>
+            {pillars.map((pillar, index) => {
+              const Icon = pillar.icon;
+              return (
+                <article
+                  key={pillar.number}
+                  className={`cc-pillar-card cc-detail-reveal${
+                    pillar.isGateway ? " is-gateway" : ""
+                  }`}
+                  data-pillar-index={index}
+                  aria-label={`${pillar.eyebrow}: ${pillar.title}`}
+                >
+                  <figure className="cc-pillar-media">
+                    <img src={pillar.image} alt={pillar.imageAlt} />
+                  </figure>
+                  <div className="cc-pillar-body">
+                    <p className="cc-pillar-label">
+                      <span>{pillar.number}</span>
+                      <Icon aria-hidden="true" />
+                      {pillar.eyebrow}
+                    </p>
+                    <h3>{pillar.title}</h3>
+                    <p className="cc-pillar-outcome">{pillar.outcome}</p>
+                    <ul className="cc-pillar-bullets">
+                      {pillar.bullets.map(bullet => (
+                        <li key={bullet}>
+                          <Check aria-hidden="true" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {pillar.isGateway ? (
+                      <a className="cc-pillar-handoff" href="#asset-deck">
+                        …and every asset has a job to do
+                        <ArrowDown aria-hidden="true" />
+                      </a>
+                    ) : null}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
