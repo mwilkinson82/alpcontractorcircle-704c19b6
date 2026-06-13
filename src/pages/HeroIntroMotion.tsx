@@ -241,7 +241,7 @@ const floatingWords: FloatingWord[] = [
   },
 ];
 
-const riskDollars = ["$$$", "$$$", "$$$"];
+
 
 function wordStyle(word: FloatingWord) {
   return {
@@ -314,19 +314,20 @@ export default function HeroIntroMotion({
         <div className="cc-intro-chart-column cc-intro-profit-column">
           <span className="cc-intro-chart-label">Profit</span>
           <strong>$500,000</strong>
-          <small>Planned Profit</small>
+          <small>Planned Profit (per estimate)</small>
+          <p className="cc-intro-risk-impact">
+            <span className="cc-intro-risk-impact-value">−$175,000</span>
+            <small>Risk Impact</small>
+          </p>
         </div>
 
         <div className="cc-intro-chart-column cc-intro-risk-column">
           <span className="cc-intro-chart-label">Risk</span>
-          <div className="cc-intro-risk-dollars">
-            {riskDollars.map((value, index) => (
-              <span key={`${value}-${index}`}>{value}</span>
-            ))}
-          </div>
-          <p className="cc-intro-risk-exposure">
-            -$175,000
-            <small>Risk Exposure</small>
+          <p className="cc-intro-risk-item">
+            <span className="cc-intro-risk-item-title">
+              Late selections &amp; schedule compression
+            </span>
+            <span className="cc-intro-risk-item-value">$175,000</span>
           </p>
         </div>
 

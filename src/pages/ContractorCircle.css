@@ -654,10 +654,10 @@ body:has(.cc-page) {
   inset: 0;
   overflow: hidden;
   background:
-    radial-gradient(circle at 24% 22%, rgb(219 106 63 / 0.13), transparent 27%),
-    radial-gradient(circle at 72% 64%, rgb(255 255 255 / 0.07), transparent 34%),
-    linear-gradient(135deg, #050505 0%, #0d0e0e 52%, #050505 100%);
-  color: #f6efe4;
+    radial-gradient(circle at 24% 22%, rgb(219 106 63 / 0.05), transparent 32%),
+    radial-gradient(circle at 72% 64%, rgb(0 0 0 / 0.03), transparent 38%),
+    linear-gradient(135deg, #ffffff 0%, #fafaf8 52%, #ffffff 100%);
+  color: #0d0d0c;
   font-family: "Fira Sans", Arial, sans-serif;
   isolation: isolate;
   pointer-events: none;
@@ -674,13 +674,13 @@ body:has(.cc-page) {
 .cc-intro-grid {
   z-index: 0;
   background:
-    linear-gradient(90deg, rgb(246 239 228 / 0.065) 1px, transparent 1px),
-    linear-gradient(0deg, rgb(246 239 228 / 0.045) 1px, transparent 1px);
+    linear-gradient(90deg, rgb(13 13 12 / 0.07) 1px, transparent 1px),
+    linear-gradient(0deg, rgb(13 13 12 / 0.05) 1px, transparent 1px);
   background-size:
     84px 84px,
     84px 84px;
   mask-image: radial-gradient(circle at center, black 0%, transparent 78%);
-  opacity: 0.34;
+  opacity: 0.5;
 }
 
 .cc-intro-scan {
@@ -688,7 +688,7 @@ body:has(.cc-page) {
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgb(246 239 228 / 0.11) 48%,
+    rgb(13 13 12 / 0.06) 48%,
     transparent 64%
   );
   filter: blur(18px);
@@ -709,7 +709,7 @@ body:has(.cc-page) {
   position: absolute;
   top: var(--intro-y);
   left: var(--intro-x);
-  color: rgb(246 239 228 / 0.78);
+  color: rgb(13 13 12 / 0.28);
   font-family: "Fira Sans", Arial, sans-serif;
   font-size: clamp(0.82rem, 1.35vw, 1.52rem);
   font-weight: 700;
@@ -725,15 +725,15 @@ body:has(.cc-page) {
     )
     scale(var(--intro-scale));
   animation: cc-intro-word 2450ms var(--cc-caption-ease) forwards;
-  will-change: opacity, filter, transform;
+  will-change: opacity, filter, transform, color;
 }
 
 .cc-intro-word.is-risk {
-  color: rgb(219 106 63 / 0.9);
+  color: rgb(219 106 63 / 0.32);
 }
 
 .cc-intro-word.is-quiet {
-  color: rgb(246 239 228 / 0.52);
+  color: rgb(13 13 12 / 0.22);
 }
 
 .cc-intro-chart {
@@ -751,7 +751,7 @@ body:has(.cc-page) {
 
 .cc-intro-axis {
   position: absolute;
-  background: rgb(246 239 228 / 0.64);
+  background: rgb(13 13 12 / 0.55);
   opacity: 0;
   transform-origin: center;
 }
@@ -789,11 +789,11 @@ body:has(.cc-page) {
 
 .cc-intro-risk-column {
   z-index: 3;
-  color: rgb(246 239 228 / 0.92);
+  color: rgb(13 13 12 / 0.92);
 }
 
 .cc-intro-chart-label {
-  color: rgb(246 239 228 / 0.9);
+  color: rgb(13 13 12 / 0.88);
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
@@ -807,8 +807,8 @@ body:has(.cc-page) {
 .cc-intro-chart-column strong {
   position: relative;
   z-index: 3;
-  margin-top: clamp(74px, 11vh, 128px);
-  color: #f6efe4;
+  margin-top: clamp(54px, 8vh, 96px);
+  color: #0d0d0c;
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
@@ -818,64 +818,68 @@ body:has(.cc-page) {
 }
 
 .cc-intro-chart-column small,
-.cc-intro-risk-exposure small {
+.cc-intro-risk-impact small,
+.cc-intro-risk-item small {
   display: block;
-  color: rgb(246 239 228 / 0.64);
+  color: rgb(13 13 12 / 0.6);
   font-size: clamp(0.76rem, 1.05vw, 1rem);
   font-weight: 700;
   text-transform: uppercase;
 }
 
-.cc-intro-risk-dollars {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  gap: clamp(9px, 1.5vw, 18px);
-  align-items: center;
-  min-height: clamp(54px, 8vw, 96px);
-  margin-top: clamp(70px, 10vh, 120px);
+.cc-intro-risk-impact {
+  margin: clamp(18px, 3vh, 36px) 0 0;
   color: var(--cc-orange);
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(1.55rem, 3.6vw, 4.6rem);
-  font-weight: 700;
-  line-height: 0.9;
-  opacity: 0.88;
-  white-space: nowrap;
-}
-
-.cc-intro-risk-dollars span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateX(0);
-  animation: cc-intro-risk-dollars 1760ms var(--cc-caption-ease) 3440ms
-    forwards;
-  will-change: opacity, transform;
-}
-
-.cc-intro-risk-dollars span:nth-child(2) {
-  animation-delay: 3520ms;
-}
-
-.cc-intro-risk-dollars span:nth-child(3) {
-  animation-delay: 3600ms;
-}
-
-.cc-intro-risk-exposure {
-  width: max-content;
-  margin: clamp(12px, 2vw, 22px) 0 0;
-  color: var(--cc-orange);
-  font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
-  font-size: clamp(1.4rem, 2.9vw, 3.8rem);
-  font-weight: 600;
-  line-height: 1;
   opacity: 0;
   transform: translateY(12px);
   animation: cc-intro-risk-exposure 2100ms var(--cc-caption-ease) 3880ms
     forwards;
+}
+
+.cc-intro-risk-impact-value {
+  display: block;
+  font-size: clamp(1.6rem, 3.4vw, 4.2rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.cc-intro-risk-item {
+  position: relative;
+  z-index: 2;
+  margin: clamp(54px, 8vh, 96px) 0 0;
+  padding: clamp(16px, 1.8vw, 22px) clamp(18px, 2vw, 26px);
+  border-left: 2px solid var(--cc-orange);
+  background: rgb(219 106 63 / 0.06);
+  color: rgb(13 13 12 / 0.92);
+  font-family:
+    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
+    Arial, sans-serif;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: cc-intro-risk-exposure 2100ms var(--cc-caption-ease) 3880ms
+    forwards;
+}
+
+.cc-intro-risk-item-title {
+  display: block;
+  margin-bottom: clamp(8px, 1vw, 14px);
+  color: rgb(13 13 12 / 0.78);
+  font-size: clamp(0.9rem, 1.25vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.cc-intro-risk-item-value {
+  display: block;
+  color: var(--cc-orange);
+  font-size: clamp(1.8rem, 3.8vw, 4.6rem);
+  font-weight: 600;
+  line-height: 1;
 }
 
 .cc-intro-current-profit {
@@ -887,9 +891,9 @@ body:has(.cc-page) {
   gap: 8px;
   width: min(540px, 42vw);
   padding: clamp(16px, 2.2vw, 26px);
-  border: 1px solid rgb(246 239 228 / 0.22);
-  background: rgb(5 5 5 / 0.74);
-  box-shadow: 0 30px 90px rgb(0 0 0 / 0.42);
+  border: 1px solid rgb(13 13 12 / 0.18);
+  background: rgb(255 255 255 / 0.94);
+  box-shadow: 0 24px 60px rgb(13 13 12 / 0.12);
   opacity: 0;
   text-align: left;
   transform: translate(-50%, 18px) scale(0.98);
@@ -898,14 +902,14 @@ body:has(.cc-page) {
 }
 
 .cc-intro-current-profit span {
-  color: rgb(246 239 228 / 0.66);
+  color: rgb(13 13 12 / 0.6);
   font-size: clamp(0.72rem, 1vw, 0.94rem);
   font-weight: 800;
   text-transform: uppercase;
 }
 
 .cc-intro-current-profit strong {
-  color: #f6efe4;
+  color: #0d0d0c;
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
@@ -947,6 +951,7 @@ body:has(.cc-page) {
   0% {
     opacity: 0;
     filter: blur(14px);
+    color: rgb(13 13 12 / 0.28);
     transform: translate3d(
         calc(-50% + var(--intro-dx)),
         calc(-50% + var(--intro-dy) + 26px),
@@ -955,10 +960,22 @@ body:has(.cc-page) {
       scale(var(--intro-scale));
   }
 
-  18%,
+  18% {
+    opacity: 1;
+    filter: blur(0);
+    color: rgb(13 13 12 / 0.32);
+    transform: translate3d(
+        calc(-50% + var(--intro-dx)),
+        calc(-50% + var(--intro-dy)),
+        0
+      )
+      scale(var(--intro-scale));
+  }
+
   58% {
     opacity: 1;
     filter: blur(0);
+    color: rgb(13 13 12 / 0.96);
     transform: translate3d(
         calc(-50% + var(--intro-dx)),
         calc(-50% + var(--intro-dy)),
@@ -970,6 +987,7 @@ body:has(.cc-page) {
   100% {
     opacity: 0;
     filter: blur(10px);
+    color: rgb(13 13 12 / 0.96);
     transform: translate3d(
         calc(-50% + var(--intro-dx) + 12px),
         calc(-50% + var(--intro-dy) - 18px),
@@ -4635,29 +4653,36 @@ body:has(.cc-page) {
   }
 
   .cc-intro-chart-column strong {
-    margin-top: clamp(150px, 21vh, 190px);
+    margin-top: clamp(40px, 6vh, 70px);
     font-size: clamp(1.5rem, 8.8vw, 2.7rem);
   }
 
   .cc-intro-chart-column small,
-  .cc-intro-risk-exposure small {
+  .cc-intro-risk-impact small,
+  .cc-intro-risk-item small {
     font-size: clamp(0.55rem, 2.2vw, 0.7rem);
   }
 
-  .cc-intro-risk-dollars {
-    gap: 7px;
-    min-height: 44px;
-    margin-top: clamp(100px, 15vh, 144px);
-    font-size: clamp(1rem, 6.8vw, 2rem);
+  .cc-intro-risk-impact {
+    margin-top: clamp(14px, 2.4vh, 22px);
   }
 
-  .cc-intro-risk-dollars span {
-    animation-name: cc-intro-risk-dollars-mobile;
-  }
-
-  .cc-intro-risk-exposure {
-    margin-top: clamp(30px, 5.5vh, 54px);
+  .cc-intro-risk-impact-value {
     font-size: clamp(1.05rem, 6.5vw, 2rem);
+  }
+
+  .cc-intro-risk-item {
+    margin-top: clamp(70px, 11vh, 110px);
+    padding: 10px 12px;
+  }
+
+  .cc-intro-risk-item-title {
+    font-size: clamp(0.62rem, 2.6vw, 0.85rem);
+    margin-bottom: 6px;
+  }
+
+  .cc-intro-risk-item-value {
+    font-size: clamp(1.15rem, 7vw, 2.2rem);
   }
 
   .cc-intro-current-profit {
