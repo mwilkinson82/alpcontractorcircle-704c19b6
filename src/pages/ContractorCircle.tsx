@@ -588,13 +588,14 @@ function PillarsSection() {
             {items.map((item, index) => {
               const slot = index - centerIndex;
               const distance = Math.abs(slot);
+              const angle = slot * 5.2;
               const style = {
                 "--fan-slot": slot,
                 "--fan-distance": distance,
-                "--fan-x": `calc(${slot} * clamp(74px, 8vw, 122px))`,
-                "--fan-rotate": `${slot * 4.65}deg`,
-                "--fan-y": `${-42 + distance * 30 + Math.max(0, distance - 2) * 11}px`,
-                "--fan-z": 80 - distance,
+                "--fan-angle": `${angle}deg`,
+                "--fan-angle-final": `${angle}deg`,
+                "--fan-angle-start": `${slot * 4.05}deg`,
+                "--fan-z": 90 - Math.round(distance * 4),
               } as CSSProperties;
               return (
                 <div
