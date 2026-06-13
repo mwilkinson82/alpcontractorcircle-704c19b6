@@ -1494,7 +1494,9 @@ body:has(.cc-page) {
 }
 
 .cc-stack-card-shift {
-  background: #fffdf8;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
   color: var(--cc-ink);
   width: min(1500px, calc(100vw - 32px));
   min-height: min(820px, calc(100svh - 120px));
@@ -1776,11 +1778,13 @@ body:has(.cc-page) {
 
 .cc-memory-system {
   position: relative;
-  display: grid;
-  grid-template-columns: minmax(400px, 0.82fr) minmax(500px, 1.18fr);
+  display: flex;
   align-items: center;
-  gap: clamp(36px, 5.4vw, 96px);
+  justify-content: center;
   height: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .cc-memory-copy,
@@ -1794,6 +1798,26 @@ body:has(.cc-page) {
   max-width: 560px;
   font-size: clamp(3rem, 5.2vw, 5.4rem);
   line-height: 0.93;
+}
+
+.cc-scroll-fill-text {
+  max-width: 1180px;
+  margin: clamp(14px, 2vw, 24px) auto 0;
+  color: rgb(21 21 21 / 0.19);
+  font-family:
+    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
+    Arial, sans-serif;
+  font-size: clamp(3.25rem, 6.4vw, 7.7rem);
+  font-weight: 600;
+  line-height: 0.98;
+  text-wrap: balance;
+}
+
+.cc-scroll-fill-text span {
+  display: inline-block;
+  margin-right: 0.18em;
+  color: rgb(21 21 21 / 0.19);
+  will-change: color;
 }
 
 .cc-memory-copy h2 span {
