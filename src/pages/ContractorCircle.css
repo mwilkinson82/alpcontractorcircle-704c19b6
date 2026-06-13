@@ -6166,12 +6166,12 @@ body:has(.cc-page) {
 }
 
 .cc-fan-arrow {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
   border-radius: 999px;
-  border: 1px solid rgb(13 13 12 / 0.16);
-  background: #ffffff;
-  color: #0d0d0c;
+  border: 1px solid rgb(255 255 255 / 0.12);
+  background: rgb(255 255 255 / 0.02);
+  color: rgb(255 255 255 / 0.6);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -6179,42 +6179,45 @@ body:has(.cc-page) {
   transition:
     background 0.25s ease,
     border-color 0.25s ease,
+    color 0.25s ease,
     transform 0.25s ease;
 }
 
 .cc-fan-arrow:hover {
-  background: #0d0d0c;
+  background: rgb(96 165 250 / 0.1);
   color: #ffffff;
-  border-color: #0d0d0c;
+  border-color: rgb(96 165 250 / 0.45);
   transform: translateY(-1px);
 }
 
 .cc-fan-arrow:focus-visible {
-  outline: 2px solid var(--cc-orange);
+  outline: 2px solid #60a5fa;
   outline-offset: 3px;
 }
 
 .cc-fan-arrow svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
 }
 
 .cc-fan-counter {
-  font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
-  font-size: 0.95rem;
-  color: rgb(13 13 12 / 0.7);
-  letter-spacing: 0.08em;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.82rem;
+  color: rgb(255 255 255 / 0.55);
+  letter-spacing: 0.12em;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  min-width: 80px;
+  gap: 8px;
+  min-width: 90px;
   justify-content: center;
 }
 
+.cc-fan-counter > span:first-child {
+  color: #ffffff;
+}
+
 .cc-fan-counter-sep {
-  opacity: 0.4;
+  opacity: 0.35;
 }
 
 /* Modal */
