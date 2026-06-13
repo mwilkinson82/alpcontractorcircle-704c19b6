@@ -625,8 +625,6 @@ function PillarsSection() {
                     href={CHECKOUT_URL}
                     className="cc-fan-card-cta"
                     onClick={e => e.stopPropagation()}
-                    tabIndex={slot === 0 ? 0 : -1}
-                    aria-hidden={slot === 0 ? undefined : true}
                   >
                     Join the Circle <ArrowUpRight aria-hidden="true" />
                   </a>
