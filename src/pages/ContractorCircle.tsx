@@ -5,7 +5,6 @@ import {
   useState,
   type CSSProperties,
   type RefObject,
-  type TouchEvent as ReactTouchEvent,
 } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -514,7 +513,17 @@ const pillars: Pillar[] = [
   },
 ];
 
-const floatingInsideWords = [
+type FloatingInsideWord = {
+  label: string;
+  className: string;
+  style: CSSProperties & {
+    "--word-x": string;
+    "--word-y": string;
+    "--word-delay": string;
+  };
+};
+
+const floatingInsideWords: FloatingInsideWord[] = [
   { label: "Contract", className: "is-ink", style: { "--word-x": "8%", "--word-y": "22%", "--word-delay": "0ms" } },
   { label: "Schedule Delay", className: "is-risk", style: { "--word-x": "70%", "--word-y": "18%", "--word-delay": "-1400ms" } },
   { label: "Systems and Procedures", className: "is-green", style: { "--word-x": "48%", "--word-y": "11%", "--word-delay": "-2600ms" } },
@@ -523,7 +532,7 @@ const floatingInsideWords = [
   { label: "Change Order", className: "is-risk", style: { "--word-x": "34%", "--word-y": "84%", "--word-delay": "-6100ms" } },
   { label: "Cash Flow", className: "is-green", style: { "--word-x": "88%", "--word-y": "42%", "--word-delay": "-7200ms" } },
   { label: "Buyout", className: "is-ink", style: { "--word-x": "10%", "--word-y": "46%", "--word-delay": "-8200ms" } },
-] satisfies Array<{ label: string; className: string; style: CSSProperties }>;
+];
 
 const memoryFillWords = [
   "Memory",
