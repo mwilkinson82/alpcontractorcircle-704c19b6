@@ -1256,6 +1256,7 @@ export default function ContractorCircle() {
                     </div>
                   </article>
                 ))}
+                </div>
               </div>
             </article>
 
