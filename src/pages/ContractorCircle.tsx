@@ -2043,6 +2043,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           }
         }
 
+        setupMemoryFill();
         const assetDeckCleanup = setupAssetDeck();
         const pillarFanCleanup = setupPillarFan();
         if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
@@ -2443,6 +2444,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
       };
 
+      setupMemoryFill();
       const assetDeckCleanup = setupAssetDeck();
       const pillarFanCleanup = setupPillarFan();
       if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
