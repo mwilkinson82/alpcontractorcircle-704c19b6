@@ -966,21 +966,28 @@ body:has(.cc-page) {
 .cc-intro-project-title {
   position: absolute;
   z-index: 4;
-  top: clamp(70px, 11.5vh, 116px);
-  left: clamp(40px, 12vw, 168px);
+  top: clamp(108px, 16vh, 168px);
+  left: clamp(42px, 12vw, 172px);
 
   margin: 0;
   color: rgb(13 13 12 / 0.78);
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(0.78rem, 1.05vw, 1rem);
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: clamp(1.1rem, 1.7vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: none;
   opacity: 0;
-  animation: cc-intro-current-profit 1200ms var(--cc-caption-ease) 2860ms forwards;
+  transform: translateY(8px);
+  animation: cc-intro-project-title 1200ms var(--cc-caption-ease) 2860ms forwards;
 }
+
+@keyframes cc-intro-project-title {
+  0% { opacity: 0; transform: translateY(8px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
 
 
 @keyframes cc-intro-shell {
