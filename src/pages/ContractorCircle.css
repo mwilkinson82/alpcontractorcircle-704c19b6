@@ -5920,13 +5920,11 @@ body:has(.cc-page) {
   height: clamp(400px, 50vw, 560px);
   margin: 0;
   padding: 0;
-  background: #0a0a0a;
-  border: 1px solid rgb(255 255 255 / 0.08);
-  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgb(13 13 12 / 0.06);
+  border-radius: 22px;
   overflow: visible;
-  box-shadow:
-    0 28px 70px -28px rgb(0 0 0 / 0.7),
-    inset 0 1px 0 rgb(255 255 255 / 0.03);
+  box-shadow: 0 28px 70px -28px rgb(13 13 12 / 0.28);
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -5935,46 +5933,27 @@ body:has(.cc-page) {
   transition:
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.5s ease,
-    box-shadow 0.4s ease,
-    border-color 0.4s ease;
+    box-shadow 0.4s ease;
   will-change: transform, opacity;
 }
 
 .cc-fan-card.is-active {
   cursor: zoom-in;
-  background: #111111;
-  border-color: rgb(96 165 250 / 0.35);
-  box-shadow:
-    0 48px 100px -32px rgb(0 0 0 / 0.85),
-    0 0 0 1px rgb(96 165 250 / 0.15),
-    0 0 60px rgb(59 130 246 / 0.12);
+  box-shadow: 0 48px 100px -32px rgb(13 13 12 / 0.42);
+  border-color: rgb(13 13 12 / 0.12);
 }
 
 .cc-fan-card:focus-visible {
-  outline: 2px solid #60a5fa;
+  outline: 2px solid var(--cc-orange);
   outline-offset: 4px;
 }
-
 
 .cc-fan-card-media {
   flex: 0 0 58%;
   margin: 0;
-  background:
-    linear-gradient(135deg, #0f0f0f 0%, #161616 100%);
+  background: linear-gradient(135deg, #f5f3ee 0%, #ebe7df 100%);
   overflow: hidden;
-  border-bottom: 1px solid rgb(255 255 255 / 0.06);
-  position: relative;
-}
-
-.cc-fan-card-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px);
-  background-size: 24px 24px;
-  pointer-events: none;
+  border-bottom: 1px solid rgb(13 13 12 / 0.06);
 }
 
 .cc-fan-card-media img {
@@ -5984,10 +5963,8 @@ body:has(.cc-page) {
   object-position: center;
   display: block;
   padding: clamp(12px, 1.6vw, 20px);
-  filter: brightness(0.92) contrast(1.05);
-  position: relative;
-  z-index: 1;
 }
+
 
 .cc-fan-card-body {
   flex: 1 1 auto;
