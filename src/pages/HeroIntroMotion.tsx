@@ -1,6 +1,6 @@
 import { useEffect, useState, type CSSProperties } from "react";
 
-const INTRO_DURATION_MS = 6900;
+const INTRO_DURATION_MS = 8600;
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 type FloatingWord = {
