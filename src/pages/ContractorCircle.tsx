@@ -528,10 +528,10 @@ function PillarsSection() {
 
   // Touch swipe support (mobile)
   const touchX = useRef<number | null>(null);
-  const onTouchStart = (e: React.TouchEvent) => {
+  const onTouchStart = (e: ReactTouchEvent) => {
     touchX.current = e.touches[0].clientX;
   };
-  const onTouchEnd = (e: React.TouchEvent) => {
+  const onTouchEnd = (e: ReactTouchEvent) => {
     if (touchX.current == null) return;
     const dx = e.changedTouches[0].clientX - touchX.current;
     touchX.current = null;
@@ -588,7 +588,7 @@ function PillarsSection() {
               const tilt = 9; // deg per slot
               const yPush = distance * distance * 14;
               const scale = slot === 0 ? 1.02 : 1 - distance * 0.04;
-              const style: React.CSSProperties = {
+              const style: CSSProperties = {
                 transform: `translate(-50%, 0) translateX(${slot * spread}px) translateY(${yPush}px) rotate(${slot * tilt}deg) scale(${scale})`,
                 zIndex: 20 - distance,
                 opacity: visible ? (distance >= 3 ? 0.35 : 1) : 0,
