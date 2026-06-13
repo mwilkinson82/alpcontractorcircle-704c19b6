@@ -31,6 +31,7 @@ import {
   type LucideIcon,
 } from "lucide-react";
 
+import HeroIntroMotion from "./HeroIntroMotion";
 import "./ContractorCircle.css";
 
 type CloudflareStreamPlayer = {
@@ -462,31 +463,6 @@ function ProductDeckCard({
   );
 }
 
-function OpeningBrand() {
-  return (
-    <section
-      className="cc-opening-brand"
-      aria-label="Contractor Circle opening"
-    >
-      <SystemsField className="cc-opening-field" variant="stack" />
-      <div className="cc-opening-shapes" aria-hidden="true">
-        <span className="cc-opening-shape cc-opening-shape-orange" />
-        <span className="cc-opening-shape cc-opening-shape-blue" />
-        <span className="cc-opening-shape cc-opening-shape-green" />
-        <span className="cc-opening-shape cc-opening-shape-pink" />
-      </div>
-      <div className="cc-opening-copy">
-        <p data-splash-caption>ALP</p>
-        <h1>
-          <span data-splash-caption>Contractor</span>
-          <span data-splash-caption>Circle</span>
-        </h1>
-        <strong data-splash-caption>The company behind the projects.</strong>
-      </div>
-    </section>
-  );
-}
-
 function ProductDeckSection() {
   return (
     <section
@@ -564,10 +540,18 @@ export default function ContractorCircle() {
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
   const [heroVideoReady, setHeroVideoReady] = useState(false);
+  const [heroIntroComplete, setHeroIntroComplete] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
   const [showMobileCta, setShowMobileCta] = useState(false);
 
   const streamRuntimeReady = useCloudflareStreamRuntime();
   useContractorCircleMotion(rootRef);
+
+  const handleHeroIntroComplete = useCallback(() => {
+    setHeroIntroComplete(true);
+  }, []);
 
   const scrollOfferWall = useCallback((direction: "previous" | "next") => {
     const viewport = offerWallViewportRef.current;
@@ -824,13 +808,15 @@ export default function ContractorCircle() {
       </header>
 
       <main id="top">
-        <OpeningBrand />
-
         <section
           className={`cc-video-hero ${
             heroVideoReady || videoUnavailable
               ? "is-video-ready"
               : "is-video-loading"
+          } ${
+            heroIntroComplete
+              ? "is-hero-intro-complete"
+              : "is-hero-intro-active"
           }`}
           aria-label="Contractor Circle introduction video"
         >
@@ -881,6 +867,7 @@ export default function ContractorCircle() {
             />
           ) : null}
           <div className="cc-video-shade" />
+          <HeroIntroMotion onComplete={handleHeroIntroComplete} />
           {!videoUnavailable ? (
             <button
               className="cc-sound-button"
