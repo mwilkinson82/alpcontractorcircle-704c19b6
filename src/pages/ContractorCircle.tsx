@@ -512,46 +512,51 @@ function PillarsSection() {
             that holds every tool, template, replay, and SOP between them.
           </p>
         </div>
-        <div className="cc-pillars-grid">
-          {pillars.map(pillar => {
-            const Icon = pillar.icon;
-            return (
-              <article
-                key={pillar.number}
-                className={`cc-pillar-card cc-detail-reveal${
-                  pillar.isGateway ? " is-gateway" : ""
-                }`}
-                aria-label={`${pillar.eyebrow}: ${pillar.title}`}
-              >
-                <figure className="cc-pillar-media">
-                  <img src={pillar.image} alt={pillar.imageAlt} />
-                </figure>
-                <div className="cc-pillar-body">
-                  <p className="cc-pillar-label">
-                    <span>{pillar.number}</span>
-                    <Icon aria-hidden="true" />
-                    {pillar.eyebrow}
-                  </p>
-                  <h3>{pillar.title}</h3>
-                  <p className="cc-pillar-outcome">{pillar.outcome}</p>
-                  <ul className="cc-pillar-bullets">
-                    {pillar.bullets.map(bullet => (
-                      <li key={bullet}>
-                        <Check aria-hidden="true" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  {pillar.isGateway ? (
-                    <a className="cc-pillar-handoff" href="#asset-deck">
-                      …and every asset has a job to do
-                      <ArrowDown aria-hidden="true" />
-                    </a>
-                  ) : null}
-                </div>
-              </article>
-            );
-          })}
+        <div className="cc-pillars-stage">
+          <span className="cc-blob cc-blob-warm" aria-hidden="true" />
+          <span className="cc-blob cc-blob-cool" aria-hidden="true" />
+          <div className="cc-pillars-fan" data-pillar-fan>
+            {pillars.map((pillar, index) => {
+              const Icon = pillar.icon;
+              return (
+                <article
+                  key={pillar.number}
+                  className={`cc-pillar-card cc-detail-reveal${
+                    pillar.isGateway ? " is-gateway" : ""
+                  }`}
+                  data-pillar-index={index}
+                  aria-label={`${pillar.eyebrow}: ${pillar.title}`}
+                >
+                  <figure className="cc-pillar-media">
+                    <img src={pillar.image} alt={pillar.imageAlt} />
+                  </figure>
+                  <div className="cc-pillar-body">
+                    <p className="cc-pillar-label">
+                      <span>{pillar.number}</span>
+                      <Icon aria-hidden="true" />
+                      {pillar.eyebrow}
+                    </p>
+                    <h3>{pillar.title}</h3>
+                    <p className="cc-pillar-outcome">{pillar.outcome}</p>
+                    <ul className="cc-pillar-bullets">
+                      {pillar.bullets.map(bullet => (
+                        <li key={bullet}>
+                          <Check aria-hidden="true" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    {pillar.isGateway ? (
+                      <a className="cc-pillar-handoff" href="#asset-deck">
+                        …and every asset has a job to do
+                        <ArrowDown aria-hidden="true" />
+                      </a>
+                    ) : null}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
         </div>
       </div>
     </section>
@@ -1192,11 +1197,15 @@ export default function ContractorCircle() {
                   membership.
                 </p>
               </div>
-              <div
-                className="cc-asset-deck"
-                role="list"
-                aria-label="Contractor Circle assets"
-              >
+              <div className="cc-asset-deck-stage">
+                <span className="cc-blob cc-blob-cool cc-blob-asset-left" aria-hidden="true" />
+                <span className="cc-blob cc-blob-warm cc-blob-asset-right" aria-hidden="true" />
+                <div
+                  className="cc-asset-deck"
+                  role="list"
+                  aria-label="Contractor Circle assets"
+                  data-asset-carousel
+                >
                 {productProofItems.map((item, index) => (
                   <article
                     className="cc-asset-card cc-detail-reveal"
@@ -1247,6 +1256,7 @@ export default function ContractorCircle() {
                     </div>
                   </article>
                 ))}
+                </div>
               </div>
             </article>
 
@@ -1561,57 +1571,151 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           ? "compact"
           : "desktop";
 
+      const setupPillarFan = () => {
+        const fan = root.querySelector<HTMLElement>("[data-pillar-fan]");
+        if (!fan) return;
+        const cards = Array.from(
+          fan.querySelectorAll<HTMLElement>(".cc-pillar-card")
+        );
+        if (!cards.length) return;
+
+        // Read each card's CSS-applied tilt/translate so the scroll-in
+        // animation lands exactly on the fanned final state.
+        const finals = cards.map(card => {
+          const cs = getComputedStyle(card);
+          return { transform: cs.transform };
+        });
+
+        if (isCompact) {
+          gsap.set(cards, { clearProps: "all" });
+          return;
+        }
+
+        cards.forEach((card, i) => {
+          gsap.fromTo(
+            card,
+            {
+              y: 120,
+              rotate: 0,
+              scale: 0.7,
+              autoAlpha: 0,
+            },
+            {
+              y: 0,
+              rotate: () => {
+                // mirror the CSS rotation per index
+                const r = [-7, -2, 3, 8][i] ?? 0;
+                return r;
+              },
+              scale: 1,
+              autoAlpha: 1,
+              ease: "power3.out",
+              duration: 0.9,
+              delay: i * 0.08,
+              scrollTrigger: {
+                trigger: fan,
+                start: "top 78%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
+        void finals;
+      };
+
       const setupAssetDeck = () => {
-        const deck = root.querySelector<HTMLElement>(".cc-asset-deck");
+        const deck = root.querySelector<HTMLElement>("[data-asset-carousel]");
         if (!deck) return;
         const cards = Array.from(
           deck.querySelectorAll<HTMLElement>(".cc-asset-card")
         );
         if (!cards.length) return;
 
-        if (isCompact) {
-          gsap.set(cards, {
-            autoAlpha: 1,
-            x: 0,
-            y: 0,
-            rotate: 0,
-            scale: 1,
-            filter: "none",
-            clearProps: "transform",
-          });
-          return;
-        }
+        // Per-card target rotation matching the CSS rest tilt.
+        const restRotation = (i: number) => {
+          if ((i + 1) % 3 === 0) return -1;
+          return i % 2 === 0 ? -3 : 4;
+        };
+        const restY = (i: number) => {
+          if ((i + 1) % 3 === 0) return 14;
+          return i % 2 === 0 ? 8 : -4;
+        };
 
-        const rotations = [-6, -3, -1, 2, 4, 6, -2, 3];
+        // Scroll-in stagger: each card rises and tilts into its CSS rest state.
+        cards.forEach((card, i) => {
+          gsap.fromTo(
+            card,
+            { y: 100, rotate: 0, autoAlpha: 0, scale: 0.92 },
+            {
+              y: restY(i),
+              rotate: restRotation(i),
+              autoAlpha: 1,
+              scale: 1,
+              ease: "power2.out",
+              duration: 0.8,
+              delay: i * 0.07,
+              scrollTrigger: {
+                trigger: deck,
+                start: "top 82%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
 
-        gsap.fromTo(
-          cards,
-          (i: number) => ({
-            x: 0,
-            y: 60,
-            rotate: rotations[i % rotations.length],
-            scale: 0.86,
-            autoAlpha: 0.55,
-            transformOrigin: "center bottom",
-          }),
-          {
-            x: 0,
-            y: 0,
-            rotate: 0,
-            scale: 1,
-            autoAlpha: 1,
-            ease: "power2.out",
-            stagger: { each: 0.04, from: "center" },
-            scrollTrigger: {
-              trigger: deck,
-              start: "top 82%",
-              end: "top 28%",
-              scrub: 0.6,
-              invalidateOnRefresh: true,
-            },
+        if (isCompact) return;
+
+        // Auto-drift: slow horizontal scroll while the deck is in view,
+        // paused on pointer interaction.
+        let raf = 0;
+        let last = performance.now();
+        let active = false;
+        let paused = false;
+        const speed = 22; // px/sec
+
+        const tick = (now: number) => {
+          const dt = (now - last) / 1000;
+          last = now;
+          if (active && !paused) {
+            const max = deck.scrollWidth - deck.clientWidth;
+            if (max > 0) {
+              let next = deck.scrollLeft + speed * dt;
+              if (next >= max) next = 0;
+              deck.scrollLeft = next;
+            }
           }
-        );
+          raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+
+        ScrollTrigger.create({
+          trigger: deck,
+          start: "top 75%",
+          end: "bottom 25%",
+          onToggle: self => {
+            active = self.isActive;
+            last = performance.now();
+          },
+        });
+
+        const pause = () => { paused = true; };
+        const resume = () => { paused = false; last = performance.now(); };
+        deck.addEventListener("pointerenter", pause);
+        deck.addEventListener("pointerleave", resume);
+        deck.addEventListener("pointerdown", pause);
+        deck.addEventListener("focusin", pause);
+        deck.addEventListener("focusout", resume);
+
+        return () => {
+          cancelAnimationFrame(raf);
+          deck.removeEventListener("pointerenter", pause);
+          deck.removeEventListener("pointerleave", resume);
+          deck.removeEventListener("pointerdown", pause);
+          deck.removeEventListener("focusin", pause);
+          deck.removeEventListener("focusout", resume);
+        };
       };
+
 
 
       if (isCompact) {
@@ -1718,6 +1822,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
 
         setupAssetDeck();
+        setupPillarFan();
 
         const mobileStackCards =
           gsap.utils.toArray<HTMLElement>(".cc-stack-card");
@@ -2115,6 +2220,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       };
 
       setupAssetDeck();
+      setupPillarFan();
 
       const stack = root.querySelector<HTMLElement>(".cc-card-stack");
       const stackStage = root.querySelector<HTMLElement>(".cc-stack-sticky");
