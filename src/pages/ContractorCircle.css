@@ -89,7 +89,17 @@ body:has(.cc-page) {
   font-size: 0.82rem;
   font-weight: 600;
   text-transform: uppercase;
+  transition: color 400ms ease;
 }
+
+.cc-nav.is-on-paper {
+  color: #0d0d0c;
+}
+
+.cc-nav.is-on-paper .cc-nav-button {
+  border-color: rgb(13 13 12 / 0.4);
+}
+
 
 .cc-brand,
 .cc-nav-actions {
