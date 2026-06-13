@@ -241,7 +241,7 @@ const floatingWords: FloatingWord[] = [
   },
 ];
 
-const riskDollars = ["$$$", "$$$", "$$$"];
+
 
 function wordStyle(word: FloatingWord) {
   return {
