@@ -1622,7 +1622,9 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         if (!cards.length) return;
 
         if (isCompact) {
-          gsap.set(cards, { clearProps: "all" });
+          gsap.set(cards, {
+            clearProps: "transform,opacity,visibility,x,y,scale,rotate",
+          });
           return;
         }
 
