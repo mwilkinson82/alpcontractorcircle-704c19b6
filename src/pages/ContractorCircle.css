@@ -914,8 +914,9 @@ body:has(.cc-page) {
 .cc-intro-project-title {
   position: absolute;
   z-index: 4;
-  top: clamp(20px, 3vh, 36px);
-  left: clamp(22px, 4vw, 56px);
+  top: clamp(70px, 11.5vh, 116px);
+  left: clamp(40px, 12vw, 168px);
+
   margin: 0;
   color: rgb(13 13 12 / 0.78);
   font-family:
