@@ -1268,32 +1268,6 @@ body:has(.cc-page) {
   will-change: filter, opacity, transform;
 }
 
-.cc-hero-copy::before,
-.cc-hero-copy::after {
-  display: none;
-  content: none;
-}
-
-.cc-hero-copy::before {
-  top: 8%;
-  right: -8vw;
-  width: min(34vw, 520px);
-  height: min(30vw, 440px);
-  background: #44e886;
-  clip-path: polygon(0 12%, 100% 0, 84% 100%, 12% 78%);
-  transform: rotate(8deg);
-}
-
-.cc-hero-copy::after {
-  left: -10vw;
-  bottom: 4%;
-  width: min(38vw, 560px);
-  height: min(28vw, 420px);
-  background: #ffcf35;
-  clip-path: polygon(8% 0, 100% 18%, 74% 100%, 0 68%);
-  transform: rotate(-9deg);
-}
-
 .cc-hero-field {
   position: absolute;
   inset: auto 0 4% 0;
