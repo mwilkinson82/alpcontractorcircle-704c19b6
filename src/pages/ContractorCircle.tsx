@@ -1011,7 +1011,6 @@ export default function ContractorCircle() {
           className="cc-card-stack"
           aria-label="Contractor Circle story"
         >
-          <SystemsField className="cc-stack-field" variant="stack" />
           <div className="cc-stack-sticky">
             <article className="cc-stack-card cc-stack-card-shift">
               <div className="cc-memory-system cc-caption">
