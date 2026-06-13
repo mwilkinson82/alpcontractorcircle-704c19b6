@@ -830,6 +830,7 @@ body:has(.cc-page) {
 
 .cc-intro-profit-column {
   z-index: 5;
+  padding-top: clamp(96px, 14vh, 160px);
 }
 
 .cc-intro-risk-column {
