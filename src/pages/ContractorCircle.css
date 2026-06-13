@@ -5876,10 +5876,10 @@ body:has(.cc-page) {
    ============================================================ */
 .cc-pillars-section {
   position: relative;
-  padding: clamp(86px, 12vh, 132px) clamp(24px, 6vw, 96px) 0;
-  background: #f8f6ef;
+  padding: clamp(92px, 12vh, 138px) 0 clamp(74px, 10vh, 116px);
+  background: var(--cc-paper);
   color: #0d0d0c;
-  min-height: min(940px, 112svh);
+  min-height: min(980px, 112svh);
   overflow: hidden;
   isolation: isolate;
 }
@@ -5887,16 +5887,16 @@ body:has(.cc-page) {
 .cc-pillars-inner {
   position: relative;
   z-index: 2;
-  max-width: 1320px;
+  max-width: none;
   margin: 0 auto;
   display: grid;
-  gap: clamp(22px, 3.5vh, 46px);
+  gap: clamp(30px, 5vh, 62px);
 }
 
 .cc-pillars-copy {
   display: grid;
   gap: 0;
-  max-width: min(100%, 1320px);
+  max-width: min(100% - 40px, 1320px);
   margin: 0 auto;
   text-align: center;
   justify-items: center;
@@ -5907,7 +5907,7 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(2.45rem, 5.2vw, 5.55rem);
+  font-size: clamp(2.5rem, 5.35vw, 5.9rem);
   font-weight: 600;
   line-height: 1.02;
   letter-spacing: 0;
