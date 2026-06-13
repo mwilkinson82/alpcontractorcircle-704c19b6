@@ -3,7 +3,9 @@ import {
   useEffect,
   useRef,
   useState,
+  type CSSProperties,
   type RefObject,
+  type TouchEvent as ReactTouchEvent,
 } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,6 +17,8 @@ import {
   BookOpen,
   CalendarDays,
   Check,
+  ChevronLeft,
+  ChevronRight,
   CircleDollarSign,
   ClipboardList,
   LockKeyhole,
@@ -28,8 +32,14 @@ import {
   UserRoundCheck,
   Users,
   Video,
+  X,
   type LucideIcon,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 
 import HeroIntroMotion from "./HeroIntroMotion";
@@ -505,10 +515,46 @@ const pillars: Pillar[] = [
 ];
 
 function PillarsSection() {
+  const items = productProofItems;
+  const [active, setActive] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const go = useCallback(
+    (dir: number) => {
+      setActive(prev => (prev + dir + items.length) % items.length);
+    },
+    [items.length]
+  );
+
+  // Touch swipe support (mobile)
+  const touchX = useRef<number | null>(null);
+  const onTouchStart = (e: ReactTouchEvent) => {
+    touchX.current = e.touches[0].clientX;
+  };
+  const onTouchEnd = (e: ReactTouchEvent) => {
+    if (touchX.current == null) return;
+    const dx = e.changedTouches[0].clientX - touchX.current;
+    touchX.current = null;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+  };
+
+  // Keyboard nav
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (openIndex !== null) return;
+      if (e.key === "ArrowLeft") go(-1);
+      if (e.key === "ArrowRight") go(1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [go, openIndex]);
+
+  const openItem = openIndex !== null ? items[openIndex] : null;
+
   return (
     <section
       className="cc-pillars-section"
-      aria-label="What's inside Contractor Circle"
+      aria-label="Everything inside Contractor Circle"
     >
       <div className="cc-pillars-inner">
         <div className="cc-pillars-copy cc-caption">
@@ -516,64 +562,164 @@ function PillarsSection() {
             What's Inside
           </p>
           <h2>
-            <span data-caption>What you</span>
-            <span data-caption>actually get.</span>
+            <span data-caption>Everything inside</span>
+            <span data-caption>Contractor Circle.</span>
           </h2>
           <p className="cc-subhead" data-caption>
-            Contractor Circle is four moving parts that work together:
-            bi-weekly calls with Marshall, a monthly bootcamp that installs
-            a real operating system, a members-only community, and a portal
-            that holds every tool, template, replay, and SOP between them.
+            Every call, bootcamp, tool, template, replay, and SOP — laid out
+            so you can see exactly what comes with membership. Click any card
+            for the full breakdown.
           </p>
         </div>
-        <div className="cc-pillars-stage">
-          <div className="cc-pillars-fan" data-pillar-fan>
-            {pillars.map((pillar, index) => {
-              const Icon = pillar.icon;
+
+        <div
+          className="cc-fan-stage"
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+        >
+          <div className="cc-fan-track" role="list">
+            {items.map((item, index) => {
+              let slot = index - active;
+              if (slot > items.length / 2) slot -= items.length;
+              if (slot < -items.length / 2) slot += items.length;
+              const distance = Math.abs(slot);
+              const visible = distance <= 3;
+              const spread = 320; // px between cards
+              const tilt = 9; // deg per slot
+              const yPush = distance * distance * 14;
+              const scale = slot === 0 ? 1.02 : 1 - distance * 0.04;
+              const style: CSSProperties = {
+                transform: `translate(-50%, 0) translateX(${slot * spread}px) translateY(${yPush}px) rotate(${slot * tilt}deg) scale(${scale})`,
+                zIndex: 20 - distance,
+                opacity: visible ? (distance >= 3 ? 0.35 : 1) : 0,
+                pointerEvents: visible ? "auto" : "none",
+              };
               return (
-                <article
-                  key={pillar.number}
-                  className={`cc-pillar-card cc-detail-reveal${
-                    pillar.isGateway ? " is-gateway" : ""
-                  }`}
-                  data-pillar-index={index}
-                  aria-label={`${pillar.eyebrow}: ${pillar.title}`}
+                <button
+                  type="button"
+                  key={item.number}
+                  className={`cc-fan-card${slot === 0 ? " is-active" : ""}`}
+                  style={style}
+                  data-slot={slot}
+                  aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")} — open details`}
+                  aria-current={slot === 0 ? "true" : undefined}
+                  onClick={() => {
+                    if (slot === 0) setOpenIndex(index);
+                    else setActive(index);
+                  }}
+                  role="listitem"
                 >
-                  <figure className="cc-pillar-media">
-                    <img src={pillar.image} alt={pillar.imageAlt} />
+                  <figure className="cc-fan-card-media">
+                    <img src={item.image} alt={item.imageAlt} loading="lazy" />
                   </figure>
-                  <div className="cc-pillar-body">
-                    <p className="cc-pillar-label">
-                      <span>{pillar.number}</span>
-                      <Icon aria-hidden="true" />
-                      {pillar.eyebrow}
-                    </p>
-                    <h3>{pillar.title}</h3>
-                    <p className="cc-pillar-outcome">{pillar.outcome}</p>
-                    <ul className="cc-pillar-bullets">
-                      {pillar.bullets.map(bullet => (
-                        <li key={bullet}>
-                          <Check aria-hidden="true" />
-                          <span>{bullet}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    {pillar.isGateway ? (
-                      <a className="cc-pillar-handoff" href="#asset-deck">
-                        …and every asset has a job to do
-                        <ArrowDown aria-hidden="true" />
-                      </a>
-                    ) : null}
+                  <div className="cc-fan-card-body">
+                    <p className="cc-fan-card-eyebrow">{item.eyebrow}</p>
+                    <h3>{item.headlineLines.join(" ")}</h3>
+                    <p className="cc-fan-card-body-copy">{item.body}</p>
+                    <span className="cc-fan-card-cta">
+                      Try It Now <ArrowUpRight aria-hidden="true" />
+                    </span>
                   </div>
-                </article>
+                </button>
               );
             })}
           </div>
+
+          <div className="cc-fan-controls" aria-label="Cycle through assets">
+            <button
+              type="button"
+              className="cc-fan-arrow"
+              onClick={() => go(-1)}
+              aria-label="Previous asset"
+            >
+              <ChevronLeft aria-hidden="true" />
+            </button>
+            <div className="cc-fan-counter" aria-live="polite">
+              <span>{String(active + 1).padStart(2, "0")}</span>
+              <span className="cc-fan-counter-sep">/</span>
+              <span>{String(items.length).padStart(2, "0")}</span>
+            </div>
+            <button
+              type="button"
+              className="cc-fan-arrow"
+              onClick={() => go(1)}
+              aria-label="Next asset"
+            >
+              <ChevronRight aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
+
+      <Dialog
+        open={openIndex !== null}
+        onOpenChange={open => {
+          if (!open) setOpenIndex(null);
+        }}
+      >
+        <DialogContent className="cc-fan-modal">
+          {openItem ? (
+            <div className="cc-fan-modal-grid">
+              <figure className="cc-fan-modal-media">
+                <img src={openItem.image} alt={openItem.imageAlt} />
+              </figure>
+              <div className="cc-fan-modal-body">
+                <p className="cc-fan-modal-eyebrow">
+                  <span>{openItem.number}</span>
+                  {openItem.eyebrow}
+                </p>
+                <h3>{openItem.headlineLines.join(" ")}</h3>
+                <p className="cc-fan-modal-copy">{openItem.body}</p>
+                <ul className="cc-fan-modal-points">
+                  {openItem.points.map(point => (
+                    <li key={point.label}>
+                      <Check aria-hidden="true" />
+                      <div>
+                        <strong>{point.label}</strong>
+                        <span>{point.value}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+                {(openItem.links?.length || openItem.walkthrough) && (
+                  <div className="cc-fan-modal-actions">
+                    {openItem.walkthrough && (
+                      <a
+                        href={openItem.walkthrough.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="cc-fan-modal-link is-primary"
+                      >
+                        {openItem.walkthrough.cta}
+                        <ArrowUpRight aria-hidden="true" />
+                      </a>
+                    )}
+                    {openItem.links?.map(link => (
+                      <a
+                        key={link.href}
+                        href={link.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className={`cc-fan-modal-link${link.variant === "blue" ? " is-blue" : ""}`}
+                      >
+                        {link.label}
+                        <ArrowUpRight aria-hidden="true" />
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : null}
+          <DialogClose className="cc-fan-modal-close" aria-label="Close">
+            <X aria-hidden="true" />
+          </DialogClose>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
+
 
 
 function useCloudflareStreamRuntime() {
@@ -1191,84 +1337,8 @@ export default function ContractorCircle() {
               </div>
             </article>
 
-            <article
-              id="asset-deck"
-              className="cc-stack-card cc-stack-card-asset-deck"
-            >
-              <div className="cc-asset-deck-copy cc-caption">
-                <p className="cc-eyebrow" data-caption>
-                  Inside the Circle
-                </p>
-                <h2>
-                  <span data-caption>Every asset has</span>
-                  <span data-caption>a job to do.</span>
-                </h2>
-                <p className="cc-subhead" data-caption>
-                  Every tool, template, replay, and SOP behind the portal —
-                  laid out so you can actually see what comes with
-                  membership.
-                </p>
-              </div>
-              <div className="cc-asset-deck-stage">
-                <div
-                  className="cc-asset-deck"
-                  role="list"
-                  aria-label="Contractor Circle assets"
-                  data-asset-carousel
-                >
-                {productProofItems.map((item, index) => (
-                  <article
-                    className="cc-asset-card cc-detail-reveal"
-                    key={item.number}
-                    role="listitem"
-                    data-asset-card={index + 1}
-                  >
-                    <figure className="cc-asset-card-media">
-                      <img src={item.image} alt={item.imageAlt} />
-                    </figure>
-                    <div className="cc-asset-card-body">
-                      <p className="cc-asset-card-label">
-                        <span>{item.number}</span>
-                        {item.eyebrow}
-                      </p>
-                      <h3>{item.headlineLines.join(" ")}</h3>
-                      <p className="cc-asset-card-body-copy">{item.body}</p>
-                      <div className="cc-asset-card-tags">
-                        {item.points.slice(0, 3).map(point => (
-                          <span key={point.label}>{point.label}</span>
-                        ))}
-                      </div>
-                      {(item.walkthrough || item.links?.[0]) && (
-                        <div className="cc-asset-card-actions">
-                          {item.walkthrough ? (
-                            <a
-                              href={item.walkthrough.href}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              {item.walkthrough.cta}
-                              <ArrowUpRight aria-hidden="true" />
-                            </a>
-                          ) : null}
-                          {item.links?.slice(0, 1).map(link => (
-                            <a
-                              key={link.href}
-                              href={link.href}
-                              target="_blank"
-                              rel="noreferrer"
-                            >
-                              {link.label}
-                              <ArrowUpRight aria-hidden="true" />
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  </article>
-                ))}
-                </div>
-              </div>
-            </article>
+
+
 
 
             <article className="cc-stack-card cc-stack-card-installed">
