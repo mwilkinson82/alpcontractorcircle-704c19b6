@@ -622,16 +622,8 @@ export default function ContractorCircle() {
     heroIntroCompleteRef.current = heroIntroComplete;
   }, [heroIntroComplete]);
 
-  const scrollOfferWall = useCallback((direction: "previous" | "next") => {
-    const viewport = offerWallViewportRef.current;
-    if (!viewport) return;
 
-    const distance = viewport.clientWidth * 0.82;
-    viewport.scrollBy({
-      left: direction === "next" ? distance : -distance,
-      behavior: "smooth",
-    });
-  }, []);
+
 
   const ensureHeroVideoPlayback = useCallback((allowMutedFallback = false) => {
     const player = streamPlayerRef.current;
@@ -1086,7 +1078,7 @@ export default function ContractorCircle() {
           </div>
         </section>
 
-        <ProductDeckSection />
+        <PillarsSection />
 
         <section
           className="cc-card-stack"
