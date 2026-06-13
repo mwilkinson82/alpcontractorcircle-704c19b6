@@ -1628,14 +1628,16 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         cards.forEach((card, index) => {
           const slot = Number(card.style.getPropertyValue("--fan-slot")) || 0;
           const distance = Math.abs(slot);
-          const finalX = slot * Math.min(122, Math.max(72, window.innerWidth * 0.082));
+          const finalX =
+            slot * Math.min(122, Math.max(72, window.innerWidth * 0.082)) -
+            card.offsetWidth / 2;
           const finalY = -42 + distance * 30 + Math.max(0, distance - 2) * 11;
           const finalRotate = slot * 4.65;
 
           gsap.fromTo(
             card,
             {
-              x: slot * 12,
+              x: slot * 12 - card.offsetWidth / 2,
               y: 108,
               rotate: 0,
               scale: 0.88,
