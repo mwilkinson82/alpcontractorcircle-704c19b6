@@ -6428,6 +6428,16 @@ body:has(.cc-page) {
 }
 
 @media (max-width: 860px) {
+  .cc-scroll-fill-text {
+    font-size: clamp(2.45rem, 11vw, 4.6rem);
+    line-height: 1.02;
+    text-align: left;
+  }
+
+  .cc-memory-system {
+    text-align: left;
+  }
+
   .cc-pillars-section {
     padding: 64px 0 72px;
   }
