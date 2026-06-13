@@ -4653,29 +4653,36 @@ body:has(.cc-page) {
   }
 
   .cc-intro-chart-column strong {
-    margin-top: clamp(150px, 21vh, 190px);
+    margin-top: clamp(40px, 6vh, 70px);
     font-size: clamp(1.5rem, 8.8vw, 2.7rem);
   }
 
   .cc-intro-chart-column small,
-  .cc-intro-risk-exposure small {
+  .cc-intro-risk-impact small,
+  .cc-intro-risk-item small {
     font-size: clamp(0.55rem, 2.2vw, 0.7rem);
   }
 
-  .cc-intro-risk-dollars {
-    gap: 7px;
-    min-height: 44px;
-    margin-top: clamp(100px, 15vh, 144px);
-    font-size: clamp(1rem, 6.8vw, 2rem);
+  .cc-intro-risk-impact {
+    margin-top: clamp(14px, 2.4vh, 22px);
   }
 
-  .cc-intro-risk-dollars span {
-    animation-name: cc-intro-risk-dollars-mobile;
-  }
-
-  .cc-intro-risk-exposure {
-    margin-top: clamp(30px, 5.5vh, 54px);
+  .cc-intro-risk-impact-value {
     font-size: clamp(1.05rem, 6.5vw, 2rem);
+  }
+
+  .cc-intro-risk-item {
+    margin-top: clamp(70px, 11vh, 110px);
+    padding: 10px 12px;
+  }
+
+  .cc-intro-risk-item-title {
+    font-size: clamp(0.62rem, 2.6vw, 0.85rem);
+    margin-bottom: 6px;
+  }
+
+  .cc-intro-risk-item-value {
+    font-size: clamp(1.15rem, 7vw, 2.2rem);
   }
 
   .cc-intro-current-profit {
