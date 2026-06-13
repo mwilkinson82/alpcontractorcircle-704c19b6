@@ -291,8 +291,9 @@ export default function HeroIntroMotion({
 
   return (
     <div className="cc-hero-intro-motion" aria-hidden="true">
-      <div className="cc-intro-grid" />
+      <p className="cc-intro-project-title">Your Construction Project</p>
       <div className="cc-intro-scan" />
+
       <div className="cc-intro-word-cloud">
         {floatingWords.map(word => (
           <span
