@@ -6037,9 +6037,9 @@ body:has(.cc-page) {
 
 .cc-fan-card-body {
   flex: 1 1 auto;
-  padding: clamp(16px, 1.8vw, 24px);
+  padding: clamp(13px, 1.25vw, 18px) 6px clamp(18px, 1.8vw, 24px);
   display: grid;
-  gap: clamp(6px, 0.8vw, 10px);
+  gap: 6px;
   align-content: start;
 }
 
@@ -6057,20 +6057,20 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
-  font-weight: 600;
-  line-height: 1.18;
-  letter-spacing: -0.005em;
+  font-size: clamp(1rem, 1.08vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
   color: #0d0d0c;
 }
 
 .cc-fan-card-body-copy {
   margin: 0;
   color: rgb(13 13 12 / 0.7);
-  font-size: clamp(0.84rem, 0.95vw, 0.92rem);
-  line-height: 1.45;
+  font-size: clamp(0.74rem, 0.78vw, 0.84rem);
+  line-height: 1.35;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -6092,10 +6092,7 @@ body:has(.cc-page) {
 }
 
 .cc-fan-card-cta {
-  position: absolute;
-  left: clamp(16px, 1.8vw, 24px);
-  bottom: clamp(16px, 1.8vw, 22px);
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 6px;
   color: var(--cc-orange);
@@ -6136,7 +6133,7 @@ body:has(.cc-page) {
 .cc-fan-controls {
   position: relative;
   z-index: 5;
-  margin-top: clamp(24px, 3vh, 40px);
+  margin-top: -8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6144,11 +6141,11 @@ body:has(.cc-page) {
 }
 
 .cc-fan-arrow {
-  width: 52px;
-  height: 52px;
+  width: 38px;
+  height: 38px;
   border-radius: 999px;
   border: 1px solid rgb(13 13 12 / 0.16);
-  background: #ffffff;
+  background: transparent;
   color: #0d0d0c;
   display: inline-flex;
   align-items: center;
@@ -6181,8 +6178,8 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: 0.95rem;
-  color: rgb(13 13 12 / 0.7);
+  font-size: 0.74rem;
+  color: rgb(13 13 12 / 0.42);
   letter-spacing: 0.08em;
   display: inline-flex;
   align-items: center;
