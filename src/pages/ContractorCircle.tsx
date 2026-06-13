@@ -564,50 +564,8 @@ function ScrollFillText({ words }: { words: string[] }) {
 
 function PillarsSection() {
   const items = productProofItems;
-  const [active, setActive] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-
-  const go = useCallback(
-    (dir: number) => {
-      const track = trackRef.current;
-      if (!track) return;
-      track.scrollBy({
-        left: dir * Math.min(track.clientWidth * 0.84, 680),
-        behavior: "smooth",
-      });
-    },
-    []
-  );
-
-  const updateActiveFromScroll = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const cards = Array.from(track.querySelectorAll<HTMLElement>(".cc-fan-card"));
-    const center = track.scrollLeft + track.clientWidth / 2;
-    let closestIndex = 0;
-    let closestDistance = Number.POSITIVE_INFINITY;
-    cards.forEach((card, index) => {
-      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
-      const distance = Math.abs(cardCenter - center);
-      if (distance < closestDistance) {
-        closestDistance = distance;
-        closestIndex = index;
-      }
-    });
-    setActive(closestIndex);
-  }, []);
-
-  // Keyboard nav
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      if (openIndex !== null) return;
-      if (e.key === "ArrowLeft") go(-1);
-      if (e.key === "ArrowRight") go(1);
-    };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [go, openIndex]);
+  const centerIndex = (items.length - 1) / 2;
 
   const openItem = openIndex !== null ? items[openIndex] : null;
 
@@ -616,17 +574,6 @@ function PillarsSection() {
       className="cc-pillars-section"
       aria-label="Everything inside Contractor Circle"
     >
-      <div className="cc-inside-word-field" aria-hidden="true">
-        {floatingInsideWords.map(word => (
-          <span
-            key={word.label}
-            className={`cc-inside-word ${word.className}`}
-            style={word.style}
-          >
-            {word.label}
-          </span>
-        ))}
-      </div>
       <div className="cc-pillars-inner">
         <div className="cc-pillars-copy cc-caption">
           <h2>
@@ -636,22 +583,24 @@ function PillarsSection() {
 
         <div className="cc-fan-stage">
           <div
-            ref={trackRef}
             className="cc-fan-track"
+            data-circle-fan
             role="list"
-            onScroll={updateActiveFromScroll}
           >
             {items.map((item, index) => {
-              const tilt = [-5.5, 3.5, -2.2, 4.8, -3.8, 2.7, -4.6, 3.2, -1.8][index % 9];
-              const lift = [22, -8, 34, 4, 26, -2, 38, 10, 28][index % 9];
+              const slot = index - centerIndex;
+              const distance = Math.abs(slot);
               const style = {
-                "--fan-tilt": `${tilt}deg`,
-                "--fan-lift": `${lift}px`,
+                "--fan-slot": slot,
+                "--fan-distance": distance,
+                "--fan-rotate": `${slot * 4.65}deg`,
+                "--fan-y": `${-42 + distance * 30 + Math.max(0, distance - 2) * 11}px`,
+                "--fan-z": 80 - distance,
               } as CSSProperties;
               return (
                 <div
                   key={item.number}
-                  className={`cc-fan-card${active === index ? " is-active" : ""}`}
+                  className="cc-fan-card"
                   style={style}
                   role="listitem"
                 >
@@ -659,7 +608,6 @@ function PillarsSection() {
                     type="button"
                     className="cc-fan-card-hit"
                     aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")} — open details`}
-                    aria-current={active === index ? "true" : undefined}
                     onClick={() => {
                       setOpenIndex(index);
                     }}
@@ -673,40 +621,9 @@ function PillarsSection() {
                       <p className="cc-fan-card-body-copy">{item.body}</p>
                     </div>
                   </button>
-                  <a
-                    href={CHECKOUT_URL}
-                    className="cc-fan-card-cta"
-                    onClick={e => e.stopPropagation()}
-                  >
-                    Join the Circle <ArrowUpRight aria-hidden="true" />
-                  </a>
                 </div>
               );
             })}
-          </div>
-
-          <div className="cc-fan-controls" aria-label="Cycle through assets">
-            <button
-              type="button"
-              className="cc-fan-arrow"
-              onClick={() => go(-1)}
-              aria-label="Previous asset"
-            >
-              <ChevronLeft aria-hidden="true" />
-            </button>
-            <div className="cc-fan-counter" aria-live="polite">
-              <span>{String(active + 1).padStart(2, "0")}</span>
-              <span className="cc-fan-counter-sep">/</span>
-              <span>{String(items.length).padStart(2, "0")}</span>
-            </div>
-            <button
-              type="button"
-              className="cc-fan-arrow"
-              onClick={() => go(1)}
-              aria-label="Next asset"
-            >
-              <ChevronRight aria-hidden="true" />
-            </button>
           </div>
         </div>
       </div>
