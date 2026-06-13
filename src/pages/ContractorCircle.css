@@ -6233,8 +6233,21 @@ body:has(.cc-page) {
   .cc-pillars-section {
     padding: 64px 20px;
   }
-  .cc-pillars-grid {
-    grid-template-columns: 1fr;
+  .cc-pillars-fan {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: visible;
+    justify-content: flex-start;
+    gap: 0;
+    padding: 40px 16px 60px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+  .cc-pillars-fan .cc-pillar-card {
+    flex: 0 0 80%;
+    margin: 0 -24px;
+    scroll-snap-align: center;
+    aspect-ratio: 3 / 4.4;
   }
   .cc-pillars-copy h2 {
     font-size: clamp(2rem, 8vw, 2.8rem);
