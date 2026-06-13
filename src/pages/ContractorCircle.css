@@ -4,7 +4,7 @@
 .cc-page {
   --cc-ink: #151515;
   --cc-ink-soft: #30302d;
-  --cc-paper: #f4f3ef;
+  --cc-paper: #f8f6ef;
   --cc-white: #ffffff;
   --cc-muted: #6f6d68;
   --cc-line: #dedbd3;
@@ -1390,7 +1390,7 @@ body:has(.cc-page) {
   min-height: 100dvh;
   overflow-x: clip;
   isolation: isolate;
-  background: linear-gradient(180deg, #f5f1ea 0%, #ebe4d8 42%, #f8f5ef 100%);
+  background: var(--cc-paper);
 }
 
 .cc-stack-field {
