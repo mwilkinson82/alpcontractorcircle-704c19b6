@@ -6320,19 +6320,26 @@ body:has(.cc-page) {
 
 .cc-asset-card {
   position: relative;
+  flex: 0 0 clamp(320px, 38vw, 520px);
+  scroll-snap-align: center;
   display: grid;
   grid-template-rows: auto 1fr;
   background: #ffffff;
   border: 1px solid rgb(13 13 12 / 0.08);
-  border-radius: 20px;
+  border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 16px 44px -26px rgb(13 13 12 / 0.2);
+  box-shadow: 0 24px 60px -28px rgb(13 13 12 / 0.28);
+  transform-origin: 50% 90%;
   transition:
     transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
     border-color 0.45s ease;
   will-change: transform, opacity;
 }
+
+.cc-asset-card:nth-child(odd) { transform: rotate(-3deg) translateY(8px); }
+.cc-asset-card:nth-child(even) { transform: rotate(4deg) translateY(-4px); }
+.cc-asset-card:nth-child(3n) { transform: rotate(-1deg) translateY(14px); }
 
 .cc-asset-card:hover {
   transform: translateY(-6px);
