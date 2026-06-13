@@ -462,7 +462,10 @@ function ProductDeckCard({
 
 function OpeningBrand() {
   return (
-    <section className="cc-opening-brand" aria-label="Contractor Circle opening">
+    <section
+      className="cc-opening-brand"
+      aria-label="Contractor Circle opening"
+    >
       <SystemsField className="cc-opening-field" variant="stack" />
       <div className="cc-opening-shapes" aria-hidden="true">
         <span className="cc-opening-shape cc-opening-shape-orange" />
@@ -470,13 +473,13 @@ function OpeningBrand() {
         <span className="cc-opening-shape cc-opening-shape-green" />
         <span className="cc-opening-shape cc-opening-shape-pink" />
       </div>
-      <div className="cc-opening-copy cc-caption">
-        <p data-caption>ALP</p>
+      <div className="cc-opening-copy">
+        <p data-splash-caption>ALP</p>
         <h1>
-          <span data-caption>Contractor</span>
-          <span data-caption>Circle</span>
+          <span data-splash-caption>Contractor</span>
+          <span data-splash-caption>Circle</span>
         </h1>
-        <strong data-caption>The company behind the projects.</strong>
+        <strong data-splash-caption>The company behind the projects.</strong>
       </div>
     </section>
   );
@@ -939,15 +942,38 @@ export default function ContractorCircle() {
             </article>
 
             <article className="cc-stack-card cc-stack-card-shift">
-              <div
-                className="cc-aos-ad cc-caption"
-                aria-label="AOS memory is not management graphic"
-              >
-                <img
-                  className="cc-aos-ad-image cc-detail-reveal"
-                  src="/manus-storage/aos-memory-graphic_832a187b.png"
-                  alt="AOS page graphic that says Memory is not management"
-                />
+              <div className="cc-memory-system cc-caption">
+                <div className="cc-memory-copy">
+                  <p className="cc-eyebrow" data-caption>
+                    The Shift
+                  </p>
+                  <h2>
+                    <span data-caption>Memory is not</span>
+                    <span data-caption>management.</span>
+                  </h2>
+                  <p className="cc-subhead" data-caption>
+                    The owner remembering everything is not a system. Contractor
+                    Circle moves the work out of your head and into a weekly
+                    operating rhythm your team can see, use, and own.
+                  </p>
+                </div>
+                <div className="cc-memory-board cc-detail-reveal">
+                  <article>
+                    <span>01</span>
+                    <h3>Memory</h3>
+                    <p>Owner remembers. Team waits. Work disappears.</p>
+                  </article>
+                  <article>
+                    <span>02</span>
+                    <h3>Management</h3>
+                    <p>Roles, numbers, issues, decisions, and follow-through.</p>
+                  </article>
+                  <article>
+                    <span>03</span>
+                    <h3>Command</h3>
+                    <p>AOS plus the Circle turns pressure into next action.</p>
+                  </article>
+                </div>
               </div>
             </article>
 
@@ -957,13 +983,13 @@ export default function ContractorCircle() {
                   What Gets Installed
                 </p>
                 <h2>
-                  <span data-caption>A live operating system,</span>
-                  <span data-caption>not another course.</span>
+                  <span data-caption>Command,</span>
+                  <span data-caption>not content.</span>
                 </h2>
                 <p className="cc-subhead" data-caption>
-                  AOS, Marshall guidance, live calls, monthly bootcamps,
-                  replays, templates, the handbook, command tools, and the
-                  private room where the work continues between sessions.
+                  AOS holds the cadence. The room finds the constraint.
+                  Templates and tools turn the decision into work the team can
+                  execute. That is what gets installed.
                 </p>
               </div>
               <div className="cc-install-grid">
@@ -1007,13 +1033,23 @@ export default function ContractorCircle() {
                     className="cc-offer-wall-card cc-detail-reveal"
                     key={item.number}
                   >
-                    <img src={item.image} alt="" aria-hidden="true" />
-                    <div>
-                      <span>
-                        {item.number} / {item.eyebrow}
-                      </span>
+                    <div className="cc-offer-card-tags">
+                      <span>{item.eyebrow}</span>
+                      <span>{item.points[0]?.label}</span>
+                    </div>
+                    <figure>
+                      <img src={item.image} alt="" aria-hidden="true" />
+                    </figure>
+                    <div className="cc-offer-wall-card-body">
+                      <span>{item.number} / Contractor Circle</span>
                       <h3>{item.headlineLines.join(" ")}</h3>
-                      <p>{item.points[0]?.value}</p>
+                      <p>{item.body}</p>
+                      <small>
+                        {item.links?.[0]?.label ??
+                          item.walkthrough?.cta ??
+                          "Member asset"}
+                        <ArrowUpRight aria-hidden="true" />
+                      </small>
                     </div>
                   </article>
                 ))}
@@ -1497,21 +1533,6 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             clipPath: "inset(0% 0% 0% 0% round 0px)",
           }
         );
-
-        const openingCopy = root.querySelector<HTMLElement>(".cc-opening-copy");
-        if (openingCopy) {
-          gsap.to(
-            openingCopy.querySelectorAll<HTMLElement>("[data-caption]"),
-            {
-              autoAlpha: 1,
-              y: 0,
-              filter: "blur(0px)",
-              duration: 0.85,
-              stagger: 0.08,
-              ease: "power3.out",
-            }
-          );
-        }
 
         gsap.to(".cc-video-media", {
           autoAlpha: 0.76,
