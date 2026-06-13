@@ -1578,7 +1578,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], [data-fill-word], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-pillar-card, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
+          "[data-caption], [data-fill-word], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-fan-card, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
@@ -1612,10 +1612,10 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           : "desktop";
 
       const setupPillarFan = () => {
-        const fan = root.querySelector<HTMLElement>("[data-pillar-fan]");
+        const fan = root.querySelector<HTMLElement>("[data-circle-fan]");
         if (!fan) return;
         const cards = Array.from(
-          fan.querySelectorAll<HTMLElement>(".cc-pillar-card")
+          fan.querySelectorAll<HTMLElement>(".cc-fan-card")
         );
         if (!cards.length) return;
 
@@ -1624,97 +1624,40 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           return;
         }
 
-        const centerIndex = Math.floor(cards.length / 2);
-        let activeIndex = centerIndex;
-        const spread = Math.min(420, Math.max(260, window.innerWidth * 0.22));
-        const slotFor = (index: number) => {
-          let slot = index - activeIndex;
-          if (slot > cards.length / 2) slot -= cards.length;
-          if (slot < -cards.length / 2) slot += cards.length;
-          return slot;
-        };
-        const fanState = (index: number) => {
-          const slot = slotFor(index);
+        cards.forEach((card, index) => {
+          const slot = Number(card.style.getPropertyValue("--fan-slot")) || 0;
           const distance = Math.abs(slot);
-          return {
-            x: slot * spread * 0.62,
-            y: distance === 0 ? 0 : distance === 1 ? 24 : 76,
-            rotate: slot * 10,
-            scale: distance === 0 ? 1.04 : 1,
-            zIndex: 20 - distance,
-          };
-        };
-        const renderFan = () => {
-          cards.forEach((card, index) => {
-            gsap.to(card, {
-              ...fanState(index),
-              duration: 0.55,
-              ease: "power3.out",
-              overwrite: "auto",
-            });
-          });
-        };
+          const finalX = slot * Math.min(122, Math.max(72, window.innerWidth * 0.082));
+          const finalY = -42 + distance * 30 + Math.max(0, distance - 2) * 11;
+          const finalRotate = slot * 4.65;
 
-        cards.forEach((card, i) => {
-          const state = fanState(i);
           gsap.fromTo(
             card,
             {
-              y: 120,
-              x: state.x * 0.22,
+              x: slot * 12,
+              y: 108,
               rotate: 0,
-              scale: 0.7,
+              scale: 0.88,
               autoAlpha: 0,
             },
             {
-              ...state,
+              x: finalX,
+              y: finalY,
+              rotate: finalRotate,
+              scale: 1,
               autoAlpha: 1,
               ease: "power3.out",
               duration: 0.9,
-              delay: i * 0.08,
+              delay: index * 0.035,
               scrollTrigger: {
                 trigger: fan,
                 start: "top 78%",
                 toggleActions: "play none none reverse",
+                invalidateOnRefresh: true,
               },
             }
           );
         });
-
-        let startX = 0;
-        let hasPointer = false;
-        const rotateDeck = (direction: number) => {
-          activeIndex =
-            (activeIndex + direction + cards.length) % cards.length;
-          renderFan();
-        };
-        const handlePointerDown = (event: PointerEvent) => {
-          hasPointer = true;
-          startX = event.clientX;
-          fan.setPointerCapture?.(event.pointerId);
-        };
-        const handlePointerUp = (event: PointerEvent) => {
-          if (!hasPointer) return;
-          hasPointer = false;
-          const delta = event.clientX - startX;
-          if (Math.abs(delta) > 42) rotateDeck(delta < 0 ? 1 : -1);
-        };
-        const handleWheel = (event: WheelEvent) => {
-          if (Math.abs(event.deltaX) < 18) return;
-          event.preventDefault();
-          rotateDeck(event.deltaX > 0 ? 1 : -1);
-        };
-        fan.addEventListener("pointerdown", handlePointerDown);
-        fan.addEventListener("pointerup", handlePointerUp);
-        fan.addEventListener("pointercancel", handlePointerUp);
-        fan.addEventListener("wheel", handleWheel, { passive: false });
-
-        return () => {
-          fan.removeEventListener("pointerdown", handlePointerDown);
-          fan.removeEventListener("pointerup", handlePointerUp);
-          fan.removeEventListener("pointercancel", handlePointerUp);
-          fan.removeEventListener("wheel", handleWheel);
-        };
       };
 
       const setupAssetDeck = () => {
