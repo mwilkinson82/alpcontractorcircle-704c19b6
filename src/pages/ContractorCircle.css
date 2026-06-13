@@ -751,7 +751,7 @@ body:has(.cc-page) {
 
 .cc-intro-axis {
   position: absolute;
-  background: rgb(246 239 228 / 0.52);
+  background: rgb(246 239 228 / 0.64);
   opacity: 0;
   transform-origin: center;
 }
@@ -765,9 +765,9 @@ body:has(.cc-page) {
 }
 
 .cc-intro-axis-horizontal {
-  top: 70%;
-  right: 7%;
-  left: 7%;
+  top: 27%;
+  right: 5%;
+  left: 5%;
   height: 1px;
   transform-origin: left center;
   animation: cc-intro-axis-horizontal 900ms var(--cc-caption-ease) 3220ms forwards;
@@ -793,21 +793,26 @@ body:has(.cc-page) {
 }
 
 .cc-intro-chart-label {
-  color: rgb(246 239 228 / 0.58);
-  font-size: clamp(0.72rem, 1vw, 0.9rem);
-  font-weight: 800;
+  color: rgb(246 239 228 / 0.9);
+  font-family:
+    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
+    Arial, sans-serif;
+  font-size: clamp(2.2rem, 4.7vw, 6rem);
+  font-weight: 700;
   letter-spacing: 0;
-  text-transform: uppercase;
+  line-height: 0.92;
+  text-transform: none;
 }
 
 .cc-intro-chart-column strong {
   position: relative;
   z-index: 3;
+  margin-top: clamp(74px, 11vh, 128px);
   color: #f6efe4;
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(2rem, 5vw, 6rem);
+  font-size: clamp(2.25rem, 5.2vw, 6.35rem);
   font-weight: 500;
   line-height: 0.92;
 }
@@ -828,7 +833,7 @@ body:has(.cc-page) {
   gap: clamp(9px, 1.5vw, 18px);
   align-items: center;
   min-height: clamp(54px, 8vw, 96px);
-  margin-top: clamp(34px, 7vh, 88px);
+  margin-top: clamp(70px, 10vh, 120px);
   color: var(--cc-orange);
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
@@ -876,17 +881,17 @@ body:has(.cc-page) {
 .cc-intro-current-profit {
   position: absolute;
   z-index: 4;
-  left: 50%;
+  left: 25%;
   bottom: 8%;
   display: grid;
   gap: 8px;
-  width: min(580px, 84vw);
+  width: min(540px, 42vw);
   padding: clamp(16px, 2.2vw, 26px);
   border: 1px solid rgb(246 239 228 / 0.22);
   background: rgb(5 5 5 / 0.74);
   box-shadow: 0 30px 90px rgb(0 0 0 / 0.42);
   opacity: 0;
-  text-align: center;
+  text-align: left;
   transform: translate(-50%, 18px) scale(0.98);
   animation: cc-intro-current-profit 1500ms var(--cc-caption-ease) 4860ms
     forwards;
@@ -1048,6 +1053,27 @@ body:has(.cc-page) {
   100% {
     opacity: 0.1;
     transform: translate3d(-18vw, clamp(18px, 4vh, 46px), 0);
+  }
+}
+
+@keyframes cc-intro-risk-dollars-mobile {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0);
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  72% {
+    opacity: 0.82;
+    transform: translate3d(-3vw, clamp(22px, 5vh, 44px), 0);
+  }
+
+  100% {
+    opacity: 0.14;
+    transform: translate3d(-2vw, clamp(16px, 3.8vh, 36px), 0);
   }
 }
 
@@ -4594,7 +4620,7 @@ body:has(.cc-page) {
   }
 
   .cc-intro-axis-horizontal {
-    top: 68%;
+    top: 28%;
     right: 3%;
     left: 3%;
   }
@@ -4604,7 +4630,12 @@ body:has(.cc-page) {
     padding: 12px;
   }
 
+  .cc-intro-chart-label {
+    font-size: clamp(1.45rem, 8vw, 2.5rem);
+  }
+
   .cc-intro-chart-column strong {
+    margin-top: clamp(150px, 21vh, 190px);
     font-size: clamp(1.5rem, 8.8vw, 2.7rem);
   }
 
@@ -4616,18 +4647,25 @@ body:has(.cc-page) {
   .cc-intro-risk-dollars {
     gap: 7px;
     min-height: 44px;
-    margin-top: clamp(28px, 9vh, 64px);
+    margin-top: clamp(100px, 15vh, 144px);
     font-size: clamp(1rem, 6.8vw, 2rem);
   }
 
+  .cc-intro-risk-dollars span {
+    animation-name: cc-intro-risk-dollars-mobile;
+  }
+
   .cc-intro-risk-exposure {
+    margin-top: clamp(30px, 5.5vh, 54px);
     font-size: clamp(1.05rem, 6.5vw, 2rem);
   }
 
   .cc-intro-current-profit {
+    left: 50%;
     bottom: 3%;
     width: min(310px, 86vw);
     padding: 12px;
+    text-align: center;
   }
 
   .cc-intro-current-profit span {
