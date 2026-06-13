@@ -1041,7 +1041,8 @@ export default function ContractorCircle() {
                   </p>
                   <h2>
                     <span data-caption>Not theory.</span>
-                    <span data-caption>Changed companies.</span>
+                    <span data-caption>Real companies, changed.</span>
+
                   </h2>
                   <p className="cc-subhead" data-caption>
                     The proof is not that a portal exists. The proof is what
