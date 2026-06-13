@@ -5982,35 +5982,50 @@ body:has(.cc-page) {
 .cc-fan-stage {
   position: relative;
   isolation: isolate;
-  margin: clamp(14px, 3vh, 28px) calc(50% - 50vw) 0;
-  padding: clamp(26px, 4vh, 46px) 0 0;
+  margin: 0;
+  padding: clamp(20px, 3vh, 34px) 0 0;
   overflow: hidden;
 }
 
 .cc-fan-track {
   position: relative;
-  height: clamp(520px, 50vw, 720px);
+  display: flex;
+  align-items: center;
+  gap: clamp(54px, 7vw, 104px);
+  min-height: clamp(600px, 58vw, 790px);
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: clamp(54px, 7vw, 86px) max(24px, calc((100vw - 1180px) / 2)) clamp(72px, 8vw, 106px);
   perspective: 2000px;
+  scroll-padding-inline: max(24px, calc((100vw - 1180px) / 2));
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cc-fan-track::-webkit-scrollbar {
+  display: none;
 }
 
 .cc-fan-card {
-  position: absolute;
-  top: clamp(56px, 5vw, 86px);
-  left: 50%;
-  width: clamp(210px, 18vw, 300px);
-  height: clamp(360px, 35vw, 510px);
+  position: relative;
+  flex: 0 0 auto;
+  scroll-snap-align: center;
+  width: clamp(360px, 42vw, 610px);
+  height: clamp(500px, 48vw, 660px);
   margin: 0;
-  padding: 8px 8px 0;
+  padding: clamp(10px, 1vw, 14px) clamp(10px, 1vw, 14px) 0;
   background: #ffffff;
   border: 1px solid rgb(13 13 12 / 0.08);
-  border-radius: 16px;
+  border-radius: 18px;
   overflow: visible;
-  box-shadow: 0 24px 48px -26px rgb(13 13 12 / 0.34);
+  box-shadow: 0 30px 70px -38px rgb(13 13 12 / 0.34);
   display: flex;
   flex-direction: column;
   text-align: left;
   cursor: pointer;
   transform-origin: 50% 100%;
+  transform: translateY(var(--fan-lift, 0px)) rotate(var(--fan-tilt, 0deg));
   transition:
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.5s ease,
@@ -6022,6 +6037,7 @@ body:has(.cc-page) {
   cursor: zoom-in;
   box-shadow: 0 48px 100px -32px rgb(13 13 12 / 0.42);
   border-color: rgb(13 13 12 / 0.12);
+  transform: translateY(calc(var(--fan-lift, 0px) - 14px)) rotate(var(--fan-tilt, 0deg));
 }
 
 .cc-fan-card:focus-visible {
