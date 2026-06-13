@@ -1886,8 +1886,10 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           }
         }
 
-        setupAssetDeck();
-        setupPillarFan();
+        const assetDeckCleanup = setupAssetDeck();
+        const pillarFanCleanup = setupPillarFan();
+        if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
+        if (pillarFanCleanup) motionCleanups.push(pillarFanCleanup);
 
         const mobileStackCards =
           gsap.utils.toArray<HTMLElement>(".cc-stack-card");
@@ -2284,8 +2286,10 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
       };
 
-      setupAssetDeck();
-      setupPillarFan();
+      const assetDeckCleanup = setupAssetDeck();
+      const pillarFanCleanup = setupPillarFan();
+      if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
+      if (pillarFanCleanup) motionCleanups.push(pillarFanCleanup);
 
       const stack = root.querySelector<HTMLElement>(".cc-card-stack");
       const stackStage = root.querySelector<HTMLElement>(".cc-stack-sticky");
@@ -2655,6 +2659,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         window.removeEventListener("resize", revealVisibleMobileCards);
       }
       mobileCardObserver?.disconnect();
+      motionCleanups.forEach(cleanup => cleanup());
       delete root.dataset.motionMode;
       ctx.revert();
     };
