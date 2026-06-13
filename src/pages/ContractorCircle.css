@@ -5943,7 +5943,7 @@ body:has(.cc-page) {
 .cc-pillars-stage {
   position: relative;
   isolation: isolate;
-  padding: clamp(40px, 6vh, 80px) 0 clamp(60px, 8vh, 110px);
+  padding: clamp(48px, 7vh, 96px) 0 clamp(70px, 9vh, 120px);
 }
 
 .cc-pillars-fan {
@@ -5953,17 +5953,18 @@ body:has(.cc-page) {
   justify-content: center;
   align-items: flex-end;
   gap: clamp(-60px, -2.4vw, -28px);
-  padding: clamp(40px, 6vh, 80px) clamp(8px, 2vw, 32px);
+  min-height: clamp(520px, 58vw, 720px);
+  padding: clamp(54px, 8vh, 110px) clamp(8px, 2vw, 32px) clamp(42px, 6vh, 72px);
   perspective: 1600px;
 }
 
 .cc-pillars-fan .cc-pillar-card {
-  flex: 0 1 clamp(220px, 22vw, 320px);
+  flex: 0 1 clamp(220px, 19vw, 296px);
   aspect-ratio: 3 / 4.2;
   display: flex;
   flex-direction: column;
-  margin: 0 clamp(-32px, -1.6vw, -12px);
-  transform-origin: 50% 95%;
+  margin: 0 clamp(-64px, -3.4vw, -34px);
+  transform-origin: 50% 132%;
   transition:
     transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
@@ -5971,10 +5972,11 @@ body:has(.cc-page) {
   will-change: transform;
 }
 
-.cc-pillars-fan .cc-pillar-card[data-pillar-index="0"] { transform: rotate(-7deg) translateY(18px); z-index: 1; }
-.cc-pillars-fan .cc-pillar-card[data-pillar-index="1"] { transform: rotate(-2deg) translateY(4px); z-index: 2; }
-.cc-pillars-fan .cc-pillar-card[data-pillar-index="2"] { transform: rotate(3deg) translateY(2px); z-index: 3; }
-.cc-pillars-fan .cc-pillar-card[data-pillar-index="3"] { transform: rotate(8deg) translateY(20px); z-index: 4; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="0"] { transform: rotate(-18deg) translateY(70px); z-index: 1; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="1"] { transform: rotate(-9deg) translateY(22px); z-index: 2; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="2"] { transform: rotate(0deg) translateY(0); z-index: 5; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="3"] { transform: rotate(9deg) translateY(22px); z-index: 4; }
+.cc-pillars-fan .cc-pillar-card[data-pillar-index="4"] { transform: rotate(18deg) translateY(70px); z-index: 3; }
 
 .cc-pillars-fan .cc-pillar-card:hover {
   transform: rotate(0deg) translateY(-32px) scale(1.04) !important;
