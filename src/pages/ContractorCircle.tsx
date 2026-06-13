@@ -1173,8 +1173,11 @@ export default function ContractorCircle() {
               </div>
             </article>
 
-            <article className="cc-stack-card cc-stack-card-offer-wall">
-              <div className="cc-offer-wall-copy cc-caption">
+            <article
+              id="asset-deck"
+              className="cc-stack-card cc-stack-card-asset-deck"
+            >
+              <div className="cc-asset-deck-copy cc-caption">
                 <p className="cc-eyebrow" data-caption>
                   Inside the Circle
                 </p>
@@ -1183,68 +1186,69 @@ export default function ContractorCircle() {
                   <span data-caption>a job to do.</span>
                 </h2>
                 <p className="cc-subhead" data-caption>
-                  The portal, room, app, tools, and handbook are not separate
-                  promises. They are the operating loop members use between
-                  projects, calls, and decisions.
+                  Every tool, template, replay, and SOP behind the portal —
+                  laid out so you can actually see what comes with
+                  membership.
                 </p>
               </div>
-              <div className="cc-offer-wall-shell">
-                <div
-                  className="cc-offer-wall-viewport"
-                  ref={offerWallViewportRef}
-                  role="region"
-                  aria-label="Circle assets carousel"
-                  tabIndex={0}
-                >
-                  <div className="cc-offer-wall-grid">
-                    {productProofItems.map(item => (
-                      <article
-                        className="cc-offer-wall-card cc-detail-reveal"
-                        key={item.number}
-                      >
-                        <div className="cc-offer-card-tags">
-                          <span>{item.eyebrow}</span>
-                          <span>{item.points[0]?.label}</span>
-                        </div>
-                        <figure>
-                          <img src={item.image} alt="" aria-hidden="true" />
-                        </figure>
-                        <div className="cc-offer-wall-card-body">
-                          <span>{item.number} / Contractor Circle</span>
-                          <h3>{item.headlineLines.join(" ")}</h3>
-                          <p>{item.body}</p>
-                          <small>
-                            {item.links?.[0]?.label ??
-                              item.walkthrough?.cta ??
-                              "Member asset"}
-                            <ArrowUpRight aria-hidden="true" />
-                          </small>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-                <div
-                  className="cc-offer-wall-controls"
-                  aria-label="Circle asset carousel controls"
-                >
-                  <button
-                    type="button"
-                    onClick={() => scrollOfferWall("previous")}
-                    aria-label="Previous Circle assets"
+              <div
+                className="cc-asset-deck"
+                role="list"
+                aria-label="Contractor Circle assets"
+              >
+                {productProofItems.map((item, index) => (
+                  <article
+                    className="cc-asset-card cc-detail-reveal"
+                    key={item.number}
+                    role="listitem"
+                    data-asset-card={index + 1}
                   >
-                    <ChevronLeft aria-hidden="true" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => scrollOfferWall("next")}
-                    aria-label="Next Circle assets"
-                  >
-                    <ChevronRight aria-hidden="true" />
-                  </button>
-                </div>
+                    <figure className="cc-asset-card-media">
+                      <img src={item.image} alt={item.imageAlt} />
+                    </figure>
+                    <div className="cc-asset-card-body">
+                      <p className="cc-asset-card-label">
+                        <span>{item.number}</span>
+                        {item.eyebrow}
+                      </p>
+                      <h3>{item.headlineLines.join(" ")}</h3>
+                      <p className="cc-asset-card-body-copy">{item.body}</p>
+                      <div className="cc-asset-card-tags">
+                        {item.points.slice(0, 3).map(point => (
+                          <span key={point.label}>{point.label}</span>
+                        ))}
+                      </div>
+                      {(item.walkthrough || item.links?.[0]) && (
+                        <div className="cc-asset-card-actions">
+                          {item.walkthrough ? (
+                            <a
+                              href={item.walkthrough.href}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {item.walkthrough.cta}
+                              <ArrowUpRight aria-hidden="true" />
+                            </a>
+                          ) : null}
+                          {item.links?.slice(0, 1).map(link => (
+                            <a
+                              key={link.href}
+                              href={link.href}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {link.label}
+                              <ArrowUpRight aria-hidden="true" />
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                ))}
               </div>
             </article>
+
 
             <article className="cc-stack-card cc-stack-card-installed">
               <div className="cc-command-system">
