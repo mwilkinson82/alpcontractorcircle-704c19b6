@@ -5853,11 +5853,44 @@ body:has(.cc-page) {
 .cc-pillars-section {
   position: relative;
   padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 96px);
-  background: #f5f3ee;
-  color: #0d0d0c;
+  background: #050505;
+  color: #f0f0f0;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.cc-pillars-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center center;
+  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 85%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cc-pillars-section::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: 900px;
+  height: 900px;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgb(59 130 246 / 0.08), transparent 65%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .cc-pillars-inner {
+  position: relative;
+  z-index: 1;
   max-width: 1320px;
   margin: 0 auto;
   display: grid;
@@ -5870,27 +5903,59 @@ body:has(.cc-page) {
   max-width: 880px;
 }
 
+.cc-pillars-copy .cc-eyebrow {
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgb(96 165 250 / 0.9);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cc-pillars-copy .cc-eyebrow::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #60a5fa;
+  box-shadow: 0 0 12px rgb(96 165 250 / 0.8);
+  animation: cc-pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes cc-pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
 .cc-pillars-copy h2 {
   margin: 0;
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
   font-size: clamp(2.4rem, 5.4vw, 5.6rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 0.96;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
+  color: #f5f5f5;
 }
 
 .cc-pillars-copy h2 span {
   display: block;
 }
 
+.cc-pillars-copy h2 span:nth-child(2) {
+  color: rgb(255 255 255 / 0.4);
+}
+
 .cc-pillars-copy .cc-subhead {
-  color: rgb(13 13 12 / 0.7);
+  color: rgb(255 255 255 / 0.55);
   font-size: clamp(1rem, 1.3vw, 1.2rem);
   line-height: 1.55;
   max-width: 760px;
 }
+
 
 /* ---- Labs.google-style fan ---- */
 .cc-fan-stage {
