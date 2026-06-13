@@ -770,7 +770,7 @@ body:has(.cc-page) {
   opacity: 0;
   filter: blur(14px);
   transform: translateY(18px) scale(0.99);
-  animation: cc-intro-chart-build 3600ms var(--cc-caption-ease) 2860ms forwards;
+  animation: cc-intro-chart-build 6400ms var(--cc-caption-ease) 2860ms forwards;
 }
 
 .cc-intro-axis {
