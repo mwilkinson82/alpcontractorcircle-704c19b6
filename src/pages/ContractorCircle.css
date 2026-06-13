@@ -1800,6 +1800,26 @@ body:has(.cc-page) {
   border-radius: 48% 52% 38% 62% / 54% 44% 56% 46%;
   transform: rotate(8deg);
   pointer-events: none;
+  animation: cc-memory-blob-drift 18s var(--cc-caption-ease) infinite alternate;
+  will-change: transform, border-radius;
+}
+
+
+@keyframes cc-memory-blob-drift {
+  0% {
+    border-radius: 48% 52% 38% 62% / 54% 44% 56% 46%;
+    transform: translate3d(0, 0, 0) rotate(8deg) scale(1);
+  }
+
+  46% {
+    border-radius: 58% 42% 51% 49% / 42% 58% 44% 56%;
+    transform: translate3d(-34px, 22px, 0) rotate(13deg) scale(1.035);
+  }
+
+  100% {
+    border-radius: 41% 59% 56% 44% / 60% 40% 52% 48%;
+    transform: translate3d(28px, -30px, 0) rotate(4deg) scale(0.985);
+  }
 }
 
 
