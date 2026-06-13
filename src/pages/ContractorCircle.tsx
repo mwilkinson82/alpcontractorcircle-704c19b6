@@ -5,7 +5,6 @@ import {
   useState,
   type CSSProperties,
   type RefObject,
-  type TouchEvent as ReactTouchEvent,
 } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -514,29 +513,111 @@ const pillars: Pillar[] = [
   },
 ];
 
+type FloatingInsideWord = {
+  label: string;
+  className: string;
+  style: CSSProperties & {
+    "--word-x": string;
+    "--word-y": string;
+    "--word-delay": string;
+  };
+};
+
+const floatingInsideWords: FloatingInsideWord[] = [
+  { label: "Contract", className: "is-ink", style: { "--word-x": "8%", "--word-y": "22%", "--word-delay": "0ms" } },
+  { label: "Schedule Delay", className: "is-risk", style: { "--word-x": "70%", "--word-y": "18%", "--word-delay": "-1400ms" } },
+  { label: "Systems and Procedures", className: "is-green", style: { "--word-x": "48%", "--word-y": "11%", "--word-delay": "-2600ms" } },
+  { label: "General Conditions", className: "is-ink", style: { "--word-x": "18%", "--word-y": "72%", "--word-delay": "-3800ms" } },
+  { label: "CPM Schedule", className: "is-blue", style: { "--word-x": "78%", "--word-y": "66%", "--word-delay": "-5200ms" } },
+  { label: "Change Order", className: "is-risk", style: { "--word-x": "34%", "--word-y": "84%", "--word-delay": "-6100ms" } },
+  { label: "Cash Flow", className: "is-green", style: { "--word-x": "88%", "--word-y": "42%", "--word-delay": "-7200ms" } },
+  { label: "Buyout", className: "is-ink", style: { "--word-x": "10%", "--word-y": "46%", "--word-delay": "-8200ms" } },
+];
+
+const memoryFillWords = [
+  "Memory",
+  "is",
+  "not",
+  "management.",
+  "The",
+  "owner",
+  "remembering",
+  "everything",
+  "is",
+  "not",
+  "a",
+  "system.",
+  "Contractor",
+  "Circle",
+  "moves",
+  "the",
+  "work",
+  "out",
+  "of",
+  "your",
+  "head",
+  "and",
+  "into",
+  "a",
+  "weekly",
+  "operating",
+  "rhythm",
+  "your",
+  "team",
+  "can",
+  "see,",
+  "use,",
+  "and",
+  "own.",
+];
+
+function ScrollFillText({ words }: { words: string[] }) {
+  return (
+    <p className="cc-scroll-fill-text" data-memory-fill>
+      {words.map((word, index) => (
+        <span key={`${word}-${index}`} data-fill-word>
+          {word}
+        </span>
+      ))}
+    </p>
+  );
+}
+
 function PillarsSection() {
   const items = productProofItems;
   const [active, setActive] = useState(0);
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   const go = useCallback(
     (dir: number) => {
-      setActive(prev => (prev + dir + items.length) % items.length);
+      const track = trackRef.current;
+      if (!track) return;
+      track.scrollBy({
+        left: dir * Math.min(track.clientWidth * 0.84, 680),
+        behavior: "smooth",
+      });
     },
-    [items.length]
+    []
   );
 
-  // Touch swipe support (mobile)
-  const touchX = useRef<number | null>(null);
-  const onTouchStart = (e: ReactTouchEvent) => {
-    touchX.current = e.touches[0].clientX;
-  };
-  const onTouchEnd = (e: ReactTouchEvent) => {
-    if (touchX.current == null) return;
-    const dx = e.changedTouches[0].clientX - touchX.current;
-    touchX.current = null;
-    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
-  };
+  const updateActiveFromScroll = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const cards = Array.from(track.querySelectorAll<HTMLElement>(".cc-fan-card"));
+    const center = track.scrollLeft + track.clientWidth / 2;
+    let closestIndex = 0;
+    let closestDistance = Number.POSITIVE_INFINITY;
+    cards.forEach((card, index) => {
+      const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+      const distance = Math.abs(cardCenter - center);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = index;
+      }
+    });
+    setActive(closestIndex);
+  }, []);
 
   // Keyboard nav
   useEffect(() => {
@@ -556,10 +637,17 @@ function PillarsSection() {
       className="cc-pillars-section"
       aria-label="Everything inside Contractor Circle"
     >
-      <span className="cc-labs-motion-shape cc-labs-motion-yellow" aria-hidden="true" />
-      <span className="cc-labs-motion-shape cc-labs-motion-blue" aria-hidden="true" />
-      <span className="cc-labs-motion-shape cc-labs-motion-green" aria-hidden="true" />
-      <span className="cc-labs-motion-shape cc-labs-motion-pink" aria-hidden="true" />
+      <div className="cc-inside-word-field" aria-hidden="true">
+        {floatingInsideWords.map(word => (
+          <span
+            key={word.label}
+            className={`cc-inside-word ${word.className}`}
+            style={word.style}
+          >
+            {word.label}
+          </span>
+        ))}
+      </div>
       <div className="cc-pillars-inner">
         <div className="cc-pillars-copy cc-caption">
           <h2>
@@ -567,44 +655,34 @@ function PillarsSection() {
           </h2>
         </div>
 
-        <div
-          className="cc-fan-stage"
-          onTouchStart={onTouchStart}
-          onTouchEnd={onTouchEnd}
-        >
-          <div className="cc-fan-track" role="list">
+        <div className="cc-fan-stage">
+          <div
+            ref={trackRef}
+            className="cc-fan-track"
+            role="list"
+            onScroll={updateActiveFromScroll}
+          >
             {items.map((item, index) => {
-              let slot = index - active;
-              if (slot > items.length / 2) slot -= items.length;
-              if (slot < -items.length / 2) slot += items.length;
-              const distance = Math.abs(slot);
-              const visible = distance <= 4;
-              const spread = Math.min(230, Math.max(170, window.innerWidth * 0.17));
-              const yPush = distance * distance * 7 + Math.max(0, slot) * 6;
-              const tilt = slot * 4.7 + (slot < 0 ? -1.2 : 1.2);
-              const scale = slot === 0 ? 1.02 : 1 - distance * 0.018;
-              const style: CSSProperties = {
-                transform: `translate(-50%, 0) translateX(${slot * spread}px) translateY(${yPush}px) rotate(${tilt}deg) scale(${scale})`,
-                zIndex: 20 - distance,
-                opacity: visible ? 1 : 0,
-                pointerEvents: visible ? "auto" : "none",
-              };
+              const tilt = [-5.5, 3.5, -2.2, 4.8, -3.8, 2.7, -4.6, 3.2, -1.8][index % 9];
+              const lift = [22, -8, 34, 4, 26, -2, 38, 10, 28][index % 9];
+              const style = {
+                "--fan-tilt": `${tilt}deg`,
+                "--fan-lift": `${lift}px`,
+              } as CSSProperties;
               return (
                 <div
                   key={item.number}
-                  className={`cc-fan-card${slot === 0 ? " is-active" : ""}`}
+                  className={`cc-fan-card${active === index ? " is-active" : ""}`}
                   style={style}
-                  data-slot={slot}
                   role="listitem"
                 >
                   <button
                     type="button"
                     className="cc-fan-card-hit"
                     aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")} — open details`}
-                    aria-current={slot === 0 ? "true" : undefined}
+                    aria-current={active === index ? "true" : undefined}
                     onClick={() => {
-                      if (slot === 0) setOpenIndex(index);
-                      else setActive(index);
+                      setOpenIndex(index);
                     }}
                   >
                     <figure className="cc-fan-card-media">
@@ -1196,32 +1274,7 @@ export default function ContractorCircle() {
                   <p className="cc-eyebrow" data-caption>
                     The Shift
                   </p>
-                  <h2>
-                    <span data-caption>Memory is not</span>
-                    <span data-caption>management.</span>
-                  </h2>
-                  <p className="cc-subhead" data-caption>
-                    The owner remembering everything is not a system. Contractor
-                    Circle moves the work out of your head and into a weekly
-                    operating rhythm your team can see, use, and own.
-                  </p>
-                </div>
-                <div className="cc-memory-board cc-detail-reveal">
-                  <article>
-                    <span>01</span>
-                    <h3>Memory</h3>
-                    <p>Owner remembers. Team waits. Work disappears.</p>
-                  </article>
-                  <article>
-                    <span>02</span>
-                    <h3>Management</h3>
-                    <p>Roles, numbers, issues, decisions, and follow-through.</p>
-                  </article>
-                  <article>
-                    <span>03</span>
-                    <h3>Command</h3>
-                    <p>AOS plus the Circle turns pressure into next action.</p>
-                  </article>
+                  <ScrollFillText words={memoryFillWords} />
                 </div>
               </div>
             </article>
@@ -1631,13 +1684,14 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-pillar-card, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
+          "[data-caption], [data-fill-word], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-pillar-card, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
             x: 0,
             scale: 1,
             filter: "none",
+            color: "rgba(21, 21, 21, 1)",
             rotate: 0,
             rotateX: 0,
             rotateY: 0,
@@ -1862,6 +1916,29 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         };
       };
 
+      const setupMemoryFill = () => {
+        const memoryText = root.querySelector<HTMLElement>("[data-memory-fill]");
+        if (!memoryText) return;
+        const words = Array.from(
+          memoryText.querySelectorAll<HTMLElement>("[data-fill-word]")
+        );
+        if (!words.length) return;
+
+        gsap.set(words, { color: "rgba(21, 21, 21, 0.19)" });
+        gsap.to(words, {
+          color: "rgba(21, 21, 21, 1)",
+          ease: "none",
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: memoryText,
+            start: "top 78%",
+            end: "bottom 42%",
+            scrub: 0.65,
+            invalidateOnRefresh: true,
+          },
+        });
+      };
+
 
 
       if (isCompact) {
@@ -1967,6 +2044,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           }
         }
 
+        setupMemoryFill();
         const assetDeckCleanup = setupAssetDeck();
         const pillarFanCleanup = setupPillarFan();
         if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
@@ -2367,6 +2445,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
       };
 
+      setupMemoryFill();
       const assetDeckCleanup = setupAssetDeck();
       const pillarFanCleanup = setupPillarFan();
       if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
