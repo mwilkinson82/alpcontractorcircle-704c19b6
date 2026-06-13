@@ -5853,44 +5853,11 @@ body:has(.cc-page) {
 .cc-pillars-section {
   position: relative;
   padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 96px);
-  background: #050505;
-  color: #f0f0f0;
-  isolation: isolate;
-  overflow: hidden;
-}
-
-.cc-pillars-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.04) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-  background-position: center center;
-  mask-image: radial-gradient(ellipse at center, #000 30%, transparent 85%);
-  -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 85%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.cc-pillars-section::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  width: 900px;
-  height: 900px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgb(59 130 246 / 0.08), transparent 65%);
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 0;
+  background: #f5f3ee;
+  color: #0d0d0c;
 }
 
 .cc-pillars-inner {
-  position: relative;
-  z-index: 1;
   max-width: 1320px;
   margin: 0 auto;
   display: grid;
@@ -5901,32 +5868,9 @@ body:has(.cc-page) {
   display: grid;
   gap: clamp(14px, 1.6vw, 22px);
   max-width: 880px;
-}
-
-.cc-pillars-copy .cc-eyebrow {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.3em;
-  color: rgb(96 165 250 / 0.9);
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.cc-pillars-copy .cc-eyebrow::before {
-  content: "";
-  width: 6px;
-  height: 6px;
-  border-radius: 999px;
-  background: #60a5fa;
-  box-shadow: 0 0 12px rgb(96 165 250 / 0.8);
-  animation: cc-pulse-dot 2s ease-in-out infinite;
-}
-
-@keyframes cc-pulse-dot {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.35; }
+  margin: 0 auto;
+  text-align: center;
+  justify-items: center;
 }
 
 .cc-pillars-copy h2 {
@@ -5935,26 +5879,22 @@ body:has(.cc-page) {
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
   font-size: clamp(2.4rem, 5.4vw, 5.6rem);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 0.96;
-  letter-spacing: -0.02em;
-  color: #f5f5f5;
+  letter-spacing: -0.01em;
 }
 
 .cc-pillars-copy h2 span {
   display: block;
 }
 
-.cc-pillars-copy h2 span:nth-child(2) {
-  color: rgb(255 255 255 / 0.4);
-}
-
 .cc-pillars-copy .cc-subhead {
-  color: rgb(255 255 255 / 0.55);
+  color: rgb(13 13 12 / 0.7);
   font-size: clamp(1rem, 1.3vw, 1.2rem);
   line-height: 1.55;
   max-width: 760px;
 }
+
 
 
 /* ---- Labs.google-style fan ---- */
@@ -5980,13 +5920,11 @@ body:has(.cc-page) {
   height: clamp(400px, 50vw, 560px);
   margin: 0;
   padding: 0;
-  background: #0a0a0a;
-  border: 1px solid rgb(255 255 255 / 0.08);
-  border-radius: 16px;
+  background: #ffffff;
+  border: 1px solid rgb(13 13 12 / 0.06);
+  border-radius: 22px;
   overflow: visible;
-  box-shadow:
-    0 28px 70px -28px rgb(0 0 0 / 0.7),
-    inset 0 1px 0 rgb(255 255 255 / 0.03);
+  box-shadow: 0 28px 70px -28px rgb(13 13 12 / 0.28);
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -5995,46 +5933,27 @@ body:has(.cc-page) {
   transition:
     transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
     opacity 0.5s ease,
-    box-shadow 0.4s ease,
-    border-color 0.4s ease;
+    box-shadow 0.4s ease;
   will-change: transform, opacity;
 }
 
 .cc-fan-card.is-active {
   cursor: zoom-in;
-  background: #111111;
-  border-color: rgb(96 165 250 / 0.35);
-  box-shadow:
-    0 48px 100px -32px rgb(0 0 0 / 0.85),
-    0 0 0 1px rgb(96 165 250 / 0.15),
-    0 0 60px rgb(59 130 246 / 0.12);
+  box-shadow: 0 48px 100px -32px rgb(13 13 12 / 0.42);
+  border-color: rgb(13 13 12 / 0.12);
 }
 
 .cc-fan-card:focus-visible {
-  outline: 2px solid #60a5fa;
+  outline: 2px solid var(--cc-orange);
   outline-offset: 4px;
 }
-
 
 .cc-fan-card-media {
   flex: 0 0 58%;
   margin: 0;
-  background:
-    linear-gradient(135deg, #0f0f0f 0%, #161616 100%);
+  background: linear-gradient(135deg, #f5f3ee 0%, #ebe7df 100%);
   overflow: hidden;
-  border-bottom: 1px solid rgb(255 255 255 / 0.06);
-  position: relative;
-}
-
-.cc-fan-card-media::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px);
-  background-size: 24px 24px;
-  pointer-events: none;
+  border-bottom: 1px solid rgb(13 13 12 / 0.06);
 }
 
 .cc-fan-card-media img {
@@ -6044,10 +5963,8 @@ body:has(.cc-page) {
   object-position: center;
   display: block;
   padding: clamp(12px, 1.6vw, 20px);
-  filter: brightness(0.92) contrast(1.05);
-  position: relative;
-  z-index: 1;
 }
+
 
 .cc-fan-card-body {
   flex: 1 1 auto;
@@ -6059,12 +5976,11 @@ body:has(.cc-page) {
 
 .cc-fan-card-eyebrow {
   margin: 0;
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  color: rgb(96 165 250 / 0.85);
-  font-size: 0.68rem;
-  font-weight: 500;
+  color: rgb(13 13 12 / 0.55);
+  font-size: 0.72rem;
+  font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.14em;
 }
 
 .cc-fan-card-body h3 {
@@ -6073,17 +5989,17 @@ body:has(.cc-page) {
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
   font-size: clamp(1.1rem, 1.5vw, 1.4rem);
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.18;
-  letter-spacing: -0.01em;
-  color: #f5f5f5;
+  letter-spacing: -0.005em;
+  color: #0d0d0c;
 }
 
 .cc-fan-card-body-copy {
   margin: 0;
-  color: rgb(255 255 255 / 0.5);
+  color: rgb(13 13 12 / 0.7);
   font-size: clamp(0.84rem, 0.95vw, 0.92rem);
-  line-height: 1.5;
+  line-height: 1.45;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -6112,13 +6028,10 @@ body:has(.cc-page) {
   bottom: clamp(16px, 1.8vw, 22px);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  color: #ffffff;
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
+  gap: 6px;
+  color: var(--cc-orange);
+  font-size: 0.85rem;
+  font-weight: 600;
   text-decoration: none;
   opacity: 1;
   transform: translateY(0);
@@ -6133,7 +6046,7 @@ body:has(.cc-page) {
 }
 
 .cc-fan-card-cta:hover {
-  color: #60a5fa;
+  color: #0d0d0c;
 }
 
 .cc-fan-card-cta:hover svg {
@@ -6141,7 +6054,7 @@ body:has(.cc-page) {
 }
 
 .cc-fan-card-cta:focus-visible {
-  outline: 2px solid #60a5fa;
+  outline: 2px solid var(--cc-orange);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -6149,10 +6062,6 @@ body:has(.cc-page) {
 .cc-fan-card-body {
   padding-bottom: clamp(44px, 5vh, 56px);
 }
-
-
-
-
 
 /* Fan controls (two arrow buttons + counter) */
 .cc-fan-controls {
@@ -6166,12 +6075,12 @@ body:has(.cc-page) {
 }
 
 .cc-fan-arrow {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 999px;
-  border: 1px solid rgb(255 255 255 / 0.12);
-  background: rgb(255 255 255 / 0.02);
-  color: rgb(255 255 255 / 0.6);
+  border: 1px solid rgb(13 13 12 / 0.16);
+  background: #ffffff;
+  color: #0d0d0c;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -6179,45 +6088,42 @@ body:has(.cc-page) {
   transition:
     background 0.25s ease,
     border-color 0.25s ease,
-    color 0.25s ease,
     transform 0.25s ease;
 }
 
 .cc-fan-arrow:hover {
-  background: rgb(96 165 250 / 0.1);
+  background: #0d0d0c;
   color: #ffffff;
-  border-color: rgb(96 165 250 / 0.45);
+  border-color: #0d0d0c;
   transform: translateY(-1px);
 }
 
 .cc-fan-arrow:focus-visible {
-  outline: 2px solid #60a5fa;
+  outline: 2px solid var(--cc-orange);
   outline-offset: 3px;
 }
 
 .cc-fan-arrow svg {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
 }
 
 .cc-fan-counter {
-  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.82rem;
-  color: rgb(255 255 255 / 0.55);
-  letter-spacing: 0.12em;
+  font-family:
+    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
+    Arial, sans-serif;
+  font-size: 0.95rem;
+  color: rgb(13 13 12 / 0.7);
+  letter-spacing: 0.08em;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  min-width: 90px;
+  gap: 6px;
+  min-width: 80px;
   justify-content: center;
 }
 
-.cc-fan-counter > span:first-child {
-  color: #ffffff;
-}
-
 .cc-fan-counter-sep {
-  opacity: 0.35;
+  opacity: 0.4;
 }
 
 /* Modal */
