@@ -441,7 +441,7 @@ const pillars: Pillar[] = [
       "Set curriculum, not open Q&A",
       "Replays stay in the portal for life",
     ],
-    image: "/manus-storage/portal-ask-reply_d776f93c.png",
+    image: "/manus-storage/exact-bootcamp_9c719283.png",
     imageAlt: "Bi-weekly Contractor Circle call session",
     icon: CalendarDays,
   },
@@ -455,7 +455,7 @@ const pillars: Pillar[] = [
       "Templates and SOPs walk out the door",
       "Replay and workbook stay for reference",
     ],
-    image: "/manus-storage/exact-bootcamp_9c719283.png",
+    image: "/manus-storage/exact-sop-builder_b6175c39.png",
     imageAlt: "Contractor Circle monthly bootcamp",
     icon: Rocket,
   },
@@ -477,16 +477,30 @@ const pillars: Pillar[] = [
     number: "04",
     eyebrow: "Portal",
     title: "One front door for everything else.",
-    outcome: "AOS, tools, templates, handbook, Ask Marshall, SOP Builder.",
+    outcome: "Replays, templates, the handbook, and Ask Marshall.",
     bullets: [
-      "AOS workspaces and seats included",
-      "26+ deployable templates, growing tool set",
-      "Ask Marshall, the handbook, and the SOP Builder live here",
+      "Replays stay organized by topic",
+      "Templates and the handbook are one click away",
+      "Ask Marshall lives inside the member portal",
     ],
     image: "/manus-storage/portal-ask-marshall_2e6c40e1.png",
     imageAlt: "Contractor Circle portal command center",
     icon: Network,
     isGateway: true,
+  },
+  {
+    number: "05",
+    eyebrow: "AOS + Proprietary Tools",
+    title: "The operating system is included.",
+    outcome: "AOS workspaces plus the tools that expose the constraint.",
+    bullets: [
+      "Unlimited AOS workspaces and seats",
+      "SOP Builder and Contract Readiness Scanner",
+      "Owner Dependency Scorecards",
+    ],
+    image: "/manus-storage/exact-aos_3819276c.png",
+    imageAlt: "AOS workspace scorecard and operating cadence",
+    icon: Settings2,
   },
 ];
 
@@ -513,8 +527,6 @@ function PillarsSection() {
           </p>
         </div>
         <div className="cc-pillars-stage">
-          <span className="cc-blob cc-blob-warm" aria-hidden="true" />
-          <span className="cc-blob cc-blob-cool" aria-hidden="true" />
           <div className="cc-pillars-fan" data-pillar-fan>
             {pillars.map((pillar, index) => {
               const Icon = pillar.icon;
@@ -1198,8 +1210,6 @@ export default function ContractorCircle() {
                 </p>
               </div>
               <div className="cc-asset-deck-stage">
-                <span className="cc-blob cc-blob-cool cc-blob-asset-left" aria-hidden="true" />
-                <span className="cc-blob cc-blob-warm cc-blob-asset-right" aria-hidden="true" />
                 <div
                   className="cc-asset-deck"
                   role="list"
