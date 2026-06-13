@@ -1810,6 +1810,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
 
         setupAssetDeck();
+        setupPillarFan();
 
         const mobileStackCards =
           gsap.utils.toArray<HTMLElement>(".cc-stack-card");
@@ -2207,6 +2208,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       };
 
       setupAssetDeck();
+      setupPillarFan();
 
       const stack = root.querySelector<HTMLElement>(".cc-card-stack");
       const stackStage = root.querySelector<HTMLElement>(".cc-stack-sticky");
