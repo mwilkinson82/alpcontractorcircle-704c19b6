@@ -751,7 +751,7 @@ body:has(.cc-page) {
 
 .cc-intro-axis {
   position: absolute;
-  background: rgb(246 239 228 / 0.64);
+  background: rgb(13 13 12 / 0.55);
   opacity: 0;
   transform-origin: center;
 }
@@ -789,11 +789,11 @@ body:has(.cc-page) {
 
 .cc-intro-risk-column {
   z-index: 3;
-  color: rgb(246 239 228 / 0.92);
+  color: rgb(13 13 12 / 0.92);
 }
 
 .cc-intro-chart-label {
-  color: rgb(246 239 228 / 0.9);
+  color: rgb(13 13 12 / 0.88);
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
@@ -807,8 +807,8 @@ body:has(.cc-page) {
 .cc-intro-chart-column strong {
   position: relative;
   z-index: 3;
-  margin-top: clamp(74px, 11vh, 128px);
-  color: #f6efe4;
+  margin-top: clamp(54px, 8vh, 96px);
+  color: #0d0d0c;
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
@@ -818,64 +818,68 @@ body:has(.cc-page) {
 }
 
 .cc-intro-chart-column small,
-.cc-intro-risk-exposure small {
+.cc-intro-risk-impact small,
+.cc-intro-risk-item small {
   display: block;
-  color: rgb(246 239 228 / 0.64);
+  color: rgb(13 13 12 / 0.6);
   font-size: clamp(0.76rem, 1.05vw, 1rem);
   font-weight: 700;
   text-transform: uppercase;
 }
 
-.cc-intro-risk-dollars {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  gap: clamp(9px, 1.5vw, 18px);
-  align-items: center;
-  min-height: clamp(54px, 8vw, 96px);
-  margin-top: clamp(70px, 10vh, 120px);
+.cc-intro-risk-impact {
+  margin: clamp(18px, 3vh, 36px) 0 0;
   color: var(--cc-orange);
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(1.55rem, 3.6vw, 4.6rem);
-  font-weight: 700;
-  line-height: 0.9;
-  opacity: 0.88;
-  white-space: nowrap;
-}
-
-.cc-intro-risk-dollars span {
-  display: inline-block;
-  opacity: 0;
-  transform: translateX(0);
-  animation: cc-intro-risk-dollars 1760ms var(--cc-caption-ease) 3440ms
-    forwards;
-  will-change: opacity, transform;
-}
-
-.cc-intro-risk-dollars span:nth-child(2) {
-  animation-delay: 3520ms;
-}
-
-.cc-intro-risk-dollars span:nth-child(3) {
-  animation-delay: 3600ms;
-}
-
-.cc-intro-risk-exposure {
-  width: max-content;
-  margin: clamp(12px, 2vw, 22px) 0 0;
-  color: var(--cc-orange);
-  font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
-  font-size: clamp(1.4rem, 2.9vw, 3.8rem);
-  font-weight: 600;
-  line-height: 1;
   opacity: 0;
   transform: translateY(12px);
   animation: cc-intro-risk-exposure 2100ms var(--cc-caption-ease) 3880ms
     forwards;
+}
+
+.cc-intro-risk-impact-value {
+  display: block;
+  font-size: clamp(1.6rem, 3.4vw, 4.2rem);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.cc-intro-risk-item {
+  position: relative;
+  z-index: 2;
+  margin: clamp(54px, 8vh, 96px) 0 0;
+  padding: clamp(16px, 1.8vw, 22px) clamp(18px, 2vw, 26px);
+  border-left: 2px solid var(--cc-orange);
+  background: rgb(219 106 63 / 0.06);
+  color: rgb(13 13 12 / 0.92);
+  font-family:
+    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
+    Arial, sans-serif;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: cc-intro-risk-exposure 2100ms var(--cc-caption-ease) 3880ms
+    forwards;
+}
+
+.cc-intro-risk-item-title {
+  display: block;
+  margin-bottom: clamp(8px, 1vw, 14px);
+  color: rgb(13 13 12 / 0.78);
+  font-size: clamp(0.9rem, 1.25vw, 1.2rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.cc-intro-risk-item-value {
+  display: block;
+  color: var(--cc-orange);
+  font-size: clamp(1.8rem, 3.8vw, 4.6rem);
+  font-weight: 600;
+  line-height: 1;
 }
 
 .cc-intro-current-profit {
