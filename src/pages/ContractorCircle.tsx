@@ -15,6 +15,8 @@ import {
   BookOpen,
   CalendarDays,
   Check,
+  ChevronLeft,
+  ChevronRight,
   CircleDollarSign,
   ClipboardList,
   LockKeyhole,
@@ -28,8 +30,14 @@ import {
   UserRoundCheck,
   Users,
   Video,
+  X,
   type LucideIcon,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogClose,
+} from "@/components/ui/dialog";
 
 
 import HeroIntroMotion from "./HeroIntroMotion";
