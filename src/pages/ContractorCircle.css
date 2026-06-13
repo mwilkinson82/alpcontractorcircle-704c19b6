@@ -6019,9 +6019,22 @@ body:has(.cc-page) {
 .cc-fan-card-media {
   flex: 0 0 58%;
   margin: 0;
-  background: linear-gradient(135deg, #f5f3ee 0%, #ebe7df 100%);
+  background:
+    linear-gradient(135deg, #0f0f0f 0%, #161616 100%);
   overflow: hidden;
-  border-bottom: 1px solid rgb(13 13 12 / 0.06);
+  border-bottom: 1px solid rgb(255 255 255 / 0.06);
+  position: relative;
+}
+
+.cc-fan-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.025) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
 }
 
 .cc-fan-card-media img {
@@ -6031,6 +6044,9 @@ body:has(.cc-page) {
   object-position: center;
   display: block;
   padding: clamp(12px, 1.6vw, 20px);
+  filter: brightness(0.92) contrast(1.05);
+  position: relative;
+  z-index: 1;
 }
 
 .cc-fan-card-body {
@@ -6043,11 +6059,12 @@ body:has(.cc-page) {
 
 .cc-fan-card-eyebrow {
   margin: 0;
-  color: rgb(13 13 12 / 0.55);
-  font-size: 0.72rem;
-  font-weight: 700;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  color: rgb(96 165 250 / 0.85);
+  font-size: 0.68rem;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.22em;
 }
 
 .cc-fan-card-body h3 {
@@ -6056,22 +6073,23 @@ body:has(.cc-page) {
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
   font-size: clamp(1.1rem, 1.5vw, 1.4rem);
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.18;
-  letter-spacing: -0.005em;
-  color: #0d0d0c;
+  letter-spacing: -0.01em;
+  color: #f5f5f5;
 }
 
 .cc-fan-card-body-copy {
   margin: 0;
-  color: rgb(13 13 12 / 0.7);
+  color: rgb(255 255 255 / 0.5);
   font-size: clamp(0.84rem, 0.95vw, 0.92rem);
-  line-height: 1.45;
+  line-height: 1.5;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
 
 .cc-fan-card-hit {
   all: unset;
