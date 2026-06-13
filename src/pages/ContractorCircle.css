@@ -415,6 +415,15 @@ body:has(.cc-page) {
   visibility: hidden;
 }
 
+.cc-video-hero.is-hero-intro-complete.is-video-loading .cc-video-poster,
+.cc-video-hero.is-hero-intro-revealing .cc-video-poster {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 900ms var(--cc-caption-ease),
+    transform 1100ms var(--cc-caption-ease);
+}
+
 .cc-video-fallback {
   position: absolute;
   z-index: 3;
@@ -614,6 +623,31 @@ body:has(.cc-page) {
   visibility: hidden;
 }
 
+.cc-video-hero.is-hero-intro-complete .cc-video-media {
+  visibility: visible;
+}
+
+.cc-video-hero.is-hero-intro-complete .cc-video-shade {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cc-video-hero.is-hero-intro-revealing .cc-video-media {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+@media (min-width: 861px) {
+  .cc-video-hero.is-hero-intro-revealing .cc-video-media {
+    animation: cc-video-rise-after-intro 1500ms var(--cc-caption-ease) both;
+  }
+
+  .cc-video-hero.is-hero-intro-revealing .cc-video-poster {
+    animation: cc-video-poster-rise-after-intro 1500ms var(--cc-caption-ease)
+      both;
+  }
+}
+
 .cc-hero-intro-motion {
   position: absolute;
   z-index: 50;
@@ -749,7 +783,12 @@ body:has(.cc-page) {
   padding: clamp(18px, 3vw, 36px);
 }
 
+.cc-intro-profit-column {
+  z-index: 5;
+}
+
 .cc-intro-risk-column {
+  z-index: 3;
   color: rgb(246 239 228 / 0.92);
 }
 
@@ -762,6 +801,8 @@ body:has(.cc-page) {
 }
 
 .cc-intro-chart-column strong {
+  position: relative;
+  z-index: 3;
   color: #f6efe4;
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
@@ -782,17 +823,20 @@ body:has(.cc-page) {
 
 .cc-intro-risk-dollars {
   position: relative;
+  z-index: 1;
   display: flex;
   gap: clamp(9px, 1.5vw, 18px);
   align-items: center;
   min-height: clamp(54px, 8vw, 96px);
+  margin-top: clamp(34px, 7vh, 88px);
   color: var(--cc-orange);
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(1.75rem, 4.2vw, 5.4rem);
+  font-size: clamp(1.55rem, 3.6vw, 4.6rem);
   font-weight: 700;
   line-height: 0.9;
+  opacity: 0.88;
   white-space: nowrap;
 }
 
@@ -989,7 +1033,7 @@ body:has(.cc-page) {
 @keyframes cc-intro-risk-dollars {
   0% {
     opacity: 0;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 
   20% {
@@ -997,13 +1041,53 @@ body:has(.cc-page) {
   }
 
   72% {
-    opacity: 0.9;
-    transform: translateX(-36vw);
+    opacity: 0.82;
+    transform: translate3d(-31vw, clamp(28px, 6vh, 62px), 0);
   }
 
   100% {
-    opacity: 0.12;
-    transform: translateX(-22vw);
+    opacity: 0.1;
+    transform: translate3d(-18vw, clamp(18px, 4vh, 46px), 0);
+  }
+}
+
+@keyframes cc-video-rise-after-intro {
+  0% {
+    filter: brightness(0.22) blur(12px);
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.075);
+  }
+
+  58% {
+    filter: brightness(1.05) blur(0);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(0.995);
+  }
+
+  100% {
+    filter: brightness(1) blur(0);
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes cc-video-poster-rise-after-intro {
+  0% {
+    filter: brightness(0.24) blur(12px);
+    opacity: 0;
+    transform: scale(1.075);
+  }
+
+  58% {
+    filter: brightness(1.04) blur(0);
+    opacity: 1;
+    transform: scale(1.005);
+  }
+
+  100% {
+    filter: brightness(1) blur(0);
+    opacity: 1;
+    transform: scale(1.01);
   }
 }
 
@@ -2526,20 +2610,33 @@ body:has(.cc-page) {
 .cc-offer-wall-card {
   position: relative;
   display: grid;
-  grid-template-rows: auto minmax(0, 0.9fr) minmax(0, 1fr);
-  flex: 0 0 clamp(268px, 25vw, 356px);
-  min-height: min(470px, 54svh);
+  grid-template-rows: 1fr;
+  flex: 0 0 clamp(324px, 28vw, 430px);
+  min-height: min(570px, 64svh);
   overflow: hidden;
-  border: 1px solid rgb(21 21 21 / 0.1);
+  border: 1px solid rgb(255 255 255 / 0.14);
   border-radius: 8px;
-  background: #ffffff;
-  color: var(--cc-ink);
-  padding: clamp(14px, 1.4vw, 18px);
+  background:
+    radial-gradient(circle at 70% 18%, rgb(93 155 255 / 0.18), transparent 34%),
+    linear-gradient(145deg, #111b22 0%, #07090c 70%);
+  color: #ffffff;
+  padding: 0;
   box-shadow:
-    0 32px 78px rgb(21 21 21 / 0.16),
-    inset 0 1px 0 rgb(255 255 255 / 0.8);
+    0 38px 86px rgb(21 21 21 / 0.24),
+    inset 0 1px 0 rgb(255 255 255 / 0.14);
   scroll-snap-align: center;
   transform-origin: center center;
+}
+
+.cc-offer-wall-card::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgb(4 5 6 / 0.04) 0%, rgb(4 5 6 / 0.24) 42%, rgb(4 5 6 / 0.92) 100%),
+    linear-gradient(90deg, rgb(4 5 6 / 0.2), transparent 52%);
+  pointer-events: none;
 }
 
 .cc-offer-wall-card:nth-child(1) {
@@ -2567,10 +2664,15 @@ body:has(.cc-page) {
 }
 
 .cc-offer-card-tags {
+  position: absolute;
+  z-index: 3;
+  top: clamp(14px, 1.5vw, 22px);
+  left: clamp(14px, 1.5vw, 22px);
+  right: clamp(14px, 1.5vw, 22px);
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  margin-bottom: 14px;
+  margin-bottom: 0;
 }
 
 .cc-offer-card-tags span {
@@ -2578,19 +2680,23 @@ body:has(.cc-page) {
   min-height: 30px;
   align-items: center;
   border-radius: 999px;
-  background: rgb(21 21 21 / 0.08);
-  color: #383633;
+  background: rgb(255 255 255 / 0.16);
+  color: rgb(255 255 255 / 0.88);
   font-size: 0.66rem;
   font-weight: 800;
   padding: 0 12px;
   text-transform: uppercase;
+  backdrop-filter: blur(16px);
 }
 
 .cc-offer-wall-card figure {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
   min-height: 0;
   margin: 0;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 0;
   background:
     linear-gradient(135deg, #1b2a42 0%, #05070a 72%),
     #090b0f;
@@ -2601,19 +2707,24 @@ body:has(.cc-page) {
   height: 100%;
   object-fit: cover;
   object-position: top center;
-  filter: saturate(0.96) contrast(1.04);
+  filter: saturate(0.92) contrast(1.02) brightness(0.68);
+  transform: scale(1.02);
 }
 
 .cc-offer-wall-card-body {
+  position: relative;
+  z-index: 2;
   display: grid;
-  align-content: start;
+  align-content: end;
   gap: 12px;
   min-width: 0;
-  padding: clamp(18px, 2vw, 24px) 2px 0;
+  min-height: inherit;
+  padding: clamp(110px, 12vw, 150px) clamp(22px, 2.4vw, 34px)
+    clamp(22px, 2.4vw, 34px);
 }
 
 .cc-offer-wall-card-body > span {
-  color: var(--cc-orange-dark);
+  color: var(--cc-orange);
   font-size: 0.68rem;
   font-weight: 800;
   line-height: 1.2;
@@ -2621,7 +2732,7 @@ body:has(.cc-page) {
 }
 
 .cc-offer-wall-card h3 {
-  color: var(--cc-ink);
+  color: #ffffff;
   font-size: clamp(1.5rem, 2.2vw, 2.25rem);
   font-weight: 650;
   line-height: 0.98;
@@ -2631,7 +2742,7 @@ body:has(.cc-page) {
   margin: 0;
   display: -webkit-box;
   overflow: hidden;
-  color: #5f5a53;
+  color: rgb(255 255 255 / 0.74);
   font-size: clamp(0.88rem, 1.05vw, 0.98rem);
   line-height: 1.46;
   -webkit-box-orient: vertical;
@@ -2643,10 +2754,16 @@ body:has(.cc-page) {
   align-items: center;
   gap: 7px;
   margin-top: auto;
-  color: var(--cc-ink);
+  justify-self: start;
+  min-height: 38px;
+  border: 1px solid rgb(255 255 255 / 0.25);
+  border-radius: 999px;
+  color: #ffffff;
   font-size: 0.72rem;
   font-weight: 800;
+  padding: 0 14px;
   text-transform: uppercase;
+  backdrop-filter: blur(16px);
 }
 
 .cc-offer-wall-card small svg {
@@ -2823,7 +2940,7 @@ body:has(.cc-page) {
 .cc-product-deck-section {
   position: relative;
   width: 100%;
-  min-height: 320svh;
+  min-height: 420svh;
   margin: 0 auto;
   background: #fbf8f2;
   overflow: visible;
@@ -2903,6 +3020,18 @@ body:has(.cc-page) {
   pointer-events: none;
 }
 
+.cc-product-deck-copy::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: clamp(-28px, -3vw, -14px) clamp(-54px, -5vw, -24px)
+    clamp(-34px, -4vw, -18px);
+  background:
+    radial-gradient(circle at 50% 44%, rgb(251 248 242 / 0.98) 0 54%, transparent 78%),
+    linear-gradient(180deg, rgb(251 248 242 / 0.94), rgb(251 248 242 / 0.72));
+  filter: blur(4px);
+}
+
 .cc-product-deck-copy h2 {
   font-size: clamp(2.7rem, 5.2vw, 6.8rem);
   line-height: 0.98;
@@ -2914,6 +3043,7 @@ body:has(.cc-page) {
 
 .cc-product-deck-copy .cc-subhead {
   max-width: 850px;
+  text-wrap: balance;
 }
 
 .cc-product-deck-stage {
@@ -2927,13 +3057,13 @@ body:has(.cc-page) {
 .cc-product-deck-card {
   --deck-card-tilt: 0deg;
   position: absolute;
-  top: 56%;
+  top: 60%;
   left: 50%;
   display: grid;
   grid-template-rows: minmax(0, 0.9fr) minmax(0, 1fr);
-  width: clamp(292px, 25vw, 392px);
-  height: min(650px, 74svh);
-  max-height: calc(100svh - 72px);
+  width: clamp(320px, 27vw, 430px);
+  height: min(670px, 72svh);
+  max-height: calc(100svh - 102px);
   overflow: hidden;
   border: 1px solid rgb(21 21 21 / 0.1);
   border-radius: 8px;
@@ -3281,11 +3411,17 @@ body:has(.cc-page) {
 
 .cc-proof-ledger {
   display: grid;
-  grid-template-columns: minmax(280px, 0.55fr) minmax(0, 1.45fr);
+  grid-template-columns: minmax(360px, 0.74fr) minmax(0, 1.26fr);
   align-items: center;
-  gap: clamp(22px, 3.5vw, 52px);
+  gap: clamp(28px, 4vw, 70px);
   width: 100%;
   height: 100%;
+}
+
+.cc-proof-ledger-copy {
+  position: relative;
+  z-index: 2;
+  min-width: 0;
 }
 
 .cc-proof-ledger-copy .cc-subhead {
@@ -3298,13 +3434,14 @@ body:has(.cc-page) {
 }
 
 .cc-proof-ledger-copy h2 {
-  max-width: 560px;
-  font-size: clamp(2.6rem, 4.2vw, 4.85rem);
+  max-width: 660px;
+  font-size: clamp(2.55rem, 3.75vw, 4.45rem);
   line-height: 0.96;
 }
 
 .cc-proof-ledger-visual {
   position: relative;
+  z-index: 1;
   display: grid;
   gap: clamp(12px, 1.6vw, 20px);
   min-height: 0;
@@ -3329,9 +3466,12 @@ body:has(.cc-page) {
 }
 
 .cc-proof-stat {
+  display: grid;
+  place-items: center;
   min-height: 104px;
   background: #fffdf8;
   padding: 16px;
+  text-align: center;
 }
 
 .cc-proof-stat strong {
@@ -3340,9 +3480,10 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(1.55rem, 2.45vw, 2.7rem);
+  font-size: clamp(1.5rem, 2.05vw, 2.35rem);
   font-weight: 800;
   line-height: 1;
+  text-wrap: balance;
 }
 
 .cc-proof-stat span {
@@ -3353,6 +3494,7 @@ body:has(.cc-page) {
   font-weight: 800;
   line-height: 1.35;
   text-transform: uppercase;
+  text-wrap: balance;
 }
 
 .cc-member-results {
@@ -3702,9 +3844,9 @@ body:has(.cc-page) {
   width: 100%;
   height: 100%;
   display: grid;
-  grid-template-columns: minmax(360px, 0.76fr) minmax(0, 1.24fr);
+  grid-template-columns: minmax(420px, 0.82fr) minmax(0, 1.18fr);
   align-items: center;
-  gap: clamp(38px, 5vw, 82px);
+  gap: clamp(44px, 5.6vw, 96px);
 }
 
 .cc-stack-card-onboarding {
@@ -3719,9 +3861,23 @@ body:has(.cc-page) {
 }
 
 .cc-onboarding-copy h2 {
-  max-width: 520px;
-  font-size: clamp(2.65rem, 4.4vw, 4.8rem);
+  max-width: 640px;
+  font-size: clamp(2.55rem, 4vw, 4.55rem);
   line-height: 0.98;
+}
+
+.cc-onboarding-copy,
+.cc-onboarding-steps {
+  position: relative;
+  min-width: 0;
+}
+
+.cc-onboarding-copy {
+  z-index: 2;
+}
+
+.cc-onboarding-steps {
+  z-index: 1;
 }
 
 .cc-onboarding-copy .cc-subhead {
@@ -4000,7 +4156,7 @@ body:has(.cc-page) {
 
   .cc-product-deck-section {
     width: 100%;
-    min-height: 320svh;
+    min-height: 420svh;
     margin-block: 0;
   }
 
@@ -4025,9 +4181,9 @@ body:has(.cc-page) {
   }
 
   .cc-product-deck-card {
-    top: 61%;
-    width: clamp(270px, 24vw, 330px);
-    height: min(530px, 70svh);
+    top: 62%;
+    width: clamp(284px, 25vw, 350px);
+    height: min(520px, 66svh);
     max-height: calc(100svh - 80px);
   }
 
@@ -4207,8 +4363,8 @@ body:has(.cc-page) {
   }
 
   .cc-offer-wall-card {
-    flex-basis: clamp(250px, 23vw, 320px);
-    min-height: 390px;
+    flex-basis: clamp(288px, 27vw, 360px);
+    min-height: 470px;
   }
 
   .cc-offer-wall-card p {
@@ -4460,7 +4616,8 @@ body:has(.cc-page) {
   .cc-intro-risk-dollars {
     gap: 7px;
     min-height: 44px;
-    font-size: clamp(1.2rem, 8vw, 2.4rem);
+    margin-top: clamp(28px, 9vh, 64px);
+    font-size: clamp(1rem, 6.8vw, 2rem);
   }
 
   .cc-intro-risk-exposure {
@@ -4866,7 +5023,7 @@ body:has(.cc-page) {
 
   .cc-offer-wall-card {
     flex-basis: min(76vw, 320px);
-    min-height: 430px;
+    min-height: 500px;
     transform: none !important;
   }
 
@@ -5328,8 +5485,8 @@ body:has(.cc-page) {
   }
 
   .cc-offer-wall-card {
-    grid-template-columns: minmax(84px, 0.34fr) minmax(0, 1fr);
-    min-height: 112px;
+    grid-template-columns: none;
+    min-height: 460px;
   }
 
   .cc-product-deck-section {

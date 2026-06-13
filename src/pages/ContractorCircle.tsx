@@ -536,6 +536,9 @@ export default function ContractorCircle() {
   const streamPlayerRef = useRef<CloudflareStreamPlayer | null>(null);
   const offerWallViewportRef = useRef<HTMLDivElement>(null);
   const mutedPreferenceRef = useRef(true);
+  const heroRevealStartedRef = useRef(false);
+  const heroIntroCompleteRef = useRef(false);
+  const heroPlaybackSeenRef = useRef(false);
   const [muted, setMuted] = useState(true);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
@@ -544,6 +547,7 @@ export default function ContractorCircle() {
     if (typeof window === "undefined") return true;
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   });
+  const [heroRevealActive, setHeroRevealActive] = useState(false);
   const [showMobileCta, setShowMobileCta] = useState(false);
 
   const streamRuntimeReady = useCloudflareStreamRuntime();
@@ -552,6 +556,10 @@ export default function ContractorCircle() {
   const handleHeroIntroComplete = useCallback(() => {
     setHeroIntroComplete(true);
   }, []);
+
+  useEffect(() => {
+    heroIntroCompleteRef.current = heroIntroComplete;
+  }, [heroIntroComplete]);
 
   const scrollOfferWall = useCallback((direction: "previous" | "next") => {
     const viewport = offerWallViewportRef.current;
@@ -612,9 +620,19 @@ export default function ContractorCircle() {
 
     const player = window.Stream(streamFrameRef.current);
     streamPlayerRef.current = player;
+    let readyTimer = 0;
     const markReady = () => {
-      setVideoUnavailable(false);
-      setHeroVideoReady(true);
+      heroPlaybackSeenRef.current = true;
+      if (!heroIntroCompleteRef.current) return;
+
+      window.clearTimeout(readyTimer);
+      readyTimer = window.setTimeout(() => {
+        setVideoUnavailable(false);
+        setHeroVideoReady(true);
+      }, 1800);
+    };
+    const playWhenReady = () => {
+      ensureHeroVideoPlayback(true);
     };
     const markUnavailable = () => {
       setVideoUnavailable(true);
@@ -626,19 +644,20 @@ export default function ContractorCircle() {
     player.loop = true;
     player.muted = mutedPreferenceRef.current;
     setMuted(mutedPreferenceRef.current);
-    player.addEventListener?.("canplay", markReady);
+    player.addEventListener?.("canplay", playWhenReady);
     player.addEventListener?.("playing", markReady);
     player.addEventListener?.("error", markUnavailable);
     const cancelPlaybackRetries = scheduleHeroVideoPlayback();
 
     return () => {
       cancelPlaybackRetries();
-      player.removeEventListener?.("canplay", markReady);
+      window.clearTimeout(readyTimer);
+      player.removeEventListener?.("canplay", playWhenReady);
       player.removeEventListener?.("playing", markReady);
       player.removeEventListener?.("error", markUnavailable);
       streamPlayerRef.current = null;
     };
-  }, [scheduleHeroVideoPlayback, streamRuntimeReady]);
+  }, [ensureHeroVideoPlayback, scheduleHeroVideoPlayback, streamRuntimeReady]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -646,6 +665,38 @@ export default function ContractorCircle() {
 
     return scheduleHeroVideoPlayback();
   }, [heroFrameLoaded, scheduleHeroVideoPlayback, streamRuntimeReady]);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !heroIntroComplete) return;
+
+    const prefersReducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    const timers = [0, 120, 360, 840, 1440, 2400].map(delay =>
+      window.setTimeout(() => ensureHeroVideoPlayback(true), delay)
+    );
+    let revealTimer = 0;
+    let readyBridgeTimer = 0;
+
+    if (!prefersReducedMotion && !heroRevealStartedRef.current) {
+      heroRevealStartedRef.current = true;
+      setHeroRevealActive(true);
+      revealTimer = window.setTimeout(() => setHeroRevealActive(false), 1900);
+    }
+
+    if (heroPlaybackSeenRef.current) {
+      readyBridgeTimer = window.setTimeout(() => {
+        setVideoUnavailable(false);
+        setHeroVideoReady(true);
+      }, prefersReducedMotion ? 0 : 2200);
+    }
+
+    return () => {
+      timers.forEach(timer => window.clearTimeout(timer));
+      window.clearTimeout(revealTimer);
+      window.clearTimeout(readyBridgeTimer);
+    };
+  }, [ensureHeroVideoPlayback, heroIntroComplete, streamRuntimeReady]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -817,7 +868,7 @@ export default function ContractorCircle() {
             heroIntroComplete
               ? "is-hero-intro-complete"
               : "is-hero-intro-active"
-          }`}
+          } ${heroRevealActive ? "is-hero-intro-revealing" : ""}`}
           aria-label="Contractor Circle introduction video"
         >
           <img
@@ -1488,10 +1539,10 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           return;
         }
 
-        const cardGap = Math.min(window.innerWidth * 0.27, 390);
-        const clampRotation = gsap.utils.clamp(-15, 15);
-        const clampScale = gsap.utils.clamp(0.72, 1);
-        const clampAlpha = gsap.utils.clamp(0.28, 1);
+        const cardGap = Math.min(window.innerWidth * 0.31, 460);
+        const clampRotation = gsap.utils.clamp(-18, 18);
+        const clampScale = gsap.utils.clamp(0.7, 1);
+        const clampAlpha = gsap.utils.clamp(0.34, 1);
 
         gsap.set(cards, {
           xPercent: -50,
@@ -1501,17 +1552,21 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         });
 
         const updateDeck = (progress: number) => {
-          const activeIndex = progress * Math.max(cards.length - 1, 1);
+          const activeIndex = gsap.utils.clamp(
+            1.35,
+            Math.max(cards.length - 2.15, 1.35),
+            1.35 + progress * Math.max(cards.length - 3.5, 1)
+          );
 
           cards.forEach((card, index) => {
             const offset = index - activeIndex;
             const absOffset = Math.abs(offset);
             const direction = offset < 0 ? -1 : 1;
-            const rotation = clampRotation(offset * 5.8);
-            const scale = clampScale(1 - absOffset * 0.072);
-            const alpha = clampAlpha(1 - absOffset * 0.18);
-            const y = 18 + Math.min(absOffset * 28, 104);
-            const z = -Math.min(absOffset * 44, 190);
+            const rotation = clampRotation(offset * 7.4);
+            const scale = clampScale(1 - absOffset * 0.066);
+            const alpha = clampAlpha(1 - absOffset * 0.14);
+            const y = Math.min(absOffset * 18, 76);
+            const z = -Math.min(absOffset * 58, 240);
             const x = offset * cardGap;
             const blur = absOffset > 2.4 ? Math.min((absOffset - 2.4) * 1.3, 3) : 0;
 
@@ -1586,18 +1641,22 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           }
         );
 
-        gsap.to(".cc-video-media", {
-          autoAlpha: 0.76,
-          scale: 1.025,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".cc-video-hero",
-            start: "top top",
-            end: "bottom top",
-            scrub: 0.5,
-            invalidateOnRefresh: true,
-          },
-        });
+        gsap.fromTo(
+          ".cc-video-media",
+          { autoAlpha: 1, scale: 1 },
+          {
+            autoAlpha: 0.76,
+            scale: 1.025,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".cc-video-hero",
+              start: "top top",
+              end: "bottom top",
+              scrub: 0.5,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
 
         const heroCopy = root.querySelector<HTMLElement>(".cc-hero-copy");
         if (heroCopy) {
@@ -1881,17 +1940,21 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         filter: "blur(5px)",
       });
 
-      gsap.to(".cc-video-media", {
-        scale: 1.08,
-        autoAlpha: 0.58,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".cc-video-hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
+      gsap.fromTo(
+        ".cc-video-media",
+        { autoAlpha: 1, scale: 1 },
+        {
+          scale: 1.08,
+          autoAlpha: 0.58,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".cc-video-hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true,
+          },
+        }
+      );
 
       const heroCopy = root.querySelector<HTMLElement>(".cc-hero-copy");
       if (heroCopy) {
