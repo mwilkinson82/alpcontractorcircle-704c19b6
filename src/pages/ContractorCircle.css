@@ -823,9 +823,11 @@ body:has(.cc-page) {
   z-index: 2;
   display: grid;
   align-content: start;
+  justify-items: center;
   gap: 12px;
   min-height: 100%;
   padding: clamp(18px, 3vw, 36px);
+  text-align: center;
 }
 
 .cc-intro-profit-column {
@@ -847,7 +849,9 @@ body:has(.cc-page) {
   letter-spacing: 0;
   line-height: 0.92;
   text-transform: none;
+  text-align: center;
 }
+
 
 .cc-intro-chart-column strong {
   position: relative;
@@ -987,7 +991,7 @@ body:has(.cc-page) {
 .cc-intro-project-title {
   position: absolute;
   z-index: 4;
-  top: clamp(36px, 5.5vh, 64px);
+  top: clamp(80px, 12vh, 140px);
   left: 50%;
   transform: translateX(-50%) translateY(8px);
 
