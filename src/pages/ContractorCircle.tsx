@@ -591,6 +591,7 @@ function PillarsSection() {
               const style = {
                 "--fan-slot": slot,
                 "--fan-distance": distance,
+                "--fan-x": `calc(${slot} * clamp(74px, 8vw, 122px))`,
                 "--fan-rotate": `${slot * 4.65}deg`,
                 "--fan-y": `${-42 + distance * 30 + Math.max(0, distance - 2) * 11}px`,
                 "--fan-z": 80 - distance,
