@@ -6858,17 +6858,25 @@ body:has(.cc-page) {
 
 @media (max-width: 860px) {
   .cc-fan-stage {
+    height: auto;
     min-height: auto;
     overflow: hidden;
   }
 
   .cc-fan-track {
+    position: relative;
+    left: auto;
+    top: auto;
     display: flex;
     gap: 28px;
     width: 100%;
+    height: auto;
     min-height: clamp(500px, 130vw, 620px);
     padding: 36px 22px 62px;
     overflow-x: auto;
+    overflow-y: hidden;
+    pointer-events: auto;
+    transform: none;
     scroll-padding-inline: 22px;
     scroll-snap-type: x mandatory;
   }
@@ -6880,7 +6888,7 @@ body:has(.cc-page) {
     flex: 0 0 clamp(300px, 86vw, 390px);
     width: clamp(300px, 86vw, 390px);
     height: clamp(430px, 116vw, 540px);
-    transform: translateY(var(--fan-y)) rotate(var(--fan-rotate));
+    transform: none;
     scroll-snap-align: center;
   }
 }
