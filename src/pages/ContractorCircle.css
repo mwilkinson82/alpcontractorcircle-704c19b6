@@ -891,9 +891,9 @@ body:has(.cc-page) {
   gap: 8px;
   width: min(540px, 42vw);
   padding: clamp(16px, 2.2vw, 26px);
-  border: 1px solid rgb(246 239 228 / 0.22);
-  background: rgb(5 5 5 / 0.74);
-  box-shadow: 0 30px 90px rgb(0 0 0 / 0.42);
+  border: 1px solid rgb(13 13 12 / 0.18);
+  background: rgb(255 255 255 / 0.94);
+  box-shadow: 0 24px 60px rgb(13 13 12 / 0.12);
   opacity: 0;
   text-align: left;
   transform: translate(-50%, 18px) scale(0.98);
@@ -902,14 +902,14 @@ body:has(.cc-page) {
 }
 
 .cc-intro-current-profit span {
-  color: rgb(246 239 228 / 0.66);
+  color: rgb(13 13 12 / 0.6);
   font-size: clamp(0.72rem, 1vw, 0.94rem);
   font-weight: 800;
   text-transform: uppercase;
 }
 
 .cc-intro-current-profit strong {
-  color: #f6efe4;
+  color: #0d0d0c;
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
