@@ -1612,11 +1612,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             },
             {
               y: 0,
-              rotate: () => {
-                // mirror the CSS rotation per index
-                const r = [-7, -2, 3, 8][i] ?? 0;
-                return r;
-              },
+              rotate: () => [-18, -9, 0, 9, 18][i] ?? 0,
               scale: 1,
               autoAlpha: 1,
               ease: "power3.out",
