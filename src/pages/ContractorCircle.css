@@ -5927,63 +5927,52 @@ body:has(.cc-page) {
   margin-top: clamp(8px, 1vw, 16px);
 }
 
-.cc-labs-motion-shape {
+.cc-inside-word-field {
   position: absolute;
   z-index: 1;
-  display: block;
+  inset: 0;
+  overflow: hidden;
   pointer-events: none;
-  border-radius: 999px;
-  opacity: 0.96;
-  filter: saturate(1.05);
-  animation: cc-labs-shape-drift 10s cubic-bezier(0.45, 0, 0.2, 1) infinite alternate;
 }
 
-.cc-labs-motion-yellow {
-  top: -15vw;
-  left: 24vw;
-  width: clamp(240px, 33vw, 560px);
-  height: clamp(240px, 33vw, 560px);
-  background: #ffd12f;
+.cc-inside-word {
+  position: absolute;
+  top: var(--word-y);
+  left: var(--word-x);
+  color: rgb(21 21 21 / 0.14);
+  font-family: "Fira Sans", Arial, sans-serif;
+  font-size: clamp(0.8rem, 1.15vw, 1.18rem);
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+  white-space: nowrap;
+  opacity: 0.58;
+  transform: translate(-50%, -50%);
+  animation: cc-inside-word-drift 15s var(--cc-caption-ease) infinite alternate;
+  animation-delay: var(--word-delay);
+  will-change: transform, color, opacity;
 }
 
-.cc-labs-motion-blue {
-  top: -8vw;
-  right: -10vw;
-  width: clamp(280px, 34vw, 620px);
-  height: clamp(420px, 52vw, 860px);
-  background: #5b93f6;
-  border-radius: 50% 0 0 50%;
-  animation-delay: -3.4s;
-}
+.cc-inside-word.is-risk { color: rgb(164 68 37 / 0.2); }
+.cc-inside-word.is-green { color: rgb(44 112 77 / 0.18); }
+.cc-inside-word.is-blue { color: rgb(45 91 130 / 0.18); }
 
-.cc-labs-motion-green {
-  right: -4vw;
-  bottom: -11vw;
-  width: clamp(300px, 42vw, 760px);
-  height: clamp(250px, 30vw, 560px);
-  background: #35f774;
-  border-radius: 48% 52% 0 0 / 68% 62% 0 0;
-  transform: rotate(-10deg);
-  animation-delay: -6.8s;
-}
-
-.cc-labs-motion-pink {
-  left: -13vw;
-  bottom: 18vw;
-  width: clamp(240px, 31vw, 560px);
-  height: clamp(280px, 39vw, 660px);
-  background: #f58af1;
-  border-radius: 52% 48% 46% 54% / 56% 42% 58% 44%;
-  animation-delay: -1.8s;
-}
-
-@keyframes cc-labs-shape-drift {
-  from {
-    transform: translate3d(-2.8vw, 1.5vw, 0) rotate(-8deg) scale(0.98);
+@keyframes cc-inside-word-drift {
+  0% {
+    color: rgb(21 21 21 / 0.11);
+    opacity: 0.38;
+    transform: translate(calc(-50% - 18px), calc(-50% + 16px)) rotate(-1.5deg);
   }
 
-  to {
-    transform: translate3d(2.4vw, -1.8vw, 0) rotate(7deg) scale(1.04);
+  44% {
+    color: rgb(21 21 21 / 0.44);
+    opacity: 0.78;
+  }
+
+  100% {
+    color: rgb(21 21 21 / 0.22);
+    opacity: 0.5;
+    transform: translate(calc(-50% + 22px), calc(-50% - 18px)) rotate(1.8deg);
   }
 }
 
