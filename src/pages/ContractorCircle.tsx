@@ -1611,7 +1611,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           ? "compact"
           : "desktop";
 
-      const setupPillarFan = () => {
+      const setupPillarFan = (): (() => void) | undefined => {
         const fan = root.querySelector<HTMLElement>("[data-circle-fan]");
         if (!fan) return;
         const cards = Array.from(
