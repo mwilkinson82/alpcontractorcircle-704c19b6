@@ -1,85 +1,62 @@
-# Rebuild "What's Inside" — Pillars + Fan-Out Deck
+## What you're seeing now vs. what you want
 
-Two sections in the page currently try to do the same job and both fall short: `ProductDeckSection` ("The work has somewhere to live") wraps the tools in a Google-esque colored asymmetric backdrop, and `cc-stack-card-offer-wall` ("Every asset has a job to do") renders them in a dark carousel where the screenshots get cropped. Replace both with:
+Current state: both sections render as straight, upright rectangles in a tidy grid. They got cleaner, but they lost the "deck of cards thrown across the table" feeling from labs.google that you wanted in the first place.
 
-1. **Section A — "What's inside" (4 pillars)** on clean paper, four equal pillar cards
-2. **Section B — "Every asset has a job to do" (labs-style fan-out deck)** on clean paper, screenshots full-bleed and uncropped
+Goal: that exact labs.google energy — big tilted/fanned cards, alternating rotation, generous overlap, an oversized colored blob shape behind them, on the paper background, with motion that scrubs as you scroll. Two distinct moments:
 
-Order on the page stays as you set it: pillars sit where ProductDeckSection sits today (between the problem card and the proof card), the fan-out deck stays where the offer wall sits today (between proof and "owner stops being the router").
+1. **Pillars** ("Build the company behind the projects" — 4 cards: Bi-weekly Calls, Bootcamp, Community, Portal) → labs.google **tall portrait fan** (your first screenshot)
+2. **Every asset has a job to do** → labs.google **horizontal landscape carousel** of larger bento cards drifting left→right (your second screenshot)
 
----
+## Section A — Pillars: tall portrait fan
 
-## Section A — 4 Pillar Cards
+Layout
+- Four tall portrait cards (~ aspect 3/4), shoulder to shoulder, slightly overlapping (~ −40px gutter)
+- Alternating rotation: −6°, +3°, −2°, +5° (with slight randomness so it feels hand-thrown, not mechanical)
+- Each card pops up ~80px on hover, rotation eases to 0°, neighbors dim slightly
+- One oversized brand-blob shape (orange or brick) sits behind the row, partially clipped by the section — same role as the green/pink blobs on labs.google
+- Card content stays as-is: number, icon, name, outcome line, 3 bullets. Portal card keeps the "↓ every asset has a job to do" handoff
+- Mobile: collapses to a horizontal snap-scroll of the same tilted cards, one at a time
 
-Headline: **"What you actually get."** Eyebrow: `What's Inside`. Subhead: one line tying calls, bootcamp, community, and portal into a single operating system around the owner.
+Motion
+- Cards enter from a tight stack at center, fan outward to final positions as the section enters the viewport (GSAP scrub)
+- Subtle continuous float (1–2px sway) when idle so it feels alive, not frozen
 
-Four equal cards, 2x2 on desktop, single column on mobile. Each card has a real visual at the top (not just an icon), the pillar name, a one-line outcome, and three bullets.
+## Section B — Asset deck: horizontal labs-style carousel
 
-| # | Pillar | Visual | Outcome line | Bullets |
-|---|---|---|---|---|
-| 01 | Bi-weekly Calls + Curriculum | Call/replay still | "Bring the issue. Leave with the move." | Live with Marshall · Set curriculum, not open Q&A · Replays stay in the portal |
-| 02 | Monthly Bootcamp | Bootcamp screenshot | "Build the system live, in one sitting." | One operating system per month · Templates + SOPs walk out the door · Replay + workbook stay |
-| 03 | Community | Discord screenshot | "The room between sessions." | Members-only Discord · Post overnight, get a read by morning · Threads feed the next call |
-| 04 | Portal (+ AOS + Tools + Templates + Handbook + Ask Marshall + SOP Builder) | Portal screenshot | "One front door for everything else." | AOS workspaces + seats included · 26+ templates, growing tool set · Ends with: **"…and every asset has a job to do ↓"** linking to Section B |
+Layout
+- Larger landscape bento cards (~ aspect 16/10), one row, drifting horizontally
+- Each card slightly tilted (−3° to +4°), partial overlap, screenshot fills the top 60% of the card with no cropping, copy beneath
+- A second oversized blob shape behind (different color than Section A) anchored to the right side, partially clipped
+- Cards include: portal, replays, templates, handbook, Discord, etc. — same `productProofItems` data
+- Desktop: native horizontal scroll with snap + GSAP-driven auto-drift on idle, paused on hover/focus; chevron affordances at the edges
+- Mobile: same horizontal snap-scroll, smaller card width
 
-The Portal card's footer link is the explicit handoff into Section B so the fan-out deck reads as "here's everything inside the portal" rather than a second pile of cards.
+Motion
+- On scroll-in: cards rise from below + tilt into place, staggered
+- While the section is in view, the row drifts slowly left→right (auto-scroll), pausing when the user grabs/hovers
+- Hover lifts a card, levels its rotation, and scales the screenshot inside
 
-No colored asymmetric backdrop, no `SystemsField` accent layer behind these cards. Same paper/ink palette as the rest of the page, with the brick-orange used only as accent on the Portal card to mark it as the gateway.
+## Shared visual language
 
----
-
-## Section B — Fan-Out Deck ("Every asset has a job to do")
-
-Eyebrow `Inside the Circle`, headline kept: **"Every asset has a job to do."**
-
-Behavior: cards start stacked center-stage (like a deck of cards), then **fan into a grid as the section enters the viewport**, driven by the existing GSAP/ScrollTrigger setup. On desktop the fanned state is a 3-column grid; on mobile the cards land in a single column with a softer stagger.
-
-Per card:
-- Full-bleed screenshot at the top (`object-fit: contain` against a soft paper backdrop so nothing is cropped — this is the bug fix you flagged)
-- Eyebrow + headline (existing `headlineLines`)
-- One-paragraph body (existing `body`)
-- Tag chips for `points[].label`
-- Footer: primary link if present (`Open portal`, `Open AOS app`, `Walk through Why AOS`, etc.)
-- Hover: card lifts, screenshot scales slightly, subtle ink shadow
-
-Source data is the existing `productProofItems` array — no copy rewrites required, just better presentation. The dark `cc-offer-wall-shell` carousel and its left/right scroll controls go away entirely.
-
-No `SystemsField` accent in the background. Paper/ink only, with the brick accent reserved for the small "Member asset" arrow chip.
-
----
-
-## Out of scope
-
-- No changes to the hero intro motion, hero copy, problem card, shift card, proof card, fit card, onboarding card, close card, pricing card, footer, or nav.
-- No copy rewrites on the 8 existing assets — just presentation.
-- No new screenshot assets — uses what's already in `public/manus-storage/`.
-
----
+- Background: existing paper `#f5f3ee` — no SystemsField, no abstract noise
+- Blob shapes: two large soft-edged organic shapes per section (one warm — brick/orange tint, one cool — slate/sage tint) at low opacity, partially clipped by section edges. Pure CSS (border-radius blobs + filter: blur) — no new libraries
+- Card chrome: white card, ~24px radius, soft shadow, 1px hairline border, no Google color accents
+- Type: keep current Google Sans display + Fira Sans body
+- Both sections share the same tilt vocabulary so they read as siblings
 
 ## Technical notes
 
-**Files touched**
-- `src/pages/ContractorCircle.tsx` — replace `ProductDeckSection()` with a new `PillarsSection()` (4 pillar cards). Replace the `cc-stack-card-offer-wall` article with a new `cc-stack-card-asset-deck` article that renders `productProofItems` as a fan-out deck. Add a small `pillars` array near `installedItems` for the 4 pillar definitions. Keep all GSAP `.cc-stack-card` selectors working — the new asset-deck article keeps the `cc-stack-card` class.
-- `src/pages/ContractorCircle.css` — add `.cc-pillars-section`, `.cc-pillar-card`, `.cc-asset-deck`, `.cc-asset-card` styles. Delete/replace `.cc-product-deck-section`, `.cc-product-deck-*`, `.cc-offer-wall-*` styles. Remove the asymmetric color accents that bleed into these sections.
-- No changes to `HeroIntroMotion.tsx`.
+- Tilt + fan-out: GSAP `ScrollTrigger` with `scrub`, same setup pattern already in `setupAssetDeck`. Reuse that hook, split into `setupPillarFan` and `setupAssetCarousel`
+- Auto-drift in Section B: GSAP infinite tween on a track wrapper, killed/resumed via pointer events
+- Blob shapes: two absolutely-positioned `<span>` decorations per section with `border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%`, `filter: blur(40px)`, `mix-blend-mode: multiply`
+- All scoped to `ContractorCircle.tsx` + `ContractorCircle.css`. No new dependencies. No changes to hero, intro motion, problem, proof, fit, pricing, footer
 
-**Fan-out animation**
-- Initial state: cards absolutely positioned, stacked at the section's vertical center with small rotation offsets (−4°, −1°, +2°, +5° staggered).
-- Scroll trigger fires when the section's top hits ~70% of viewport. GSAP timeline transitions each card to its grid slot (`position: relative` via FLIP, or animated `transform: translate()` + `rotate(0)` with the grid pre-laid out behind).
-- Respect `prefers-reduced-motion` → cards render in their final grid positions with no animation.
+## What I need from you
 
-**Pillar visuals**
-- Reuse `exact-bootcamp_9c719283.png`, `exact-community_e45de5f2.png`, `portal-ask-marshall_2e6c40e1.png` from `public/manus-storage/`. For Bi-weekly Calls, reuse `exact-bootcamp` or `portal-ask-reply` — pick whichever reads "live call" best at thumbnail size.
+Nothing required — I have everything I need from `productProofItems` and existing screenshots. **Optional** if you want it to feel even closer to labs.google:
 
-**Screenshot fix**
-- Card image container uses `aspect-ratio: 16 / 10`, `overflow: hidden`, `background: hsl(var(--paper))`, image inside is `width: 100%; height: 100%; object-fit: contain` so nothing is cropped — this is the core fix for "you can't see the screenshots."
+1. **Blob color call** — should the warm blob be your existing `--cc-orange` brick, or a softer dusty peach? Pick one.
+2. **Pillar card visuals** — Bootcamp and Community currently use the same screenshots as their proof items. If you want hero-style visuals tailored to each pillar (like the dreambeans / Literature Insights illustrated cards on labs.google), drop in 4 images. Otherwise I keep current screenshots.
+3. **Auto-drift speed in Section B** — slow ambient (~60s per loop) or more present (~25s per loop)? I'll default to ~45s if you don't pick.
 
-**Section ordering on the page** (unchanged from your last pass)
-```text
-Hero video
-→ "Build the company behind the projects" (hero copy)
-→ Card stack #1: shift, problem
-→ Pillars section  ← was ProductDeckSection
-→ Card stack #2: proof, asset deck (was offer-wall), installed, fit, onboarding, close, pricing
-→ Stats, mega close, footer
-```
+Approve and I'll build it.
