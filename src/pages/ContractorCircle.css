@@ -1510,14 +1510,7 @@ body:has(.cc-page) {
 }
 
 .cc-stack-card-shift {
-  background:
-    linear-gradient(90deg, rgb(21 21 21 / 0.026) 1px, transparent 1px),
-    linear-gradient(0deg, rgb(21 21 21 / 0.022) 1px, transparent 1px),
-    linear-gradient(180deg, #fffdf8 0%, #f1eadf 100%);
-  background-size:
-    76px 76px,
-    76px 76px,
-    auto;
+  background: #fffdf8;
   color: var(--cc-ink);
   width: min(1500px, calc(100vw - 32px));
   min-height: min(820px, calc(100svh - 120px));
@@ -1529,16 +1522,7 @@ body:has(.cc-page) {
 
 .cc-stack-card-installed {
   overflow: hidden;
-  background:
-    linear-gradient(90deg, rgb(21 21 21 / 0.024) 1px, transparent 1px),
-    linear-gradient(0deg, rgb(21 21 21 / 0.02) 1px, transparent 1px),
-    radial-gradient(circle at 50% 66%, rgb(93 155 255 / 0.16), transparent 32%),
-    linear-gradient(180deg, #fffdf8 0%, #f4eee5 100%);
-  background-size:
-    76px 76px,
-    76px 76px,
-    auto,
-    auto;
+  background: #fffdf8;
 }
 
 .cc-stack-card-pricing,
@@ -1636,9 +1620,7 @@ body:has(.cc-page) {
 }
 
 .cc-stack-card-install-detail {
-  background:
-    radial-gradient(circle at 82% 16%, rgb(219 106 63 / 0.12), transparent 28%),
-    linear-gradient(135deg, #fbfaf7 0%, #f0eee7 100%);
+  background: #fbfaf7;
 }
 
 .cc-stack-card-product-proof {
