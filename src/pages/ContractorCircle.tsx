@@ -1163,6 +1163,10 @@ export default function ContractorCircle() {
           ) : null}
         </section>
 
+        <div id="whats-installed">
+          <PillarsSection />
+        </div>
+
         <section className="cc-hero-copy cc-caption">
           <p className="cc-eyebrow" data-caption>
             Contractor Circle
@@ -1185,10 +1189,6 @@ export default function ContractorCircle() {
             </a>
           </div>
         </section>
-
-        <div id="whats-installed">
-          <PillarsSection />
-        </div>
 
         <section
           className="cc-card-stack"
