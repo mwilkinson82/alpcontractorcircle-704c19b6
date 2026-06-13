@@ -556,16 +556,15 @@ function PillarsSection() {
       className="cc-pillars-section"
       aria-label="Everything inside Contractor Circle"
     >
+      <span className="cc-labs-motion-shape cc-labs-motion-yellow" aria-hidden="true" />
+      <span className="cc-labs-motion-shape cc-labs-motion-blue" aria-hidden="true" />
+      <span className="cc-labs-motion-shape cc-labs-motion-green" aria-hidden="true" />
+      <span className="cc-labs-motion-shape cc-labs-motion-pink" aria-hidden="true" />
       <div className="cc-pillars-inner">
         <div className="cc-pillars-copy cc-caption">
           <h2>
             <span data-caption>Everything inside the Circle</span>
           </h2>
-          <p className="cc-subhead" data-caption>
-            Every call, bootcamp, tool, template, replay, and SOP — laid out
-            so you can see exactly what comes with membership. Click any card
-            for the full breakdown.
-          </p>
         </div>
 
         <div
@@ -579,15 +578,15 @@ function PillarsSection() {
               if (slot > items.length / 2) slot -= items.length;
               if (slot < -items.length / 2) slot += items.length;
               const distance = Math.abs(slot);
-              const visible = distance <= 3;
-              const spread = 320; // px between cards
-              const tilt = 9; // deg per slot
-              const yPush = distance * distance * 14;
-              const scale = slot === 0 ? 1.02 : 1 - distance * 0.04;
+              const visible = distance <= 4;
+              const spread = Math.min(230, Math.max(170, window.innerWidth * 0.17));
+              const yPush = distance * distance * 7 + Math.max(0, slot) * 6;
+              const tilt = slot * 4.7 + (slot < 0 ? -1.2 : 1.2);
+              const scale = slot === 0 ? 1.02 : 1 - distance * 0.018;
               const style: CSSProperties = {
-                transform: `translate(-50%, 0) translateX(${slot * spread}px) translateY(${yPush}px) rotate(${slot * tilt}deg) scale(${scale})`,
+                transform: `translate(-50%, 0) translateX(${slot * spread}px) translateY(${yPush}px) rotate(${tilt}deg) scale(${scale})`,
                 zIndex: 20 - distance,
-                opacity: visible ? (distance >= 3 ? 0.35 : 1) : 0,
+                opacity: visible ? 1 : 0,
                 pointerEvents: visible ? "auto" : "none",
               };
               return (
