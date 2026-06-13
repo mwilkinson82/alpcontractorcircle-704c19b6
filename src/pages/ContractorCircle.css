@@ -6013,48 +6013,6 @@ body:has(.cc-page) {
   font-size: 0.68rem;
 }
 
-/* ---- Background blobs (shared) ---- */
-.cc-blob {
-  position: absolute;
-  border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
-  filter: blur(60px);
-  opacity: 0.7;
-  pointer-events: none;
-  z-index: 1;
-  mix-blend-mode: multiply;
-}
-
-.cc-blob-warm {
-  width: clamp(420px, 48vw, 760px);
-  height: clamp(380px, 44vw, 680px);
-  background: radial-gradient(circle at 30% 30%, rgba(219, 106, 63, 0.55), rgba(219, 106, 63, 0));
-  top: -8%;
-  right: -10%;
-}
-
-.cc-blob-cool {
-  width: clamp(360px, 40vw, 620px);
-  height: clamp(340px, 38vw, 580px);
-  background: radial-gradient(circle at 60% 40%, rgba(120, 158, 140, 0.5), rgba(120, 158, 140, 0));
-  bottom: -12%;
-  left: -8%;
-}
-
-.cc-blob-asset-left {
-  top: -6%;
-  left: -10%;
-  right: auto;
-  bottom: auto;
-}
-
-.cc-blob-asset-right {
-  top: 30%;
-  right: -12%;
-  bottom: auto;
-  left: auto;
-}
-
-
 .cc-pillar-card {
   position: relative;
   display: grid;
