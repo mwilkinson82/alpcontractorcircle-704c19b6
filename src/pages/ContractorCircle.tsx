@@ -10,18 +10,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import {
   Archive,
+  ArrowDown,
   ArrowUpRight,
   BookOpen,
   CalendarDays,
   Check,
-  ChevronLeft,
-  ChevronRight,
   CircleDollarSign,
   ClipboardList,
   LockKeyhole,
   MessageSquare,
   Network,
   Play,
+  Rocket,
   Settings2,
   ShieldCheck,
   Sparkles,
@@ -30,6 +30,7 @@ import {
   Video,
   type LucideIcon,
 } from "lucide-react";
+
 
 import HeroIntroMotion from "./HeroIntroMotion";
 import "./ContractorCircle.css";
@@ -417,86 +418,146 @@ const testimonials = [
   },
 ];
 
-function ProductDeckCard({
-  item,
-  index,
-}: {
-  item: (typeof productProofItems)[number];
-  index: number;
-}) {
-  return (
-    <article
-      className="cc-product-deck-card cc-detail-reveal"
-      data-product-card={index + 1}
-      aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")}`}
-    >
-      <figure className="cc-product-deck-media">
-        <img src={item.image} alt={item.imageAlt} />
-      </figure>
-      <div className="cc-product-deck-body">
-        <p className="cc-product-deck-label">
-          <span>{item.number}</span>
-          {item.eyebrow}
-        </p>
-        <h3>{item.headlineLines.join(" ")}</h3>
-        <p>{item.body}</p>
-        <p className="cc-product-deck-signal">
-          <b>{item.points[0]?.label}</b>
-          <span>{item.points[0]?.value}</span>
-        </p>
-        <div className="cc-product-deck-actions">
-          {item.walkthrough ? (
-            <a href={item.walkthrough.href} target="_blank" rel="noreferrer">
-              {item.walkthrough.cta}
-              <ArrowUpRight aria-hidden="true" />
-            </a>
-          ) : null}
-          {item.links?.slice(0, 1).map(link => (
-            <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
-              {link.label}
-              <ArrowUpRight aria-hidden="true" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </article>
-  );
-}
+type Pillar = {
+  number: string;
+  eyebrow: string;
+  title: string;
+  outcome: string;
+  bullets: string[];
+  image: string;
+  imageAlt: string;
+  icon: LucideIcon;
+  isGateway?: boolean;
+};
 
-function ProductDeckSection() {
+const pillars: Pillar[] = [
+  {
+    number: "01",
+    eyebrow: "Bi-weekly Calls + Curriculum",
+    title: "Live with Marshall, on a real curriculum.",
+    outcome: "Bring the issue. Leave with the move.",
+    bullets: [
+      "Live with Marshall, every other week",
+      "Set curriculum, not open Q&A",
+      "Replays stay in the portal for life",
+    ],
+    image: "/manus-storage/portal-ask-reply_d776f93c.png",
+    imageAlt: "Bi-weekly Contractor Circle call session",
+    icon: CalendarDays,
+  },
+  {
+    number: "02",
+    eyebrow: "Monthly Bootcamp",
+    title: "Build the system live, in one sitting.",
+    outcome: "One operating system installed per month.",
+    bullets: [
+      "One operating system per bootcamp",
+      "Templates and SOPs walk out the door",
+      "Replay and workbook stay for reference",
+    ],
+    image: "/manus-storage/exact-bootcamp_9c719283.png",
+    imageAlt: "Contractor Circle monthly bootcamp",
+    icon: Rocket,
+  },
+  {
+    number: "03",
+    eyebrow: "Community",
+    title: "The room between sessions.",
+    outcome: "Owners who actually run the work.",
+    bullets: [
+      "Members-only Discord, every account active",
+      "Post overnight, get a read by morning",
+      "Threads feed the next call agenda",
+    ],
+    image: "/manus-storage/exact-community_e45de5f2.png",
+    imageAlt: "Contractor Circle Discord community",
+    icon: Users,
+  },
+  {
+    number: "04",
+    eyebrow: "Portal",
+    title: "One front door for everything else.",
+    outcome: "AOS, tools, templates, handbook, Ask Marshall, SOP Builder.",
+    bullets: [
+      "AOS workspaces and seats included",
+      "26+ deployable templates, growing tool set",
+      "Ask Marshall, the handbook, and the SOP Builder live here",
+    ],
+    image: "/manus-storage/portal-ask-marshall_2e6c40e1.png",
+    imageAlt: "Contractor Circle portal command center",
+    icon: Network,
+    isGateway: true,
+  },
+];
+
+function PillarsSection() {
   return (
     <section
-      className="cc-product-deck-section"
-      aria-label="Contractor Circle operating assets"
+      className="cc-pillars-section"
+      aria-label="What's inside Contractor Circle"
     >
-      <div className="cc-product-deck-sticky">
-        <SystemsField className="cc-product-deck-field" variant="stack" />
-        <div className="cc-product-deck-copy cc-caption">
+      <div className="cc-pillars-inner">
+        <div className="cc-pillars-copy cc-caption">
           <p className="cc-eyebrow" data-caption>
-            The operating assets
+            What's Inside
           </p>
           <h2>
-            <span data-caption>The work has</span>
-            <span data-caption>somewhere to live.</span>
+            <span data-caption>What you</span>
+            <span data-caption>actually get.</span>
           </h2>
           <p className="cc-subhead" data-caption>
-            Portal, AOS, live rooms, replays, templates, the handbook,
-            community, Ask Marshall, SOPs, and contract scans. Not a pile of
-            links. A system.
+            Contractor Circle is four moving parts that work together:
+            bi-weekly calls with Marshall, a monthly bootcamp that installs
+            a real operating system, a members-only community, and a portal
+            that holds every tool, template, replay, and SOP between them.
           </p>
         </div>
-        <div className="cc-product-deck-stage">
-          {productProofItems.map((item, index) => (
-            <ProductDeckCard key={item.number} item={item} index={index} />
-          ))}
-        </div>
-        <div className="cc-product-deck-meter" aria-hidden="true">
-          <span />
+        <div className="cc-pillars-grid">
+          {pillars.map(pillar => {
+            const Icon = pillar.icon;
+            return (
+              <article
+                key={pillar.number}
+                className={`cc-pillar-card cc-detail-reveal${
+                  pillar.isGateway ? " is-gateway" : ""
+                }`}
+                aria-label={`${pillar.eyebrow}: ${pillar.title}`}
+              >
+                <figure className="cc-pillar-media">
+                  <img src={pillar.image} alt={pillar.imageAlt} />
+                </figure>
+                <div className="cc-pillar-body">
+                  <p className="cc-pillar-label">
+                    <span>{pillar.number}</span>
+                    <Icon aria-hidden="true" />
+                    {pillar.eyebrow}
+                  </p>
+                  <h3>{pillar.title}</h3>
+                  <p className="cc-pillar-outcome">{pillar.outcome}</p>
+                  <ul className="cc-pillar-bullets">
+                    {pillar.bullets.map(bullet => (
+                      <li key={bullet}>
+                        <Check aria-hidden="true" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {pillar.isGateway ? (
+                    <a className="cc-pillar-handoff" href="#asset-deck">
+                      …and every asset has a job to do
+                      <ArrowDown aria-hidden="true" />
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
 
 function useCloudflareStreamRuntime() {
   const [isReady, setIsReady] = useState(false);
@@ -534,7 +595,7 @@ export default function ContractorCircle() {
   const rootRef = useRef<HTMLDivElement>(null);
   const streamFrameRef = useRef<HTMLIFrameElement>(null);
   const streamPlayerRef = useRef<CloudflareStreamPlayer | null>(null);
-  const offerWallViewportRef = useRef<HTMLDivElement>(null);
+  
   const mutedPreferenceRef = useRef(true);
   const heroRevealStartedRef = useRef(false);
   const heroIntroCompleteRef = useRef(false);
@@ -561,16 +622,8 @@ export default function ContractorCircle() {
     heroIntroCompleteRef.current = heroIntroComplete;
   }, [heroIntroComplete]);
 
-  const scrollOfferWall = useCallback((direction: "previous" | "next") => {
-    const viewport = offerWallViewportRef.current;
-    if (!viewport) return;
 
-    const distance = viewport.clientWidth * 0.82;
-    viewport.scrollBy({
-      left: direction === "next" ? distance : -distance,
-      behavior: "smooth",
-    });
-  }, []);
+
 
   const ensureHeroVideoPlayback = useCallback((allowMutedFallback = false) => {
     const player = streamPlayerRef.current;
@@ -800,7 +853,7 @@ export default function ContractorCircle() {
     const updateMobileCta = () => {
       const threshold = Math.min(760, window.innerHeight * 0.9);
       const productDeck =
-        document.querySelector<HTMLElement>(".cc-product-deck-section");
+        document.querySelector<HTMLElement>(".cc-pillars-section");
       const deckRect = productDeck?.getBoundingClientRect();
       const isInsideProductDeck = deckRect
         ? deckRect.top < window.innerHeight * 0.82 && deckRect.bottom > 96
@@ -1025,7 +1078,7 @@ export default function ContractorCircle() {
           </div>
         </section>
 
-        <ProductDeckSection />
+        <PillarsSection />
 
         <section
           className="cc-card-stack"
@@ -1120,8 +1173,11 @@ export default function ContractorCircle() {
               </div>
             </article>
 
-            <article className="cc-stack-card cc-stack-card-offer-wall">
-              <div className="cc-offer-wall-copy cc-caption">
+            <article
+              id="asset-deck"
+              className="cc-stack-card cc-stack-card-asset-deck"
+            >
+              <div className="cc-asset-deck-copy cc-caption">
                 <p className="cc-eyebrow" data-caption>
                   Inside the Circle
                 </p>
@@ -1130,68 +1186,69 @@ export default function ContractorCircle() {
                   <span data-caption>a job to do.</span>
                 </h2>
                 <p className="cc-subhead" data-caption>
-                  The portal, room, app, tools, and handbook are not separate
-                  promises. They are the operating loop members use between
-                  projects, calls, and decisions.
+                  Every tool, template, replay, and SOP behind the portal —
+                  laid out so you can actually see what comes with
+                  membership.
                 </p>
               </div>
-              <div className="cc-offer-wall-shell">
-                <div
-                  className="cc-offer-wall-viewport"
-                  ref={offerWallViewportRef}
-                  role="region"
-                  aria-label="Circle assets carousel"
-                  tabIndex={0}
-                >
-                  <div className="cc-offer-wall-grid">
-                    {productProofItems.map(item => (
-                      <article
-                        className="cc-offer-wall-card cc-detail-reveal"
-                        key={item.number}
-                      >
-                        <div className="cc-offer-card-tags">
-                          <span>{item.eyebrow}</span>
-                          <span>{item.points[0]?.label}</span>
-                        </div>
-                        <figure>
-                          <img src={item.image} alt="" aria-hidden="true" />
-                        </figure>
-                        <div className="cc-offer-wall-card-body">
-                          <span>{item.number} / Contractor Circle</span>
-                          <h3>{item.headlineLines.join(" ")}</h3>
-                          <p>{item.body}</p>
-                          <small>
-                            {item.links?.[0]?.label ??
-                              item.walkthrough?.cta ??
-                              "Member asset"}
-                            <ArrowUpRight aria-hidden="true" />
-                          </small>
-                        </div>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-                <div
-                  className="cc-offer-wall-controls"
-                  aria-label="Circle asset carousel controls"
-                >
-                  <button
-                    type="button"
-                    onClick={() => scrollOfferWall("previous")}
-                    aria-label="Previous Circle assets"
+              <div
+                className="cc-asset-deck"
+                role="list"
+                aria-label="Contractor Circle assets"
+              >
+                {productProofItems.map((item, index) => (
+                  <article
+                    className="cc-asset-card cc-detail-reveal"
+                    key={item.number}
+                    role="listitem"
+                    data-asset-card={index + 1}
                   >
-                    <ChevronLeft aria-hidden="true" />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => scrollOfferWall("next")}
-                    aria-label="Next Circle assets"
-                  >
-                    <ChevronRight aria-hidden="true" />
-                  </button>
-                </div>
+                    <figure className="cc-asset-card-media">
+                      <img src={item.image} alt={item.imageAlt} />
+                    </figure>
+                    <div className="cc-asset-card-body">
+                      <p className="cc-asset-card-label">
+                        <span>{item.number}</span>
+                        {item.eyebrow}
+                      </p>
+                      <h3>{item.headlineLines.join(" ")}</h3>
+                      <p className="cc-asset-card-body-copy">{item.body}</p>
+                      <div className="cc-asset-card-tags">
+                        {item.points.slice(0, 3).map(point => (
+                          <span key={point.label}>{point.label}</span>
+                        ))}
+                      </div>
+                      {(item.walkthrough || item.links?.[0]) && (
+                        <div className="cc-asset-card-actions">
+                          {item.walkthrough ? (
+                            <a
+                              href={item.walkthrough.href}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {item.walkthrough.cta}
+                              <ArrowUpRight aria-hidden="true" />
+                            </a>
+                          ) : null}
+                          {item.links?.slice(0, 1).map(link => (
+                            <a
+                              key={link.href}
+                              href={link.href}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              {link.label}
+                              <ArrowUpRight aria-hidden="true" />
+                            </a>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                ))}
               </div>
             </article>
+
 
             <article className="cc-stack-card cc-stack-card-installed">
               <div className="cc-command-system">
@@ -1471,7 +1528,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-product-deck-card, .cc-product-deck-meter span, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
+          "[data-caption], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-pillar-card, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
@@ -1503,127 +1560,58 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           ? "compact"
           : "desktop";
 
-      const setupProductDeck = () => {
-        const deck = root.querySelector<HTMLElement>(
-          ".cc-product-deck-section"
-        );
+      const setupAssetDeck = () => {
+        const deck = root.querySelector<HTMLElement>(".cc-asset-deck");
         if (!deck) return;
-        const deckSticky = deck.querySelector<HTMLElement>(
-          ".cc-product-deck-sticky"
-        );
-
         const cards = Array.from(
-          deck.querySelectorAll<HTMLElement>(".cc-product-deck-card")
+          deck.querySelectorAll<HTMLElement>(".cc-asset-card")
         );
-        const meter = deck.querySelector<HTMLElement>(
-          ".cc-product-deck-meter span"
-        );
-        const mediaImages = cards.map(card =>
-          card.querySelector<HTMLElement>(".cc-product-deck-media img")
-        );
-
         if (!cards.length) return;
 
         if (isCompact) {
-          const deckCaptionItems =
-            deck.querySelectorAll<HTMLElement>("[data-caption]");
-          gsap.set(deckCaptionItems, {
-            autoAlpha: 1,
-            y: 0,
-            filter: "none",
-          });
           gsap.set(cards, {
             autoAlpha: 1,
-            y: 0,
             x: 0,
-            scale: 1,
+            y: 0,
             rotate: 0,
+            scale: 1,
             filter: "none",
             clearProps: "transform",
-          });
-          gsap.set(mediaImages.filter(Boolean), {
-            scale: 1,
-            yPercent: 0,
-            filter: "contrast(1.02) saturate(1.02)",
           });
           return;
         }
 
-        const cardGap = Math.min(window.innerWidth * 0.31, 460);
-        const clampRotation = gsap.utils.clamp(-18, 18);
-        const clampScale = gsap.utils.clamp(0.7, 1);
-        const clampAlpha = gsap.utils.clamp(0.34, 1);
+        const rotations = [-6, -3, -1, 2, 4, 6, -2, 3];
 
-        gsap.set(cards, {
-          xPercent: -50,
-          yPercent: -50,
-          transformPerspective: 1400,
-          transformOrigin: "center center",
-        });
-
-        const updateDeck = (progress: number) => {
-          const activeIndex = gsap.utils.clamp(
-            1.35,
-            Math.max(cards.length - 2.15, 1.35),
-            1.35 + progress * Math.max(cards.length - 3.5, 1)
-          );
-
-          cards.forEach((card, index) => {
-            const offset = index - activeIndex;
-            const absOffset = Math.abs(offset);
-            const direction = offset < 0 ? -1 : 1;
-            const rotation = clampRotation(offset * 7.4);
-            const scale = clampScale(1 - absOffset * 0.066);
-            const alpha = clampAlpha(1 - absOffset * 0.14);
-            const y = Math.min(absOffset * 18, 76);
-            const z = -Math.min(absOffset * 58, 240);
-            const x = offset * cardGap;
-            const blur = absOffset > 2.4 ? Math.min((absOffset - 2.4) * 1.3, 3) : 0;
-
-            gsap.set(card, {
-              x,
-              y,
-              z,
-              rotate: rotation,
-              rotateY: direction * Math.min(absOffset * 3.4, 13),
-              scale,
-              autoAlpha: alpha,
-              filter: `blur(${blur}px)`,
-              zIndex: Math.round(100 - absOffset * 10),
-            });
-
-            const image = mediaImages[index];
-            if (image) {
-              gsap.set(image, {
-                xPercent: gsap.utils.clamp(-4, 4, offset * -1.4),
-                yPercent: gsap.utils.clamp(-5, 5, offset * -1.1),
-                scale: 1.035 - Math.min(absOffset * 0.006, 0.022),
-              });
-            }
-          });
-
-          if (meter) {
-            gsap.set(meter, {
-              scaleX: 0.12 + progress * 0.88,
-            });
+        gsap.fromTo(
+          cards,
+          (i: number) => ({
+            x: 0,
+            y: 60,
+            rotate: rotations[i % rotations.length],
+            scale: 0.86,
+            autoAlpha: 0.55,
+            transformOrigin: "center bottom",
+          }),
+          {
+            x: 0,
+            y: 0,
+            rotate: 0,
+            scale: 1,
+            autoAlpha: 1,
+            ease: "power2.out",
+            stagger: { each: 0.04, from: "center" },
+            scrollTrigger: {
+              trigger: deck,
+              start: "top 82%",
+              end: "top 28%",
+              scrub: 0.6,
+              invalidateOnRefresh: true,
+            },
           }
-        };
-
-        updateDeck(0);
-
-        ScrollTrigger.create({
-          trigger: deck,
-          start: "top top",
-          end: "bottom bottom",
-          scrub: 0.85,
-          pin: deckSticky,
-          pinSpacing: false,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-          onRefresh: self => updateDeck(self.progress),
-          onUpdate: self => updateDeck(self.progress),
-        });
+        );
       };
+
 
       if (isCompact) {
         gsap.set("[data-caption]", {
@@ -1728,7 +1716,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           }
         }
 
-        setupProductDeck();
+        setupAssetDeck();
 
         const mobileStackCards =
           gsap.utils.toArray<HTMLElement>(".cc-stack-card");
@@ -2125,7 +2113,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
       };
 
-      setupProductDeck();
+      setupAssetDeck();
 
       const stack = root.querySelector<HTMLElement>(".cc-card-stack");
       const stackStage = root.querySelector<HTMLElement>(".cc-stack-sticky");

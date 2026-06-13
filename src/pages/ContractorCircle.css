@@ -5883,3 +5883,431 @@ body:has(.cc-page) {
     opacity: 0.14;
   }
 }
+
+/* ============================================================
+   What's Inside — Pillars Section
+   Clean paper background, 4 equal pillar cards, no Google accents.
+   ============================================================ */
+.cc-pillars-section {
+  position: relative;
+  padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 96px);
+  background: #f5f3ee;
+  color: #0d0d0c;
+}
+
+.cc-pillars-inner {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  gap: clamp(36px, 6vh, 72px);
+}
+
+.cc-pillars-copy {
+  display: grid;
+  gap: clamp(14px, 1.6vw, 22px);
+  max-width: 880px;
+}
+
+.cc-pillars-copy h2 {
+  margin: 0;
+  font-family:
+    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
+    Arial, sans-serif;
+  font-size: clamp(2.4rem, 5.4vw, 5.6rem);
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.01em;
+}
+
+.cc-pillars-copy h2 span {
+  display: block;
+}
+
+.cc-pillars-copy .cc-subhead {
+  color: rgb(13 13 12 / 0.7);
+  font-size: clamp(1rem, 1.3vw, 1.2rem);
+  line-height: 1.55;
+  max-width: 760px;
+}
+
+.cc-pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 36px);
+}
+
+.cc-pillar-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 0;
+  background: #ffffff;
+  border: 1px solid rgb(13 13 12 / 0.08);
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 18px 48px -28px rgb(13 13 12 / 0.18);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.4s ease;
+}
+
+.cc-pillar-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 64px -28px rgb(13 13 12 / 0.28);
+  border-color: rgb(13 13 12 / 0.16);
+}
+
+.cc-pillar-card.is-gateway {
+  border-color: rgb(219 106 63 / 0.55);
+  box-shadow: 0 24px 56px -28px rgb(219 106 63 / 0.42);
+}
+
+.cc-pillar-media {
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #f5f3ee 0%, #ebe7df 100%);
+  overflow: hidden;
+  border-bottom: 1px solid rgb(13 13 12 / 0.06);
+}
+
+.cc-pillar-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  padding: clamp(12px, 1.6vw, 22px);
+}
+
+.cc-pillar-body {
+  padding: clamp(22px, 2.6vw, 36px);
+  display: grid;
+  gap: clamp(10px, 1.2vw, 16px);
+  align-content: start;
+}
+
+.cc-pillar-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: rgb(13 13 12 / 0.55);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.cc-pillar-label span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  padding: 2px 8px;
+  background: #0d0d0c;
+  color: #f5f3ee;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.cc-pillar-label svg {
+  width: 16px;
+  height: 16px;
+  color: var(--cc-orange);
+  stroke-width: 2;
+}
+
+.cc-pillar-card.is-gateway .cc-pillar-label span {
+  background: var(--cc-orange);
+  color: #ffffff;
+}
+
+.cc-pillar-body h3 {
+  margin: 0;
+  font-family:
+    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
+    Arial, sans-serif;
+  font-size: clamp(1.4rem, 2vw, 1.9rem);
+  font-weight: 600;
+  line-height: 1.12;
+  letter-spacing: -0.005em;
+}
+
+.cc-pillar-outcome {
+  margin: 0;
+  color: rgb(13 13 12 / 0.7);
+  font-size: clamp(0.95rem, 1.15vw, 1.05rem);
+  line-height: 1.45;
+}
+
+.cc-pillar-bullets {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.cc-pillar-bullets li {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  align-items: start;
+  gap: 10px;
+  color: rgb(13 13 12 / 0.78);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.cc-pillar-bullets svg {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  color: var(--cc-orange);
+  stroke-width: 2.4;
+}
+
+.cc-pillar-handoff {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  padding: 12px 16px;
+  background: rgb(219 106 63 / 0.08);
+  border: 1px solid rgb(219 106 63 / 0.35);
+  border-radius: 12px;
+  color: var(--cc-orange);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+
+.cc-pillar-handoff:hover {
+  background: rgb(219 106 63 / 0.14);
+  transform: translateX(2px);
+}
+
+.cc-pillar-handoff svg {
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 860px) {
+  .cc-pillars-section {
+    padding: 64px 20px;
+  }
+  .cc-pillars-grid {
+    grid-template-columns: 1fr;
+  }
+  .cc-pillars-copy h2 {
+    font-size: clamp(2rem, 8vw, 2.8rem);
+  }
+}
+
+/* ============================================================
+   Asset Deck — "Every asset has a job to do"
+   Light card, full screenshots, fan-out on scroll.
+   ============================================================ */
+.cc-stack-card-asset-deck {
+  background: #f5f3ee;
+  color: #0d0d0c;
+  padding: clamp(60px, 9vh, 120px) clamp(20px, 5vw, 80px);
+}
+
+.cc-asset-deck-copy {
+  max-width: 1320px;
+  margin: 0 auto clamp(36px, 5vh, 64px);
+  display: grid;
+  gap: clamp(12px, 1.4vw, 18px);
+}
+
+.cc-asset-deck-copy h2 {
+  margin: 0;
+  font-family:
+    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
+    Arial, sans-serif;
+  font-size: clamp(2.2rem, 5vw, 5rem);
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+}
+
+.cc-asset-deck-copy h2 span {
+  display: block;
+}
+
+.cc-asset-deck-copy .cc-subhead {
+  color: rgb(13 13 12 / 0.7);
+  font-size: clamp(1rem, 1.25vw, 1.15rem);
+  line-height: 1.55;
+  max-width: 720px;
+}
+
+.cc-asset-deck {
+  max-width: 1320px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(20px, 2.4vw, 32px);
+}
+
+.cc-asset-card {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: #ffffff;
+  border: 1px solid rgb(13 13 12 / 0.08);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 16px 44px -26px rgb(13 13 12 / 0.2);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.45s ease;
+  will-change: transform, opacity;
+}
+
+.cc-asset-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 32px 72px -28px rgb(13 13 12 / 0.32);
+  border-color: rgb(13 13 12 / 0.18);
+}
+
+.cc-asset-card:hover .cc-asset-card-media img {
+  transform: scale(1.03);
+}
+
+.cc-asset-card-media {
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  background: linear-gradient(135deg, #f5f3ee 0%, #ebe7df 100%);
+  overflow: hidden;
+  border-bottom: 1px solid rgb(13 13 12 / 0.06);
+}
+
+.cc-asset-card-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  padding: clamp(10px, 1.4vw, 18px);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cc-asset-card-body {
+  padding: clamp(20px, 2.2vw, 28px);
+  display: grid;
+  gap: clamp(8px, 1vw, 14px);
+  align-content: start;
+}
+
+.cc-asset-card-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  color: rgb(13 13 12 / 0.55);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.cc-asset-card-label span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 8px;
+  background: #0d0d0c;
+  color: #f5f3ee;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.cc-asset-card-body h3 {
+  margin: 0;
+  font-family:
+    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
+    Arial, sans-serif;
+  font-size: clamp(1.2rem, 1.6vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.005em;
+}
+
+.cc-asset-card-body-copy {
+  margin: 0;
+  color: rgb(13 13 12 / 0.7);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.cc-asset-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.cc-asset-card-tags span {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgb(13 13 12 / 0.05);
+  border: 1px solid rgb(13 13 12 / 0.08);
+  border-radius: 999px;
+  color: rgb(13 13 12 / 0.7);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.cc-asset-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.cc-asset-card-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--cc-orange);
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.cc-asset-card-actions a:hover {
+  border-bottom-color: var(--cc-orange);
+  transform: translateX(2px);
+}
+
+.cc-asset-card-actions svg {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 1100px) {
+  .cc-asset-deck {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .cc-asset-deck {
+    grid-template-columns: 1fr;
+  }
+  .cc-stack-card-asset-deck {
+    padding: 56px 18px;
+  }
+  .cc-asset-deck-copy h2 {
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
+  }
+}
