@@ -16,8 +16,6 @@ import {
   BookOpen,
   CalendarDays,
   Check,
-  ChevronLeft,
-  ChevronRight,
   CircleDollarSign,
   ClipboardList,
   LockKeyhole,
