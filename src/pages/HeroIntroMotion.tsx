@@ -333,8 +333,9 @@ export default function HeroIntroMotion({
         </div>
 
         <div className="cc-intro-current-profit">
-          <span>Current Expected Profit</span>
+          <span>Indicated Gross Profit (today)</span>
           <strong>$325,000</strong>
+          <small>Planned $500,000 − Risk $175,000</small>
         </div>
       </div>
     </div>
