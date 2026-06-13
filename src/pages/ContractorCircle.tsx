@@ -10,18 +10,18 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import {
   Archive,
+  ArrowDown,
   ArrowUpRight,
   BookOpen,
   CalendarDays,
   Check,
-  ChevronLeft,
-  ChevronRight,
   CircleDollarSign,
   ClipboardList,
   LockKeyhole,
   MessageSquare,
   Network,
   Play,
+  Rocket,
   Settings2,
   ShieldCheck,
   Sparkles,
@@ -30,6 +30,7 @@ import {
   Video,
   type LucideIcon,
 } from "lucide-react";
+
 
 import HeroIntroMotion from "./HeroIntroMotion";
 import "./ContractorCircle.css";
@@ -417,86 +418,146 @@ const testimonials = [
   },
 ];
 
-function ProductDeckCard({
-  item,
-  index,
-}: {
-  item: (typeof productProofItems)[number];
-  index: number;
-}) {
-  return (
-    <article
-      className="cc-product-deck-card cc-detail-reveal"
-      data-product-card={index + 1}
-      aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")}`}
-    >
-      <figure className="cc-product-deck-media">
-        <img src={item.image} alt={item.imageAlt} />
-      </figure>
-      <div className="cc-product-deck-body">
-        <p className="cc-product-deck-label">
-          <span>{item.number}</span>
-          {item.eyebrow}
-        </p>
-        <h3>{item.headlineLines.join(" ")}</h3>
-        <p>{item.body}</p>
-        <p className="cc-product-deck-signal">
-          <b>{item.points[0]?.label}</b>
-          <span>{item.points[0]?.value}</span>
-        </p>
-        <div className="cc-product-deck-actions">
-          {item.walkthrough ? (
-            <a href={item.walkthrough.href} target="_blank" rel="noreferrer">
-              {item.walkthrough.cta}
-              <ArrowUpRight aria-hidden="true" />
-            </a>
-          ) : null}
-          {item.links?.slice(0, 1).map(link => (
-            <a key={link.href} href={link.href} target="_blank" rel="noreferrer">
-              {link.label}
-              <ArrowUpRight aria-hidden="true" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </article>
-  );
-}
+type Pillar = {
+  number: string;
+  eyebrow: string;
+  title: string;
+  outcome: string;
+  bullets: string[];
+  image: string;
+  imageAlt: string;
+  icon: LucideIcon;
+  isGateway?: boolean;
+};
 
-function ProductDeckSection() {
+const pillars: Pillar[] = [
+  {
+    number: "01",
+    eyebrow: "Bi-weekly Calls + Curriculum",
+    title: "Live with Marshall, on a real curriculum.",
+    outcome: "Bring the issue. Leave with the move.",
+    bullets: [
+      "Live with Marshall, every other week",
+      "Set curriculum, not open Q&A",
+      "Replays stay in the portal for life",
+    ],
+    image: "/manus-storage/portal-ask-reply_d776f93c.png",
+    imageAlt: "Bi-weekly Contractor Circle call session",
+    icon: CalendarDays,
+  },
+  {
+    number: "02",
+    eyebrow: "Monthly Bootcamp",
+    title: "Build the system live, in one sitting.",
+    outcome: "One operating system installed per month.",
+    bullets: [
+      "One operating system per bootcamp",
+      "Templates and SOPs walk out the door",
+      "Replay and workbook stay for reference",
+    ],
+    image: "/manus-storage/exact-bootcamp_9c719283.png",
+    imageAlt: "Contractor Circle monthly bootcamp",
+    icon: Rocket,
+  },
+  {
+    number: "03",
+    eyebrow: "Community",
+    title: "The room between sessions.",
+    outcome: "Owners who actually run the work.",
+    bullets: [
+      "Members-only Discord, every account active",
+      "Post overnight, get a read by morning",
+      "Threads feed the next call agenda",
+    ],
+    image: "/manus-storage/exact-community_e45de5f2.png",
+    imageAlt: "Contractor Circle Discord community",
+    icon: Users,
+  },
+  {
+    number: "04",
+    eyebrow: "Portal",
+    title: "One front door for everything else.",
+    outcome: "AOS, tools, templates, handbook, Ask Marshall, SOP Builder.",
+    bullets: [
+      "AOS workspaces and seats included",
+      "26+ deployable templates, growing tool set",
+      "Ask Marshall, the handbook, and the SOP Builder live here",
+    ],
+    image: "/manus-storage/portal-ask-marshall_2e6c40e1.png",
+    imageAlt: "Contractor Circle portal command center",
+    icon: Network,
+    isGateway: true,
+  },
+];
+
+function PillarsSection() {
   return (
     <section
-      className="cc-product-deck-section"
-      aria-label="Contractor Circle operating assets"
+      className="cc-pillars-section"
+      aria-label="What's inside Contractor Circle"
     >
-      <div className="cc-product-deck-sticky">
-        <SystemsField className="cc-product-deck-field" variant="stack" />
-        <div className="cc-product-deck-copy cc-caption">
+      <div className="cc-pillars-inner">
+        <div className="cc-pillars-copy cc-caption">
           <p className="cc-eyebrow" data-caption>
-            The operating assets
+            What's Inside
           </p>
           <h2>
-            <span data-caption>The work has</span>
-            <span data-caption>somewhere to live.</span>
+            <span data-caption>What you</span>
+            <span data-caption>actually get.</span>
           </h2>
           <p className="cc-subhead" data-caption>
-            Portal, AOS, live rooms, replays, templates, the handbook,
-            community, Ask Marshall, SOPs, and contract scans. Not a pile of
-            links. A system.
+            Contractor Circle is four moving parts that work together:
+            bi-weekly calls with Marshall, a monthly bootcamp that installs
+            a real operating system, a members-only community, and a portal
+            that holds every tool, template, replay, and SOP between them.
           </p>
         </div>
-        <div className="cc-product-deck-stage">
-          {productProofItems.map((item, index) => (
-            <ProductDeckCard key={item.number} item={item} index={index} />
-          ))}
-        </div>
-        <div className="cc-product-deck-meter" aria-hidden="true">
-          <span />
+        <div className="cc-pillars-grid">
+          {pillars.map(pillar => {
+            const Icon = pillar.icon;
+            return (
+              <article
+                key={pillar.number}
+                className={`cc-pillar-card cc-detail-reveal${
+                  pillar.isGateway ? " is-gateway" : ""
+                }`}
+                aria-label={`${pillar.eyebrow}: ${pillar.title}`}
+              >
+                <figure className="cc-pillar-media">
+                  <img src={pillar.image} alt={pillar.imageAlt} />
+                </figure>
+                <div className="cc-pillar-body">
+                  <p className="cc-pillar-label">
+                    <span>{pillar.number}</span>
+                    <Icon aria-hidden="true" />
+                    {pillar.eyebrow}
+                  </p>
+                  <h3>{pillar.title}</h3>
+                  <p className="cc-pillar-outcome">{pillar.outcome}</p>
+                  <ul className="cc-pillar-bullets">
+                    {pillar.bullets.map(bullet => (
+                      <li key={bullet}>
+                        <Check aria-hidden="true" />
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  {pillar.isGateway ? (
+                    <a className="cc-pillar-handoff" href="#asset-deck">
+                      …and every asset has a job to do
+                      <ArrowDown aria-hidden="true" />
+                    </a>
+                  ) : null}
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
+
 
 function useCloudflareStreamRuntime() {
   const [isReady, setIsReady] = useState(false);
