@@ -291,7 +291,7 @@ export default function HeroIntroMotion({
 
   return (
     <div className="cc-hero-intro-motion" aria-hidden="true">
-      <p className="cc-intro-project-title">Your Construction Project</p>
+      <p className="cc-intro-project-title">Your Project</p>
       <div className="cc-intro-scan" />
 
       <div className="cc-intro-word-cloud">
