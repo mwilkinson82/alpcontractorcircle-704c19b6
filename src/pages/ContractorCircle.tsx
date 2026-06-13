@@ -3,7 +3,9 @@ import {
   useEffect,
   useRef,
   useState,
+  type CSSProperties,
   type RefObject,
+  type TouchEvent as ReactTouchEvent,
 } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
