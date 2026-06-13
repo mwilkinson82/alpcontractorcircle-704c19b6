@@ -5852,21 +5852,26 @@ body:has(.cc-page) {
    ============================================================ */
 .cc-pillars-section {
   position: relative;
-  padding: clamp(80px, 12vh, 160px) clamp(24px, 6vw, 96px);
-  background: #f5f3ee;
+  padding: clamp(86px, 12vh, 132px) clamp(24px, 6vw, 96px) 0;
+  background: #f8f6ef;
   color: #0d0d0c;
+  min-height: min(940px, 112svh);
+  overflow: hidden;
+  isolation: isolate;
 }
 
 .cc-pillars-inner {
+  position: relative;
+  z-index: 2;
   max-width: 1320px;
   margin: 0 auto;
   display: grid;
-  gap: clamp(36px, 6vh, 72px);
+  gap: clamp(22px, 3.5vh, 46px);
 }
 
 .cc-pillars-copy {
   display: grid;
-  gap: clamp(14px, 1.6vw, 22px);
+  gap: 0;
   max-width: min(100%, 1320px);
   margin: 0 auto;
   text-align: center;
@@ -5878,9 +5883,9 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(2.25rem, 5.8vw, 5.8rem);
-  font-weight: 700;
-  line-height: 0.98;
+  font-size: clamp(2.45rem, 5.2vw, 5.55rem);
+  font-weight: 600;
+  line-height: 1.02;
   letter-spacing: 0;
   color: #0d0d0c;
   white-space: nowrap;
@@ -5898,36 +5903,96 @@ body:has(.cc-page) {
   margin-top: clamp(8px, 1vw, 16px);
 }
 
+.cc-labs-motion-shape {
+  position: absolute;
+  z-index: 1;
+  display: block;
+  pointer-events: none;
+  border-radius: 999px;
+  opacity: 0.96;
+  filter: saturate(1.05);
+  animation: cc-labs-shape-drift 10s cubic-bezier(0.45, 0, 0.2, 1) infinite alternate;
+}
+
+.cc-labs-motion-yellow {
+  top: -15vw;
+  left: 24vw;
+  width: clamp(240px, 33vw, 560px);
+  height: clamp(240px, 33vw, 560px);
+  background: #ffd12f;
+}
+
+.cc-labs-motion-blue {
+  top: -8vw;
+  right: -10vw;
+  width: clamp(280px, 34vw, 620px);
+  height: clamp(420px, 52vw, 860px);
+  background: #5b93f6;
+  border-radius: 50% 0 0 50%;
+  animation-delay: -3.4s;
+}
+
+.cc-labs-motion-green {
+  right: -4vw;
+  bottom: -11vw;
+  width: clamp(300px, 42vw, 760px);
+  height: clamp(250px, 30vw, 560px);
+  background: #35f774;
+  border-radius: 48% 52% 0 0 / 68% 62% 0 0;
+  transform: rotate(-10deg);
+  animation-delay: -6.8s;
+}
+
+.cc-labs-motion-pink {
+  left: -13vw;
+  bottom: 18vw;
+  width: clamp(240px, 31vw, 560px);
+  height: clamp(280px, 39vw, 660px);
+  background: #f58af1;
+  border-radius: 52% 48% 46% 54% / 56% 42% 58% 44%;
+  animation-delay: -1.8s;
+}
+
+@keyframes cc-labs-shape-drift {
+  from {
+    transform: translate3d(-2.8vw, 1.5vw, 0) rotate(-8deg) scale(0.98);
+  }
+
+  to {
+    transform: translate3d(2.4vw, -1.8vw, 0) rotate(7deg) scale(1.04);
+  }
+}
+
 
 
 /* ---- Labs.google-style fan ---- */
 .cc-fan-stage {
   position: relative;
   isolation: isolate;
-  margin: clamp(40px, 6vh, 80px) calc(50% - 50vw) 0;
-  padding: clamp(40px, 6vh, 80px) 0 clamp(24px, 3vh, 40px);
+  margin: clamp(14px, 3vh, 28px) calc(50% - 50vw) 0;
+  padding: clamp(26px, 4vh, 46px) 0 0;
   overflow: hidden;
 }
 
 .cc-fan-track {
   position: relative;
-  height: clamp(440px, 56vw, 620px);
+  height: clamp(520px, 50vw, 720px);
   perspective: 2000px;
 }
 
 .cc-fan-card {
   position: absolute;
-  top: 0;
+  top: clamp(56px, 5vw, 86px);
   left: 50%;
-  width: clamp(260px, 26vw, 360px);
-  height: clamp(400px, 50vw, 560px);
+  width: clamp(210px, 18vw, 300px);
+  height: clamp(360px, 35vw, 510px);
   margin: 0;
-  padding: 0;
+  padding: 8px 8px 0;
   background: #ffffff;
-  border: 1px solid rgb(13 13 12 / 0.06);
-  border-radius: 22px;
+  border: 1px solid rgb(13 13 12 / 0.08);
+  border-radius: 16px;
   overflow: visible;
-  box-shadow: 0 28px 70px -28px rgb(13 13 12 / 0.28);
+  box-shadow: 0 24px 48px -26px rgb(13 13 12 / 0.34);
   display: flex;
   flex-direction: column;
   text-align: left;
@@ -5954,26 +6019,27 @@ body:has(.cc-page) {
 .cc-fan-card-media {
   flex: 0 0 58%;
   margin: 0;
-  background: linear-gradient(135deg, #f5f3ee 0%, #ebe7df 100%);
+  background: #f4f1e8;
   overflow: hidden;
-  border-bottom: 1px solid rgb(13 13 12 / 0.06);
+  border-radius: 10px;
+  border: 1px solid rgb(13 13 12 / 0.06);
 }
 
 .cc-fan-card-media img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   display: block;
-  padding: clamp(12px, 1.6vw, 20px);
+  padding: 0;
 }
 
 
 .cc-fan-card-body {
   flex: 1 1 auto;
-  padding: clamp(16px, 1.8vw, 24px);
+  padding: clamp(13px, 1.25vw, 18px) 6px clamp(18px, 1.8vw, 24px);
   display: grid;
-  gap: clamp(6px, 0.8vw, 10px);
+  gap: 6px;
   align-content: start;
 }
 
@@ -5991,20 +6057,20 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
-  font-weight: 600;
-  line-height: 1.18;
-  letter-spacing: -0.005em;
+  font-size: clamp(1rem, 1.08vw, 1.18rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: 0;
   color: #0d0d0c;
 }
 
 .cc-fan-card-body-copy {
   margin: 0;
   color: rgb(13 13 12 / 0.7);
-  font-size: clamp(0.84rem, 0.95vw, 0.92rem);
-  line-height: 1.45;
+  font-size: clamp(0.74rem, 0.78vw, 0.84rem);
+  line-height: 1.35;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -6026,10 +6092,7 @@ body:has(.cc-page) {
 }
 
 .cc-fan-card-cta {
-  position: absolute;
-  left: clamp(16px, 1.8vw, 24px);
-  bottom: clamp(16px, 1.8vw, 22px);
-  display: inline-flex;
+  display: none;
   align-items: center;
   gap: 6px;
   color: var(--cc-orange);
@@ -6070,7 +6133,7 @@ body:has(.cc-page) {
 .cc-fan-controls {
   position: relative;
   z-index: 5;
-  margin-top: clamp(24px, 3vh, 40px);
+  margin-top: -8px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6078,11 +6141,11 @@ body:has(.cc-page) {
 }
 
 .cc-fan-arrow {
-  width: 52px;
-  height: 52px;
+  width: 38px;
+  height: 38px;
   border-radius: 999px;
   border: 1px solid rgb(13 13 12 / 0.16);
-  background: #ffffff;
+  background: transparent;
   color: #0d0d0c;
   display: inline-flex;
   align-items: center;
@@ -6115,8 +6178,8 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: 0.95rem;
-  color: rgb(13 13 12 / 0.7);
+  font-size: 0.74rem;
+  color: rgb(13 13 12 / 0.42);
   letter-spacing: 0.08em;
   display: inline-flex;
   align-items: center;
