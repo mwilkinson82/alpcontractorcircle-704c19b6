@@ -1270,12 +1270,8 @@ body:has(.cc-page) {
 
 .cc-hero-copy::before,
 .cc-hero-copy::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  border-radius: 8px;
-  opacity: 0.18;
-  pointer-events: none;
+  display: none;
+  content: none;
 }
 
 .cc-hero-copy::before {
