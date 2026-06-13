@@ -830,7 +830,6 @@ body:has(.cc-page) {
 
 .cc-intro-profit-column {
   z-index: 5;
-  padding-top: clamp(96px, 14vh, 160px);
 }
 
 .cc-intro-risk-column {
@@ -988,26 +987,28 @@ body:has(.cc-page) {
 .cc-intro-project-title {
   position: absolute;
   z-index: 4;
-  top: clamp(56px, 8vh, 92px);
-  left: clamp(36px, 6vw, 88px);
+  top: clamp(36px, 5.5vh, 64px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
 
   margin: 0;
-  color: rgb(13 13 12 / 0.78);
+  color: rgb(13 13 12 / 0.85);
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(1.1rem, 1.7vw, 1.6rem);
+  font-size: clamp(1.8rem, 3.4vw, 3.2rem);
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
   text-transform: none;
+  text-align: center;
+  white-space: nowrap;
   opacity: 0;
-  transform: translateY(8px);
   animation: cc-intro-project-title 1200ms var(--cc-caption-ease) 2860ms forwards;
 }
 
 @keyframes cc-intro-project-title {
-  0% { opacity: 0; transform: translateY(8px); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% { opacity: 0; transform: translateX(-50%) translateY(8px); }
+  100% { opacity: 1; transform: translateX(-50%) translateY(0); }
 }
 
 
