@@ -691,33 +691,39 @@ function PillarsSection() {
                     </li>
                   ))}
                 </ul>
-                {(openItem.links?.length || openItem.walkthrough) && (
-                  <div className="cc-fan-modal-actions">
-                    {openItem.walkthrough && (
-                      <a
-                        href={openItem.walkthrough.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="cc-fan-modal-link is-primary"
-                      >
-                        {openItem.walkthrough.cta}
-                        <ArrowUpRight aria-hidden="true" />
-                      </a>
-                    )}
-                    {openItem.links?.map(link => (
-                      <a
-                        key={link.href}
-                        href={link.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className={`cc-fan-modal-link${link.variant === "blue" ? " is-blue" : ""}`}
-                      >
-                        {link.label}
-                        <ArrowUpRight aria-hidden="true" />
-                      </a>
-                    ))}
-                  </div>
-                )}
+                <div className="cc-fan-modal-actions">
+                  <a
+                    href={CHECKOUT_URL}
+                    className="cc-fan-modal-link is-primary"
+                  >
+                    Join the Circle
+                    <ArrowUpRight aria-hidden="true" />
+                  </a>
+                  {openItem.walkthrough && (
+                    <a
+                      href={openItem.walkthrough.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="cc-fan-modal-link"
+                    >
+                      {openItem.walkthrough.cta}
+                      <ArrowUpRight aria-hidden="true" />
+                    </a>
+                  )}
+                  {openItem.links?.map(link => (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      className={`cc-fan-modal-link${link.variant === "blue" ? " is-blue" : ""}`}
+                    >
+                      {link.label}
+                      <ArrowUpRight aria-hidden="true" />
+                    </a>
+                  ))}
+                </div>
+
               </div>
             </div>
           ) : null}
