@@ -1082,7 +1082,7 @@ export default function ContractorCircle() {
           className="cc-card-stack"
           aria-label="Contractor Circle proof and offer"
         >
-          <SystemsField className="cc-stack-field" variant="stack" />
+          
           <div className="cc-stack-sticky">
             <article className="cc-stack-card cc-stack-card-proof">
               <div className="cc-proof-ledger">
