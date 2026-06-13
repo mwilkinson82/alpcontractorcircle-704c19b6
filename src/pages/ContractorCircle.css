@@ -1785,7 +1785,23 @@ body:has(.cc-page) {
   max-width: 1240px;
   margin: 0 auto;
   text-align: center;
+  isolation: isolate;
 }
+
+.cc-memory-system::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -10%;
+  right: -22%;
+  width: min(60vw, 900px);
+  height: min(60vw, 900px);
+  background: #ffb4ef;
+  border-radius: 48% 52% 38% 62% / 54% 44% 56% 46%;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
 
 .cc-memory-copy,
 .cc-memory-board {
@@ -5883,6 +5899,21 @@ body:has(.cc-page) {
   overflow: hidden;
   isolation: isolate;
 }
+
+.cc-pillars-section::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: -8%;
+  right: -14%;
+  width: min(58vw, 880px);
+  height: min(58vw, 880px);
+  background: #44e886;
+  border-radius: 42% 58% 38% 62% / 56% 44% 60% 40%;
+  transform: rotate(-12deg);
+  pointer-events: none;
+}
+
 
 .cc-pillars-inner {
   position: relative;
