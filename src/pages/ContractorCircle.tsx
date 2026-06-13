@@ -1631,25 +1631,37 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         );
         if (!cards.length) return;
 
+        // Per-card target rotation matching the CSS rest tilt.
+        const restRotation = (i: number) => {
+          if ((i + 1) % 3 === 0) return -1;
+          return i % 2 === 0 ? -3 : 4;
+        };
+        const restY = (i: number) => {
+          if ((i + 1) % 3 === 0) return 14;
+          return i % 2 === 0 ? 8 : -4;
+        };
+
         // Scroll-in stagger: each card rises and tilts into its CSS rest state.
-        gsap.fromTo(
-          cards,
-          { y: 80, autoAlpha: 0, scale: 0.92 },
-          {
-            y: 0,
-            autoAlpha: 1,
-            scale: 1,
-            ease: "power2.out",
-            duration: 0.7,
-            stagger: 0.08,
-            scrollTrigger: {
-              trigger: deck,
-              start: "top 82%",
-              toggleActions: "play none none reverse",
-            },
-            clearProps: "scale",
-          }
-        );
+        cards.forEach((card, i) => {
+          gsap.fromTo(
+            card,
+            { y: 100, rotate: 0, autoAlpha: 0, scale: 0.92 },
+            {
+              y: restY(i),
+              rotate: restRotation(i),
+              autoAlpha: 1,
+              scale: 1,
+              ease: "power2.out",
+              duration: 0.8,
+              delay: i * 0.07,
+              scrollTrigger: {
+                trigger: deck,
+                start: "top 82%",
+                toggleActions: "play none none reverse",
+              },
+            }
+          );
+        });
 
         if (isCompact) return;
 
