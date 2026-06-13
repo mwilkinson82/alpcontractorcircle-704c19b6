@@ -115,11 +115,32 @@ body:has(.cc-page) {
 
 .cc-brand-mark,
 .cc-brand span:first-child {
-  color: var(--cc-orange);
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.cc-brand-mark + .cc-brand-name {
+  position: relative;
+  padding-left: 12px;
+}
+
+.cc-brand-mark + .cc-brand-name::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 14px;
+  background: currentColor;
+  opacity: 0.55;
 }
 
 .cc-brand-name {
   color: inherit;
+  font-weight: 500;
+  letter-spacing: 0.08em;
 }
 
 .cc-nav-actions {
