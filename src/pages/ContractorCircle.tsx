@@ -1626,41 +1626,37 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           return;
         }
 
-        cards.forEach((card, index) => {
-          const slot = Number(card.style.getPropertyValue("--fan-slot")) || 0;
-          const distance = Math.abs(slot);
-          const finalX =
-            slot * Math.min(122, Math.max(72, window.innerWidth * 0.082)) -
-            card.offsetWidth / 2;
-          const finalY = -42 + distance * 30 + Math.max(0, distance - 2) * 11;
-          const finalRotate = slot * 4.65;
+        gsap.set(cards, {
+          transformOrigin: "50% var(--fan-radius)",
+          rotate: index => {
+            const slot = Number(cards[index].style.getPropertyValue("--fan-slot")) || 0;
+            return slot * 4.05;
+          },
+          y: 118,
+          scale: 0.96,
+          autoAlpha: 0,
+        });
 
-          gsap.fromTo(
-            card,
-            {
-              x: slot * 12 - card.offsetWidth / 2,
-              y: 108,
-              rotate: 0,
-              scale: 0.88,
-              autoAlpha: 0,
-            },
-            {
-              x: finalX,
-              y: finalY,
-              rotate: finalRotate,
-              scale: 1,
-              autoAlpha: 1,
-              ease: "power3.out",
-              duration: 0.9,
-              delay: index * 0.035,
-              scrollTrigger: {
-                trigger: fan,
-                start: "top 78%",
-                toggleActions: "play none none reverse",
-                invalidateOnRefresh: true,
-              },
-            }
-          );
+        gsap.to(cards, {
+          rotate: index => {
+            const slot = Number(cards[index].style.getPropertyValue("--fan-slot")) || 0;
+            return slot * 5.2;
+          },
+          y: 0,
+          scale: 1,
+          autoAlpha: 1,
+          ease: "power3.out",
+          duration: 1.05,
+          stagger: {
+            each: 0.045,
+            from: "center",
+          },
+          scrollTrigger: {
+            trigger: fan,
+            start: "top 76%",
+            toggleActions: "play none none reverse",
+            invalidateOnRefresh: true,
+          },
         });
       };
 
