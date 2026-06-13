@@ -460,6 +460,63 @@ function ProductDeckCard({
   );
 }
 
+function OpeningBrand() {
+  return (
+    <section className="cc-opening-brand" aria-label="Contractor Circle opening">
+      <SystemsField className="cc-opening-field" variant="stack" />
+      <div className="cc-opening-shapes" aria-hidden="true">
+        <span className="cc-opening-shape cc-opening-shape-orange" />
+        <span className="cc-opening-shape cc-opening-shape-blue" />
+        <span className="cc-opening-shape cc-opening-shape-green" />
+        <span className="cc-opening-shape cc-opening-shape-pink" />
+      </div>
+      <div className="cc-opening-copy cc-caption">
+        <p data-caption>ALP</p>
+        <h1>
+          <span data-caption>Contractor</span>
+          <span data-caption>Circle</span>
+        </h1>
+        <strong data-caption>The company behind the projects.</strong>
+      </div>
+    </section>
+  );
+}
+
+function ProductDeckSection() {
+  return (
+    <section
+      className="cc-product-deck-section"
+      aria-label="Contractor Circle operating assets"
+    >
+      <div className="cc-product-deck-sticky">
+        <SystemsField className="cc-product-deck-field" variant="stack" />
+        <div className="cc-product-deck-copy cc-caption">
+          <p className="cc-eyebrow" data-caption>
+            The operating assets
+          </p>
+          <h2>
+            <span data-caption>The work has</span>
+            <span data-caption>somewhere to live.</span>
+          </h2>
+          <p className="cc-subhead" data-caption>
+            Portal, AOS, live rooms, replays, templates, the handbook,
+            community, Ask Marshall, SOPs, and contract scans. Not a pile of
+            links. A system.
+          </p>
+        </div>
+        <div className="cc-product-deck-stage">
+          {productProofItems.map((item, index) => (
+            <ProductDeckCard key={item.number} item={item} index={index} />
+          ))}
+        </div>
+        <div className="cc-product-deck-meter" aria-hidden="true">
+          <span />
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function useCloudflareStreamRuntime() {
   const [isReady, setIsReady] = useState(false);
 
@@ -750,6 +807,8 @@ export default function ContractorCircle() {
       </header>
 
       <main id="top">
+        <OpeningBrand />
+
         <section
           className={`cc-video-hero ${
             heroVideoReady || videoUnavailable
@@ -816,29 +875,25 @@ export default function ContractorCircle() {
           ) : null}
         </section>
 
-        <section
-          className="cc-chaos-panel"
-          aria-label="From to-do lists to AOS"
-        >
-          <img
-            src="/manus-storage/hero-chaos-aos_591af67c.png"
-            alt="From to-do lists that run your week to a system that runs your company"
-          />
-        </section>
+        <ProductDeckSection />
 
         <section className="cc-hero-copy cc-caption">
           <SystemsField className="cc-hero-field" />
           <p className="cc-eyebrow" data-caption>
             Contractor Circle Operating System
           </p>
-          <h1>
+          <h2>
             <span data-caption>Build the company </span>
             <span data-caption>behind the projects.</span>
-          </h1>
+          </h2>
           <p className="cc-subhead" data-caption>
             Your competitors are installing systems. Contractor Circle gives
             construction owners AOS, the portal, tools, templates, replays, and
             the weekly rhythm to scale without becoming the bottleneck.
+          </p>
+          <p className="cc-thesis-line" data-caption>
+            If everything flows back to the owner, the owner is still the
+            operating system.
           </p>
           <div className="cc-hero-actions">
             <a href={CHECKOUT_URL} className="cc-button cc-button-dark">
@@ -931,35 +986,39 @@ export default function ContractorCircle() {
               </div>
             </article>
 
-            <section
-              className="cc-product-deck-section"
-              aria-label="Contractor Circle operating assets"
-            >
-              <div className="cc-product-deck-sticky">
-                <SystemsField className="cc-product-deck-field" variant="stack" />
-                <div className="cc-product-deck-copy cc-caption">
-                  <p className="cc-eyebrow" data-caption>
-                    Operating assets
-                  </p>
-                  <h2>
-                    <span data-caption>The system is visible.</span>
-                    <span data-caption>The work has somewhere to live.</span>
-                  </h2>
-                </div>
-                <div className="cc-product-deck-stage">
-                  {productProofItems.map((item, index) => (
-                    <ProductDeckCard
-                      key={item.number}
-                      item={item}
-                      index={index}
-                    />
-                  ))}
-                </div>
-                <div className="cc-product-deck-meter" aria-hidden="true">
-                  <span />
-                </div>
+            <article className="cc-stack-card cc-stack-card-offer-wall">
+              <div className="cc-offer-wall-copy cc-caption">
+                <p className="cc-eyebrow" data-caption>
+                  Inside the Circle
+                </p>
+                <h2>
+                  <span data-caption>Every asset has</span>
+                  <span data-caption>a job to do.</span>
+                </h2>
+                <p className="cc-subhead" data-caption>
+                  The portal, room, app, tools, and handbook are not separate
+                  promises. They are the operating loop members use between
+                  projects, calls, and decisions.
+                </p>
               </div>
-            </section>
+              <div className="cc-offer-wall-grid">
+                {productProofItems.map(item => (
+                  <article
+                    className="cc-offer-wall-card cc-detail-reveal"
+                    key={item.number}
+                  >
+                    <img src={item.image} alt="" aria-hidden="true" />
+                    <div>
+                      <span>
+                        {item.number} / {item.eyebrow}
+                      </span>
+                      <h3>{item.headlineLines.join(" ")}</h3>
+                      <p>{item.points[0]?.value}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </article>
 
             <article className="cc-stack-card cc-stack-card-proof">
               <div className="cc-proof-ledger">
@@ -1269,7 +1328,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], .cc-reveal, .cc-chaos-panel img, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-product-deck-card, .cc-product-deck-meter span, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
+          "[data-caption], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-product-deck-card, .cc-product-deck-meter span, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
@@ -1420,7 +1479,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           filter: "blur(5px)",
         });
         gsap.set(
-          ".cc-reveal, .cc-chaos-panel img, .cc-hero-copy, .cc-stat, .cc-mega-word",
+          ".cc-reveal, .cc-hero-copy, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 0,
             y: 54,
@@ -1439,6 +1498,21 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           }
         );
 
+        const openingCopy = root.querySelector<HTMLElement>(".cc-opening-copy");
+        if (openingCopy) {
+          gsap.to(
+            openingCopy.querySelectorAll<HTMLElement>("[data-caption]"),
+            {
+              autoAlpha: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.85,
+              stagger: 0.08,
+              ease: "power3.out",
+            }
+          );
+        }
+
         gsap.to(".cc-video-media", {
           autoAlpha: 0.76,
           scale: 1.025,
@@ -1451,38 +1525,6 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             invalidateOnRefresh: true,
           },
         });
-
-        const chaosPanel = root.querySelector<HTMLElement>(".cc-chaos-panel");
-        const chaosImage = root.querySelector<HTMLElement>(
-          ".cc-chaos-panel img"
-        );
-        if (chaosPanel && chaosImage) {
-          gsap.fromTo(
-            chaosImage,
-            {
-              autoAlpha: 0.14,
-              y: 42,
-              scale: 0.96,
-              filter: "blur(8px) brightness(0.78)",
-              clipPath: "inset(9% 6% 9% 6% round 16px)",
-            },
-            {
-              autoAlpha: 1,
-              y: 0,
-              scale: 1,
-              filter: "blur(0px) brightness(1)",
-              clipPath: "inset(0% 0% 0% 0% round 0px)",
-              ease: "power3.inOut",
-              scrollTrigger: {
-                trigger: chaosPanel,
-                start: "top 92%",
-                end: "center 50%",
-                scrub: 0.85,
-                invalidateOnRefresh: true,
-              },
-            }
-          );
-        }
 
         const heroCopy = root.querySelector<HTMLElement>(".cc-hero-copy");
         if (heroCopy) {
@@ -1777,36 +1819,6 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           scrub: true,
         },
       });
-
-      const chaosPanel = root.querySelector<HTMLElement>(".cc-chaos-panel");
-      const chaosImage = root.querySelector<HTMLElement>(".cc-chaos-panel img");
-      if (chaosPanel && chaosImage) {
-        gsap.fromTo(
-          chaosImage,
-          {
-            autoAlpha: 0.12,
-            y: 92,
-            scale: 0.92,
-            filter: "blur(10px) brightness(0.72)",
-            clipPath: "inset(11% 12% 11% 12% round 18px)",
-          },
-          {
-            autoAlpha: 1,
-            y: 0,
-            scale: 1,
-            filter: "blur(0px) brightness(1)",
-            clipPath: "inset(0% 0% 0% 0% round 0px)",
-            ease: "power3.inOut",
-            scrollTrigger: {
-              trigger: chaosPanel,
-              start: "top 86%",
-              end: "center 42%",
-              scrub: 0.9,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
-      }
 
       const heroCopy = root.querySelector<HTMLElement>(".cc-hero-copy");
       if (heroCopy) {
