@@ -1915,6 +1915,29 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         };
       };
 
+      const setupMemoryFill = () => {
+        const memoryText = root.querySelector<HTMLElement>("[data-memory-fill]");
+        if (!memoryText) return;
+        const words = Array.from(
+          memoryText.querySelectorAll<HTMLElement>("[data-fill-word]")
+        );
+        if (!words.length) return;
+
+        gsap.set(words, { color: "rgba(21, 21, 21, 0.19)" });
+        gsap.to(words, {
+          color: "rgba(21, 21, 21, 1)",
+          ease: "none",
+          stagger: 0.12,
+          scrollTrigger: {
+            trigger: memoryText,
+            start: "top 78%",
+            end: "bottom 42%",
+            scrub: 0.65,
+            invalidateOnRefresh: true,
+          },
+        });
+      };
+
 
 
       if (isCompact) {
