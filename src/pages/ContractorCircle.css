@@ -1801,11 +1801,8 @@ body:has(.cc-page) {
 
 .cc-memory-system::before,
 .cc-memory-system::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  border-radius: 8px;
-  pointer-events: none;
+  display: none;
+  content: none;
 }
 
 .cc-memory-system::before {
