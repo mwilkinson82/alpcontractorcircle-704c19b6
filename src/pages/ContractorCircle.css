@@ -6047,12 +6047,6 @@ body:has(.cc-page) {
   transition: transform 0.25s ease;
 }
 
-.cc-fan-card.is-active .cc-fan-card-cta {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-
 .cc-fan-card-cta:hover {
   color: #0d0d0c;
 }
@@ -6067,7 +6061,7 @@ body:has(.cc-page) {
   border-radius: 4px;
 }
 
-.cc-fan-card.is-active .cc-fan-card-body {
+.cc-fan-card-body {
   padding-bottom: clamp(44px, 5vh, 56px);
 }
 
