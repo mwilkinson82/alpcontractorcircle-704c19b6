@@ -930,8 +930,6 @@ export default function ContractorCircle() {
           ) : null}
         </section>
 
-        <ProductDeckSection />
-
         <section className="cc-hero-copy cc-caption">
           <SystemsField className="cc-hero-field" />
           <p className="cc-eyebrow" data-caption>
@@ -963,32 +961,6 @@ export default function ContractorCircle() {
         >
           <SystemsField className="cc-stack-field" variant="stack" />
           <div className="cc-stack-sticky">
-            <article className="cc-stack-card cc-stack-card-problem">
-              <div className="cc-stack-copy cc-caption">
-                <h2>
-                  <span data-caption>
-                    If everything flows back to the owner,
-                  </span>
-                  <span data-caption>
-                    the owner is still the operating system.
-                  </span>
-                </h2>
-                <p className="cc-subhead" data-caption>
-                  The leads are there. The jobs are there. The ambition is
-                  there. But the company is still running through the owner's
-                  head.
-                </p>
-              </div>
-              <div className="cc-problem-grid">
-                {problemItems.map(({ icon: Icon, text }) => (
-                  <article className="cc-problem-card" key={text}>
-                    <Icon aria-hidden="true" />
-                    <p>{text}</p>
-                  </article>
-                ))}
-              </div>
-            </article>
-
             <article className="cc-stack-card cc-stack-card-shift">
               <div className="cc-memory-system cc-caption">
                 <div className="cc-memory-copy">
@@ -1025,59 +997,125 @@ export default function ContractorCircle() {
               </div>
             </article>
 
-            <article className="cc-stack-card cc-stack-card-installed">
-              <div className="cc-command-system">
-                <div className="cc-command-copy cc-caption">
+            <article className="cc-stack-card cc-stack-card-problem">
+              <div className="cc-stack-copy cc-caption">
+                <h2>
+                  <span data-caption>
+                    If everything flows back to the owner,
+                  </span>
+                  <span data-caption>
+                    the owner is still the operating system.
+                  </span>
+                </h2>
+                <p className="cc-subhead" data-caption>
+                  The leads are there. The jobs are there. The ambition is
+                  there. But the company is still running through the owner's
+                  head.
+                </p>
+              </div>
+              <div className="cc-problem-grid">
+                {problemItems.map(({ icon: Icon, text }) => (
+                  <article className="cc-problem-card" key={text}>
+                    <Icon aria-hidden="true" />
+                    <p>{text}</p>
+                  </article>
+                ))}
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <ProductDeckSection />
+
+        <section
+          className="cc-card-stack"
+          aria-label="Contractor Circle proof and offer"
+        >
+          <SystemsField className="cc-stack-field" variant="stack" />
+          <div className="cc-stack-sticky">
+            <article className="cc-stack-card cc-stack-card-proof">
+              <div className="cc-proof-ledger">
+                <div className="cc-proof-ledger-copy cc-caption">
                   <p className="cc-eyebrow" data-caption>
-                    What Gets Installed
+                    Proof
                   </p>
                   <h2>
-                    <span data-caption>The owner stops</span>
-                    <span data-caption>being the router.</span>
+                    <span data-caption>Not theory.</span>
+                    <span data-caption>Real companies, changed.</span>
+
                   </h2>
                   <p className="cc-subhead" data-caption>
-                    Pressure enters one loop: AOS holds the cadence, the live
-                    room makes the read, and the asset turns the decision into
-                    work the team can own.
+                    The proof is not that a portal exists. The proof is what
+                    happens when owners stop carrying every decision themselves.
                   </p>
+                  <a
+                    href={CHECKOUT_URL}
+                    className="cc-button cc-button-dark"
+                    data-caption
+                  >
+                    Join the Circle
+                  </a>
                 </div>
-                <div
-                  className="cc-command-map cc-detail-reveal"
-                  aria-label="Contractor Circle command loop"
-                >
-                  <article className="cc-command-phase">
-                    <span>Input</span>
-                    <strong>Owner pressure enters.</strong>
-                    <p>
-                      A late selection, cash question, contract risk, PM
-                      bottleneck, or vague issue comes into view.
-                    </p>
-                  </article>
-                  <article className="cc-command-core">
-                    <span>Circle command loop</span>
-                    <strong>Issue to read to asset to owner to next move</strong>
-                    <p>
-                      AOS, the room, the templates, and the tools stop acting
-                      like separate tabs. They become one operating circuit.
-                    </p>
-                    <div className="cc-command-modules">
-                      {installedItems.map(({ number, icon: Icon, title }) => (
-                        <div key={number}>
-                          <Icon aria-hidden="true" />
-                          <small>{number}</small>
-                          <b>{title}</b>
+                <div className="cc-proof-ledger-visual cc-detail-reveal">
+                  <div className="cc-proof-stat-grid">
+                    {proofStats.map(stat => (
+                      <div className="cc-proof-stat" key={stat.value}>
+                        <strong>{stat.value}</strong>
+                        <span>{stat.label}</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div
+                    className="cc-member-results"
+                    aria-label="Member growth examples"
+                  >
+                    {memberResults.map(result => (
+                      <article
+                        className="cc-member-result"
+                        key={result.company}
+                      >
+                        <header>
+                          <div>
+                            <strong>{result.company}</strong>
+                            <span>{result.timeline}</span>
+                          </div>
+                          <em>{result.multiple}</em>
+                        </header>
+                        <dl>
+                          <div>
+                            <dt>Before</dt>
+                            <dd>{result.before}</dd>
+                          </div>
+                          <div>
+                            <dt>After ALP</dt>
+                            <dd>{result.after}</dd>
+                          </div>
+                        </dl>
+                      </article>
+                    ))}
+                  </div>
+                  <div
+                    className="cc-testimonial-strip"
+                    aria-label="Member testimonials"
+                  >
+                    {testimonials.map(testimonial => (
+                      <figure className="cc-testimonial" key={testimonial.name}>
+                        <div className="cc-testimonial-mark" aria-hidden="true">
+                          5 star member read
                         </div>
-                      ))}
-                    </div>
-                  </article>
-                  <article className="cc-command-phase cc-command-phase-output">
-                    <span>Output</span>
-                    <strong>The team leaves with work.</strong>
-                    <p>
-                      A number, owner, date, template, SOP, call agenda, or
-                      operating change moves into the company.
-                    </p>
-                  </article>
+                        <blockquote>"{testimonial.quote}"</blockquote>
+                        <figcaption>
+                          {testimonial.name}
+                          <span>ALP Member</span>
+                        </figcaption>
+                      </figure>
+                    ))}
+                  </div>
+                  <p className="cc-proof-disclaimer">
+                    Results vary. These are real members who committed to the
+                    process, showed up consistently, and executed on what they
+                    learned.
+                  </p>
                 </div>
               </div>
             </article>
@@ -1155,88 +1193,59 @@ export default function ContractorCircle() {
               </div>
             </article>
 
-            <article className="cc-stack-card cc-stack-card-proof">
-              <div className="cc-proof-ledger">
-                <div className="cc-proof-ledger-copy cc-caption">
+            <article className="cc-stack-card cc-stack-card-installed">
+              <div className="cc-command-system">
+                <div className="cc-command-copy cc-caption">
                   <p className="cc-eyebrow" data-caption>
-                    Proof
+                    What Gets Installed
                   </p>
                   <h2>
-                    <span data-caption>Not theory.</span>
-                    <span data-caption>Changed companies.</span>
+                    <span data-caption>The owner stops</span>
+                    <span data-caption>being the router.</span>
                   </h2>
                   <p className="cc-subhead" data-caption>
-                    The proof is not that a portal exists. The proof is what
-                    happens when owners stop carrying every decision themselves.
+                    Pressure enters one loop: AOS holds the cadence, the live
+                    room makes the read, and the asset turns the decision into
+                    work the team can own.
                   </p>
-                  <a
-                    href={CHECKOUT_URL}
-                    className="cc-button cc-button-dark"
-                    data-caption
-                  >
-                    Join the Circle
-                  </a>
                 </div>
-                <div className="cc-proof-ledger-visual cc-detail-reveal">
-                  <div className="cc-proof-stat-grid">
-                    {proofStats.map(stat => (
-                      <div className="cc-proof-stat" key={stat.value}>
-                        <strong>{stat.value}</strong>
-                        <span>{stat.label}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div
-                    className="cc-member-results"
-                    aria-label="Member growth examples"
-                  >
-                    {memberResults.map(result => (
-                      <article
-                        className="cc-member-result"
-                        key={result.company}
-                      >
-                        <header>
-                          <div>
-                            <strong>{result.company}</strong>
-                            <span>{result.timeline}</span>
-                          </div>
-                          <em>{result.multiple}</em>
-                        </header>
-                        <dl>
-                          <div>
-                            <dt>Before</dt>
-                            <dd>{result.before}</dd>
-                          </div>
-                          <div>
-                            <dt>After ALP</dt>
-                            <dd>{result.after}</dd>
-                          </div>
-                        </dl>
-                      </article>
-                    ))}
-                  </div>
-                  <div
-                    className="cc-testimonial-strip"
-                    aria-label="Member testimonials"
-                  >
-                    {testimonials.map(testimonial => (
-                      <figure className="cc-testimonial" key={testimonial.name}>
-                        <div className="cc-testimonial-mark" aria-hidden="true">
-                          5 star member read
+                <div
+                  className="cc-command-map cc-detail-reveal"
+                  aria-label="Contractor Circle command loop"
+                >
+                  <article className="cc-command-phase">
+                    <span>Input</span>
+                    <strong>Owner pressure enters.</strong>
+                    <p>
+                      A late selection, cash question, contract risk, PM
+                      bottleneck, or vague issue comes into view.
+                    </p>
+                  </article>
+                  <article className="cc-command-core">
+                    <span>Circle command loop</span>
+                    <strong>Issue to read to asset to owner to next move</strong>
+                    <p>
+                      AOS, the room, the templates, and the tools stop acting
+                      like separate tabs. They become one operating circuit.
+                    </p>
+                    <div className="cc-command-modules">
+                      {installedItems.map(({ number, icon: Icon, title }) => (
+                        <div key={number}>
+                          <Icon aria-hidden="true" />
+                          <small>{number}</small>
+                          <b>{title}</b>
                         </div>
-                        <blockquote>"{testimonial.quote}"</blockquote>
-                        <figcaption>
-                          {testimonial.name}
-                          <span>ALP Member</span>
-                        </figcaption>
-                      </figure>
-                    ))}
-                  </div>
-                  <p className="cc-proof-disclaimer">
-                    Results vary. These are real members who committed to the
-                    process, showed up consistently, and executed on what they
-                    learned.
-                  </p>
+                      ))}
+                    </div>
+                  </article>
+                  <article className="cc-command-phase cc-command-phase-output">
+                    <span>Output</span>
+                    <strong>The team leaves with work.</strong>
+                    <p>
+                      A number, owner, date, template, SOP, call agenda, or
+                      operating change moves into the company.
+                    </p>
+                  </article>
                 </div>
               </div>
             </article>
@@ -1384,6 +1393,7 @@ export default function ContractorCircle() {
             </article>
           </div>
         </section>
+
 
         <section
           className="cc-stats"
