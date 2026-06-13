@@ -6112,10 +6112,13 @@ body:has(.cc-page) {
   bottom: clamp(16px, 1.8vw, 22px);
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  color: var(--cc-orange);
-  font-size: 0.85rem;
-  font-weight: 600;
+  gap: 8px;
+  color: #ffffff;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
   text-decoration: none;
   opacity: 1;
   transform: translateY(0);
@@ -6130,7 +6133,7 @@ body:has(.cc-page) {
 }
 
 .cc-fan-card-cta:hover {
-  color: #0d0d0c;
+  color: #60a5fa;
 }
 
 .cc-fan-card-cta:hover svg {
@@ -6138,7 +6141,7 @@ body:has(.cc-page) {
 }
 
 .cc-fan-card-cta:focus-visible {
-  outline: 2px solid var(--cc-orange);
+  outline: 2px solid #60a5fa;
   outline-offset: 3px;
   border-radius: 4px;
 }
