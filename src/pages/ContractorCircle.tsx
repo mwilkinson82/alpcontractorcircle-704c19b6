@@ -908,10 +908,6 @@ export default function ContractorCircle() {
             construction owners AOS, the portal, tools, templates, replays, and
             the weekly rhythm to scale without becoming the bottleneck.
           </p>
-          <p className="cc-thesis-line" data-caption>
-            If everything flows back to the owner, the owner is still the
-            operating system.
-          </p>
           <div className="cc-hero-actions">
             <a href={CHECKOUT_URL} className="cc-button cc-button-dark">
               Join the Circle
@@ -992,37 +988,59 @@ export default function ContractorCircle() {
             </article>
 
             <article className="cc-stack-card cc-stack-card-installed">
-              <div className="cc-centered-copy cc-caption">
-                <p className="cc-eyebrow" data-caption>
-                  What Gets Installed
-                </p>
-                <h2>
-                  <span data-caption>The operating rhythm</span>
-                  <span data-caption>leaves your head.</span>
-                </h2>
-                <p className="cc-subhead" data-caption>
-                  Vision, rocks, scorecard, issues, calls, templates, SOPs,
-                  and contract reads stop living as scattered tabs. They become
-                  one weekly command loop.
-                </p>
-              </div>
-              <div className="cc-install-grid">
-                {installedItems.map(
-                  ({ number, icon: Icon, title, outcome, body }) => (
-                    <article
-                      className="cc-install-item"
-                      key={number}
-                      tabIndex={0}
-                      aria-label={`${title}: ${outcome}`}
-                    >
-                      <span>{number}</span>
-                      <Icon aria-hidden="true" />
-                      <h3>{title}</h3>
-                      <strong>{outcome}</strong>
-                      <p>{body}</p>
-                    </article>
-                  )
-                )}
+              <div className="cc-command-system">
+                <div className="cc-command-copy cc-caption">
+                  <p className="cc-eyebrow" data-caption>
+                    What Gets Installed
+                  </p>
+                  <h2>
+                    <span data-caption>The owner stops</span>
+                    <span data-caption>being the router.</span>
+                  </h2>
+                  <p className="cc-subhead" data-caption>
+                    Pressure enters one loop: AOS holds the cadence, the live
+                    room makes the read, and the asset turns the decision into
+                    work the team can own.
+                  </p>
+                </div>
+                <div
+                  className="cc-command-map cc-detail-reveal"
+                  aria-label="Contractor Circle command loop"
+                >
+                  <article className="cc-command-phase">
+                    <span>Input</span>
+                    <strong>Owner pressure enters.</strong>
+                    <p>
+                      A late selection, cash question, contract risk, PM
+                      bottleneck, or vague issue comes into view.
+                    </p>
+                  </article>
+                  <article className="cc-command-core">
+                    <span>Circle command loop</span>
+                    <strong>Issue to read to asset to owner to next move</strong>
+                    <p>
+                      AOS, the room, the templates, and the tools stop acting
+                      like separate tabs. They become one operating circuit.
+                    </p>
+                    <div className="cc-command-modules">
+                      {installedItems.map(({ number, icon: Icon, title }) => (
+                        <div key={number}>
+                          <Icon aria-hidden="true" />
+                          <small>{number}</small>
+                          <b>{title}</b>
+                        </div>
+                      ))}
+                    </div>
+                  </article>
+                  <article className="cc-command-phase cc-command-phase-output">
+                    <span>Output</span>
+                    <strong>The team leaves with work.</strong>
+                    <p>
+                      A number, owner, date, template, SOP, call agenda, or
+                      operating change moves into the company.
+                    </p>
+                  </article>
+                </div>
               </div>
             </article>
 
@@ -1237,8 +1255,8 @@ export default function ContractorCircle() {
                     After Checkout
                   </p>
                   <h2>
-                    <span data-caption>Installation starts</span>
-                    <span data-caption>immediately.</span>
+                    <span data-caption>Your first move</span>
+                    <span data-caption>starts now.</span>
                   </h2>
                   <p className="cc-subhead" data-caption>
                     After checkout, the goal is not to browse a library. It is
@@ -1442,6 +1460,9 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           ".cc-product-deck-section"
         );
         if (!deck) return;
+        const deckSticky = deck.querySelector<HTMLElement>(
+          ".cc-product-deck-sticky"
+        );
 
         const cards = Array.from(
           deck.querySelectorAll<HTMLElement>(".cc-product-deck-card")
@@ -1543,6 +1564,9 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           start: "top top",
           end: "bottom bottom",
           scrub: 0.85,
+          pin: deckSticky,
+          pinSpacing: false,
+          anticipatePin: 1,
           invalidateOnRefresh: true,
           onRefresh: self => updateDeck(self.progress),
           onUpdate: self => updateDeck(self.progress),
@@ -2168,11 +2192,20 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       } else {
         gsap.set(stackCards, {
           autoAlpha: 0.68,
-          y: 116,
+          y: lowHeightDesktop ? 54 : 88,
           scale: 0.94,
           transformPerspective: 1600,
           transformOrigin: "center center",
         });
+        gsap.set(
+          ".cc-stack-card [data-caption], .cc-stack-card .cc-problem-card, .cc-stack-card .cc-detail-reveal, .cc-stack-card .cc-onboarding-step",
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            filter: "blur(0px)",
+          }
+        );
 
         stackCards.forEach((card, index) => {
           const direction = index % 2 === 0 ? -1 : 1;
