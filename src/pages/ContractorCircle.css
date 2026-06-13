@@ -6293,13 +6293,30 @@ body:has(.cc-page) {
   max-width: 720px;
 }
 
-.cc-asset-deck {
-  max-width: 1320px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(20px, 2.4vw, 32px);
+.cc-asset-deck-stage {
+  position: relative;
+  isolation: isolate;
+  margin: 0 calc(50% - 50vw);
+  padding: clamp(40px, 6vh, 80px) 0;
+  overflow: hidden;
 }
+
+.cc-asset-deck {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  gap: clamp(18px, 2vw, 28px);
+  padding: clamp(20px, 3vh, 40px) clamp(24px, 6vw, 96px);
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  perspective: 1600px;
+}
+
+.cc-asset-deck::-webkit-scrollbar { display: none; }
+
 
 .cc-asset-card {
   position: relative;
