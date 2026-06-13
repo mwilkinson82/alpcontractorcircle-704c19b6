@@ -908,23 +908,33 @@ body:has(.cc-page) {
 
 .cc-intro-current-profit {
   position: absolute;
-  z-index: 4;
-  left: 25%;
-  bottom: 8%;
+  z-index: 6;
+  left: 50%;
+  bottom: clamp(24px, 5vh, 56px);
   display: grid;
-  gap: 8px;
-  width: min(540px, 42vw);
-  padding: clamp(16px, 2.2vw, 26px);
-  border: 1px solid rgb(59 130 246 / 0.35);
-  background: linear-gradient(135deg, rgb(219 234 254 / 0.95), rgb(191 219 254 / 0.85));
-  box-shadow: 0 24px 60px rgb(37 99 235 / 0.22);
+  gap: 6px;
+  width: min(620px, 58vw);
+  padding: clamp(18px, 2.4vw, 28px) clamp(22px, 2.8vw, 34px);
+  border: 1px solid rgb(59 130 246 / 0.45);
+  border-top: 3px solid rgb(30 58 138 / 0.9);
+  background: linear-gradient(135deg, rgb(219 234 254 / 0.97), rgb(191 219 254 / 0.9));
+  box-shadow: 0 28px 70px rgb(37 99 235 / 0.28);
   opacity: 0;
   text-align: left;
   transform: translate(-50%, 18px) scale(0.98);
-  animation: cc-intro-current-profit 1700ms var(--cc-caption-ease) 6100ms
-    forwards;
-
+  animation: cc-intro-current-profit 1500ms var(--cc-caption-ease) 6100ms forwards;
 }
+
+.cc-intro-current-profit small {
+  display: block;
+  margin-top: 4px;
+  color: rgb(30 58 138 / 0.7);
+  font-size: clamp(0.7rem, 0.95vw, 0.88rem);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
 
 .cc-intro-current-profit span {
   color: rgb(30 58 138 / 0.85);
