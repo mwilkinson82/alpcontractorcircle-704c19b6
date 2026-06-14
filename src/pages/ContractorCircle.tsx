@@ -632,25 +632,24 @@ function PillarsSection() {
               );
             })}
           </div>
-        </div>
-
-        <div className="cc-fan-controls" aria-label="Browse Circle inclusions">
-          <button
-            type="button"
-            className="cc-fan-arrow"
-            aria-label="Previous inclusion"
-            onClick={() => rotateFan(-1)}
-          >
-            <ChevronLeft aria-hidden="true" />
-          </button>
-          <button
-            type="button"
-            className="cc-fan-arrow"
-            aria-label="Next inclusion"
-            onClick={() => rotateFan(1)}
-          >
-            <ChevronRight aria-hidden="true" />
-          </button>
+          <div className="cc-fan-controls" aria-label="Browse Circle inclusions">
+            <button
+              type="button"
+              className="cc-fan-arrow"
+              aria-label="Previous inclusion"
+              onClick={() => rotateFan(-1)}
+            >
+              <ChevronLeft aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className="cc-fan-arrow"
+              aria-label="Next inclusion"
+              onClick={() => rotateFan(1)}
+            >
+              <ChevronRight aria-hidden="true" />
+            </button>
+          </div>
         </div>
       </div>
 
