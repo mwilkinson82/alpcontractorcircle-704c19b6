@@ -9,12 +9,12 @@
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  grid-template-columns: minmax(320px, 1fr) minmax(0, 1.25fr);
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
 }
 
-.ob-copy { max-width: 520px; min-width: 0; }
+.ob-copy { max-width: 560px; min-width: 0; }
 
 .ob-eyebrow {
   color: #2D6BF0;
@@ -25,14 +25,16 @@
 }
 
 .ob-headline {
-  font-size: clamp(26px, 2.6vw, 40px);
-  line-height: 1.12;
+  font-size: clamp(24px, 2.4vw, 38px);
+  line-height: 1.18;
   letter-spacing: -0.02em;
   font-weight: 600;
   margin: 0 0 28px;
   color: #0d0d12;
   text-wrap: balance;
+  overflow-wrap: break-word;
 }
+
 
 .ob-word-wrap { display: inline; overflow: visible; white-space: normal; }
 .ob-word { display: inline-block; will-change: transform, opacity; }
