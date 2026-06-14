@@ -7548,3 +7548,34 @@ body:has(.cc-page) {
     stroke-width: 1.8 !important;
   }
 }
+
+/* ============================================================
+   TABLET HERO VIDEO CENTERING
+   The desktop rule absolutely centers .cc-video-media via
+   top/left 50% + translate, and the 860px override switches it
+   to position:relative inside a grid. On tablet widths the
+   media was rendering left-anchored at roughly half the page
+   width. Force it to be a properly centered, full-width block.
+   ============================================================ */
+@media (min-width: 641px) and (max-width: 860px) {
+  .cc-video-hero {
+    display: block !important;
+    text-align: center;
+  }
+  .cc-video-media {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: 100% !important;
+    max-width: min(780px, calc(100vw - 44px)) !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    transform: none !important;
+    justify-self: center;
+  }
+}
+
