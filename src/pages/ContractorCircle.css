@@ -15,9 +15,12 @@
   --cc-aos-blue-dark: #0f6797;
   --cc-shadow: 0 28px 90px rgb(0 0 0 / 0.24);
   --cc-caption-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --cc-font-display: "Google Sans Display", "Google Sans", "Google Sans Text", "Fira Sans", Arial, sans-serif;
+  --cc-font-body: "Google Sans Text", "Fira Sans", Arial, sans-serif;
+  --cc-font-italic: "ITC Garamond Std", "ITC Garamond", "Instrument Serif", "Cormorant Garamond", "EB Garamond", Georgia, serif;
   background: var(--cc-paper);
   color: var(--cc-ink);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   letter-spacing: 0;
   overflow-x: clip;
 }
@@ -50,9 +53,7 @@ body:has(.cc-page) {
 .cc-page h2,
 .cc-page h3 {
   margin: 0;
-  font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+  font-family: var(--cc-font-display);
   font-weight: 500;
   letter-spacing: 0;
 }
@@ -60,9 +61,7 @@ body:has(.cc-page) {
 .cc-page em {
   position: relative;
   display: inline-block;
-  font-family:
-    "ITC Garamond Std", "ITC Garamond", "Instrument Serif",
-    "Cormorant Garamond", "EB Garamond", Georgia, serif;
+  font-family: var(--cc-font-italic);
   font-style: italic;
   font-weight: 500;
   letter-spacing: 0;
@@ -7698,5 +7697,147 @@ body:has(.cc-page) {
     width: 28px !important;
     height: 28px !important;
     stroke-width: 1.8 !important;
+  }
+}
+
+/* Typography guardrail: keep Lovable edits from drifting the public homepage
+   away from the ALP Google Sans headline system. */
+.cc-page,
+.cc-page .cc-nav,
+.cc-page button,
+.cc-page a,
+.cc-page input,
+.cc-page textarea {
+  font-family: var(--cc-font-body);
+}
+
+.cc-page :is(h1, h2, h3, .cc-mega-word, .cc-scroll-fill-text) {
+  font-family: var(--cc-font-display);
+  letter-spacing: 0;
+}
+
+.cc-page em {
+  font-family: var(--cc-font-italic);
+}
+
+/* Final mobile intro-chart guardrail. Keep the chart readable and close to the
+   project split sketch: big headers, high horizontal rule, separated values. */
+@media (max-width: 640px) {
+  .cc-intro-project-title {
+    top: calc(env(safe-area-inset-top, 0px) + 82px) !important;
+    font-size: clamp(1.18rem, 5.4vw, 1.48rem) !important;
+  }
+
+  .cc-intro-chart {
+    inset: calc(env(safe-area-inset-top, 0px) + 128px) 20px 86px !important;
+    display: block !important;
+    overflow: visible !important;
+  }
+
+  .cc-intro-axis-horizontal {
+    top: clamp(78px, 9.5svh, 96px) !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 2px !important;
+  }
+
+  .cc-intro-axis-vertical {
+    top: clamp(78px, 9.5svh, 96px) !important;
+    bottom: clamp(126px, 18svh, 160px) !important;
+    width: 2px !important;
+    margin-left: -1px !important;
+  }
+
+  .cc-intro-chart-column {
+    position: absolute !important;
+    top: 0 !important;
+    width: 50% !important;
+    min-height: 0 !important;
+    padding: 0 8px !important;
+  }
+
+  .cc-intro-profit-column {
+    left: 0 !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  .cc-intro-risk-column {
+    right: 0 !important;
+    align-items: flex-end !important;
+    text-align: right !important;
+  }
+
+  .cc-intro-chart-label {
+    font-size: clamp(2.35rem, 12.5vw, 3rem) !important;
+    line-height: 0.9 !important;
+  }
+
+  .cc-intro-chart-column strong {
+    margin-top: clamp(52px, 6.4svh, 68px) !important;
+    font-size: clamp(1.7rem, 8.2vw, 2.25rem) !important;
+    line-height: 0.95 !important;
+    white-space: nowrap !important;
+  }
+
+  .cc-intro-profit-column small {
+    max-width: 132px !important;
+    font-size: clamp(0.5rem, 2vw, 0.62rem) !important;
+    line-height: 1.15 !important;
+    text-align: left !important;
+  }
+
+  .cc-intro-risk-impact {
+    position: absolute !important;
+    top: clamp(164px, 19.4svh, 188px) !important;
+    left: 0 !important;
+    right: auto !important;
+    width: calc(100% - 12px) !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 8px 0 8px 10px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    text-align: left !important;
+  }
+
+  .cc-intro-risk-impact-value {
+    font-size: clamp(1.25rem, 6.6vw, 1.9rem) !important;
+    line-height: 1 !important;
+  }
+
+  .cc-intro-risk-item {
+    position: absolute !important;
+    top: clamp(112px, 13.5svh, 136px) !important;
+    right: 0 !important;
+    left: auto !important;
+    width: calc(100% - 12px) !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 9px 0 9px 10px !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+    text-align: left !important;
+  }
+
+  .cc-intro-risk-item-title {
+    font-size: clamp(0.62rem, 2.65vw, 0.82rem) !important;
+    line-height: 1.12 !important;
+  }
+
+  .cc-intro-risk-item-value {
+    font-size: clamp(1.35rem, 7vw, 1.95rem) !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  .cc-intro-current-profit {
+    bottom: max(14px, 2.2svh) !important;
+    width: min(330px, calc(100vw - 48px)) !important;
+    padding: 10px 12px !important;
+  }
+
+  .cc-intro-current-profit strong {
+    font-size: clamp(1.9rem, 8vw, 2.35rem) !important;
   }
 }
