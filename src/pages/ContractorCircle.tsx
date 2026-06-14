@@ -16,6 +16,8 @@ import {
   BookOpen,
   CalendarDays,
   Check,
+  ChevronLeft,
+  ChevronRight,
   CircleDollarSign,
   ClipboardList,
   LockKeyhole,
@@ -562,10 +564,13 @@ function ScrollFillText({ words }: { words: string[] }) {
 
 function PillarsSection() {
   const items = productProofItems;
+  const [activeFanIndex, setActiveFanIndex] = useState(() => Math.floor(items.length / 2));
   const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const centerIndex = (items.length - 1) / 2;
 
   const openItem = openIndex !== null ? items[openIndex] : null;
+  const rotateFan = (direction: -1 | 1) => {
+    setActiveFanIndex(current => (current + direction + items.length) % items.length);
+  };
 
   return (
     <section
@@ -586,7 +591,9 @@ function PillarsSection() {
             role="list"
           >
             {items.map((item, index) => {
-              const slot = index - centerIndex;
+              let slot = index - activeFanIndex;
+              if (slot > items.length / 2) slot -= items.length;
+              if (slot < -items.length / 2) slot += items.length;
               const distance = Math.abs(slot);
               const angle = slot * 6.1;
               const style = {
@@ -624,6 +631,24 @@ function PillarsSection() {
                 </div>
               );
             })}
+          </div>
+          <div className="cc-fan-controls" aria-label="Browse Circle inclusions">
+            <button
+              type="button"
+              className="cc-fan-arrow"
+              aria-label="Previous inclusion"
+              onClick={() => rotateFan(-1)}
+            >
+              <ChevronLeft aria-hidden="true" />
+            </button>
+            <button
+              type="button"
+              className="cc-fan-arrow"
+              aria-label="Next inclusion"
+              onClick={() => rotateFan(1)}
+            >
+              <ChevronRight aria-hidden="true" />
+            </button>
           </div>
         </div>
       </div>
