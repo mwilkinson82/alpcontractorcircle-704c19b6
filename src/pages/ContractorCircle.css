@@ -6765,7 +6765,7 @@ body:has(.cc-page) {
     height: clamp(760px, 70vw, 860px) !important;
   }
   .cc-fan-track {
-    top: clamp(74px, 9vw, 118px) !important;
+    top: clamp(28px, 4vw, 56px) !important;
   }
   .cc-fan-controls {
     bottom: clamp(42px, 5vw, 64px) !important;
@@ -6778,7 +6778,7 @@ body:has(.cc-page) {
   --fan-radius: calc(var(--fan-circle-size) / 2);
   position: absolute;
   left: 50%;
-  top: clamp(84px, 10vw, 156px);
+  top: clamp(36px, 5vw, 86px);
   display: block;
   width: var(--fan-circle-size);
   height: var(--fan-circle-size);
@@ -6860,7 +6860,7 @@ body:has(.cc-page) {
 .cc-fan-card-body {
   flex: 1 1 auto;
   min-height: 0;
-  padding: clamp(16px, 1.35vw, 20px) clamp(14px, 1.2vw, 18px) clamp(18px, 1.5vw, 24px);
+  padding: clamp(16px, 1.35vw, 20px) clamp(14px, 1.2vw, 18px) clamp(32px, 2.6vw, 42px);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -6889,8 +6889,10 @@ body:has(.cc-page) {
 
 .cc-fan-card-learn {
   flex: 0 0 auto;
+  margin-top: auto;
   line-height: 1.25;
-  padding-bottom: 2px;
+  padding-top: 8px;
+  padding-bottom: 6px;
 }
 
 
