@@ -24,20 +24,25 @@
   margin: 0 0 22px;
 }
 
-.ob-headline {
-  font-size: clamp(24px, 2.4vw, 38px);
-  line-height: 1.18;
+.ob-section .ob-headline,
+.cc-stack-card .ob-section .ob-headline {
+  font-size: clamp(28px, 3vw, 46px) !important;
+  line-height: 1.15 !important;
   letter-spacing: -0.02em;
   font-weight: 600;
   margin: 0 0 28px;
   color: #0d0d12;
   text-wrap: balance;
-  overflow-wrap: break-word;
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: none;
 }
 
 
-.ob-word-wrap { display: inline; overflow: visible; white-space: normal; }
-.ob-word { display: inline-block; will-change: transform, opacity; }
+.ob-section .ob-word-wrap { display: inline; overflow: visible; white-space: normal; }
+.ob-section .ob-headline .ob-word-wrap { display: inline; }
+.ob-section .ob-headline span { display: inline; }
+.ob-section .ob-word { display: inline-block; will-change: transform, opacity; }
 
 .ob-body {
   font-size: clamp(15px, 1.1vw, 17px);
