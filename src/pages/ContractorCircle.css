@@ -7241,3 +7241,100 @@ body:has(.cc-page) {
     transform-origin: 50% 106% !important;
   }
 }
+
+@media (max-width: 640px) {
+  .cc-intro-risk-impact {
+    position: absolute !important;
+    top: 34% !important;
+    left: 0 !important;
+    z-index: 8 !important;
+    margin-top: 0 !important;
+  }
+
+  .cc-intro-risk-item {
+    position: absolute !important;
+    top: 26% !important;
+    right: 0 !important;
+    z-index: 8 !important;
+    margin-top: 0 !important;
+  }
+
+  .cc-stack-sticky {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: clamp(42px, 9svh, 76px) !important;
+    padding: 38px clamp(12px, 3.5vw, 18px) 146px !important;
+  }
+
+  .cc-stack-card,
+  .cc-stack-card-shift,
+  .cc-stack-card-proof,
+  .cc-stack-card-onboarding,
+  .cc-stack-card-product-proof {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: min(100%, calc(100vw - 24px)) !important;
+    height: auto !important;
+    min-height: clamp(720px, 94svh, 880px) !important;
+    max-height: none !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+    padding: clamp(30px, 7vw, 44px) clamp(20px, 5.5vw, 32px)
+      max(118px, clamp(42px, 9vw, 62px)) !important;
+  }
+
+  .cc-stack-card [data-caption],
+  .cc-stack-card .cc-problem-card,
+  .cc-stack-card .cc-detail-reveal,
+  .cc-stack-card .cc-onboarding-step,
+  .cc-product-shot,
+  .cc-product-shot img {
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .cc-stack-card-shift {
+    align-items: center !important;
+  }
+
+  .cc-stack-card-problem {
+    min-height: clamp(840px, 112svh, 980px) !important;
+  }
+
+  .cc-pillars-section {
+    min-height: 100svh !important;
+    padding: 76px 0 92px !important;
+  }
+
+  .cc-fan-track {
+    align-items: flex-start !important;
+    gap: 0 !important;
+    min-height: clamp(620px, 154vw, 740px) !important;
+    padding: 46px 112px 104px !important;
+    scroll-padding-inline: 112px !important;
+  }
+
+  .cc-fan-card {
+    flex-basis: clamp(312px, 82vw, 366px) !important;
+    width: clamp(312px, 82vw, 366px) !important;
+    height: clamp(490px, 128vw, 590px) !important;
+    margin-inline: -70px !important;
+    transform: translateY(calc(var(--fan-distance) * 34px)) rotate(calc(var(--fan-slot) * 8deg)) !important;
+    box-shadow: 0 34px 82px -34px rgb(13 13 12 / 0.42) !important;
+  }
+
+  .cc-fan-card:first-child {
+    margin-left: 0 !important;
+  }
+
+  .cc-fan-card:last-child {
+    margin-right: 0 !important;
+  }
+}
