@@ -7264,6 +7264,11 @@ body:has(.cc-page) {
     margin-top: 0 !important;
   }
 
+  .cc-card-stack {
+    min-height: 0 !important;
+    padding-top: 0 !important;
+  }
+
   .cc-stack-sticky {
     display: flex !important;
     flex-direction: column !important;
