@@ -30,7 +30,7 @@ type Node = {
 };
 
 // Hub center in stage coords (percent)
-const HUB = { x: 62, y: 50, r: 13 };
+const HUB = { x: 50, y: 50, r: 14 };
 
 const NODES: Node[] = [
   {
@@ -39,7 +39,7 @@ const NODES: Node[] = [
     Icon: FileText,
     tint: "#EAF1FE",
     dot: "#2D6BF0",
-    x: 14, y: 6, ex: 38, ey: 18,
+    x: 18, y: 10, ex: 28, ey: 18,
   },
   {
     id: "change",
@@ -47,7 +47,7 @@ const NODES: Node[] = [
     Icon: Clock,
     tint: "#FDECEC",
     dot: "#E54B4B",
-    x: 70, y: 6, ex: 78, ey: 18,
+    x: 82, y: 10, ex: 72, ey: 18,
   },
   {
     id: "selections",
@@ -55,7 +55,7 @@ const NODES: Node[] = [
     Icon: Calendar,
     tint: "#E6F4EA",
     dot: "#34A853",
-    x: 4, y: 40, ex: 32, ey: 47,
+    x: 10, y: 45, ex: 22, ey: 47,
   },
   {
     id: "pms",
@@ -63,7 +63,7 @@ const NODES: Node[] = [
     Icon: Users,
     tint: "#EFE9FB",
     dot: "#7C4DFF",
-    x: 82, y: 40, ex: 84, ey: 47,
+    x: 90, y: 45, ex: 78, ey: 47,
   },
   {
     id: "costs",
@@ -71,7 +71,7 @@ const NODES: Node[] = [
     Icon: DollarSign,
     tint: "#FBF1D8",
     dot: "#E0A93D",
-    x: 22, y: 72, ex: 44, ey: 68,
+    x: 20, y: 78, ex: 30, ey: 72,
   },
   {
     id: "risk",
@@ -79,7 +79,7 @@ const NODES: Node[] = [
     Icon: AlertTriangle,
     tint: "#FDECEC",
     dot: "#E54B4B",
-    x: 72, y: 72, ex: 78, ey: 68,
+    x: 80, y: 78, ex: 70, ey: 72,
   },
 ];
 
@@ -88,8 +88,9 @@ const BOTTOM = {
   Icon: Activity,
   tint: "#FFF3E2",
   dot: "#F2994A",
-  x: 42, y: 92, ex: 62, ey: 78,
+  x: 50, y: 96, ex: 50, ey: 82,
 };
+
 
 // Build a smooth curve from hub edge to card endpoint
 function curve(ex: number, ey: number) {
