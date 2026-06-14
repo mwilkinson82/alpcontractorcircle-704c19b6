@@ -6753,7 +6753,7 @@ body:has(.cc-page) {
 
 .cc-fan-stage {
   position: relative;
-  height: clamp(880px, 82vw, 1020px);
+  height: clamp(790px, 70vw, 900px);
   min-height: 0;
   padding: clamp(30px, 4vh, 50px) 0 0;
   overflow: visible;
@@ -6762,13 +6762,13 @@ body:has(.cc-page) {
 /* Narrow-desktop band: arc needs more vertical room so cards + chevrons don't clip */
 @media (min-width: 861px) and (max-width: 1200px) {
   .cc-fan-stage {
-    height: clamp(900px, 88vw, 1060px) !important;
+    height: clamp(760px, 70vw, 860px) !important;
   }
   .cc-fan-track {
-    top: clamp(130px, 16vw, 190px) !important;
+    top: clamp(28px, 4vw, 56px) !important;
   }
   .cc-fan-controls {
-    bottom: 28px !important;
+    bottom: clamp(42px, 5vw, 64px) !important;
   }
 }
 
@@ -6778,7 +6778,7 @@ body:has(.cc-page) {
   --fan-radius: calc(var(--fan-circle-size) / 2);
   position: absolute;
   left: 50%;
-  top: clamp(132px, 18vw, 226px);
+  top: clamp(36px, 5vw, 86px);
   display: block;
   width: var(--fan-circle-size);
   height: var(--fan-circle-size);
@@ -6796,8 +6796,8 @@ body:has(.cc-page) {
   left: 50%;
   top: 0;
   z-index: calc(var(--fan-z) * 1);
-  width: clamp(280px, 23vw, 400px);
-  height: clamp(500px, 38vw, 600px);
+  width: clamp(270px, 21vw, 360px);
+  height: clamp(450px, 32vw, 540px);
   margin: 0;
   padding: 0;
   border: 0;
@@ -6840,7 +6840,7 @@ body:has(.cc-page) {
 
 .cc-fan-card-media {
   flex: 0 0 auto;
-  height: 48%;
+  height: 45%;
   margin: 0;
   border: 0;
   border-radius: 18px;
@@ -6860,7 +6860,7 @@ body:has(.cc-page) {
 .cc-fan-card-body {
   flex: 1 1 auto;
   min-height: 0;
-  padding: 20px 18px 26px;
+  padding: clamp(16px, 1.35vw, 20px) clamp(14px, 1.2vw, 18px) clamp(32px, 2.6vw, 42px);
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -6871,7 +6871,7 @@ body:has(.cc-page) {
   font-family:
     "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
     Arial, sans-serif;
-  font-size: clamp(1.35rem, 1.5vw, 1.75rem);
+  font-size: clamp(1.18rem, 1.32vw, 1.56rem);
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.01em;
@@ -6882,15 +6882,17 @@ body:has(.cc-page) {
 .cc-fan-card-body-copy {
   margin: 0;
   color: #4a4a4a;
-  font-size: clamp(0.9rem, 0.92vw, 1rem);
-  line-height: 1.4;
+  font-size: clamp(0.84rem, 0.82vw, 0.95rem);
+  line-height: 1.32;
   -webkit-line-clamp: 3;
 }
 
 .cc-fan-card-learn {
   flex: 0 0 auto;
+  margin-top: auto;
   line-height: 1.25;
-  padding-bottom: 2px;
+  padding-top: 8px;
+  padding-bottom: 6px;
 }
 
 
