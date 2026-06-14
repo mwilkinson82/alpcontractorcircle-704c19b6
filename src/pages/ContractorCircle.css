@@ -7360,6 +7360,16 @@ body:has(.cc-page) {
 }
 
 @media (max-width: 640px) {
+  .cc-stat,
+  .cc-mega-word,
+  .cc-mega-close,
+  .cc-mega-close-bar {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
   .cc-pillars-section {
     min-height: 0 !important;
     padding: 56px 0 40px !important;
