@@ -7579,3 +7579,86 @@ body:has(.cc-page) {
   }
 }
 
+
+/* ============================================================
+   TABLET FAN — mirror the mobile arc-fan layout on tablet
+   widths so cards render as a rotated deck instead of the
+   horizontal scroll carousel used between 641–860px.
+   ============================================================ */
+@media (min-width: 641px) and (max-width: 860px) {
+  .cc-pillars-section {
+    overflow: hidden !important;
+  }
+
+  .cc-fan-stage {
+    position: relative !important;
+    height: clamp(620px, 92vw, 780px) !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .cc-fan-track {
+    --fan-circle-size: 2200px;
+    --fan-radius: 1100px;
+    position: absolute !important;
+    left: 50% !important;
+    top: 28px !important;
+    display: block !important;
+    width: var(--fan-circle-size) !important;
+    height: var(--fan-circle-size) !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) !important;
+    transform-origin: 50% 50% !important;
+    scroll-snap-type: none !important;
+    gap: 0 !important;
+  }
+
+  .cc-fan-card {
+    position: absolute !important;
+    left: 50% !important;
+    top: 0 !important;
+    flex: none !important;
+    width: clamp(300px, 42vw, 360px) !important;
+    height: clamp(460px, 64vw, 560px) !important;
+    margin: 0 !important;
+    z-index: calc(var(--fan-z) * 1) !important;
+    box-shadow: none !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) rotate(calc(var(--fan-slot) * 14deg)) !important;
+    transform-origin: 50% var(--fan-radius) !important;
+  }
+
+  .cc-fan-card-hit {
+    border-radius: 28px !important;
+    box-shadow: 0 28px 72px -46px rgb(13 13 12 / 0.48) !important;
+  }
+
+  .cc-fan-controls {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: clamp(36px, 6vw, 64px) !important;
+    z-index: 160 !important;
+    margin-top: 0 !important;
+    gap: 22px !important;
+  }
+
+  .cc-fan-arrow {
+    width: 64px !important;
+    height: 64px !important;
+    border-color: rgb(13 13 12 / 0.12) !important;
+    background: transparent !important;
+    color: #2f2f2f !important;
+  }
+
+  .cc-fan-arrow svg {
+    width: 28px !important;
+    height: 28px !important;
+    stroke-width: 1.8 !important;
+  }
+}
