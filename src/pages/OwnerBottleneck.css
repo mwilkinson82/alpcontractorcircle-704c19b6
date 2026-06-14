@@ -45,8 +45,8 @@
   font-family: var(--font-sans) !important;
   font-size: clamp(30px, 3.6vw, 54px) !important;
   line-height: 1.02 !important;
-  letter-spacing: -0.035em !important;
-  font-weight: 500 !important;
+  letter-spacing: -0.02em !important;
+  font-weight: 600 !important;
   margin: 0 0 32px !important;
   color: hsl(var(--ink)) !important;
   text-wrap: balance;
