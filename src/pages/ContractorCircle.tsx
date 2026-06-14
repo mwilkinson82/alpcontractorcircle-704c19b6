@@ -1216,29 +1216,7 @@ export default function ContractorCircle() {
             </article>
 
             <article className="cc-stack-card cc-stack-card-problem">
-              <div className="cc-stack-copy cc-caption">
-                <h2>
-                  <span data-caption>
-                    If everything flows back to the owner,
-                  </span>
-                  <span data-caption>
-                    the owner is still the operating system.
-                  </span>
-                </h2>
-                <p className="cc-subhead" data-caption>
-                  The leads are there. The jobs are there. The ambition is
-                  there. But the company is still running through the owner's
-                  head.
-                </p>
-              </div>
-              <div className="cc-problem-grid">
-                {problemItems.map(({ icon: Icon, text }) => (
-                  <article className="cc-problem-card" key={text}>
-                    <Icon aria-hidden="true" />
-                    <p>{text}</p>
-                  </article>
-                ))}
-              </div>
+              <OwnerBottleneck />
             </article>
           </div>
         </section>
