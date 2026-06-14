@@ -9,7 +9,7 @@
   max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: minmax(280px, 1fr) minmax(420px, 1.5fr);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
   gap: clamp(32px, 5vw, 80px);
   align-items: center;
 }
