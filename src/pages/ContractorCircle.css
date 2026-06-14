@@ -7309,7 +7309,7 @@ body:has(.cc-page) {
   }
 
   .cc-stack-card-problem {
-    min-height: clamp(840px, 112svh, 980px) !important;
+    min-height: 0 !important;
   }
 
   .cc-pillars-section {
