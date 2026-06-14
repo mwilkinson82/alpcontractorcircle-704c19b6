@@ -7096,3 +7096,148 @@ body:has(.cc-page) {
     right: 12px !important;
   }
 }
+
+/* ============================================================
+   MOBILE CORRECTION PASS — fixes the reported live phone issues:
+   intro chart overlap, undersized first story card, and flat fan cards.
+   ============================================================ */
+@media (max-width: 640px) {
+  .cc-intro-chart {
+    inset: calc(env(safe-area-inset-top, 0px) + 104px) 14px 12svh !important;
+  }
+
+  .cc-intro-project-title {
+    top: calc(env(safe-area-inset-top, 0px) + 86px) !important;
+    font-size: clamp(1.55rem, 7vw, 2.15rem) !important;
+  }
+
+  .cc-intro-axis-horizontal {
+    top: 26% !important;
+    left: 4% !important;
+    right: 4% !important;
+  }
+
+  .cc-intro-axis-vertical {
+    top: 22% !important;
+    bottom: 10% !important;
+  }
+
+  .cc-intro-chart-column {
+    padding: 0 4px !important;
+  }
+
+  .cc-intro-chart-label {
+    font-size: clamp(2.7rem, 15vw, 4rem) !important;
+  }
+
+  .cc-intro-chart-column strong {
+    margin-top: clamp(38px, 7vh, 58px) !important;
+    font-size: clamp(2.15rem, 12vw, 3.2rem) !important;
+  }
+
+  .cc-intro-risk-impact {
+    justify-self: start;
+    max-width: min(44vw, 190px) !important;
+    margin-top: clamp(38px, 6vh, 58px) !important;
+    padding: 12px 10px 12px 14px !important;
+  }
+
+  .cc-intro-risk-impact-value {
+    font-size: clamp(1.75rem, 9.8vw, 2.85rem) !important;
+  }
+
+  .cc-intro-risk-column {
+    justify-items: end;
+  }
+
+  .cc-intro-risk-item {
+    max-width: min(44vw, 196px) !important;
+    margin-top: clamp(34px, 5.2vh, 54px) !important;
+    padding: 12px 10px 12px 14px !important;
+  }
+
+  .cc-intro-risk-item-title {
+    font-size: clamp(0.76rem, 3.1vw, 0.98rem) !important;
+    line-height: 1.16 !important;
+  }
+
+  .cc-intro-risk-item-value {
+    font-size: clamp(1.75rem, 9.8vw, 2.95rem) !important;
+  }
+
+  .cc-intro-current-profit {
+    bottom: 4svh !important;
+    width: min(330px, 86vw) !important;
+    padding: 10px 12px !important;
+  }
+
+  .cc-intro-current-profit strong {
+    font-size: clamp(1.8rem, 8.8vw, 2.65rem) !important;
+  }
+
+  .cc-card-stack {
+    padding-top: 32px !important;
+  }
+
+  .cc-stack-sticky {
+    gap: clamp(36px, 8svh, 64px) !important;
+    padding: 26px clamp(14px, 4vw, 22px) 144px !important;
+  }
+
+  .cc-stack-card,
+  .cc-stack-card-shift,
+  .cc-stack-card-proof,
+  .cc-stack-card-onboarding,
+  .cc-stack-card-product-proof {
+    min-height: min(760px, calc(100dvh - 108px)) !important;
+    border-radius: 8px !important;
+  }
+
+  .cc-stack-card-shift {
+    display: grid !important;
+    align-items: center !important;
+    background: #fffdf8 !important;
+    border-color: rgb(21 21 21 / 0.12) !important;
+    box-shadow: 0 24px 70px rgb(21 21 21 / 0.14) !important;
+  }
+
+  .cc-memory-system {
+    min-height: calc(100dvh - 190px);
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .cc-memory-system::before,
+  .cc-memory-system::after {
+    display: none !important;
+  }
+
+  .cc-scroll-fill-text {
+    color: rgb(13 13 12 / 0.88) !important;
+    font-size: clamp(2.25rem, 10.4vw, 3.7rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .cc-fan-stage {
+    overflow: visible !important;
+    padding-top: 10px !important;
+  }
+
+  .cc-fan-track {
+    gap: 14px !important;
+    min-height: clamp(560px, 142vw, 680px) !important;
+    padding: 40px 30px 86px !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    perspective: 1500px;
+  }
+
+  .cc-fan-card {
+    flex-basis: clamp(306px, 80vw, 360px) !important;
+    width: clamp(306px, 80vw, 360px) !important;
+    height: clamp(470px, 122vw, 560px) !important;
+    margin-inline: -8px !important;
+    transform: translateY(calc(var(--fan-distance) * 18px)) rotate(var(--fan-angle-final)) !important;
+    transform-origin: 50% 106% !important;
+  }
+}
