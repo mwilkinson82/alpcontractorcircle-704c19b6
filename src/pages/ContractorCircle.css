@@ -7423,4 +7423,23 @@ body:has(.cc-page) {
     font-size: clamp(0.86rem, 3.8vw, 1rem) !important;
     -webkit-line-clamp: 4 !important;
   }
+
+  .cc-fan-controls {
+    margin-top: -92px !important;
+    gap: 18px !important;
+  }
+
+  .cc-fan-arrow {
+    width: 64px !important;
+    height: 64px !important;
+    border-color: rgb(13 13 12 / 0.12) !important;
+    background: transparent !important;
+    color: #2f2f2f !important;
+  }
+
+  .cc-fan-arrow svg {
+    width: 28px !important;
+    height: 28px !important;
+    stroke-width: 1.8 !important;
+  }
 }
