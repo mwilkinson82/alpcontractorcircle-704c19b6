@@ -309,7 +309,7 @@ const fitItems: Array<{ icon: LucideIcon; text: string }> = [
   },
   {
     icon: Check,
-    text: "You need an operating rhythm the team can see, use, and own.",
+    text: "You need an operating process the team can see, use, and own.",
   },
 ];
 
@@ -551,10 +551,42 @@ const memoryFillWords = [
   "on.",
 ];
 
+const proofFillWords = [
+  "Proof",
+  "is",
+  "what",
+  "happens",
+  "when",
+  "risk,",
+  "billing,",
+  "decisions,",
+  "and",
+  "next",
+  "moves",
+  "leave",
+  "the",
+  "owner's",
+  "head",
+  "and",
+  "show",
+  "up",
+  "in",
+  "the",
+  "business.",
+];
 
-function ScrollFillText({ words }: { words: string[] }) {
+function EditorialScrollFillText({
+  words,
+  className = "",
+}: {
+  words: string[];
+  className?: string;
+}) {
   return (
-    <p className="cc-scroll-fill-text" data-memory-fill>
+    <p
+      className={`cc-scroll-fill-text ${className}`.trim()}
+      data-editorial-fill
+    >
       {words.map((word, index) => (
         <span key={`${word}-${index}`} data-fill-word>
           {word}
@@ -829,7 +861,7 @@ export default function ContractorCircle() {
     document.title =
       "ALP Contractor Circle | Operating System for Construction Owners";
     const description =
-      "The Contractor Circle gives construction owners the operating system, tools, and weekly rhythm to scale without becoming the bottleneck.";
+      "The Contractor Circle gives construction owners the operating system, tools, and weekly process to scale without becoming the bottleneck.";
     let meta = document.querySelector<HTMLMetaElement>(
       'meta[name="description"]'
     );
@@ -1188,7 +1220,7 @@ export default function ContractorCircle() {
           <p className="cc-subhead" data-caption>
             Your competitors are installing systems. Contractor Circle gives
             construction owners AOS, the portal, tools, templates, replays, and
-            the weekly rhythm to scale without becoming the bottleneck.
+            the weekly process to scale without becoming the bottleneck.
           </p>
           <div className="cc-hero-actions">
             <a href={CHECKOUT_URL} className="cc-button cc-button-dark">
@@ -1211,7 +1243,7 @@ export default function ContractorCircle() {
                   <p className="cc-eyebrow" data-caption>
                     The Shift
                   </p>
-                  <ScrollFillText words={memoryFillWords} />
+                  <EditorialScrollFillText words={memoryFillWords} />
                 </div>
               </div>
             </article>
@@ -1269,6 +1301,13 @@ export default function ContractorCircle() {
               </div>
             </div>
 
+            <div className="cc-proof-fill cc-proof-motion">
+              <EditorialScrollFillText
+                words={proofFillWords}
+                className="cc-scroll-fill-proof"
+              />
+            </div>
+
             <div className="cc-proof-evidence">
               <div className="cc-proof-signal-grid" aria-label="Proof signals">
                 {proofStats.map(stat => (
@@ -1286,8 +1325,8 @@ export default function ContractorCircle() {
                 <div className="cc-proof-field-notes-head">
                   <span>Member outcomes</span>
                   <p>
-                    Field evidence from owners who moved the pressure into a
-                    system.
+                    Field evidence from owners who moved pressure into a
+                    visible operating system.
                   </p>
                 </div>
                 <div
@@ -1373,17 +1412,17 @@ export default function ContractorCircle() {
                 <b>What changes</b>
                 <small>
                   Vision, numbers, issues, to-dos, roles, and tools move into a
-                  weekly operating rhythm.
+                  weekly operating process.
                 </small>
               </div>
             </aside>
 
             <div
-              className="cc-fit-list cc-fit-list-editorial"
+              className="cc-fit-list cc-diagnostic-tiles"
               aria-label="Owner diagnostic signals"
             >
               {fitItems.map(({ text }, index) => (
-                <article key={text} className="cc-fit-item cc-lower-motion">
+                <article key={text} className="cc-diagnostic-item cc-lower-motion">
                   <span>{String(index + 1).padStart(2, "0")}</span>
                   <p>{text}</p>
                 </article>
@@ -1409,7 +1448,7 @@ export default function ContractorCircle() {
               <p className="cc-subhead" data-caption>
                 After checkout, the goal is not to browse a library. It is to
                 get inside the room, name the first operating constraint, and
-                start moving the company into rhythm.
+                start moving the company into a repeatable system.
               </p>
             </div>
 
@@ -1419,7 +1458,7 @@ export default function ContractorCircle() {
             >
               {onboardingSteps.map(step => (
                 <li
-                  className="cc-onboarding-step cc-lower-motion"
+                  className="cc-command-step cc-lower-motion"
                   key={step.number}
                 >
                   <span>{step.number}</span>
@@ -1714,25 +1753,29 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       };
 
       const setupMemoryFill = () => {
-        const memoryText = root.querySelector<HTMLElement>("[data-memory-fill]");
-        if (!memoryText) return;
-        const words = Array.from(
-          memoryText.querySelectorAll<HTMLElement>("[data-fill-word]")
+        const fillBlocks = Array.from(
+          root.querySelectorAll<HTMLElement>("[data-editorial-fill]")
         );
-        if (!words.length) return;
 
-        gsap.set(words, { color: "rgba(21, 21, 21, 0.19)" });
-        gsap.to(words, {
-          color: "rgba(21, 21, 21, 1)",
-          ease: "none",
-          stagger: 0.12,
-          scrollTrigger: {
-            trigger: memoryText,
-            start: "top 78%",
-            end: "bottom 42%",
-            scrub: 0.65,
-            invalidateOnRefresh: true,
-          },
+        fillBlocks.forEach(fillBlock => {
+          const words = Array.from(
+            fillBlock.querySelectorAll<HTMLElement>("[data-fill-word]")
+          );
+          if (!words.length) return;
+
+          gsap.set(words, { color: "rgba(21, 21, 21, 0.19)" });
+          gsap.to(words, {
+            color: "rgba(21, 21, 21, 1)",
+            ease: "none",
+            stagger: 0.12,
+            scrollTrigger: {
+              trigger: fillBlock,
+              start: "top 78%",
+              end: "bottom 42%",
+              scrub: 0.65,
+              invalidateOnRefresh: true,
+            },
+          });
         });
       };
 
@@ -1756,7 +1799,6 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           autoAlpha: 0,
           y: 42,
           scale: 0.982,
-          filter: "blur(7px)",
         });
 
         const proofTimeline = gsap.timeline({
@@ -1782,7 +1824,6 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
               autoAlpha: 1,
               y: 0,
               scale: 1,
-              filter: "blur(0px)",
               duration: 0.82,
               stagger: 0.055,
               ease: "power3.out",
@@ -1854,7 +1895,6 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             autoAlpha: 0,
             y: 36,
             scale: 0.985,
-            filter: "blur(6px)",
           });
 
           const timeline = gsap.timeline({
@@ -1880,7 +1920,6 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
                 autoAlpha: 1,
                 y: 0,
                 scale: 1,
-                filter: "blur(0px)",
                 duration: 0.74,
                 stagger: 0.055,
                 ease: "power3.out",

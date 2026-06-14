@@ -84,7 +84,7 @@ const NODES: Node[] = [
 ];
 
 const BOTTOM = {
-  label: "The company needs a\nrhythm the team can run.",
+  label: "The company needs a\nprocess the team can run.",
   Icon: Activity,
   tint: "#FFF3E2",
   dot: "#F2994A",
