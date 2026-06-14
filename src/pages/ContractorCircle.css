@@ -6748,11 +6748,12 @@ body:has(.cc-page) {
 
 .cc-fan-stage {
   position: relative;
-  height: clamp(500px, 48vw, 616px);
+  height: clamp(780px, 72vw, 940px);
   min-height: 0;
   padding: clamp(30px, 4vh, 50px) 0 0;
   overflow: visible;
 }
+
 
 .cc-fan-track {
   --fan-circle-size: clamp(4200px, 442vw, 8500px);
