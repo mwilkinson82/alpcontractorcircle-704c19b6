@@ -580,7 +580,7 @@ function PillarsSection() {
       <div className="cc-pillars-inner">
         <div className="cc-pillars-copy cc-caption">
           <h2>
-            <span data-caption>Everything inside the Circle</span>
+            <span>Everything inside the Circle</span>
           </h2>
         </div>
 
