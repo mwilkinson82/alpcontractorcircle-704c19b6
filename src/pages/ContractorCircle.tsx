@@ -2669,11 +2669,18 @@ function SystemsField({
     const canvas = canvasRef.current;
     if (!canvas || typeof window === "undefined") return;
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas,
-      alpha: true,
-      antialias: true,
-    });
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        canvas,
+        alpha: true,
+        antialias: true,
+        failIfMajorPerformanceCaveat: false,
+      });
+    } catch (err) {
+      console.warn("SystemsField: WebGL unavailable, skipping render", err);
+      return;
+    }
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setClearColor(0x000000, 0);
 
