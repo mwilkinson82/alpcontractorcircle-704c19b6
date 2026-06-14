@@ -6212,14 +6212,18 @@ body:has(.cc-page) {
 
 /* Fan controls (two arrow buttons + counter) */
 .cc-fan-controls {
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 24px;
   z-index: 5;
-  margin-top: -8px;
+  margin-top: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: clamp(16px, 2vw, 24px);
 }
+
 
 .cc-fan-arrow {
   width: 38px;
@@ -6748,11 +6752,12 @@ body:has(.cc-page) {
 
 .cc-fan-stage {
   position: relative;
-  height: clamp(500px, 48vw, 616px);
+  height: clamp(780px, 72vw, 940px);
   min-height: 0;
   padding: clamp(30px, 4vh, 50px) 0 0;
   overflow: visible;
 }
+
 
 .cc-fan-track {
   --fan-circle-size: clamp(4200px, 442vw, 8500px);
