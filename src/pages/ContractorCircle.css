@@ -7368,11 +7368,11 @@ body:has(.cc-page) {
   }
 
   .cc-fan-track {
-    --fan-circle-size: 2520px;
-    --fan-radius: 1260px;
+    --fan-circle-size: 1880px;
+    --fan-radius: 940px;
     position: absolute !important;
     left: 50% !important;
-    top: 24px !important;
+    top: 18px !important;
     display: block !important;
     width: var(--fan-circle-size) !important;
     height: var(--fan-circle-size) !important;
@@ -7391,13 +7391,13 @@ body:has(.cc-page) {
     left: 50% !important;
     top: 0 !important;
     flex: none !important;
-    width: clamp(294px, 76vw, 322px) !important;
-    height: clamp(480px, 124vw, 540px) !important;
+    width: clamp(248px, 66vw, 286px) !important;
+    height: clamp(382px, 102vw, 456px) !important;
     margin: 0 !important;
     z-index: calc(var(--fan-z) * 1) !important;
     box-shadow: none !important;
     pointer-events: auto !important;
-    transform: translateX(-50%) rotate(calc(var(--fan-slot) * 12deg)) !important;
+    transform: translateX(-50%) rotate(calc(var(--fan-slot) * 16deg)) !important;
     transform-origin: 50% var(--fan-radius) !important;
   }
 
