@@ -7309,16 +7309,25 @@ body:has(.cc-page) {
   }
 
   .cc-pillars-section {
-    min-height: 100svh !important;
-    padding: 76px 0 92px !important;
+    min-height: auto !important;
+    padding: 34px 0 72px !important;
+  }
+
+  .cc-pillars-inner {
+    gap: 14px !important;
+  }
+
+  .cc-pillars-copy h2 {
+    font-size: clamp(2.25rem, 9vw, 3rem) !important;
+    line-height: 1 !important;
   }
 
   .cc-fan-track {
     align-items: flex-start !important;
     gap: 0 !important;
-    min-height: clamp(620px, 154vw, 740px) !important;
-    padding: 46px 112px 104px !important;
-    scroll-padding-inline: 112px !important;
+    min-height: clamp(560px, 134vw, 650px) !important;
+    padding: 26px 96px 78px !important;
+    scroll-padding-inline: 96px !important;
   }
 
   .cc-fan-card {
