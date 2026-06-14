@@ -7425,7 +7425,12 @@ body:has(.cc-page) {
   }
 
   .cc-fan-controls {
-    margin-top: -92px !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: clamp(54px, 14vw, 76px) !important;
+    z-index: 160 !important;
+    margin-top: 0 !important;
     gap: 18px !important;
   }
 
