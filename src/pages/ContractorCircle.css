@@ -5464,6 +5464,11 @@ body:has(.cc-page) {
     flex: 0 0 100%;
     line-height: 1.04;
     white-space: nowrap;
+    padding-left: 0 !important;
+  }
+
+  .cc-brand-mark + .cc-brand-name::before {
+    display: none !important;
   }
 
   .cc-nav-actions {
