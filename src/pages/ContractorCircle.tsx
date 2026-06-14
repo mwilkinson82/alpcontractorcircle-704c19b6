@@ -1464,7 +1464,7 @@ export default function ContractorCircle() {
           </div>
         </section>
 
-        <OwnerBottleneck />
+
 
         <section
           className="cc-stats"
