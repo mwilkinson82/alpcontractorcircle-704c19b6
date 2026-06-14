@@ -1211,12 +1211,11 @@ export default function ContractorCircle() {
                 </div>
               </div>
             </article>
-
-            <article className="cc-stack-card cc-stack-card-problem">
-              <OwnerBottleneck />
-            </article>
           </div>
         </section>
+
+        <OwnerBottleneck />
+
 
 
         <section
