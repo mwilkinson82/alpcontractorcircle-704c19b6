@@ -1858,9 +1858,9 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           const heroTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: heroCopy,
-              start: "top 92%",
-              end: "center 52%",
-              scrub: 0.85,
+              start: "top 95%",
+              end: "top 55%",
+              scrub: 0.6,
               invalidateOnRefresh: true,
             },
           });
