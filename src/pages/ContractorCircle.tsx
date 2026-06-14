@@ -42,6 +42,7 @@ import {
 
 
 import HeroIntroMotion from "./HeroIntroMotion";
+import OwnerBottleneck from "./OwnerBottleneck";
 import "./ContractorCircle.css";
 
 type CloudflareStreamPlayer = {
@@ -1485,6 +1486,7 @@ export default function ContractorCircle() {
           </div>
         </section>
 
+        <OwnerBottleneck />
 
         <section
           className="cc-stats"
