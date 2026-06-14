@@ -297,7 +297,7 @@ const productProofItems: Array<{
 const fitItems: Array<{ icon: LucideIcon; text: string }> = [
   {
     icon: ShieldCheck,
-    text: "The business is moving, but too much still routes through your read.",
+    text: "The business is moving, but too much still routes through your head.",
   },
   {
     icon: Network,
@@ -344,6 +344,17 @@ const onboardingSteps = [
     title: "Bring it to the call",
     body: "One real issue comes into the live room and leaves with a next move.",
   },
+];
+
+const membershipIncludes = [
+  "Live calls",
+  "Bootcamps",
+  "Replays",
+  "Templates",
+  "Tools",
+  "Full AOS access",
+  "Unlimited workspaces",
+  "Unlimited seats",
 ];
 
 const proofStats = [
@@ -1226,8 +1237,8 @@ export default function ContractorCircle() {
               </div>
               <p className="cc-subhead" data-caption>
                 The portal is not the point. The point is what happens when
-                decisions, risk, numbers, and next moves stop living only in the
-                owner's head.
+                risk, billing, decisions, and next moves stop living only in
+                the owner's head.
               </p>
             </div>
 
@@ -1269,31 +1280,40 @@ export default function ContractorCircle() {
               </div>
 
               <div
-                className="cc-proof-result-rail"
-                aria-label="Member growth examples"
+                className="cc-proof-field-notes cc-proof-motion"
+                aria-label="Member outcome field notes"
               >
-                {memberResults.map(result => (
-                  <article
-                    className="cc-proof-result cc-proof-motion"
-                    key={result.company}
-                  >
-                    <div>
-                      <strong>{result.company}</strong>
-                      <span>{result.timeline}</span>
-                    </div>
-                    <em>{result.multiple}</em>
-                    <dl>
+                <div className="cc-proof-field-notes-head">
+                  <span>Member outcomes</span>
+                  <p>
+                    Field evidence from owners who moved the pressure into a
+                    system.
+                  </p>
+                </div>
+                <div
+                  className="cc-proof-result-rail"
+                  aria-label="Member growth examples"
+                >
+                  {memberResults.slice(0, 3).map(result => (
+                    <article className="cc-proof-result" key={result.company}>
                       <div>
-                        <dt>Before</dt>
-                        <dd>{result.before}</dd>
+                        <strong>{result.company}</strong>
+                        <span>{result.timeline}</span>
                       </div>
-                      <div>
-                        <dt>After ALP</dt>
-                        <dd>{result.after}</dd>
-                      </div>
-                    </dl>
-                  </article>
-                ))}
+                      <em>{result.multiple}</em>
+                      <dl>
+                        <div>
+                          <dt>Before</dt>
+                          <dd>{result.before}</dd>
+                        </div>
+                        <div>
+                          <dt>After ALP</dt>
+                          <dd>{result.after}</dd>
+                        </div>
+                      </dl>
+                    </article>
+                  ))}
+                </div>
               </div>
 
               <div
@@ -1323,120 +1343,133 @@ export default function ContractorCircle() {
 
 
         <section
-          className="cc-card-stack"
-          aria-label="Contractor Circle fit and offer"
+          className="cc-lower-section cc-fit-editorial"
+          aria-label="Contractor Circle diagnostic"
         >
-          <div className="cc-stack-sticky">
-            <article className="cc-stack-card cc-stack-card-fit">
-              <div className="cc-fit-diagnostic">
-                <div className="cc-caption">
-                  <p className="cc-eyebrow" data-caption>
-                    Who This Is For
-                  </p>
-                  <h2>
-                    <span data-caption>For owners carrying</span>
-                    <span data-caption>too much of the company.</span>
-                  </h2>
-                  <p className="cc-subhead" data-caption>
-                    You do not need massive volume to need an operating system.
-                    You need one when decisions, numbers, exceptions, and next
-                    moves still route back through you.
-                  </p>
-                  <div className="cc-fit-list">
-                    {fitItems.map(({ icon: Icon, text }) => (
-                      <article key={text} className="cc-fit-item">
-                        <Icon aria-hidden="true" />
-                        <p>{text}</p>
-                      </article>
-                    ))}
-                  </div>
-                </div>
-                <aside className="cc-owner-panel cc-detail-reveal">
-                  <span>Owner signal</span>
-                  <strong>You are still the hub.</strong>
-                  <p>
-                    PMs ask. Finance waits. Decisions bounce back. Meetings end
-                    with talk, but not enough visible ownership.
-                  </p>
-                  <div>
-                    <b>What changes</b>
-                    <small>
-                      Vision, numbers, issues, to-dos, roles, and tools move
-                      into a weekly operating rhythm.
-                    </small>
-                  </div>
-                </aside>
-              </div>
-            </article>
+          <div className="cc-lower-inner cc-fit-editorial-inner">
+            <div className="cc-lower-heading">
+              <p className="cc-eyebrow" data-caption>
+                Who This Is For
+              </p>
+              <h2>
+                <span data-caption>For owners carrying too much</span>
+                <span data-caption>of the company.</span>
+              </h2>
+              <p className="cc-subhead" data-caption>
+                You do not need massive volume to need an operating system. You
+                need one when decisions, numbers, exceptions, and next moves
+                still route back through you.
+              </p>
+            </div>
 
-            <article
-              id="after-checkout"
-              className="cc-stack-card cc-stack-card-onboarding"
+            <aside className="cc-owner-panel cc-lower-motion">
+              <span>Owner signal</span>
+              <strong>You are still the hub.</strong>
+              <p>
+                PMs ask. Finance waits. Decisions bounce back. Meetings end
+                with talk, but not enough visible ownership.
+              </p>
+              <div>
+                <b>What changes</b>
+                <small>
+                  Vision, numbers, issues, to-dos, roles, and tools move into a
+                  weekly operating rhythm.
+                </small>
+              </div>
+            </aside>
+
+            <div
+              className="cc-fit-list cc-fit-list-editorial"
+              aria-label="Owner diagnostic signals"
             >
-              <div className="cc-onboarding-card">
-                <div className="cc-onboarding-copy cc-caption">
-                  <p className="cc-eyebrow" data-caption>
-                    After Checkout
-                  </p>
-                  <h2>
-                    <span data-caption>Your first move</span>
-                    <span data-caption>starts now.</span>
-                  </h2>
-                  <p className="cc-subhead" data-caption>
-                    After checkout, the goal is not to browse a library. It is
-                    to get into the room, name the first operating constraint,
-                    and start moving the company into AOS.
-                  </p>
-                  <a
-                    href={CHECKOUT_URL}
-                    className="cc-button cc-button-dark"
-                    data-caption
-                  >
-                    Join the Circle
-                  </a>
-                </div>
-                <div
-                  className="cc-onboarding-steps"
-                  aria-label="What happens after joining"
-                >
-                  {onboardingSteps.map(step => (
-                    <article
-                      className="cc-onboarding-step cc-detail-reveal"
-                      key={step.number}
-                    >
-                      <span>{step.number}</span>
-                      <div>
-                        <h3>{step.title}</h3>
-                        <p>{step.body}</p>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </article>
+              {fitItems.map(({ text }, index) => (
+                <article key={text} className="cc-fit-item cc-lower-motion">
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <p>{text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
 
-            <article className="cc-stack-card cc-stack-card-pricing">
-              <div className="cc-pricing-copy cc-caption">
-                <p className="cc-eyebrow" data-caption>
-                  Founding Membership
-                </p>
-                <h2>
-                  <span data-caption>
-                    <em>$497</em>/month
-                  </span>
-                </h2>
-                <p className="cc-subhead" data-caption>
-                  Includes live calls, bootcamps, replays, templates, tools, and
-                  full AOS access with unlimited workspaces and unlimited seats.
-                </p>
-                <a href={CHECKOUT_URL} className="cc-button cc-button-light">
-                  Join the Circle
-                </a>
-                <p className="cc-fine-print">
-                  Limited founding memberships available.
-                </p>
-              </div>
-            </article>
+        <section
+          id="after-checkout"
+          className="cc-lower-section cc-onboarding-system"
+          aria-label="What happens after checkout"
+        >
+          <div className="cc-lower-inner cc-onboarding-system-inner">
+            <div className="cc-lower-heading">
+              <p className="cc-eyebrow" data-caption>
+                After Checkout
+              </p>
+              <h2>
+                <span data-caption>Your first move</span>
+                <span data-caption>starts now.</span>
+              </h2>
+              <p className="cc-subhead" data-caption>
+                After checkout, the goal is not to browse a library. It is to
+                get inside the room, name the first operating constraint, and
+                start moving the company into rhythm.
+              </p>
+            </div>
+
+            <ol
+              className="cc-onboarding-steps cc-onboarding-timeline"
+              aria-label="What happens after joining"
+            >
+              {onboardingSteps.map(step => (
+                <li
+                  className="cc-onboarding-step cc-lower-motion"
+                  key={step.number}
+                >
+                  <span>{step.number}</span>
+                  <div>
+                    <h3>{step.title}</h3>
+                    <p>{step.body}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        <section
+          className="cc-lower-section cc-membership-cta"
+          aria-label="Founding membership offer"
+        >
+          <div className="cc-membership-slab cc-lower-motion">
+            <div className="cc-membership-price">
+              <p className="cc-eyebrow" data-caption>
+                Founding Membership
+              </p>
+              <h2 data-caption>
+                <em>$497</em>
+                <span>/month</span>
+              </h2>
+              <p className="cc-subhead" data-caption>
+                Includes live calls, bootcamps, replays, templates, tools, and
+                full AOS access with unlimited workspaces and unlimited seats.
+              </p>
+              <a
+                href={CHECKOUT_URL}
+                className="cc-button cc-button-light"
+                data-caption
+              >
+                Join the Circle
+              </a>
+              <p className="cc-fine-print" data-caption>
+                Limited founding memberships available.
+              </p>
+            </div>
+
+            <div className="cc-membership-includes">
+              <span>Included value</span>
+              <ul>
+                {membershipIncludes.map(item => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -1503,7 +1536,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       if (reduceMotion) {
         root.dataset.motionMode = "reduced";
         gsap.set(
-          "[data-caption], [data-fill-word], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-proof-motion, .cc-stat, .cc-mega-word",
+          "[data-caption], [data-fill-word], .cc-reveal, .cc-hero-copy, .cc-problem-card, .cc-install-item, .cc-asset-card, .cc-fit-item, .cc-aos-row, .cc-aos-core, .cc-detail-reveal, .cc-proof-motion, .cc-lower-motion, .cc-stat, .cc-mega-word",
           {
             autoAlpha: 1,
             y: 0,
@@ -1802,6 +1835,61 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
       };
 
+      const setupLowerEditorial = () => {
+        const sections =
+          gsap.utils.toArray<HTMLElement>(".cc-lower-section");
+        if (!sections.length) return;
+
+        sections.forEach(section => {
+          const lines = section.querySelectorAll<HTMLElement>("[data-caption]");
+          const motionItems =
+            section.querySelectorAll<HTMLElement>(".cc-lower-motion");
+
+          gsap.set(lines, {
+            autoAlpha: 0,
+            y: 26,
+            filter: "blur(5px)",
+          });
+          gsap.set(motionItems, {
+            autoAlpha: 0,
+            y: 36,
+            scale: 0.985,
+            filter: "blur(6px)",
+          });
+
+          const timeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: section,
+              start: "top 76%",
+              once: true,
+            },
+          });
+
+          timeline
+            .to(lines, {
+              autoAlpha: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.86,
+              stagger: 0.065,
+              ease: "power3.out",
+            })
+            .to(
+              motionItems,
+              {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                filter: "blur(0px)",
+                duration: 0.74,
+                stagger: 0.055,
+                ease: "power3.out",
+              },
+              0.22
+            );
+        });
+      };
+
       if (isCompact) {
         gsap.set("[data-caption]", {
           autoAlpha: 0,
@@ -1907,6 +1995,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
 
         setupMemoryFill();
         setupProofSystem();
+        setupLowerEditorial();
         const assetDeckCleanup = setupAssetDeck();
         const pillarFanCleanup = setupPillarFan();
         if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
@@ -2309,6 +2398,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
 
       setupMemoryFill();
       setupProofSystem();
+      setupLowerEditorial();
       const assetDeckCleanup = setupAssetDeck();
       const pillarFanCleanup = setupPillarFan();
       if (assetDeckCleanup) motionCleanups.push(assetDeckCleanup);
