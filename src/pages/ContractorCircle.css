@@ -7347,3 +7347,62 @@ body:has(.cc-page) {
     margin-right: 0 !important;
   }
 }
+
+@media (max-width: 640px) {
+  .cc-pillars-section {
+    min-height: clamp(740px, 104svh, 900px) !important;
+    padding: 62px 0 92px !important;
+    overflow: hidden !important;
+  }
+
+  .cc-pillars-inner {
+    gap: 18px !important;
+  }
+
+  .cc-fan-stage {
+    position: relative !important;
+    height: clamp(560px, 138vw, 675px) !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .cc-fan-track {
+    --fan-circle-size: 2520px;
+    --fan-radius: 1260px;
+    position: absolute !important;
+    left: 50% !important;
+    top: 24px !important;
+    display: block !important;
+    width: var(--fan-circle-size) !important;
+    height: var(--fan-circle-size) !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) !important;
+    transform-origin: 50% 50% !important;
+    scroll-snap-type: none !important;
+  }
+
+  .cc-fan-card {
+    position: absolute !important;
+    left: 50% !important;
+    top: 0 !important;
+    flex: none !important;
+    width: clamp(294px, 76vw, 322px) !important;
+    height: clamp(480px, 124vw, 540px) !important;
+    margin: 0 !important;
+    z-index: calc(var(--fan-z) * 1) !important;
+    box-shadow: none !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) rotate(calc(var(--fan-slot) * 12deg)) !important;
+    transform-origin: 50% var(--fan-radius) !important;
+  }
+
+  .cc-fan-card-hit {
+    border-radius: 28px !important;
+    box-shadow: 0 28px 72px -46px rgb(13 13 12 / 0.48) !important;
+  }
+}
