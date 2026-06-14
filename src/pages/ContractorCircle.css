@@ -7370,6 +7370,15 @@ body:has(.cc-page) {
     filter: none !important;
   }
 
+  .cc-mega-word {
+    font-size: clamp(3.4rem, 19vw, 6rem) !important;
+    line-height: 0.88 !important;
+    white-space: normal !important;
+    word-break: normal !important;
+    text-align: left !important;
+    padding: clamp(28px, 7vw, 56px) 0 clamp(16px, 4vw, 28px) !important;
+  }
+
   .cc-pillars-section {
     min-height: 0 !important;
     padding: 56px 0 40px !important;
