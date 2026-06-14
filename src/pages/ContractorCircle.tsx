@@ -516,15 +516,13 @@ const pillars: Pillar[] = [
 
 const memoryFillWords = [
   "Memory",
-  "is",
-  "not",
+  "isn't",
   "management.",
   "The",
   "owner",
   "remembering",
   "everything",
-  "is",
-  "not",
+  "isn't",
   "a",
   "system.",
   "Contractor",
@@ -557,7 +555,6 @@ const memoryFillWords = [
   "your",
   "team",
   "runs",
-  "the",
   "business",
   "on.",
 ];
