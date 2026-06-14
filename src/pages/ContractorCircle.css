@@ -621,7 +621,13 @@ body:has(.cc-page) {
   }
 }
 
-.cc-video-hero.is-hero-intro-active .cc-video-media,
+.cc-video-hero.is-hero-intro-active .cc-video-media {
+  opacity: 0 !important;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(1.04);
+  visibility: visible !important;
+}
+
 .cc-video-hero.is-hero-intro-active .cc-video-poster,
 .cc-video-hero.is-hero-intro-active .cc-video-fallback,
 .cc-video-hero.is-hero-intro-active .cc-video-shade,

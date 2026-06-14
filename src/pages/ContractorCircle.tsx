@@ -859,13 +859,12 @@ export default function ContractorCircle() {
     let readyTimer = 0;
     const markReady = () => {
       heroPlaybackSeenRef.current = true;
-      if (!heroIntroCompleteRef.current) return;
 
       window.clearTimeout(readyTimer);
       readyTimer = window.setTimeout(() => {
         setVideoUnavailable(false);
         setHeroVideoReady(true);
-      }, 1800);
+      }, 420);
     };
     const playWhenReady = () => {
       ensureHeroVideoPlayback(true);
@@ -903,6 +902,19 @@ export default function ContractorCircle() {
   }, [heroFrameLoaded, scheduleHeroVideoPlayback, streamRuntimeReady]);
 
   useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!heroFrameLoaded || videoUnavailable) return;
+
+    const readyTimer = window.setTimeout(() => {
+      setHeroVideoReady(true);
+    }, 560);
+
+    return () => {
+      window.clearTimeout(readyTimer);
+    };
+  }, [heroFrameLoaded, videoUnavailable]);
+
+  useEffect(() => {
     if (typeof window === "undefined" || !heroIntroComplete) return;
 
     const prefersReducedMotion = window.matchMedia(
@@ -920,11 +932,11 @@ export default function ContractorCircle() {
       revealTimer = window.setTimeout(() => setHeroRevealActive(false), 1900);
     }
 
-    if (heroPlaybackSeenRef.current) {
+    if (heroPlaybackSeenRef.current || heroFrameLoaded) {
       readyBridgeTimer = window.setTimeout(() => {
         setVideoUnavailable(false);
         setHeroVideoReady(true);
-      }, prefersReducedMotion ? 0 : 2200);
+      }, prefersReducedMotion ? 0 : 180);
     }
 
     return () => {
@@ -932,7 +944,7 @@ export default function ContractorCircle() {
       window.clearTimeout(revealTimer);
       window.clearTimeout(readyBridgeTimer);
     };
-  }, [ensureHeroVideoPlayback, heroIntroComplete, streamRuntimeReady]);
+  }, [ensureHeroVideoPlayback, heroFrameLoaded, heroIntroComplete, streamRuntimeReady]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -1579,31 +1591,32 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           fan.querySelectorAll<HTMLElement>(".cc-fan-card")
         );
         if (!cards.length) return;
+        const cardBodies = cards
+          .map(card => card.querySelector<HTMLElement>(".cc-fan-card-hit"))
+          .filter((card): card is HTMLElement => Boolean(card));
 
         if (isCompact) {
           gsap.set(cards, {
+            clearProps: "transform,opacity,visibility,x,y,scale,rotate",
+          });
+          gsap.set(cardBodies, {
             clearProps: "transform,opacity,visibility,x,y,scale,rotate",
           });
           return;
         }
 
         gsap.set(cards, {
-          xPercent: -50,
-          transformOrigin: "50% var(--fan-radius)",
-          rotate: index => {
-            const slot = Number(cards[index].style.getPropertyValue("--fan-slot")) || 0;
-            return slot * 4.7;
-          },
+          clearProps: "transform,x,y,scale,rotate",
+          autoAlpha: 1,
+        });
+
+        gsap.set(cardBodies, {
           y: 118,
           scale: 0.96,
           autoAlpha: 0,
         });
 
-        gsap.to(cards, {
-          rotate: index => {
-            const slot = Number(cards[index].style.getPropertyValue("--fan-slot")) || 0;
-            return slot * 6.1;
-          },
+        gsap.to(cardBodies, {
           y: 0,
           scale: 1,
           autoAlpha: 1,
