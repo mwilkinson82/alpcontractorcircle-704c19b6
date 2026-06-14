@@ -6984,3 +6984,115 @@ body:has(.cc-page) {
     font-size: clamp(1.75rem, 7.6vw, 2.3rem);
   }
 }
+
+/* ============================================================
+   MOBILE FIX PACK — addresses concrete reported issues:
+   1) Intro word cloud too sparse / chart axis bleeds past columns
+   2) Profit/Risk chart spacing + bottom "Indicated Gross Profit"
+      floating in white space
+   3) Decorative pink/green opening blobs bleeding into the
+      Shift card and creating overlap
+   4) Stack-card sticky offsets leaving giant gaps above cards
+   5) Hero video letterbox + nav overlap tightening
+   ============================================================ */
+@media (max-width: 640px) {
+  /* --- 1. Intro word cloud: tighter envelope, smaller words --- */
+  .cc-intro-word-cloud {
+    inset: 18svh 10px 30svh !important;
+  }
+  .cc-intro-word {
+    font-size: clamp(0.6rem, 2.6vw, 0.82rem) !important;
+    letter-spacing: 0.02em;
+  }
+
+  /* --- 2. Intro chart: contain axes + bring summary card up --- */
+  .cc-intro-chart {
+    inset: 14svh 14px 22svh !important;
+  }
+  .cc-intro-axis-vertical {
+    top: 18% !important;
+    bottom: 38% !important;
+  }
+  .cc-intro-axis-horizontal {
+    top: 24% !important;
+  }
+  .cc-intro-chart-column strong {
+    margin-top: clamp(14px, 2vh, 24px) !important;
+    font-size: clamp(1.35rem, 7.4vw, 2rem) !important;
+  }
+  .cc-intro-risk-item {
+    margin-top: clamp(18px, 3vh, 32px) !important;
+  }
+  .cc-intro-current-profit {
+    bottom: 8svh !important;
+    width: min(320px, 88vw);
+  }
+  .cc-intro-project-title {
+    top: 9svh !important;
+  }
+
+  /* --- 3. Opening decorative blobs: shrink + clip so they don't
+            overlap text in subsequent cards (Shift, Memory) --- */
+  .cc-opening-shape-pink,
+  .cc-opening-shape-green {
+    opacity: 0.55;
+    filter: blur(2px);
+  }
+  .cc-opening-shape-pink {
+    width: 46vw !important;
+    height: 36vw !important;
+    top: -10vh !important;
+  }
+  .cc-opening-shape-green {
+    width: 42vw !important;
+    height: 34vw !important;
+    bottom: -10vh !important;
+  }
+  /* Belt-and-suspenders: any decorative pink/green pseudo on the
+     Shift card body itself should never sit above the copy. */
+  .cc-stack-card-shift > * {
+    position: relative;
+    z-index: 3;
+  }
+
+  /* --- 4. Stack cards: remove the dead air above cards in the
+            sticky flow (Member Portal, Shift, etc.) --- */
+  .cc-stack-sticky {
+    min-height: 0 !important;
+    padding-top: 0 !important;
+  }
+  .cc-stack-card {
+    margin-top: 0 !important;
+  }
+  /* Tighten the Member Portal card image so it doesn't push the
+     copy off-screen and create the perceived "gap" above. */
+  .cc-product-shot {
+    height: auto !important;
+    aspect-ratio: 16 / 10;
+    max-height: 46vh;
+  }
+
+  /* --- 5. Hero video: letterbox cleanly under the nav --- */
+  .cc-video-hero {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 64px) !important;
+  }
+  .cc-video-media {
+    width: 100% !important;
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+    inset: auto !important;
+    position: relative !important;
+    transform: none !important;
+    margin: 0 auto;
+  }
+  .cc-video,
+  .cc-video-poster,
+  .cc-video-fallback {
+    object-fit: contain !important;
+    background: #050505;
+  }
+  .cc-sound-button {
+    bottom: 12px !important;
+    right: 12px !important;
+  }
+}
