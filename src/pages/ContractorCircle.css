@@ -6765,7 +6765,7 @@ body:has(.cc-page) {
     height: clamp(900px, 88vw, 1060px) !important;
   }
   .cc-fan-track {
-    top: clamp(180px, 22vw, 240px) !important;
+    top: clamp(130px, 16vw, 190px) !important;
   }
   .cc-fan-controls {
     bottom: 28px !important;
@@ -6778,7 +6778,7 @@ body:has(.cc-page) {
   --fan-radius: calc(var(--fan-circle-size) / 2);
   position: absolute;
   left: 50%;
-  top: clamp(156px, 24vw, 276px);
+  top: clamp(132px, 18vw, 226px);
   display: block;
   width: var(--fan-circle-size);
   height: var(--fan-circle-size);
