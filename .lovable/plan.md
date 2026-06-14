@@ -1,38 +1,26 @@
-Implementation plan
+## Problem
 
-1. Remove the unwanted background elements
-- Delete the green blob behind the “Everything inside the Circle” section.
-- Delete the floating background words in that section entirely: Contract, Schedule Delay, Systems and Procedures, General Conditions, CPM Schedule, etc.
-- Keep the warm paper background clean and modern.
+At the current viewport (~1163px CSS wide), the fan-cards section in `ContractorCircle.tsx` falls under the desktop rules (>860px) and the bottom of the deck (cards + chevrons) is being cut off.
 
-2. Rebuild the cards as an arched fan, not a carousel
-- Replace the current horizontal scroll carousel behavior with a centered fan layout.
-- Cards will overlap like a deck spread in an arc, with each card positioned by index:
-  - outer cards lower and more rotated
-  - center cards higher and more upright
-  - consistent overlap and separation like the labs.google screenshot
-- Use larger portrait-style cards, not wide carousel cards.
-- Keep the screenshots/images inside the cards, but make the cards read as a visual fan first.
-- Remove or de-emphasize carousel controls if they fight the fan aesthetic.
+Cause: the desktop `.cc-fan-stage` height is `clamp(780px, 72vw, 940px)` (~837px at this width), but the rotated outer cards — positioned at `top: clamp(156px, 24vw, 276px)` with `height: clamp(420px, 34vw, 580px)` and rotated up to ~22° around a far transform-origin — extend further down than that, then get clipped because `.cc-fan-stage` plus the surrounding `.cc-pillars-section` cap the vertical room. The chevron controls (`position:absolute; bottom:24px`) get pushed off-screen alongside the bottom of the fanned cards.
 
-3. Add labs-style motion to the fan
-- On scroll into the section, cards start stacked/tighter near center and fan outward into the final arc.
-- Hover lifts a card upward, straightens it slightly, and brings it above neighboring cards.
-- On mobile, use a controlled horizontal snap fallback only because a full desktop-style fan will not fit cleanly.
+## Fix (CSS only, scoped to the fan)
 
-4. Keep the section premium and restrained
-- No green blob.
-- No background floating keyword text.
-- No loud color sitting behind the cards.
-- Paper background, black Google-style headline, white cards, soft shadows, clean spacing.
+Edit `src/pages/ContractorCircle.css`:
 
-5. Animate the purple blob behind the shift/memory section
-- Keep the purple blob behind the scroll-fill text.
-- Add continuous organic movement: slow drift, slight rotation, and shape morphing through border-radius changes.
-- Respect reduced-motion by disabling the blob animation and keeping the text readable.
+1. **`.cc-fan-stage` (desktop rule near line 6753)** — raise the floor so the arc has room on narrow desktops:
+   - `height: clamp(880px, 82vw, 1020px)` (was `clamp(780px, 72vw, 940px)`)
+   - keep `overflow: visible`
+2. **`.cc-pillars-section` (line 6740)** — ensure it doesn't clip the fan: add `overflow: visible` on the desktop rule (the tablet/mobile media queries already set their own values, so this is safe).
+3. **Add a new breakpoint between tablet and desktop** `@media (min-width: 861px) and (max-width: 1200px)` that:
+   - sets `.cc-fan-stage { height: clamp(900px, 88vw, 1060px); }`
+   - nudges `.cc-fan-track` `top` down slightly (e.g. `top: clamp(180px, 22vw, 240px)`) so the arc center sits where the cards aren't clipped
+   - keeps `.cc-fan-controls` pinned `bottom: 28px` so chevrons land just under the deck
 
-Technical notes
-- Changes stay scoped to `src/pages/ContractorCircle.tsx` and `src/pages/ContractorCircle.css`.
-- Remove the unused `floatingInsideWords` data and rendered `.cc-inside-word-field` markup.
-- Rework `.cc-fan-track` / `.cc-fan-card` CSS from flex carousel into an absolute/stacked fan stage on desktop.
-- Use the existing GSAP/ScrollTrigger setup already in the page for the fan-out animation; no new dependencies.
+No JS or component changes; no other sections touched.
+
+## Verification
+
+- Reload preview at ~1163px and confirm the full fan + chevrons are visible with no clipping.
+- Spot-check 1280px and 1440px to make sure the fix doesn't introduce excess whitespace.
+- Spot-check 768px (tablet) and 390px (mobile) — those rules are untouched and should look identical.

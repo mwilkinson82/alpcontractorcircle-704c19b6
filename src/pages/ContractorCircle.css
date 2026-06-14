@@ -6741,6 +6741,7 @@ body:has(.cc-page) {
   padding: clamp(92px, 12vh, 138px) 0 clamp(74px, 9vh, 112px);
   background: #f3efea;
   min-height: min(980px, 112svh);
+  overflow: visible;
 }
 
 .cc-pillars-section::before,
@@ -6752,10 +6753,23 @@ body:has(.cc-page) {
 
 .cc-fan-stage {
   position: relative;
-  height: clamp(780px, 72vw, 940px);
+  height: clamp(880px, 82vw, 1020px);
   min-height: 0;
   padding: clamp(30px, 4vh, 50px) 0 0;
   overflow: visible;
+}
+
+/* Narrow-desktop band: arc needs more vertical room so cards + chevrons don't clip */
+@media (min-width: 861px) and (max-width: 1200px) {
+  .cc-fan-stage {
+    height: clamp(900px, 88vw, 1060px) !important;
+  }
+  .cc-fan-track {
+    top: clamp(180px, 22vw, 240px) !important;
+  }
+  .cc-fan-controls {
+    bottom: 28px !important;
+  }
 }
 
 
