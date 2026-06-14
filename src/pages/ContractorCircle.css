@@ -7318,8 +7318,10 @@ body:has(.cc-page) {
   }
 
   .cc-pillars-copy h2 {
-    font-size: clamp(2.25rem, 9vw, 3rem) !important;
-    line-height: 1 !important;
+    font-size: clamp(1.85rem, 7.4vw, 2.4rem) !important;
+    line-height: 1.05 !important;
+    white-space: normal !important;
+    text-wrap: balance !important;
   }
 
   .cc-fan-track {
@@ -7350,13 +7352,24 @@ body:has(.cc-page) {
 
 @media (max-width: 640px) {
   .cc-pillars-section {
-    min-height: clamp(740px, 104svh, 900px) !important;
-    padding: 62px 0 92px !important;
+    min-height: clamp(820px, 118svh, 980px) !important;
+    padding: 56px 0 92px !important;
     overflow: hidden !important;
   }
 
   .cc-pillars-inner {
-    gap: 18px !important;
+    gap: 22px !important;
+  }
+
+  .cc-pillars-copy {
+    padding: 0 20px !important;
+  }
+
+  .cc-pillars-copy h2 {
+    font-size: clamp(1.85rem, 7.4vw, 2.4rem) !important;
+    line-height: 1.05 !important;
+    white-space: normal !important;
+    text-wrap: balance !important;
   }
 
   .cc-fan-stage {
