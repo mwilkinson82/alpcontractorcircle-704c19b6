@@ -7264,12 +7264,17 @@ body:has(.cc-page) {
     margin-top: 0 !important;
   }
 
+  .cc-card-stack {
+    min-height: 0 !important;
+    padding-top: 0 !important;
+  }
+
   .cc-stack-sticky {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    gap: clamp(42px, 9svh, 76px) !important;
-    padding: 38px clamp(12px, 3.5vw, 18px) 146px !important;
+    gap: clamp(28px, 6svh, 48px) !important;
+    padding: 24px clamp(12px, 3.5vw, 18px) 40px !important;
   }
 
   .cc-stack-card,
@@ -7282,15 +7287,14 @@ body:has(.cc-page) {
     left: auto !important;
     width: min(100%, calc(100vw - 24px)) !important;
     height: auto !important;
-    min-height: clamp(720px, 94svh, 880px) !important;
+    min-height: 0 !important;
     max-height: none !important;
     overflow: visible !important;
     opacity: 1 !important;
     visibility: visible !important;
     filter: none !important;
     transform: none !important;
-    padding: clamp(30px, 7vw, 44px) clamp(20px, 5.5vw, 32px)
-      max(118px, clamp(42px, 9vw, 62px)) !important;
+    padding: clamp(26px, 6vw, 38px) clamp(20px, 5.5vw, 32px) clamp(32px, 7vw, 48px) !important;
   }
 
   .cc-stack-card [data-caption],
@@ -7310,7 +7314,7 @@ body:has(.cc-page) {
   }
 
   .cc-stack-card-problem {
-    min-height: clamp(840px, 112svh, 980px) !important;
+    min-height: 0 !important;
   }
 
   .cc-pillars-section {
