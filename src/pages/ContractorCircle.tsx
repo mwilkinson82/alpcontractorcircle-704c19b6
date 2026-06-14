@@ -2414,13 +2414,19 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           addCaptionToTimeline(stackTimeline, card, at);
         });
       } else {
-        gsap.set(stackCards, {
-          autoAlpha: 0.68,
-          y: lowHeightDesktop ? 54 : 88,
-          scale: 0.94,
-          transformPerspective: 1600,
-          transformOrigin: "center center",
-        });
+        if (isCompact) {
+          gsap.set(stackCards, {
+            clearProps: "transform,opacity,visibility,filter,x,y,scale,rotate,rotateX,rotateY,rotateZ",
+          });
+        } else {
+          gsap.set(stackCards, {
+            autoAlpha: 0.68,
+            y: lowHeightDesktop ? 54 : 88,
+            scale: 0.94,
+            transformPerspective: 1600,
+            transformOrigin: "center center",
+          });
+        }
         gsap.set(
           ".cc-stack-card [data-caption], .cc-stack-card .cc-problem-card, .cc-stack-card .cc-detail-reveal, .cc-stack-card .cc-onboarding-step",
           {
@@ -2432,6 +2438,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         );
 
         stackCards.forEach((card, index) => {
+          if (isCompact) return;
           const direction = index % 2 === 0 ? -1 : 1;
           const isProductCard = card.classList.contains(
             "cc-stack-card-product-proof"
