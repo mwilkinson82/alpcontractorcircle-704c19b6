@@ -7108,12 +7108,12 @@ body:has(.cc-page) {
    ============================================================ */
 @media (max-width: 640px) {
   .cc-intro-chart {
-    inset: calc(env(safe-area-inset-top, 0px) + 104px) 14px 12svh !important;
+    inset: calc(env(safe-area-inset-top, 0px) + 160px) 14px 12svh !important;
   }
 
   .cc-intro-project-title {
-    top: calc(env(safe-area-inset-top, 0px) + 86px) !important;
-    font-size: clamp(1.55rem, 7vw, 2.15rem) !important;
+    top: calc(env(safe-area-inset-top, 0px) + 92px) !important;
+    font-size: clamp(1.3rem, 5.6vw, 1.75rem) !important;
   }
 
   .cc-intro-axis-horizontal {
