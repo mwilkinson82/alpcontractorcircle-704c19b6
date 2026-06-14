@@ -18,6 +18,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<ContractorCircle />} />
+          <Route path="/index" element={<ContractorCircle />} />
           <Route path="/circle" element={<Circle />} />
           <Route path="/estimating" element={<LeadMagnet magnet="estimating" />} />
           <Route path="/q2" element={<LeadMagnet magnet="q2" />} />
