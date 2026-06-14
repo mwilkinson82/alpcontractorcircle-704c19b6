@@ -7096,3 +7096,254 @@ body:has(.cc-page) {
     right: 12px !important;
   }
 }
+
+/* ============================================================
+   MOBILE CORRECTION PASS — fixes the reported live phone issues:
+   intro chart overlap, undersized first story card, and flat fan cards.
+   ============================================================ */
+@media (max-width: 640px) {
+  .cc-intro-chart {
+    inset: calc(env(safe-area-inset-top, 0px) + 104px) 14px 12svh !important;
+  }
+
+  .cc-intro-project-title {
+    top: calc(env(safe-area-inset-top, 0px) + 86px) !important;
+    font-size: clamp(1.55rem, 7vw, 2.15rem) !important;
+  }
+
+  .cc-intro-axis-horizontal {
+    top: 26% !important;
+    left: 4% !important;
+    right: 4% !important;
+  }
+
+  .cc-intro-axis-vertical {
+    top: 22% !important;
+    bottom: 10% !important;
+  }
+
+  .cc-intro-chart-column {
+    padding: 0 4px !important;
+  }
+
+  .cc-intro-chart-label {
+    font-size: clamp(2.7rem, 15vw, 4rem) !important;
+  }
+
+  .cc-intro-chart-column strong {
+    margin-top: clamp(38px, 7vh, 58px) !important;
+    font-size: clamp(2.15rem, 12vw, 3.2rem) !important;
+  }
+
+  .cc-intro-risk-impact {
+    justify-self: start;
+    max-width: min(44vw, 190px) !important;
+    margin-top: clamp(38px, 6vh, 58px) !important;
+    padding: 12px 10px 12px 14px !important;
+  }
+
+  .cc-intro-risk-impact-value {
+    font-size: clamp(1.75rem, 9.8vw, 2.85rem) !important;
+  }
+
+  .cc-intro-risk-column {
+    justify-items: end;
+  }
+
+  .cc-intro-risk-item {
+    max-width: min(44vw, 196px) !important;
+    margin-top: clamp(34px, 5.2vh, 54px) !important;
+    padding: 12px 10px 12px 14px !important;
+  }
+
+  .cc-intro-risk-item-title {
+    font-size: clamp(0.76rem, 3.1vw, 0.98rem) !important;
+    line-height: 1.16 !important;
+  }
+
+  .cc-intro-risk-item-value {
+    font-size: clamp(1.75rem, 9.8vw, 2.95rem) !important;
+  }
+
+  .cc-intro-current-profit {
+    bottom: 4svh !important;
+    width: min(330px, 86vw) !important;
+    padding: 10px 12px !important;
+  }
+
+  .cc-intro-current-profit strong {
+    font-size: clamp(1.8rem, 8.8vw, 2.65rem) !important;
+  }
+
+  .cc-card-stack {
+    padding-top: 32px !important;
+  }
+
+  .cc-stack-sticky {
+    gap: clamp(36px, 8svh, 64px) !important;
+    padding: 26px clamp(14px, 4vw, 22px) 144px !important;
+  }
+
+  .cc-stack-card,
+  .cc-stack-card-shift,
+  .cc-stack-card-proof,
+  .cc-stack-card-onboarding,
+  .cc-stack-card-product-proof {
+    min-height: min(760px, calc(100dvh - 108px)) !important;
+    border-radius: 8px !important;
+  }
+
+  .cc-stack-card-shift {
+    display: grid !important;
+    align-items: center !important;
+    background: #fffdf8 !important;
+    border-color: rgb(21 21 21 / 0.12) !important;
+    box-shadow: 0 24px 70px rgb(21 21 21 / 0.14) !important;
+  }
+
+  .cc-memory-system {
+    min-height: calc(100dvh - 190px);
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .cc-memory-system::before,
+  .cc-memory-system::after {
+    display: none !important;
+  }
+
+  .cc-scroll-fill-text {
+    color: rgb(13 13 12 / 0.88) !important;
+    font-size: clamp(2.25rem, 10.4vw, 3.7rem) !important;
+    line-height: 1.08 !important;
+  }
+
+  .cc-fan-stage {
+    overflow: visible !important;
+    padding-top: 10px !important;
+  }
+
+  .cc-fan-track {
+    gap: 14px !important;
+    min-height: clamp(560px, 142vw, 680px) !important;
+    padding: 40px 30px 86px !important;
+    overflow-x: auto !important;
+    overflow-y: visible !important;
+    perspective: 1500px;
+  }
+
+  .cc-fan-card {
+    flex-basis: clamp(306px, 80vw, 360px) !important;
+    width: clamp(306px, 80vw, 360px) !important;
+    height: clamp(470px, 122vw, 560px) !important;
+    margin-inline: -8px !important;
+    transform: translateY(calc(var(--fan-distance) * 18px)) rotate(var(--fan-angle-final)) !important;
+    transform-origin: 50% 106% !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .cc-intro-risk-impact {
+    position: absolute !important;
+    top: 34% !important;
+    left: 0 !important;
+    z-index: 8 !important;
+    margin-top: 0 !important;
+  }
+
+  .cc-intro-risk-item {
+    position: absolute !important;
+    top: 26% !important;
+    right: 0 !important;
+    z-index: 8 !important;
+    margin-top: 0 !important;
+  }
+
+  .cc-stack-sticky {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: clamp(42px, 9svh, 76px) !important;
+    padding: 38px clamp(12px, 3.5vw, 18px) 146px !important;
+  }
+
+  .cc-stack-card,
+  .cc-stack-card-shift,
+  .cc-stack-card-proof,
+  .cc-stack-card-onboarding,
+  .cc-stack-card-product-proof {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: min(100%, calc(100vw - 24px)) !important;
+    height: auto !important;
+    min-height: clamp(720px, 94svh, 880px) !important;
+    max-height: none !important;
+    overflow: visible !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+    padding: clamp(30px, 7vw, 44px) clamp(20px, 5.5vw, 32px)
+      max(118px, clamp(42px, 9vw, 62px)) !important;
+  }
+
+  .cc-stack-card [data-caption],
+  .cc-stack-card .cc-problem-card,
+  .cc-stack-card .cc-detail-reveal,
+  .cc-stack-card .cc-onboarding-step,
+  .cc-product-shot,
+  .cc-product-shot img {
+    opacity: 1 !important;
+    visibility: visible !important;
+    filter: none !important;
+    transform: none !important;
+  }
+
+  .cc-stack-card-shift {
+    align-items: center !important;
+  }
+
+  .cc-stack-card-problem {
+    min-height: clamp(840px, 112svh, 980px) !important;
+  }
+
+  .cc-pillars-section {
+    min-height: auto !important;
+    padding: 34px 0 72px !important;
+  }
+
+  .cc-pillars-inner {
+    gap: 14px !important;
+  }
+
+  .cc-pillars-copy h2 {
+    font-size: clamp(2.25rem, 9vw, 3rem) !important;
+    line-height: 1 !important;
+  }
+
+  .cc-fan-track {
+    align-items: flex-start !important;
+    gap: 0 !important;
+    min-height: clamp(560px, 134vw, 650px) !important;
+    padding: 26px 96px 78px !important;
+    scroll-padding-inline: 96px !important;
+  }
+
+  .cc-fan-card {
+    flex-basis: clamp(312px, 82vw, 366px) !important;
+    width: clamp(312px, 82vw, 366px) !important;
+    height: clamp(490px, 128vw, 590px) !important;
+    margin-inline: -70px !important;
+    transform: translateY(calc(var(--fan-distance) * 34px)) rotate(calc(var(--fan-slot) * 8deg)) !important;
+    box-shadow: 0 34px 82px -34px rgb(13 13 12 / 0.42) !important;
+  }
+
+  .cc-fan-card:first-child {
+    margin-left: 0 !important;
+  }
+
+  .cc-fan-card:last-child {
+    margin-right: 0 !important;
+  }
+}
