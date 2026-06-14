@@ -7357,8 +7357,8 @@ body:has(.cc-page) {
 
 @media (max-width: 640px) {
   .cc-pillars-section {
-    min-height: clamp(820px, 118svh, 980px) !important;
-    padding: 56px 0 92px !important;
+    min-height: 0 !important;
+    padding: 56px 0 40px !important;
     overflow: hidden !important;
   }
 
