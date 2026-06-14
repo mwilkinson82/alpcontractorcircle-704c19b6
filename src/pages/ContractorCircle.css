@@ -7405,4 +7405,22 @@ body:has(.cc-page) {
     border-radius: 28px !important;
     box-shadow: 0 28px 72px -46px rgb(13 13 12 / 0.48) !important;
   }
+
+  .cc-fan-card-media {
+    height: clamp(170px, 45vw, 208px) !important;
+    margin: 18px !important;
+  }
+
+  .cc-fan-card-body {
+    padding: 0 18px 22px !important;
+  }
+
+  .cc-fan-card-body h3 {
+    font-size: clamp(1.12rem, 5.2vw, 1.48rem) !important;
+  }
+
+  .cc-fan-card-body-copy {
+    font-size: clamp(0.86rem, 3.8vw, 1rem) !important;
+    -webkit-line-clamp: 4 !important;
+  }
 }
