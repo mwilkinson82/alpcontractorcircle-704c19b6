@@ -7646,14 +7646,17 @@ body:has(.cc-page) {
   }
 
   .cc-fan-controls {
-    position: absolute !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: clamp(36px, 6vw, 64px) !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
     z-index: 160 !important;
-    margin-top: 0 !important;
+    margin-top: 28px !important;
     gap: 22px !important;
+    display: flex !important;
+    justify-content: center !important;
   }
+
 
   .cc-fan-arrow {
     width: 64px !important;
