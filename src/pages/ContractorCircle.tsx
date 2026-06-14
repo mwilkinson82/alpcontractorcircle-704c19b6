@@ -623,9 +623,11 @@ function PillarsSection() {
                       <img src={item.image} alt={item.imageAlt} loading="lazy" />
                     </figure>
                     <div className="cc-fan-card-body">
-                      <p className="cc-fan-card-eyebrow">{item.eyebrow}</p>
                       <h3>{item.headlineLines.join(" ")}</h3>
                       <p className="cc-fan-card-body-copy">{item.body}</p>
+                      <span className="cc-fan-card-learn" aria-hidden="true">
+                        Learn More <span className="cc-fan-card-learn-arrow">→</span>
+                      </span>
                     </div>
                   </button>
                 </div>
