@@ -39,7 +39,7 @@ const NODES: Node[] = [
     Icon: FileText,
     tint: "#EAF1FE",
     dot: "#2D6BF0",
-    x: 18, y: 10, ex: 28, ey: 18,
+    x: 16, y: 8, ex: 28, ey: 18,
   },
   {
     id: "change",
@@ -47,7 +47,7 @@ const NODES: Node[] = [
     Icon: Clock,
     tint: "#FDECEC",
     dot: "#E54B4B",
-    x: 82, y: 10, ex: 72, ey: 18,
+    x: 84, y: 8, ex: 72, ey: 18,
   },
   {
     id: "selections",
@@ -55,7 +55,7 @@ const NODES: Node[] = [
     Icon: Calendar,
     tint: "#E6F4EA",
     dot: "#34A853",
-    x: 10, y: 45, ex: 22, ey: 47,
+    x: 8, y: 44, ex: 22, ey: 47,
   },
   {
     id: "pms",
@@ -63,7 +63,7 @@ const NODES: Node[] = [
     Icon: Users,
     tint: "#EFE9FB",
     dot: "#7C4DFF",
-    x: 90, y: 45, ex: 78, ey: 47,
+    x: 92, y: 44, ex: 78, ey: 47,
   },
   {
     id: "costs",
@@ -71,7 +71,7 @@ const NODES: Node[] = [
     Icon: DollarSign,
     tint: "#FBF1D8",
     dot: "#E0A93D",
-    x: 20, y: 78, ex: 30, ey: 72,
+    x: 12, y: 80, ex: 30, ey: 72,
   },
   {
     id: "risk",
@@ -79,7 +79,7 @@ const NODES: Node[] = [
     Icon: AlertTriangle,
     tint: "#FDECEC",
     dot: "#E54B4B",
-    x: 80, y: 78, ex: 70, ey: 72,
+    x: 88, y: 80, ex: 70, ey: 72,
   },
 ];
 
@@ -88,7 +88,7 @@ const BOTTOM = {
   Icon: Activity,
   tint: "#FFF3E2",
   dot: "#F2994A",
-  x: 50, y: 96, ex: 50, ey: 82,
+  x: 50, y: 108, ex: 50, ey: 82,
 };
 
 

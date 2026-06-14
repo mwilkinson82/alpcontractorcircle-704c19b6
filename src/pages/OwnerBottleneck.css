@@ -55,8 +55,10 @@
 .ob-stage {
   position: relative;
   width: 100%;
-  aspect-ratio: 1.35 / 1;
-  min-height: 460px;
+  aspect-ratio: 1.15 / 1;
+  min-height: 520px;
+  margin-bottom: 80px;
+  overflow: visible;
 }
 
 .ob-svg {
