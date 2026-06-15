@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Display:wght@400;500;600;700&family=Google+Sans+Text:wght@400;500;600;700&family=EB+Garamond:ital,wght@1,400;1,500;1,600&family=Fira+Sans:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=EB+Garamond:ital,wght@1,400;1,500;1,600&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Instrument+Serif:ital@0;1&display=swap");
 
 .cc-page {
@@ -15,8 +15,8 @@
   --cc-aos-blue-dark: #0f6797;
   --cc-shadow: 0 28px 90px rgb(0 0 0 / 0.24);
   --cc-caption-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --cc-font-display: "Google Sans Display", "Google Sans", "Google Sans Text", "Fira Sans", Arial, sans-serif;
-  --cc-font-body: "Google Sans Text", "Fira Sans", Arial, sans-serif;
+  --cc-font-display: "Inter", Arial, sans-serif;
+  --cc-font-body: "Inter", Arial, sans-serif;
   --cc-font-italic: "ITC Garamond Std", "ITC Garamond", "Instrument Serif", "Cormorant Garamond", "EB Garamond", Georgia, serif;
   background: var(--cc-paper);
   color: var(--cc-ink);
@@ -84,7 +84,7 @@ body:has(.cc-page) {
   justify-content: space-between;
   padding: 28px clamp(20px, 4vw, 56px);
   color: #ffffff;
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.82rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -267,7 +267,7 @@ body:has(.cc-page) {
 .cc-opening-copy p {
   margin: 0 0 18px;
   color: var(--cc-orange-dark);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: clamp(0.78rem, 1.2vw, 0.96rem);
   font-weight: 800;
   text-transform: uppercase;
@@ -305,8 +305,7 @@ body:has(.cc-page) {
   margin-top: clamp(24px, 3vw, 42px);
   color: #343331;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.35rem, 2.7vw, 3.05rem);
   font-weight: 500;
   line-height: 1.08;
@@ -578,7 +577,7 @@ body:has(.cc-page) {
   bottom: clamp(24px, 5vw, 72px);
   display: grid;
   gap: 6px;
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   text-transform: uppercase;
 }
 
@@ -677,7 +676,7 @@ body:has(.cc-page) {
     radial-gradient(circle at 72% 64%, rgb(0 0 0 / 0.03), transparent 38%),
     linear-gradient(135deg, #ffffff 0%, #fafaf8 52%, #ffffff 100%);
   color: #0d0d0c;
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   isolation: isolate;
   pointer-events: none;
   animation: cc-intro-shell 8600ms var(--cc-caption-ease) forwards;
@@ -722,7 +721,7 @@ body:has(.cc-page) {
   top: var(--intro-y);
   left: var(--intro-x);
   color: rgb(13 13 12 / 0.28);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: clamp(0.82rem, 1.35vw, 1.52rem);
   font-weight: 700;
   line-height: 1;
@@ -830,8 +829,7 @@ body:has(.cc-page) {
 .cc-intro-chart-label {
   color: rgb(13 13 12 / 0.88);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(2.2rem, 4.7vw, 6rem);
   font-weight: 700;
   letter-spacing: 0;
@@ -847,8 +845,7 @@ body:has(.cc-page) {
   margin-top: clamp(54px, 8vh, 96px);
   color: #0d0d0c;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(2.25rem, 5.2vw, 6.35rem);
   font-weight: 500;
   line-height: 0.92;
@@ -874,8 +871,7 @@ body:has(.cc-page) {
   background: rgb(219 106 63 / 0.06);
   color: var(--cc-orange);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   opacity: 0;
   transform: translateY(12px);
   animation: cc-intro-risk-exposure 2400ms var(--cc-caption-ease) 4400ms
@@ -901,8 +897,7 @@ body:has(.cc-page) {
   background: rgb(219 106 63 / 0.06);
   color: rgb(13 13 12 / 0.92);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   opacity: 0;
   transform: translateY(12px);
   animation: cc-intro-risk-exposure 2400ms var(--cc-caption-ease) 4400ms
@@ -972,8 +967,7 @@ body:has(.cc-page) {
 .cc-intro-current-profit strong {
   color: #1e3a8a;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(3rem, 6.4vw, 7.8rem);
   font-weight: 500;
   line-height: 0.88;
@@ -990,8 +984,7 @@ body:has(.cc-page) {
   margin: 0;
   color: rgb(13 13 12 / 0.85);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.8rem, 3.4vw, 3.2rem);
   font-weight: 600;
   letter-spacing: -0.01em;
@@ -1268,7 +1261,7 @@ body:has(.cc-page) {
   background: rgb(8 8 8 / 0.54);
   color: #ffffff;
   cursor: pointer;
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.82rem;
   font-weight: 600;
   padding: 0 18px;
@@ -1305,7 +1298,7 @@ body:has(.cc-page) {
 .cc-eyebrow {
   margin: 0 0 22px;
   color: var(--cc-orange-dark);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: clamp(0.72rem, 1.1vw, 0.88rem);
   font-weight: 700;
   text-transform: uppercase;
@@ -1329,8 +1322,7 @@ body:has(.cc-page) {
   margin: clamp(24px, 3vw, 38px) auto 0;
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.35rem, 2.8vw, 2.75rem);
   font-weight: 500;
   line-height: 1.08;
@@ -1341,7 +1333,7 @@ body:has(.cc-page) {
   margin: 26px auto 0;
   max-width: 780px;
   color: var(--cc-muted);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: clamp(1rem, 1.6vw, 1.22rem);
   font-weight: 400;
   line-height: 1.65;
@@ -1362,7 +1354,7 @@ body:has(.cc-page) {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.84rem;
   font-weight: 700;
   text-transform: uppercase;
@@ -1559,8 +1551,7 @@ body:has(.cc-page) {
   inset: auto 2vw -0.25em auto;
   color: rgb(255 255 255 / 0.045);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(10rem, 22vw, 20rem);
   font-weight: 700;
   line-height: 0.8;
@@ -1846,8 +1837,7 @@ body:has(.cc-page) {
   margin: clamp(14px, 2vw, 24px) auto 0;
   color: rgb(21 21 21 / 0.19);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(3.25rem, 6.4vw, 7.7rem);
   font-weight: 600;
   line-height: 0.98;
@@ -1957,7 +1947,7 @@ body:has(.cc-page) {
 .cc-aos-ad-footer span,
 .cc-aos-ad-footer strong {
   margin: 0;
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.72rem;
   font-weight: 800;
   line-height: 1.45;
@@ -2036,7 +2026,7 @@ body:has(.cc-page) {
 .cc-scorecard-head span,
 .cc-scorecard-head small,
 .cc-scorecard-sheet b {
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.68rem;
   font-weight: 800;
   line-height: 1.35;
@@ -2079,7 +2069,7 @@ body:has(.cc-page) {
 }
 
 .cc-scorecard-row strong {
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: clamp(0.86rem, 1.1vw, 1rem);
   font-weight: 700;
 }
@@ -2094,7 +2084,7 @@ body:has(.cc-page) {
 
 .cc-scorecard-row em {
   color: #6f6a62;
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.68rem;
   font-style: normal;
   font-weight: 800;
@@ -2151,7 +2141,7 @@ body:has(.cc-page) {
   border: 3px solid var(--cc-orange-dark);
   border-radius: 8px;
   color: var(--cc-orange-dark);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.72rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -2256,8 +2246,7 @@ body:has(.cc-page) {
     rgb(255 255 255 / 0.06);
   color: #ffffff;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 1.08rem;
   box-shadow: 0 0 46px rgb(219 106 63 / 0.26);
 }
@@ -2285,8 +2274,7 @@ body:has(.cc-page) {
 .cc-aos-row strong {
   color: #ffffff;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1rem, 1.4vw, 1.2rem);
   font-weight: 600;
 }
@@ -2409,8 +2397,7 @@ body:has(.cc-page) {
   margin-bottom: 14px;
   color: var(--cc-orange-dark);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 1.18rem;
   font-weight: 700;
 }
@@ -2966,8 +2953,7 @@ body:has(.cc-page) {
 .cc-aos-walkthrough-strip strong {
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1rem, 1.25vw, 1.2rem);
   font-weight: 650;
   line-height: 1.24;
@@ -3226,7 +3212,7 @@ body:has(.cc-page) {
   gap: 10px;
   margin: 0;
   color: var(--cc-orange-dark);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.72rem;
   font-weight: 800;
   line-height: 1.2;
@@ -3411,8 +3397,7 @@ body:has(.cc-page) {
 .cc-artifact-row strong {
   color: #ffffff;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.02rem, 1.5vw, 1.28rem);
   line-height: 1.18;
 }
@@ -3480,8 +3465,7 @@ body:has(.cc-page) {
 .cc-proof-point strong {
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(0.98rem, 1.25vw, 1.12rem);
   font-weight: 600;
   line-height: 1.35;
@@ -3595,8 +3579,7 @@ body:has(.cc-page) {
   display: block;
   color: var(--cc-orange-dark);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.5rem, 2.05vw, 2.35rem);
   font-weight: 800;
   line-height: 1;
@@ -3644,8 +3627,7 @@ body:has(.cc-page) {
   display: block;
   color: #ffffff;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.96rem;
   font-weight: 800;
   line-height: 1.16;
@@ -3670,8 +3652,7 @@ body:has(.cc-page) {
   color: #efaa74;
   padding: 6px 9px;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.82rem;
   font-style: normal;
   font-weight: 800;
@@ -3707,8 +3688,7 @@ body:has(.cc-page) {
   margin: 0;
   color: #ffffff;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 1rem;
   font-weight: 800;
 }
@@ -3749,8 +3729,7 @@ body:has(.cc-page) {
 .cc-testimonial figcaption {
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.86rem;
   font-weight: 800;
 }
@@ -3833,7 +3812,7 @@ body:has(.cc-page) {
 .cc-owner-panel b {
   display: block;
   color: var(--cc-orange-dark);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.72rem;
   font-weight: 800;
   line-height: 1.4;
@@ -3903,7 +3882,7 @@ body:has(.cc-page) {
 .cc-close-step span {
   display: block;
   color: var(--cc-orange);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.72rem;
   font-weight: 800;
   line-height: 1.4;
@@ -4037,8 +4016,7 @@ body:has(.cc-page) {
 .cc-onboarding-step > span {
   color: var(--cc-orange-dark);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 1.02rem;
   font-weight: 800;
   letter-spacing: 0;
@@ -4048,8 +4026,7 @@ body:has(.cc-page) {
   margin: 0;
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1rem, 1.2vw, 1.16rem);
   font-weight: 700;
   line-height: 1.25;
@@ -4132,8 +4109,7 @@ body:has(.cc-page) {
   margin: 0;
   color: #ffffff;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 1.22rem;
   font-weight: 600;
 }
@@ -4166,7 +4142,7 @@ body:has(.cc-page) {
   border-bottom: 1px solid rgb(21 21 21 / 0.2);
   padding-bottom: clamp(18px, 2vw, 26px);
   color: var(--cc-ink);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: clamp(0.78rem, 1vw, 0.94rem);
   font-weight: 800;
   text-transform: uppercase;
@@ -4189,8 +4165,7 @@ body:has(.cc-page) {
   margin: 0;
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(5.4rem, 14.4vw, 18rem);
   font-weight: 700;
   line-height: 0.78;
@@ -5288,7 +5263,7 @@ body:has(.cc-page) {
     box-shadow: 0 18px 60px rgb(0 0 0 / 0.3);
     backdrop-filter: blur(18px);
     padding: 0 18px;
-    font-family: "Fira Sans", Arial, sans-serif;
+    font-family: var(--cc-font-body);
     font-size: 0.78rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -5957,8 +5932,7 @@ body:has(.cc-page) {
 .cc-pillars-copy h2 {
   margin: 0;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(2.5rem, 5.35vw, 5.9rem);
   font-weight: 600;
   line-height: 1.02;
@@ -5995,7 +5969,7 @@ body:has(.cc-page) {
   top: var(--word-y);
   left: var(--word-x);
   color: var(--word-faded);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: clamp(0.8rem, 1.15vw, 1.18rem);
   font-weight: 800;
   line-height: 1;
@@ -6146,8 +6120,7 @@ body:has(.cc-page) {
 .cc-fan-card-body h3 {
   margin: 0;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.5rem, 1.6vw, 1.85rem);
   font-weight: 700;
   line-height: 1.1;
@@ -6174,8 +6147,7 @@ body:has(.cc-page) {
   gap: 8px;
   color: #1f1f1f;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0;
@@ -6266,8 +6238,7 @@ body:has(.cc-page) {
 
 .cc-fan-counter {
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.74rem;
   color: rgb(13 13 12 / 0.42);
   letter-spacing: 0.08em;
@@ -6351,8 +6322,7 @@ body:has(.cc-page) {
 .cc-fan-modal-body h3 {
   margin: 0;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.6rem, 2.4vw, 2.2rem);
   font-weight: 600;
   line-height: 1.1;
@@ -6536,8 +6506,7 @@ body:has(.cc-page) {
 .cc-asset-deck-copy h2 {
   margin: 0;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(2.2rem, 5vw, 5rem);
   font-weight: 600;
   line-height: 0.98;
@@ -6666,8 +6635,7 @@ body:has(.cc-page) {
 .cc-asset-card-body h3 {
   margin: 0;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.2rem, 1.6vw, 1.5rem);
   font-weight: 600;
   line-height: 1.18;
@@ -6874,8 +6842,7 @@ body:has(.cc-page) {
 .cc-fan-card-body h3 {
   margin: 0;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.18rem, 1.32vw, 1.56rem);
   font-weight: 700;
   line-height: 1.1;
@@ -7750,7 +7717,7 @@ body:has(.cc-page) {
 }
 
 /* Typography guardrail: keep Lovable edits from drifting the public homepage
-   away from the ALP Google Sans headline system. */
+   away from the ALP Inter headline system. */
 .cc-page,
 .cc-page .cc-nav,
 .cc-page button,
@@ -8008,7 +7975,7 @@ body:has(.cc-page) {
 .cc-proof-result span,
 .cc-proof-result dt,
 .cc-proof-testimonial div {
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -8024,8 +7991,7 @@ body:has(.cc-page) {
   margin: 18px 0 0;
   color: #fffdf8;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(2.55rem, 4.2vw, 5.1rem);
   font-weight: 700;
   line-height: 0.93;
@@ -8115,8 +8081,7 @@ body:has(.cc-page) {
 .cc-proof-signal strong {
   color: var(--cc-orange-dark);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(2.1rem, 3.5vw, 4.15rem);
   font-weight: 800;
   line-height: 0.9;
@@ -8154,8 +8119,7 @@ body:has(.cc-page) {
   display: block;
   color: #fffdf8;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1rem, 1.18vw, 1.18rem);
   font-weight: 800;
   line-height: 1.14;
@@ -8178,8 +8142,7 @@ body:has(.cc-page) {
   color: #f1a071;
   padding: 8px 10px;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.9rem;
   font-style: normal;
   font-weight: 800;
@@ -8215,8 +8178,7 @@ body:has(.cc-page) {
   margin: 0;
   color: #fffdf8;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1rem, 1.3vw, 1.22rem);
   font-weight: 800;
   line-height: 1;
@@ -8256,8 +8218,7 @@ body:has(.cc-page) {
 .cc-proof-testimonial figcaption {
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.94rem;
   font-weight: 800;
 }
@@ -8501,8 +8462,7 @@ body:has(.cc-page) {
 .cc-membership-includes > span {
   color: var(--cc-orange-dark);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.74rem;
   font-weight: 800;
   line-height: 1;
@@ -8668,8 +8628,7 @@ body:has(.cc-page) {
   margin: 0;
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(4.1rem, 8vw, 9.25rem);
   font-weight: 800;
   line-height: 0.86;
@@ -8753,8 +8712,7 @@ body:has(.cc-page) {
 .cc-fit-list-editorial .cc-fit-item span {
   color: var(--cc-orange-dark);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.76rem;
   font-weight: 800;
 }
@@ -8763,8 +8721,7 @@ body:has(.cc-page) {
   margin: 0;
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.15rem, 1.55vw, 1.58rem);
   font-weight: 700;
   line-height: 1.15;
@@ -8851,8 +8808,7 @@ body:has(.cc-page) {
   margin: clamp(20px, 3vw, 36px) 0 0;
   color: #fffdf8;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(5.4rem, 13vw, 15rem);
   font-weight: 800;
   line-height: 0.78;
@@ -8862,8 +8818,7 @@ body:has(.cc-page) {
 .cc-membership-price h2 em {
   color: inherit;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-weight: 800;
   font-style: normal;
 }
@@ -8918,8 +8873,7 @@ body:has(.cc-page) {
   color: rgb(255 253 248 / 0.88);
   padding: 20px 18px 18px 0;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1rem, 1.15vw, 1.18rem);
   font-weight: 700;
   line-height: 1.16;
@@ -9269,8 +9223,7 @@ body:has(.cc-page) {
 .cc-diagnostic-tiles .cc-diagnostic-item span {
   color: var(--cc-orange-dark);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: 0.78rem;
   font-weight: 800;
 }
@@ -9279,8 +9232,7 @@ body:has(.cc-page) {
   margin: 0;
   color: var(--cc-ink);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(1.16rem, 1.58vw, 1.64rem);
   font-weight: 800;
   line-height: 1.1;
@@ -9563,7 +9515,7 @@ body:has(.cc-page) {
   min-height: 38px;
   border-bottom: 1px solid rgb(255 253 248 / 0.1);
   color: rgb(255 253 248 / 0.58);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.62rem;
   font-weight: 800;
   line-height: 1;
@@ -9679,8 +9631,7 @@ body:has(.cc-page) {
 .cc-proof-result-multiple em {
   color: var(--cc-orange-dark);
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-size: clamp(3.4rem, 6vw, 7rem);
   font-style: normal;
   font-weight: 800;
@@ -9829,7 +9780,7 @@ body:has(.cc-page) {
   border-bottom: 1px solid rgb(255 253 248 / 0.12);
   color: rgb(255 253 248 / 0.58);
   padding: 0 0 clamp(12px, 1.5vw, 18px);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.64rem;
   font-weight: 800;
   line-height: 1;
@@ -9859,8 +9810,7 @@ body:has(.cc-page) {
 .cc-onboarding-timeline .cc-command-step > span {
   color: #e88959;
   font-family:
-    "Google Sans", "Google Sans Display", "Google Sans Text", "Fira Sans",
-    Arial, sans-serif;
+    var(--cc-font-display);
   font-weight: 800;
 }
 
@@ -9914,7 +9864,7 @@ body:has(.cc-page) {
   border-bottom: 1px solid rgb(255 253 248 / 0.12);
   color: rgb(255 253 248 / 0.58);
   padding-bottom: clamp(18px, 2vw, 28px);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.64rem;
   font-weight: 800;
   line-height: 1;
@@ -10761,7 +10711,7 @@ body:has(.cc-page) {
   min-height: 34px;
   border-bottom: 1px solid rgb(255 253 248 / 0.12);
   color: rgb(255 253 248 / 0.5);
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.62rem;
   font-weight: 800;
   line-height: 1;
@@ -10923,7 +10873,7 @@ body:has(.cc-page) {
 .cc-onboarding-timeline .cc-command-step button > span {
   position: relative;
   color: #d87751;
-  font-family: "Fira Sans", Arial, sans-serif;
+  font-family: var(--cc-font-body);
   font-size: 0.8rem;
   font-weight: 800;
 }
@@ -11216,5 +11166,285 @@ body:has(.cc-page) {
   .cc-onboarding-timeline .cc-command-step button:focus-visible,
   .cc-onboarding-timeline .cc-command-step button.is-active {
     min-height: 82px;
+  }
+}
+
+/* Media-led proof pass: raw margin visual, secondary replay, ledger outcomes, Inter type. */
+.cc-page,
+.cc-page :where(a, button, p, span, strong, em, small, li, dt, dd, figcaption, blockquote, label, input, textarea, select),
+.cc-page :where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--cc-font-body) !important;
+}
+
+.cc-city-interlude {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  height: 100svh;
+  min-height: 560px;
+  margin-left: -50vw;
+  overflow: hidden;
+  background: #0b0b0a;
+}
+
+.cc-city-interlude-video {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cc-proof-system {
+  background: #f3eee6 !important;
+  background-image: none !important;
+}
+
+.cc-proof-system-inner {
+  width: min(1500px, calc(100vw - 48px));
+}
+
+.cc-ior-feature {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.46fr) minmax(0, 1fr);
+  gap: clamp(28px, 6vw, 112px);
+  align-items: center;
+  margin-top: clamp(46px, 7vw, 94px);
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: var(--cc-ink);
+}
+
+.cc-ior-feature .cc-ior-copy {
+  padding: 0 !important;
+}
+
+.cc-ior-feature .cc-ior-copy > span {
+  color: var(--cc-orange-dark) !important;
+}
+
+.cc-ior-feature .cc-ior-copy h3 {
+  max-width: 620px;
+  color: var(--cc-ink) !important;
+  font-size: clamp(3.4rem, 6.8vw, 8.8rem);
+  line-height: 0.86;
+}
+
+.cc-ior-feature .cc-ior-copy p {
+  max-width: 610px;
+  color: rgb(21 21 21 / 0.64) !important;
+}
+
+.cc-ior-feature .cc-ior-tags {
+  max-width: 610px;
+  border-color: rgb(21 21 21 / 0.14);
+}
+
+.cc-ior-feature .cc-ior-tags span {
+  border-color: rgb(21 21 21 / 0.12);
+  color: rgb(21 21 21 / 0.66) !important;
+}
+
+.cc-ior-media-stack {
+  gap: clamp(22px, 3vw, 34px) !important;
+}
+
+.cc-margin-crumble-stage {
+  position: relative;
+  overflow: visible;
+  background: transparent;
+  box-shadow: none !important;
+  transform-origin: center;
+}
+
+.cc-margin-crumble-stage .cc-margin-crumble-media {
+  overflow: visible;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.cc-margin-crumble-stage .cc-margin-crumble-video,
+.cc-margin-crumble-stage .cc-margin-crumble-poster {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  background: transparent;
+  object-fit: contain;
+}
+
+.cc-margin-crumble-stage .cc-margin-crumble-poster {
+  display: none;
+}
+
+.cc-ior-replay-card {
+  width: min(720px, 100%);
+  margin-left: auto;
+  border-top: 1px solid rgb(21 21 21 / 0.16);
+  padding-top: clamp(12px, 1.6vw, 20px);
+}
+
+.cc-ior-replay-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: clamp(10px, 1.2vw, 14px);
+  color: rgb(21 21 21 / 0.48);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.cc-ior-replay-meta span:first-child {
+  color: var(--cc-orange-dark);
+}
+
+.cc-ior-replay-card .cc-ior-video-window {
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  border: 1px solid rgb(21 21 21 / 0.14);
+  border-radius: 0;
+  background: #0d0d0c;
+}
+
+.cc-proof-field-notes {
+  margin-top: clamp(28px, 5vw, 72px);
+  border-top: 1px solid rgb(21 21 21 / 0.18);
+  border-bottom: 1px solid rgb(21 21 21 / 0.18);
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: clamp(22px, 3vw, 36px) 0 !important;
+}
+
+.cc-proof-field-notes-head {
+  grid-template-columns: minmax(0, 0.34fr) minmax(0, 1fr) !important;
+  border-bottom: 1px solid rgb(21 21 21 / 0.12);
+  padding-bottom: clamp(18px, 2.4vw, 28px);
+}
+
+.cc-proof-ledger {
+  width: 100%;
+}
+
+.cc-proof-ledger-row {
+  display: grid;
+  grid-template-columns: minmax(190px, 1.45fr) minmax(150px, 1fr) minmax(90px, 0.7fr) minmax(90px, 0.7fr) minmax(80px, 0.6fr);
+  gap: clamp(14px, 2vw, 28px);
+  align-items: center;
+  min-height: clamp(74px, 7vw, 104px);
+  border-bottom: 1px solid rgb(21 21 21 / 0.11);
+  color: var(--cc-ink);
+}
+
+.cc-proof-ledger-row:last-child {
+  border-bottom: 0;
+}
+
+.cc-proof-ledger-head {
+  min-height: 44px;
+  color: rgb(168 68 37 / 0.8);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  text-transform: uppercase;
+}
+
+.cc-proof-ledger-row strong,
+.cc-proof-ledger-row em {
+  color: var(--cc-ink);
+  font-size: clamp(1.08rem, 1.55vw, 1.65rem);
+  font-style: normal;
+  font-weight: 800;
+}
+
+.cc-proof-ledger-row span {
+  color: rgb(21 21 21 / 0.64);
+  font-size: clamp(0.96rem, 1.08vw, 1.08rem);
+  line-height: 1.3;
+}
+
+.cc-proof-testimonial-row {
+  border-top: 1px solid rgb(21 21 21 / 0.12);
+  margin-top: clamp(24px, 4vw, 52px);
+  padding-top: clamp(22px, 3vw, 36px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-margin-crumble-stage .cc-margin-crumble-video {
+    display: none;
+  }
+
+  .cc-margin-crumble-stage .cc-margin-crumble-poster {
+    display: block;
+  }
+}
+
+@media (max-width: 980px) {
+  .cc-city-interlude {
+    min-height: 520px;
+  }
+
+  .cc-ior-feature {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .cc-ior-replay-card {
+    width: 100%;
+  }
+
+  .cc-proof-field-notes-head {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .cc-city-interlude {
+    min-height: 440px;
+  }
+
+  .cc-proof-system-inner {
+    width: min(100% - 28px, 1500px);
+  }
+
+  .cc-ior-feature .cc-ior-copy h3 {
+    font-size: clamp(3.1rem, 15vw, 5.7rem);
+  }
+
+  .cc-ior-feature .cc-ior-tags {
+    grid-template-columns: 1fr;
+  }
+
+  .cc-ior-feature .cc-ior-tags span {
+    border-right: 0;
+    border-bottom: 1px solid rgb(21 21 21 / 0.12);
+    padding-right: 0;
+  }
+
+  .cc-ior-feature .cc-ior-tags span:last-child {
+    border-bottom: 0;
+  }
+
+  .cc-proof-ledger-row,
+  .cc-proof-ledger-head {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    align-items: start;
+    min-height: 0;
+    padding: 18px 0;
+  }
+
+  .cc-proof-ledger-head {
+    display: none;
+  }
+
+  .cc-proof-ledger-row strong {
+    font-size: 1.16rem;
   }
 }

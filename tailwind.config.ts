@@ -13,8 +13,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["'Google Sans Display'", "'Google Sans'", "'Google Sans Text'", "'Fira Sans'", "ui-sans-serif", "system-ui", "sans-serif"],
-        sans: ["'Google Sans Text'", "'Fira Sans'", "ui-sans-serif", "system-ui", "sans-serif"],
+        display: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
