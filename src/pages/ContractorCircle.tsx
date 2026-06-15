@@ -66,7 +66,7 @@ const CHECKOUT_URL =
 const CLOUDFLARE_STREAM_ID = "5867cd561f133a4299bfb06e9e2f01d1";
 const CLOUDFLARE_STREAM_SCRIPT_SRC =
   "https://embed.cloudflarestream.com/embed/sdk.latest.js";
-const CLOUDFLARE_STREAM_IFRAME_SRC = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}?muted=true&loop=true&controls=false&preload=auto&letterboxColor=transparent`;
+const CLOUDFLARE_STREAM_IFRAME_SRC = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}?muted=true&controls=false&preload=auto&letterboxColor=transparent`;
 const HERO_VIDEO_POSTER = "/manus-storage/alp-hero-poster_167efce2.webp";
 const AOS_URL = "https://alpos.alpcontractorcircle.com";
 const HANDBOOK_URL = "https://alphandbook.com";
@@ -1068,7 +1068,7 @@ export default function ContractorCircle() {
 
     player.autoplay = false;
     player.controls = false;
-    player.loop = true;
+    player.loop = false;
     player.muted = mutedPreferenceRef.current;
     try {
       player.currentTime = 0;
