@@ -258,16 +258,22 @@ function wordStyle(word: FloatingWord) {
 type HeroIntroMotionProps = {
   onComplete: () => void;
   onBridgeStart?: () => void;
+  videoPlaying?: boolean;
 };
+
+const MAX_VIDEO_WAIT_MS = 4000;
 
 export default function HeroIntroMotion({
   onComplete,
   onBridgeStart,
+  videoPlaying = false,
 }: HeroIntroMotionProps) {
   const [shouldRender, setShouldRender] = useState(() => {
     if (typeof window === "undefined") return false;
     return !window.matchMedia(REDUCED_MOTION_QUERY).matches;
   });
+  const [timerElapsed, setTimerElapsed] = useState(false);
+  const [waitDeadlineHit, setWaitDeadlineHit] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -288,8 +294,7 @@ export default function HeroIntroMotion({
     }, INTRO_BRIDGE_START_MS);
 
     const timer = window.setTimeout(() => {
-      setShouldRender(false);
-      onComplete();
+      setTimerElapsed(true);
     }, INTRO_DURATION_MS);
 
     return () => {
@@ -297,6 +302,26 @@ export default function HeroIntroMotion({
       window.clearTimeout(timer);
     };
   }, [onBridgeStart, onComplete]);
+
+  // Once the base intro timer has elapsed, hold the dissolve until the
+  // hero video is actually playing — so the handoff is seamless instead of
+  // dropping into a paused/loading frame. Hard ceiling protects against
+  // never-resolving playback.
+  useEffect(() => {
+    if (!timerElapsed) return;
+    if (typeof window === "undefined") return;
+    const deadline = window.setTimeout(() => {
+      setWaitDeadlineHit(true);
+    }, MAX_VIDEO_WAIT_MS);
+    return () => window.clearTimeout(deadline);
+  }, [timerElapsed]);
+
+  useEffect(() => {
+    if (!timerElapsed) return;
+    if (!videoPlaying && !waitDeadlineHit) return;
+    setShouldRender(false);
+    onComplete();
+  }, [timerElapsed, videoPlaying, waitDeadlineHit, onComplete]);
 
   if (!shouldRender) return null;
 
