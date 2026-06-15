@@ -578,6 +578,70 @@ function EditorialScrollFillText({
   );
 }
 
+function InViewFillHeadline({
+  lines,
+  className = "",
+}: {
+  lines: string[];
+  className?: string;
+}) {
+  const headlineRef = useRef<HTMLHeadingElement>(null);
+  const [isFilled, setIsFilled] = useState(() => {
+    if (typeof window === "undefined") {
+      return false;
+    }
+
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
+
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const headline = headlineRef.current;
+    if (!headline) {
+      return;
+    }
+
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (reducedMotion.matches) {
+      setIsFilled(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) {
+          return;
+        }
+
+        setIsFilled(true);
+        observer.disconnect();
+      },
+      {
+        rootMargin: "0px 0px -18% 0px",
+        threshold: 0.34,
+      },
+    );
+
+    observer.observe(headline);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <h2
+      ref={headlineRef}
+      className={`cc-enter-fill-headline ${isFilled ? "is-filled" : ""} ${className}`.trim()}
+    >
+      {lines.map(line => (
+        <span key={line}>{line}</span>
+      ))}
+    </h2>
+  );
+}
+
 function PillarsSection() {
   const items = productProofItems;
   const [activeFanIndex, setActiveFanIndex] = useState(() => Math.floor(items.length / 2));
@@ -1471,10 +1535,7 @@ export default function ContractorCircle() {
               <p className="cc-eyebrow" data-caption>
                 After Checkout
               </p>
-              <h2>
-                <span data-caption>Your first move</span>
-                <span data-caption>starts now.</span>
-              </h2>
+              <InViewFillHeadline lines={["Your first move", "starts now."]} />
               <p className="cc-subhead" data-caption>
                 After checkout, the goal is not to browse a library. It is to
                 get inside the room, name the first operating constraint, and

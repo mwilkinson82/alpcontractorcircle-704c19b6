@@ -11046,3 +11046,175 @@ body:has(.cc-page) {
     bottom: max(18px, env(safe-area-inset-bottom));
   }
 }
+
+/* Final homepage proof/onboarding polish. Keep these overrides isolated to the lower homepage. */
+.cc-proof-system,
+.cc-onboarding-system {
+  background: #f3eee6 !important;
+  background-size: auto !important;
+}
+
+.cc-proof-system::before,
+.cc-proof-system::after,
+.cc-onboarding-system::before,
+.cc-onboarding-system::after {
+  opacity: 0 !important;
+}
+
+.cc-enter-fill-headline span {
+  color: rgb(21 21 21 / 0.2);
+  filter: blur(0.35px);
+  transition:
+    color 920ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 920ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cc-enter-fill-headline span:nth-child(2) {
+  transition-delay: 120ms;
+}
+
+.cc-enter-fill-headline.is-filled span {
+  color: var(--cc-ink);
+  filter: blur(0);
+}
+
+.cc-ior-panel {
+  background: #0b0b0a !important;
+  background-size: auto !important;
+  box-shadow:
+    0 34px 92px rgb(21 21 21 / 0.2),
+    inset 0 1px 0 rgb(255 253 248 / 0.08) !important;
+}
+
+.cc-ior-panel::after {
+  opacity: 0.36 !important;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgb(255 253 248 / 0.18),
+    transparent
+  ) !important;
+}
+
+.cc-ior-panel::before {
+  border-color: rgb(255 253 248 / 0.06) !important;
+}
+
+.cc-ior-panel .cc-ior-copy > span,
+.cc-ior-panel .cc-ior-frame-bar span:first-child {
+  color: #d87751 !important;
+}
+
+.cc-ior-panel .cc-ior-copy h3 {
+  color: #fffdf8 !important;
+}
+
+.cc-ior-panel .cc-ior-copy p,
+.cc-ior-panel .cc-ior-tags span {
+  color: rgb(255 253 248 / 0.68) !important;
+}
+
+.cc-margin-crumble-card,
+.cc-ior-replay-frame,
+.cc-onboarding-command-panel {
+  box-shadow:
+    0 26px 68px rgb(21 21 21 / 0.14),
+    inset 0 1px 0 rgb(255 253 248 / 0.07) !important;
+}
+
+.cc-ior-replay-frame {
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  border-color: rgb(255 253 248 / 0.14) !important;
+  background: #090908 !important;
+}
+
+.cc-ior-replay-frame .cc-ior-frame-bar {
+  min-height: clamp(34px, 3vw, 42px);
+  padding: 0 clamp(8px, 1vw, 12px);
+}
+
+.cc-ior-replay-frame .cc-ior-video-window {
+  width: 100%;
+  max-height: none !important;
+  margin-top: clamp(8px, 1vw, 12px);
+  border: 1px solid rgb(255 253 248 / 0.08);
+  border-radius: clamp(14px, 1.6vw, 20px);
+  background: #050505;
+}
+
+.cc-onboarding-command-panel {
+  background: #0c0c0b !important;
+  border-color: rgb(255 253 248 / 0.11) !important;
+}
+
+.cc-onboarding-command-panel::before,
+.cc-onboarding-command-panel::after {
+  display: none !important;
+}
+
+.cc-command-progress {
+  background: rgb(255 253 248 / 0.09) !important;
+  left: clamp(10px, 1.2vw, 16px);
+}
+
+.cc-command-progress span {
+  left: -1px;
+  width: 3px;
+  height: 32px;
+  box-shadow: none !important;
+}
+
+.cc-onboarding-timeline .cc-command-step button {
+  transition:
+    background 220ms ease,
+    border-color 220ms ease !important;
+}
+
+.cc-onboarding-timeline .cc-command-step button:hover,
+.cc-onboarding-timeline .cc-command-step button:focus-visible,
+.cc-onboarding-timeline .cc-command-step button.is-active {
+  min-height: 104px;
+  background: rgb(255 253 248 / 0.048);
+  transform: none !important;
+}
+
+.cc-onboarding-timeline .cc-command-step button > span::before {
+  left: -18px;
+  top: 0.45em;
+  width: 6px;
+  height: 6px;
+  transform: none !important;
+  transition: opacity 180ms ease;
+}
+
+.cc-onboarding-timeline .cc-command-step button:hover > span::before,
+.cc-onboarding-timeline .cc-command-step button:focus-visible > span::before,
+.cc-onboarding-timeline .cc-command-step button.is-active > span::before {
+  transform: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-enter-fill-headline span {
+    color: var(--cc-ink);
+    filter: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 860px), (hover: none) and (pointer: coarse) {
+  .cc-enter-fill-headline span:nth-child(2) {
+    transition-delay: 0ms;
+  }
+
+  .cc-ior-replay-frame .cc-ior-frame-bar {
+    gap: 10px;
+    min-height: 36px;
+  }
+
+  .cc-onboarding-timeline .cc-command-step button:hover,
+  .cc-onboarding-timeline .cc-command-step button:focus-visible,
+  .cc-onboarding-timeline .cc-command-step button.is-active {
+    min-height: 82px;
+  }
+}
