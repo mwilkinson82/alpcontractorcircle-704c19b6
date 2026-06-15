@@ -5,6 +5,7 @@ import {
   useState,
   type CSSProperties,
   type RefObject,
+  type TouchEvent,
 } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -641,10 +642,24 @@ function PillarsSection() {
   const items = productProofItems;
   const [activeFanIndex, setActiveFanIndex] = useState(() => Math.floor(items.length / 2));
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const fanTouchStartXRef = useRef<number | null>(null);
 
   const openItem = openIndex !== null ? items[openIndex] : null;
   const rotateFan = (direction: -1 | 1) => {
     setActiveFanIndex(current => (current + direction + items.length) % items.length);
+  };
+  const handleFanTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    fanTouchStartXRef.current = event.touches[0]?.clientX ?? null;
+  };
+  const handleFanTouchEnd = (event: TouchEvent<HTMLDivElement>) => {
+    const startX = fanTouchStartXRef.current;
+    fanTouchStartXRef.current = null;
+    const endX = event.changedTouches[0]?.clientX;
+    if (startX === null || endX === undefined) return;
+
+    const deltaX = endX - startX;
+    if (Math.abs(deltaX) < 42) return;
+    rotateFan(deltaX > 0 ? -1 : 1);
   };
 
   return (
@@ -659,7 +674,11 @@ function PillarsSection() {
           </h2>
         </div>
 
-        <div className="cc-fan-stage">
+        <div
+          className="cc-fan-stage"
+          onTouchStart={handleFanTouchStart}
+          onTouchEnd={handleFanTouchEnd}
+        >
           <div
             className="cc-fan-track"
             data-circle-fan
@@ -858,6 +877,7 @@ export default function ContractorCircle() {
   });
   const [heroRevealActive, setHeroRevealActive] = useState(false);
   const [showMobileCta, setShowMobileCta] = useState(false);
+  const [isReplayOpen, setIsReplayOpen] = useState(false);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   const streamRuntimeReady = useCloudflareStreamRuntime();
@@ -1129,10 +1149,28 @@ export default function ContractorCircle() {
       const isInsideProductDeck = deckRect
         ? deckRect.top < window.innerHeight * 0.82 && deckRect.bottom > 96
         : false;
+      const protectedSelectors = [
+        ".cc-video-hero",
+        ".cc-ior-feature",
+        ".cc-ior-replay-card",
+        ".cc-proof-fill",
+        ".cc-mega-close",
+        ".cc-footer",
+      ];
+      const isProtectedZone = protectedSelectors.some(selector => {
+        const element = document.querySelector<HTMLElement>(selector);
+        if (!element) return false;
+
+        const rect = element.getBoundingClientRect();
+        return rect.top < window.innerHeight - 72 && rect.bottom > 96;
+      });
+      const modalOpen = Boolean(document.querySelector('[role="dialog"]'));
       const shouldShow =
         mobileQuery.matches &&
         window.scrollY > threshold &&
-        !isInsideProductDeck;
+        !isInsideProductDeck &&
+        !isProtectedZone &&
+        !modalOpen;
       setShowMobileCta(current =>
         current === shouldShow ? current : shouldShow
       );
@@ -1342,12 +1380,12 @@ export default function ContractorCircle() {
                   <span data-caption>The system shows up</span>
                   <span data-caption>in the business.</span>
                 </h2>
+                <p className="cc-proof-lead" data-caption>
+                  The portal is not the point. The point is what happens when
+                  risk, billing, decisions, and next moves stop living only in
+                  the owner's head.
+                </p>
               </div>
-              <p className="cc-subhead" data-caption>
-                The portal is not the point. The point is what happens when
-                risk, billing, decisions, and next moves stop living only in
-                the owner's head.
-              </p>
             </div>
 
             <div className="cc-ior-feature cc-proof-motion">
@@ -1393,24 +1431,64 @@ export default function ContractorCircle() {
                     />
                   </div>
                 </div>
-
-                <div className="cc-ior-replay-card">
-                  <div className="cc-ior-replay-meta" aria-hidden="true">
-                    <span>Watch the field session</span>
-                    <span>IOR replay</span>
-                  </div>
-                  <div className="cc-ior-video-window">
-                    <iframe
-                      title="Marshall Wilkinson IOR field session"
-                      src={IOR_ZOOM_EMBED_URL}
-                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                      allowFullScreen
-                      loading="lazy"
-                    />
-                  </div>
-                </div>
               </div>
             </div>
+
+            <div className="cc-ior-replay-card cc-proof-motion">
+              <div className="cc-ior-replay-copy">
+                <div className="cc-ior-replay-meta" aria-hidden="true">
+                  <span>Watch the field session</span>
+                  <span>IOR replay</span>
+                </div>
+                <p>See the method behind the margin split.</p>
+              </div>
+              <div className="cc-ior-video-window">
+                <iframe
+                  title="Marshall Wilkinson IOR field session"
+                  src={IOR_ZOOM_EMBED_URL}
+                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allowFullScreen
+                  loading="lazy"
+                />
+              </div>
+              <button
+                type="button"
+                className="cc-ior-replay-mobile-trigger"
+                onClick={() => setIsReplayOpen(true)}
+              >
+                <Play aria-hidden="true" />
+                <span>Watch the IOR field session</span>
+              </button>
+            </div>
+
+            <Dialog open={isReplayOpen} onOpenChange={setIsReplayOpen}>
+              <DialogContent
+                className="cc-ior-lightbox"
+                onOpenAutoFocus={event => event.preventDefault()}
+                onEscapeKeyDown={event => {
+                  event.preventDefault();
+                  setIsReplayOpen(false);
+                }}
+              >
+                <div className="cc-ior-lightbox-frame">
+                  <iframe
+                    title="Marshall Wilkinson IOR field session"
+                    src={IOR_ZOOM_EMBED_URL}
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+                <div className="cc-ior-lightbox-actions">
+                  <a href={IOR_ZOOM_EMBED_URL} target="_blank" rel="noreferrer">
+                    Open Zoom Clip
+                  </a>
+                </div>
+                <DialogClose className="cc-ior-lightbox-close" aria-label="Close replay">
+                  <X aria-hidden="true" />
+                </DialogClose>
+              </DialogContent>
+            </Dialog>
 
             <div className="cc-proof-fill cc-proof-motion">
               <EditorialScrollFillText
@@ -1451,12 +1529,24 @@ export default function ContractorCircle() {
                     </thead>
                     <tbody>
                       {memberResults.slice(0, 3).map(result => (
-                        <tr key={result.company}>
+                        <tr className="cc-proof-ledger-row-reveal" key={result.company}>
                           <th scope="row">{result.company}</th>
                           <td>{result.timeline}</td>
-                          <td>{result.before}</td>
-                          <td>{result.after}</td>
-                          <td>{result.multiple}</td>
+                          <td>
+                            <span className="cc-proof-ledger-value">
+                              {result.before}
+                            </span>
+                          </td>
+                          <td>
+                            <span className="cc-proof-ledger-value cc-proof-ledger-after-value">
+                              {result.after}
+                            </span>
+                          </td>
+                          <td>
+                            <span className="cc-proof-ledger-value cc-proof-ledger-movement-value">
+                              {result.multiple}
+                            </span>
+                          </td>
                         </tr>
                       ))}
                     </tbody>
@@ -1464,7 +1554,10 @@ export default function ContractorCircle() {
 
                   <div className="cc-proof-ledger-cards">
                     {memberResults.slice(0, 3).map(result => (
-                      <article className="cc-proof-ledger-card" key={result.company}>
+                      <article
+                        className="cc-proof-ledger-card cc-proof-ledger-row-reveal"
+                        key={result.company}
+                      >
                         <div>
                           <strong>{result.company}</strong>
                           <span>{result.timeline}</span>
@@ -1472,15 +1565,27 @@ export default function ContractorCircle() {
                         <dl>
                           <div>
                             <dt>Before</dt>
-                            <dd>{result.before}</dd>
+                            <dd>
+                              <span className="cc-proof-ledger-value">
+                                {result.before}
+                              </span>
+                            </dd>
                           </div>
                           <div>
                             <dt>After</dt>
-                            <dd>{result.after}</dd>
+                            <dd>
+                              <span className="cc-proof-ledger-value cc-proof-ledger-after-value">
+                                {result.after}
+                              </span>
+                            </dd>
                           </div>
                           <div>
                             <dt>Movement</dt>
-                            <dd>{result.multiple}</dd>
+                            <dd>
+                              <span className="cc-proof-ledger-value cc-proof-ledger-movement-value">
+                                {result.multiple}
+                              </span>
+                            </dd>
                           </div>
                         </dl>
                       </article>
@@ -1669,7 +1774,9 @@ export default function ContractorCircle() {
             <span>Build the company behind the projects.</span>
             <a href={CHECKOUT_URL}>Join the Circle</a>
           </div>
-          <h2 className="cc-mega-word">Contractor Circle</h2>
+          <h2 className="cc-mega-word">
+            <span>Contractor</span> <span>Circle</span>
+          </h2>
         </section>
       </main>
 
@@ -1979,20 +2086,58 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         const proof = root.querySelector<HTMLElement>(".cc-proof-system");
         if (!proof) return;
         const lines = proof.querySelectorAll<HTMLElement>("[data-caption]");
-        const motionItems =
-          proof.querySelectorAll<HTMLElement>(".cc-proof-motion");
+        const iorFeature =
+          proof.querySelector<HTMLElement>(".cc-ior-feature");
+        const iorCopyItems = iorFeature?.querySelectorAll<HTMLElement>(
+          ".cc-ior-copy > span, .cc-ior-copy h3, .cc-ior-copy p, .cc-ior-tags"
+        );
         const videoFrame =
           proof.querySelector<HTMLElement>(".cc-margin-crumble-stage");
+        const replayCard =
+          proof.querySelector<HTMLElement>(".cc-ior-replay-card");
+        const proofFill = proof.querySelector<HTMLElement>(".cc-proof-fill");
+        const fieldNotes =
+          proof.querySelector<HTMLElement>(".cc-proof-field-notes");
+        const ledgerRows =
+          proof.querySelectorAll<HTMLElement>(".cc-proof-ledger-row-reveal");
+        const ledgerValues = proof.querySelectorAll<HTMLElement>(
+          ".cc-proof-ledger-value"
+        );
+        const testimonials =
+          proof.querySelectorAll<HTMLElement>(".cc-proof-testimonial");
 
         gsap.set(lines, {
           autoAlpha: 0,
           y: 26,
           filter: "blur(5px)",
         });
-        gsap.set(motionItems, {
+        if (iorCopyItems?.length) {
+          gsap.set(iorCopyItems, {
+            autoAlpha: 0,
+            y: 26,
+            filter: "blur(4px)",
+          });
+        }
+        if (videoFrame) {
+          gsap.set(videoFrame, {
+            autoAlpha: 0,
+            y: 40,
+            scale: 0.96,
+          });
+        }
+        gsap.set([replayCard, proofFill, fieldNotes, ...testimonials].filter(Boolean), {
           autoAlpha: 0,
-          y: 42,
-          scale: 0.982,
+          y: 34,
+          scale: 0.986,
+        });
+        gsap.set(ledgerRows, {
+          autoAlpha: 0,
+          y: 18,
+        });
+        gsap.set(ledgerValues, {
+          autoAlpha: 0,
+          y: 8,
+          clipPath: "inset(0% 100% 0% 0%)",
         });
 
         const proofTimeline = gsap.timeline({
@@ -2011,44 +2156,125 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
             duration: 0.9,
             stagger: 0.07,
             ease: "power3.out",
-          })
-          .to(
-            motionItems,
-            {
+          });
+
+        if (iorFeature && iorCopyItems?.length) {
+          const marginTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: iorFeature,
+              start: "top 76%",
+              once: true,
+            },
+          });
+
+          marginTimeline
+            .to(iorCopyItems, {
+              autoAlpha: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.84,
+              stagger: 0.08,
+              ease: "power3.out",
+            })
+            .to(
+              videoFrame,
+              {
+                autoAlpha: 1,
+                y: 0,
+                scale: 1,
+                duration: 1.08,
+                ease: "power3.out",
+              },
+              0.22
+            );
+        }
+
+        if (replayCard) {
+          gsap.to(replayCard, {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.86,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: replayCard,
+              start: "top 82%",
+              once: true,
+            },
+          });
+        }
+
+        if (proofFill) {
+          gsap.to(proofFill, {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.78,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: proofFill,
+              start: "top 82%",
+              once: true,
+            },
+          });
+        }
+
+        if (fieldNotes) {
+          const ledgerTimeline = gsap.timeline({
+            scrollTrigger: {
+              trigger: fieldNotes,
+              start: "top 82%",
+              once: true,
+            },
+          });
+
+          ledgerTimeline
+            .to(fieldNotes, {
               autoAlpha: 1,
               y: 0,
               scale: 1,
-              duration: 0.82,
-              stagger: 0.055,
+              duration: 0.72,
               ease: "power3.out",
-            },
-            0.2
-          );
-
-        if (videoFrame) {
-          gsap.fromTo(
-            videoFrame,
-            {
-              y: 44,
-              rotateX: 6,
-              rotateY: -2,
-              scale: 0.965,
-            },
-            {
-              y: -18,
-              rotateX: 0,
-              rotateY: 0,
-              scale: 1,
-              ease: "none",
-              scrollTrigger: {
-                trigger: proof,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 0.8,
-                invalidateOnRefresh: true,
+            })
+            .to(
+              ledgerRows,
+              {
+                autoAlpha: 1,
+                y: 0,
+                duration: 0.68,
+                stagger: 0.075,
+                ease: "power3.out",
               },
-            }
-          );
+              0.1
+            )
+            .to(
+              ledgerValues,
+              {
+                autoAlpha: 1,
+                y: 0,
+                clipPath: "inset(0% 0% 0% 0%)",
+                duration: 0.58,
+                stagger: 0.045,
+                ease: "power3.out",
+              },
+              0.28
+            );
+        }
+
+        if (testimonials.length) {
+          gsap.to(testimonials, {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.72,
+            stagger: 0.08,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: testimonials[0],
+              start: "top 84%",
+              once: true,
+            },
+          });
         }
       };
 
