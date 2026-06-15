@@ -78,6 +78,7 @@ const IOR_ZOOM_SHARE_URL =
 const MARGIN_CRUMBLE_WEBM = "/assets/proof/margin-crumble.webm";
 const MARGIN_CRUMBLE_MP4 = "/assets/proof/margin-crumble.mp4";
 const MARGIN_CRUMBLE_POSTER = "/assets/proof/margin-crumble-poster.webp";
+const IOR_REPLAY_THUMB = "/assets/proof/ior-replay-thumb.png";
 const CITY_INTERLUDE_VIDEO =
   "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260403_050628_c4e32401-fab4-4a27-b7a8-6e9291cd5959.mp4";
 
