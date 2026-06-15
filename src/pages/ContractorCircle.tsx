@@ -46,6 +46,7 @@ import "./ContractorCircle.css";
 type CloudflareStreamPlayer = {
   autoplay: boolean;
   controls: boolean;
+  currentTime: number;
   loop: boolean;
   muted: boolean;
   paused: boolean;
@@ -65,7 +66,7 @@ const CHECKOUT_URL =
 const CLOUDFLARE_STREAM_ID = "5867cd561f133a4299bfb06e9e2f01d1";
 const CLOUDFLARE_STREAM_SCRIPT_SRC =
   "https://embed.cloudflarestream.com/embed/sdk.latest.js";
-const CLOUDFLARE_STREAM_IFRAME_SRC = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}?autoplay=true&muted=true&loop=true&controls=false&preload=auto&letterboxColor=transparent`;
+const CLOUDFLARE_STREAM_IFRAME_SRC = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}?autoplay=false&muted=true&loop=true&controls=false&preload=auto&letterboxColor=transparent`;
 const HERO_VIDEO_POSTER = "/manus-storage/alp-hero-poster_167efce2.webp";
 const AOS_URL = "https://alpos.alpcontractorcircle.com";
 const HANDBOOK_URL = "https://alphandbook.com";
@@ -877,6 +878,7 @@ export default function ContractorCircle() {
   const heroRevealStartedRef = useRef(false);
   const heroIntroCompleteRef = useRef(false);
   const heroPlaybackSeenRef = useRef(false);
+  const heroPlaybackRequestedRef = useRef(false);
   const [muted, setMuted] = useState(true);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
