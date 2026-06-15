@@ -6159,6 +6159,8 @@ body:has(.cc-page) {
   z-index: 2;
 }
 
+.cc-fan-card:hover .cc-fan-card-learn,
+.cc-fan-card:focus-within .cc-fan-card-learn,
 .cc-fan-card-learn:hover,
 .cc-fan-card-learn:focus-visible {
   color: var(--cc-orange, #f08236);
