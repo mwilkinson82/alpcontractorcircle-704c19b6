@@ -974,7 +974,9 @@ export default function ContractorCircle() {
   const ensureHeroVideoPlayback = useCallback((allowMutedFallback = false) => {
     const player = streamPlayerRef.current;
     if (!player) return;
+    if (heroPlaybackRequestedRef.current && !player.paused) return;
 
+    heroPlaybackRequestedRef.current = true;
     void player.play().catch(() => {
       if (!allowMutedFallback) return;
       player.muted = true;
@@ -1052,11 +1054,12 @@ export default function ContractorCircle() {
     player.controls = false;
     player.loop = true;
     player.muted = mutedPreferenceRef.current;
+    player.currentTime = 0;
     setMuted(mutedPreferenceRef.current);
     player.addEventListener?.("canplay", playWhenReady);
     player.addEventListener?.("playing", markReady);
     player.addEventListener?.("error", markUnavailable);
-    const cancelPlaybackRetries = scheduleHeroVideoPlayback();
+    const cancelPlaybackRetries = () => undefined;
 
     return () => {
       cancelPlaybackRetries();
@@ -1094,7 +1097,7 @@ export default function ContractorCircle() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const timers = [0, 120, 360, 840, 1440, 2400].map(delay =>
+    const timers = [0, 220, 720].map(delay =>
       window.setTimeout(() => ensureHeroVideoPlayback(true), delay)
     );
     let revealTimer = 0;
