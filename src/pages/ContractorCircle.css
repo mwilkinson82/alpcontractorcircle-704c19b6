@@ -6140,9 +6140,13 @@ body:has(.cc-page) {
 }
 
 .cc-fan-card-learn {
+  appearance: none;
+  background: none;
+  border: 0;
   margin-top: auto;
-  padding-top: 14px;
+  padding: 8px 0 4px;
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   gap: 8px;
   color: #1f1f1f;
@@ -6151,7 +6155,19 @@ body:has(.cc-page) {
   font-size: 0.95rem;
   font-weight: 500;
   letter-spacing: 0;
-  transition: gap 0.25s ease;
+  cursor: pointer;
+  text-decoration: none;
+  transition: gap 0.25s ease, color 0.2s ease;
+  position: relative;
+  z-index: 2;
+}
+
+.cc-fan-card-learn:hover,
+.cc-fan-card-learn:focus-visible {
+  color: var(--cc-orange, #f08236);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  outline: none;
 }
 
 .cc-fan-card-learn-arrow {
