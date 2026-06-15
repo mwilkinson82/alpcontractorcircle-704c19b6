@@ -1302,6 +1302,10 @@ export default function ContractorCircle() {
           >
             <source src={CITY_INTERLUDE_VIDEO} type="video/mp4" />
           </video>
+          <div className="cc-city-interlude-copy" aria-hidden="true">
+            <h2>The company is the project.</h2>
+            <p>Build the machine behind the work.</p>
+          </div>
         </section>
 
         <section
@@ -1421,40 +1425,67 @@ export default function ContractorCircle() {
                 aria-label="Member outcomes field evidence ledger"
               >
                 <div className="cc-proof-field-notes-head">
-                  <span>Member outcomes</span>
+                  <span>MEMBER OUTCOMES</span>
                   <p>
                     Field evidence from owners who moved pressure into a
                     visible operating system.
                   </p>
                 </div>
-                <div
-                  className="cc-proof-ledger"
-                  role="table"
-                  aria-label="Member growth examples"
-                >
-                  <div
-                    className="cc-proof-ledger-row cc-proof-ledger-head"
-                    role="row"
-                  >
-                    <span role="columnheader">Company</span>
-                    <span role="columnheader">Time with ALP</span>
-                    <span role="columnheader">Before</span>
-                    <span role="columnheader">After</span>
-                    <span role="columnheader">Movement</span>
+                <div className="cc-proof-ledger" aria-label="Member growth examples">
+                  <table className="cc-proof-ledger-table">
+                    <colgroup>
+                      <col className="cc-ledger-col-company" />
+                      <col className="cc-ledger-col-time" />
+                      <col className="cc-ledger-col-before" />
+                      <col className="cc-ledger-col-after" />
+                      <col className="cc-ledger-col-movement" />
+                    </colgroup>
+                    <thead>
+                      <tr>
+                        <th scope="col">Company</th>
+                        <th scope="col">Time with ALP</th>
+                        <th scope="col">Before</th>
+                        <th scope="col">After</th>
+                        <th scope="col">Movement</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {memberResults.slice(0, 3).map(result => (
+                        <tr key={result.company}>
+                          <th scope="row">{result.company}</th>
+                          <td>{result.timeline}</td>
+                          <td>{result.before}</td>
+                          <td>{result.after}</td>
+                          <td>{result.multiple}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+
+                  <div className="cc-proof-ledger-cards">
+                    {memberResults.slice(0, 3).map(result => (
+                      <article className="cc-proof-ledger-card" key={result.company}>
+                        <div>
+                          <strong>{result.company}</strong>
+                          <span>{result.timeline}</span>
+                        </div>
+                        <dl>
+                          <div>
+                            <dt>Before</dt>
+                            <dd>{result.before}</dd>
+                          </div>
+                          <div>
+                            <dt>After</dt>
+                            <dd>{result.after}</dd>
+                          </div>
+                          <div>
+                            <dt>Movement</dt>
+                            <dd>{result.multiple}</dd>
+                          </div>
+                        </dl>
+                      </article>
+                    ))}
                   </div>
-                  {memberResults.slice(0, 3).map(result => (
-                    <div
-                      className="cc-proof-ledger-row"
-                      role="row"
-                      key={result.company}
-                    >
-                      <strong role="cell">{result.company}</strong>
-                      <span role="cell">{result.timeline}</span>
-                      <span role="cell">{result.before}</span>
-                      <span role="cell">{result.after}</span>
-                      <em role="cell">{result.multiple}</em>
-                    </div>
-                  ))}
                 </div>
               </div>
 
@@ -1896,6 +1927,54 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         });
       };
 
+      const setupCityInterlude = () => {
+        const city = root.querySelector<HTMLElement>(".cc-city-interlude");
+        if (!city) return;
+        const video = city.querySelector<HTMLElement>(".cc-city-interlude-video");
+        const copy = city.querySelectorAll<HTMLElement>(
+          ".cc-city-interlude-copy h2, .cc-city-interlude-copy p"
+        );
+
+        gsap.set(video, {
+          autoAlpha: 0,
+          scale: 1.04,
+          transformOrigin: "center center",
+        });
+        gsap.set(copy, {
+          autoAlpha: 0,
+          y: 34,
+          filter: "blur(6px)",
+        });
+
+        const timeline = gsap.timeline({
+          scrollTrigger: {
+            trigger: city,
+            start: "top 72%",
+            once: true,
+          },
+        });
+
+        timeline
+          .to(video, {
+            autoAlpha: 1,
+            scale: 1,
+            duration: 1.15,
+            ease: "power3.out",
+          })
+          .to(
+            copy,
+            {
+              autoAlpha: 1,
+              y: 0,
+              filter: "blur(0px)",
+              duration: 0.82,
+              stagger: 0.08,
+              ease: "power3.out",
+            },
+            0.26
+          );
+      };
+
       const setupProofSystem = () => {
         const proof = root.querySelector<HTMLElement>(".cc-proof-system");
         if (!proof) return;
@@ -1904,8 +1983,6 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
           proof.querySelectorAll<HTMLElement>(".cc-proof-motion");
         const videoFrame =
           proof.querySelector<HTMLElement>(".cc-margin-crumble-stage");
-        const resultRail =
-          proof.querySelector<HTMLElement>(".cc-proof-ledger");
 
         gsap.set(lines, {
           autoAlpha: 0,
@@ -1968,24 +2045,6 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
                 start: "top bottom",
                 end: "bottom top",
                 scrub: 0.8,
-                invalidateOnRefresh: true,
-              },
-            }
-          );
-        }
-
-        if (resultRail && !isCompact) {
-          gsap.fromTo(
-            resultRail,
-            { xPercent: 2.2 },
-            {
-              xPercent: -1.8,
-              ease: "none",
-              scrollTrigger: {
-                trigger: resultRail,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 0.9,
                 invalidateOnRefresh: true,
               },
             }
@@ -2150,6 +2209,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
         }
 
         setupMemoryFill();
+        setupCityInterlude();
         setupProofSystem();
         setupLowerEditorial();
         const assetDeckCleanup = setupAssetDeck();
@@ -2553,6 +2613,7 @@ function useContractorCircleMotion(rootRef: RefObject<HTMLDivElement | null>) {
       };
 
       setupMemoryFill();
+      setupCityInterlude();
       setupProofSystem();
       setupLowerEditorial();
       const assetDeckCleanup = setupAssetDeck();

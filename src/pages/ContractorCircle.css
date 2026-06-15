@@ -11448,3 +11448,316 @@ body:has(.cc-page) {
     font-size: 1.16rem;
   }
 }
+
+/* Surgical cleanup pass: city reveal, margin media frame, stable member ledger. */
+.cc-city-interlude {
+  min-height: 720px;
+  isolation: isolate;
+}
+
+.cc-city-interlude::after {
+  content: "";
+  position: absolute;
+  left: max(0px, calc((100vw - 1500px) / 2));
+  bottom: 0;
+  z-index: 1;
+  width: min(760px, 78vw);
+  height: min(44svh, 420px);
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse at 0% 100%,
+      rgb(0 0 0 / 0.46) 0%,
+      rgb(0 0 0 / 0.3) 32%,
+      rgb(0 0 0 / 0.12) 58%,
+      transparent 74%
+    );
+}
+
+.cc-city-interlude-video {
+  transform-origin: center center;
+  will-change: opacity, transform;
+}
+
+.cc-city-interlude-copy {
+  position: absolute;
+  left: clamp(24px, 7vw, 96px);
+  bottom: clamp(48px, 8vh, 96px);
+  z-index: 2;
+  max-width: 760px;
+  color: #fffaf0;
+  pointer-events: none;
+}
+
+.cc-city-interlude-copy h2,
+.cc-city-interlude-copy p {
+  margin: 0;
+  color: inherit;
+  text-shadow: 0 2px 24px rgb(0 0 0 / 0.35);
+}
+
+.cc-city-interlude-copy h2 {
+  max-width: 760px;
+  font-size: clamp(4.8rem, 8vw, 11.2rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: 0;
+}
+
+.cc-city-interlude-copy p {
+  max-width: 520px;
+  margin-top: clamp(14px, 1.6vw, 22px);
+  font-size: clamp(1.05rem, 1.7vw, 1.55rem);
+  font-weight: 600;
+  line-height: 1.18;
+  color: rgb(255 250 240 / 0.82);
+}
+
+.cc-margin-crumble-stage {
+  overflow: visible !important;
+}
+
+.cc-margin-crumble-stage .cc-margin-crumble-media {
+  overflow: hidden !important;
+  aspect-ratio: 16 / 9;
+  border: 1px solid rgb(20 20 20 / 0.12);
+  border-radius: clamp(18px, 2vw, 32px);
+  background: #111;
+  box-shadow: 0 28px 82px rgb(21 21 21 / 0.12);
+}
+
+.cc-margin-crumble-stage .cc-margin-crumble-video,
+.cc-margin-crumble-stage .cc-margin-crumble-poster {
+  border-radius: 0;
+  background: #111;
+  object-fit: contain;
+}
+
+.cc-proof-field-notes {
+  display: grid !important;
+  grid-template-columns: minmax(230px, 0.28fr) minmax(0, 1fr) !important;
+  gap: clamp(28px, 5vw, 84px) !important;
+  align-items: start !important;
+}
+
+.cc-proof-field-notes-head {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  align-content: start;
+  gap: 14px;
+  border-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.cc-proof-field-notes-head span {
+  color: var(--cc-orange-dark);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+.cc-proof-field-notes-head p {
+  max-width: 320px;
+  color: rgb(21 21 21 / 0.58);
+  font-size: clamp(1rem, 1.12vw, 1.2rem);
+  line-height: 1.42;
+}
+
+.cc-proof-field-notes .cc-proof-ledger {
+  display: block !important;
+  width: 100%;
+  height: auto;
+  min-width: 0;
+  overflow: visible;
+  transform: none !important;
+}
+
+.cc-proof-ledger-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  color: var(--cc-ink);
+}
+
+.cc-ledger-col-company {
+  width: 30%;
+}
+
+.cc-ledger-col-time {
+  width: 25%;
+}
+
+.cc-ledger-col-before,
+.cc-ledger-col-after {
+  width: 15%;
+}
+
+.cc-ledger-col-movement {
+  width: 15%;
+}
+
+.cc-proof-ledger-table th,
+.cc-proof-ledger-table td {
+  border-bottom: 1px solid rgb(21 21 21 / 0.12);
+  padding: clamp(18px, 2.1vw, 30px) clamp(12px, 1.6vw, 24px);
+  text-align: left;
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.cc-proof-ledger-table thead th {
+  color: rgb(168 68 37 / 0.78);
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.cc-proof-ledger-table tbody th {
+  color: var(--cc-ink);
+  font-size: clamp(1.08rem, 1.38vw, 1.44rem);
+  font-weight: 800;
+  line-height: 1.08;
+}
+
+.cc-proof-ledger-table tbody td {
+  color: rgb(21 21 21 / 0.64);
+  font-size: clamp(0.98rem, 1.08vw, 1.08rem);
+  font-weight: 600;
+  line-height: 1.22;
+}
+
+.cc-proof-ledger-table tbody td:nth-child(3),
+.cc-proof-ledger-table tbody td:nth-child(4),
+.cc-proof-ledger-table tbody td:nth-child(5) {
+  color: var(--cc-ink);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.cc-proof-ledger-table tbody tr:last-child th,
+.cc-proof-ledger-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.cc-proof-ledger-cards {
+  display: none;
+}
+
+.cc-proof-ledger-row,
+.cc-proof-ledger-head {
+  display: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-city-interlude-video,
+  .cc-city-interlude-copy h2,
+  .cc-city-interlude-copy p {
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+@media (max-width: 980px) {
+  .cc-city-interlude {
+    min-height: 80svh;
+  }
+
+  .cc-proof-field-notes {
+    grid-template-columns: 1fr !important;
+  }
+
+  .cc-proof-field-notes-head p {
+    max-width: 620px;
+  }
+}
+
+@media (max-width: 720px) {
+  .cc-city-interlude {
+    height: 86svh;
+    min-height: 560px;
+  }
+
+  .cc-city-interlude::after {
+    width: 100vw;
+    height: 46svh;
+  }
+
+  .cc-city-interlude-copy {
+    left: 20px;
+    right: 20px;
+    bottom: clamp(34px, 8vh, 72px);
+    max-width: none;
+  }
+
+  .cc-city-interlude-copy h2 {
+    font-size: clamp(4.1rem, 15vw, 6.2rem);
+  }
+
+  .cc-city-interlude-copy p {
+    font-size: 1.04rem;
+  }
+
+  .cc-proof-ledger-table {
+    display: none;
+  }
+
+  .cc-proof-ledger-cards {
+    display: grid;
+    gap: 12px;
+  }
+
+  .cc-proof-ledger-card {
+    display: grid;
+    gap: 18px;
+    border-top: 1px solid rgb(21 21 21 / 0.12);
+    padding: 18px 0;
+  }
+
+  .cc-proof-ledger-card:first-child {
+    border-top-color: rgb(168 68 37 / 0.45);
+  }
+
+  .cc-proof-ledger-card strong {
+    display: block;
+    color: var(--cc-ink);
+    font-size: 1.18rem;
+    font-weight: 800;
+    line-height: 1.05;
+  }
+
+  .cc-proof-ledger-card span {
+    display: block;
+    margin-top: 6px;
+    color: rgb(21 21 21 / 0.58);
+    font-size: 0.95rem;
+    line-height: 1.2;
+  }
+
+  .cc-proof-ledger-card dl {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    margin: 0;
+  }
+
+  .cc-proof-ledger-card dt {
+    margin: 0 0 6px;
+    color: rgb(168 68 37 / 0.76);
+    font-size: 0.62rem;
+    font-weight: 800;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .cc-proof-ledger-card dd {
+    margin: 0;
+    color: var(--cc-ink);
+    font-size: 1.08rem;
+    font-weight: 800;
+    line-height: 1;
+  }
+}
