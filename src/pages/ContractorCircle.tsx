@@ -46,6 +46,7 @@ import "./ContractorCircle.css";
 type CloudflareStreamPlayer = {
   autoplay: boolean;
   controls: boolean;
+  currentTime: number;
   loop: boolean;
   muted: boolean;
   paused: boolean;
@@ -65,7 +66,7 @@ const CHECKOUT_URL =
 const CLOUDFLARE_STREAM_ID = "5867cd561f133a4299bfb06e9e2f01d1";
 const CLOUDFLARE_STREAM_SCRIPT_SRC =
   "https://embed.cloudflarestream.com/embed/sdk.latest.js";
-const CLOUDFLARE_STREAM_IFRAME_SRC = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}?autoplay=true&muted=true&loop=true&controls=false&preload=auto&letterboxColor=transparent`;
+const CLOUDFLARE_STREAM_IFRAME_SRC = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}?muted=true&controls=false&preload=auto&letterboxColor=transparent`;
 const HERO_VIDEO_POSTER = "/manus-storage/alp-hero-poster_167efce2.webp";
 const AOS_URL = "https://alpos.alpcontractorcircle.com";
 const HANDBOOK_URL = "https://alphandbook.com";
@@ -877,6 +878,9 @@ export default function ContractorCircle() {
   const heroRevealStartedRef = useRef(false);
   const heroIntroCompleteRef = useRef(false);
   const heroPlaybackSeenRef = useRef(false);
+  const heroBridgeStartedRef = useRef(false);
+  const heroPlaybackRequestedRef = useRef(false);
+  const heroFrameLoadedRef = useRef(false);
   const [muted, setMuted] = useState(true);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
@@ -966,13 +970,28 @@ export default function ContractorCircle() {
     heroIntroCompleteRef.current = heroIntroComplete;
   }, [heroIntroComplete]);
 
+  useEffect(() => {
+    heroFrameLoadedRef.current = heroFrameLoaded;
+  }, [heroFrameLoaded]);
 
 
 
-  const ensureHeroVideoPlayback = useCallback((allowMutedFallback = false) => {
+
+  const ensureHeroVideoPlayback = useCallback((allowMutedFallback = false, restartFromStart = false) => {
     const player = streamPlayerRef.current;
     if (!player) return;
+    if (!heroBridgeStartedRef.current && !heroIntroCompleteRef.current) return;
+    if (restartFromStart) {
+      try {
+        player.currentTime = 0;
+      } catch {
+        // Cloudflare's iframe player may reject seeking until metadata is ready.
+      }
+      heroPlaybackRequestedRef.current = false;
+    }
+    if (heroPlaybackRequestedRef.current && !player.paused) return;
 
+    heroPlaybackRequestedRef.current = true;
     void player.play().catch(() => {
       if (!allowMutedFallback) return;
       player.muted = true;
@@ -982,14 +1001,15 @@ export default function ContractorCircle() {
   }, []);
 
   const handleHeroIntroBridge = useCallback(() => {
+    heroBridgeStartedRef.current = true;
     setHeroRevealActive(true);
-    ensureHeroVideoPlayback(true);
+    ensureHeroVideoPlayback(true, true);
 
-    if (heroPlaybackSeenRef.current || heroFrameLoaded) {
+    if (heroPlaybackSeenRef.current || heroFrameLoadedRef.current) {
       setVideoUnavailable(false);
       setHeroVideoReady(true);
     }
-  }, [ensureHeroVideoPlayback, heroFrameLoaded]);
+  }, [ensureHeroVideoPlayback]);
 
   const scheduleHeroVideoPlayback = useCallback(() => {
     if (typeof window === "undefined") return () => undefined;
@@ -1046,15 +1066,20 @@ export default function ContractorCircle() {
       setHeroVideoReady(true);
     };
 
-    player.autoplay = true;
+    player.autoplay = false;
     player.controls = false;
-    player.loop = true;
+    player.loop = false;
     player.muted = mutedPreferenceRef.current;
+    try {
+      player.currentTime = 0;
+    } catch {
+      // Cloudflare's iframe player may reject seeking until metadata is ready.
+    }
     setMuted(mutedPreferenceRef.current);
     player.addEventListener?.("canplay", playWhenReady);
     player.addEventListener?.("playing", markReady);
     player.addEventListener?.("error", markUnavailable);
-    const cancelPlaybackRetries = scheduleHeroVideoPlayback();
+    const cancelPlaybackRetries = () => undefined;
 
     return () => {
       cancelPlaybackRetries();
@@ -1092,7 +1117,7 @@ export default function ContractorCircle() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const timers = [0, 120, 360, 840, 1440, 2400].map(delay =>
+    const timers = [0, 220, 720].map(delay =>
       window.setTimeout(() => ensureHeroVideoPlayback(true), delay)
     );
     let revealTimer = 0;
