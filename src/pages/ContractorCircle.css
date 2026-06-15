@@ -12695,7 +12695,7 @@ body:has(.cc-page) {
 
   .cc-fan-card:hover .cc-fan-card-hit,
   .cc-fan-card:focus-within .cc-fan-card-hit {
-    transform: translateY(-14px) scale(1.008) !important;
+    transform: none !important;
   }
 
   .cc-fan-card-media {
