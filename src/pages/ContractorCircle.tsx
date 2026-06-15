@@ -1291,13 +1291,19 @@ export default function ContractorCircle() {
                 </div>
               </div>
               <div className="cc-ior-video-frame">
-                <iframe
-                  title="Marshall Wilkinson IOR field session"
-                  src={IOR_ZOOM_EMBED_URL}
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                  allowFullScreen
-                  loading="lazy"
-                />
+                <div className="cc-ior-frame-bar" aria-hidden="true">
+                  <span>IOR replay</span>
+                  <span>Profit / Risk method</span>
+                </div>
+                <div className="cc-ior-video-window">
+                  <iframe
+                    title="Marshall Wilkinson IOR field session"
+                    src={IOR_ZOOM_EMBED_URL}
+                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
               </div>
             </div>
 
@@ -1333,13 +1339,19 @@ export default function ContractorCircle() {
                   className="cc-proof-result-rail"
                   aria-label="Member growth examples"
                 >
-                  {memberResults.slice(0, 3).map(result => (
+                  {memberResults.slice(0, 3).map((result, index) => (
                     <article className="cc-proof-result" key={result.company}>
-                      <div>
+                      <div className="cc-proof-result-company">
+                        <span>
+                          Field evidence {String(index + 1).padStart(2, "0")}
+                        </span>
                         <strong>{result.company}</strong>
                         <span>{result.timeline}</span>
                       </div>
-                      <em>{result.multiple}</em>
+                      <div className="cc-proof-result-multiple">
+                        <em>{result.multiple}</em>
+                        <span>reported movement</span>
+                      </div>
                       <dl>
                         <div>
                           <dt>Before</dt>
@@ -1359,12 +1371,12 @@ export default function ContractorCircle() {
                 className="cc-proof-testimonial-row"
                 aria-label="Member testimonials"
               >
-                {testimonials.map(testimonial => (
+                {testimonials.slice(0, 2).map((testimonial, index) => (
                   <figure
                     className="cc-proof-testimonial cc-proof-motion"
                     key={testimonial.name}
                   >
-                    <div aria-hidden="true">Member read</div>
+                    <div aria-hidden="true">Field note {String(index + 1).padStart(2, "0")}</div>
                     <blockquote>"{testimonial.quote}"</blockquote>
                     <figcaption>{testimonial.name}</figcaption>
                   </figure>
@@ -1452,23 +1464,26 @@ export default function ContractorCircle() {
               </p>
             </div>
 
-            <ol
-              className="cc-onboarding-steps cc-onboarding-timeline"
-              aria-label="What happens after joining"
-            >
-              {onboardingSteps.map(step => (
-                <li
-                  className="cc-command-step cc-lower-motion"
-                  key={step.number}
-                >
-                  <span>{step.number}</span>
-                  <div>
-                    <h3>{step.title}</h3>
-                    <p>{step.body}</p>
-                  </div>
-                </li>
-              ))}
-            </ol>
+            <div className="cc-onboarding-command-panel cc-lower-motion">
+              <div className="cc-command-panel-head" aria-hidden="true">
+                <span>Operating room</span>
+                <span>First moves after checkout</span>
+              </div>
+              <ol
+                className="cc-onboarding-steps cc-onboarding-timeline"
+                aria-label="What happens after joining"
+              >
+                {onboardingSteps.map(step => (
+                  <li className="cc-command-step" key={step.number}>
+                    <span>{step.number}</span>
+                    <div>
+                      <h3>{step.title}</h3>
+                      <p>{step.body}</p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
         </section>
 
@@ -1477,6 +1492,10 @@ export default function ContractorCircle() {
           aria-label="Founding membership offer"
         >
           <div className="cc-membership-slab cc-lower-motion">
+            <div className="cc-membership-command-head" aria-hidden="true">
+              <span>Circle Access</span>
+              <span>Founding seat</span>
+            </div>
             <div className="cc-membership-price">
               <p className="cc-eyebrow" data-caption>
                 Founding Membership
