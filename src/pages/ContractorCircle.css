@@ -10151,7 +10151,11 @@ body:has(.cc-page) {
   border-radius: 0;
   background: transparent;
   color: rgb(21 21 21 / 0.66);
-  padding: 14px 18px 12px 0;
+  padding: 14px 12px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .cc-ior-tags span:last-child {
