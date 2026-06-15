@@ -73,6 +73,8 @@ const PORTAL_LOGIN_URL = "https://app.alpcontractorcircle.com/login";
 const WHY_AOS_URL = "https://why.alpcontractorcircle.com";
 const IOR_ZOOM_EMBED_URL =
   "https://us06web.zoom.us/clips/embed/Xz5pycRtQXaogCx_FRwLbw";
+const IOR_ZOOM_SHARE_URL =
+  "https://us06web.zoom.us/clips/share/Xz5pycRtQXaogCx_FRwLbw";
 const MARGIN_CRUMBLE_WEBM = "/assets/proof/margin-crumble.webm";
 const MARGIN_CRUMBLE_MP4 = "/assets/proof/margin-crumble.mp4";
 const MARGIN_CRUMBLE_POSTER = "/assets/proof/margin-crumble-poster.webp";
@@ -868,6 +870,7 @@ export default function ContractorCircle() {
   const rootRef = useRef<HTMLDivElement>(null);
   const streamFrameRef = useRef<HTMLIFrameElement>(null);
   const streamPlayerRef = useRef<CloudflareStreamPlayer | null>(null);
+  const marginVideoRef = useRef<HTMLVideoElement>(null);
   
   const mutedPreferenceRef = useRef(true);
   const heroRevealStartedRef = useRef(false);
@@ -888,6 +891,70 @@ export default function ContractorCircle() {
 
   const streamRuntimeReady = useCloudflareStreamRuntime();
   useContractorCircleMotion(rootRef);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mobileQuery = window.matchMedia("(max-width: 860px)");
+    const reducedMotionQuery = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    );
+    const video = marginVideoRef.current;
+
+    if (!video || !mobileQuery.matches || reducedMotionQuery.matches) return;
+
+    let retryTimer = 0;
+    const requestPlayback = () => {
+      if (!marginVideoRef.current) return;
+
+      const activeVideo = marginVideoRef.current;
+      activeVideo.muted = true;
+      activeVideo.defaultMuted = true;
+      activeVideo.loop = true;
+      activeVideo.playsInline = true;
+
+      const rect = activeVideo.getBoundingClientRect();
+      const isNearViewport =
+        rect.bottom > -window.innerHeight * 0.3 &&
+        rect.top < window.innerHeight * 1.35;
+
+      if (!isNearViewport) return;
+
+      activeVideo.play().catch(() => {
+        window.clearTimeout(retryTimer);
+        retryTimer = window.setTimeout(() => {
+          activeVideo.play().catch(() => undefined);
+        }, 260);
+      });
+    };
+
+    const observer = new IntersectionObserver(
+      entries => {
+        if (entries.some(entry => entry.isIntersecting)) {
+          requestPlayback();
+        }
+      },
+      { rootMargin: "280px 0px", threshold: 0.08 }
+    );
+
+    observer.observe(video);
+    video.addEventListener("canplay", requestPlayback);
+    video.addEventListener("loadeddata", requestPlayback);
+    window.addEventListener("scroll", requestPlayback, { passive: true });
+    window.addEventListener("touchstart", requestPlayback, { passive: true });
+    window.addEventListener("pageshow", requestPlayback);
+    requestPlayback();
+
+    return () => {
+      window.clearTimeout(retryTimer);
+      observer.disconnect();
+      video.removeEventListener("canplay", requestPlayback);
+      video.removeEventListener("loadeddata", requestPlayback);
+      window.removeEventListener("scroll", requestPlayback);
+      window.removeEventListener("touchstart", requestPlayback);
+      window.removeEventListener("pageshow", requestPlayback);
+    };
+  }, []);
 
   const handleHeroIntroComplete = useCallback(() => {
     setHeroIntroComplete(true);
@@ -1417,12 +1484,13 @@ export default function ContractorCircle() {
                     aria-label="The word Margin built from cinderblocks crumbling apart"
                   >
                     <video
+                      ref={marginVideoRef}
                       className="cc-margin-crumble-video"
                       autoPlay
                       muted
                       loop
                       playsInline
-                      preload="metadata"
+                      preload="auto"
                       poster={MARGIN_CRUMBLE_POSTER}
                       aria-hidden="true"
                     >
@@ -1452,11 +1520,31 @@ export default function ContractorCircle() {
                 <iframe
                   title="Marshall Wilkinson IOR field session"
                   src={IOR_ZOOM_EMBED_URL}
-                  allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                  allow="fullscreen; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                   allowFullScreen
                   loading="lazy"
+                  referrerPolicy="strict-origin-when-cross-origin"
                 />
               </div>
+              <a
+                href={IOR_ZOOM_SHARE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="cc-ior-replay-mobile-poster"
+                aria-label="Watch the IOR field session replay"
+              >
+                <img
+                  src={MARGIN_CRUMBLE_POSTER}
+                  alt=""
+                  loading="lazy"
+                  aria-hidden="true"
+                />
+                <span>
+                  <small>Field session replay</small>
+                  <strong>Watch the IOR margin split</strong>
+                </span>
+                <Play aria-hidden="true" />
+              </a>
               <button
                 type="button"
                 className="cc-ior-replay-mobile-trigger"
@@ -1480,13 +1568,14 @@ export default function ContractorCircle() {
                   <iframe
                     title="Marshall Wilkinson IOR field session"
                     src={IOR_ZOOM_EMBED_URL}
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                    allow="fullscreen; autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
                     allowFullScreen
-                    loading="lazy"
+                    loading="eager"
+                    referrerPolicy="strict-origin-when-cross-origin"
                   />
                 </div>
                 <div className="cc-ior-lightbox-actions">
-                  <a href={IOR_ZOOM_EMBED_URL} target="_blank" rel="noreferrer">
+                  <a href={IOR_ZOOM_SHARE_URL} target="_blank" rel="noreferrer">
                     Open Zoom Clip
                   </a>
                 </div>

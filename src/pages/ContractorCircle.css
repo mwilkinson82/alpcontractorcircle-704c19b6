@@ -12814,3 +12814,260 @@ body:has(.cc-page) {
     justify-content: center !important;
   }
 }
+
+.cc-ior-replay-mobile-poster {
+  display: none;
+}
+
+/* ============================================================
+   PHONE-ONLY FINAL POLISH
+   Keep desktop/tablet untouched. These overrides repair phone
+   composition after the latest Lovable edits.
+   ============================================================ */
+@media (max-width: 640px) {
+  .cc-page {
+    padding-bottom: 0 !important;
+    background: #090909;
+  }
+
+  .cc-page main {
+    background: #f3efea;
+  }
+
+  .cc-intro-profit-column strong {
+    display: block !important;
+    margin-top: clamp(58px, 7.4svh, 82px) !important;
+    margin-bottom: clamp(12px, 3.4vw, 18px) !important;
+    font-size: clamp(2.06rem, 10.2vw, 2.72rem) !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  .cc-intro-profit-column small {
+    display: block !important;
+    max-width: 9.4rem !important;
+    margin-top: 0 !important;
+    color: rgb(13 13 12 / 0.66) !important;
+    font-size: clamp(0.62rem, 2.7vw, 0.78rem) !important;
+    font-weight: 800 !important;
+    line-height: 1.04 !important;
+  }
+
+  .cc-intro-chart-column {
+    gap: 0 !important;
+  }
+
+  .cc-hero-copy {
+    padding: clamp(86px, 23vw, 132px) 18px clamp(72px, 18vw, 106px) !important;
+  }
+
+  .cc-hero-copy h2 {
+    font-size: clamp(4.05rem, 15.8vw, 5.65rem) !important;
+    line-height: 0.88 !important;
+    letter-spacing: 0 !important;
+    text-wrap: balance;
+  }
+
+  .cc-hero-copy .cc-subhead {
+    max-width: 23rem;
+    margin-inline: auto;
+  }
+
+  .cc-pillars-section {
+    padding-top: clamp(62px, 16vw, 88px) !important;
+    padding-bottom: clamp(42px, 11vw, 68px) !important;
+    overflow: hidden !important;
+  }
+
+  .cc-pillars-inner {
+    gap: clamp(16px, 5vw, 26px) !important;
+  }
+
+  .cc-pillars-copy {
+    position: relative;
+    z-index: 3;
+  }
+
+  .cc-pillars-copy h2 {
+    margin-bottom: clamp(10px, 3vw, 18px) !important;
+  }
+
+  .cc-fan-stage {
+    height: clamp(650px, 158vw, 760px) !important;
+    min-height: 650px !important;
+    overflow: hidden !important;
+    padding-top: 0 !important;
+  }
+
+  .cc-fan-track {
+    --fan-circle-size: 2260px;
+    --fan-radius: 1130px;
+    top: clamp(20px, 5.5vw, 34px) !important;
+    width: var(--fan-circle-size) !important;
+    height: var(--fan-circle-size) !important;
+  }
+
+  .cc-fan-card {
+    width: clamp(252px, 70vw, 304px) !important;
+    height: clamp(426px, 111vw, 506px) !important;
+    transform: translateX(-50%) rotate(calc(var(--fan-slot) * 18deg)) !important;
+    transform-origin: 50% var(--fan-radius) !important;
+  }
+
+  .cc-fan-card-media {
+    height: clamp(154px, 39vw, 184px) !important;
+    margin: 14px !important;
+  }
+
+  .cc-fan-card-body {
+    padding: 0 18px 20px !important;
+  }
+
+  .cc-fan-controls {
+    bottom: clamp(38px, 9vw, 58px) !important;
+  }
+
+  .cc-fan-arrow {
+    width: 58px !important;
+    height: 58px !important;
+  }
+
+  .cc-margin-crumble-stage .cc-margin-crumble-media {
+    aspect-ratio: 16 / 9 !important;
+    overflow: hidden !important;
+  }
+
+  .cc-margin-crumble-stage .cc-margin-crumble-video {
+    display: block !important;
+    object-fit: cover !important;
+  }
+
+  .cc-margin-crumble-stage .cc-margin-crumble-poster {
+    display: none !important;
+  }
+
+  .cc-ior-replay-card {
+    gap: 14px !important;
+    padding-top: 18px !important;
+    border-top-color: rgb(21 21 21 / 0.14) !important;
+  }
+
+  .cc-ior-replay-copy p {
+    display: none !important;
+  }
+
+  .cc-ior-replay-mobile-poster {
+    position: relative;
+    display: grid !important;
+    min-height: clamp(230px, 58vw, 280px);
+    width: 100%;
+    overflow: hidden;
+    place-items: end start;
+    border: 1px solid rgb(21 21 21 / 0.16);
+    border-radius: 22px;
+    background: #0b0b0a;
+    color: #fffaf0;
+    cursor: pointer;
+    isolation: isolate;
+    padding: 20px;
+    text-align: left;
+    text-decoration: none;
+    box-shadow: 0 22px 64px rgb(21 21 21 / 0.14);
+  }
+
+  .cc-ior-replay-mobile-poster::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(180deg, transparent 24%, rgb(0 0 0 / 0.72) 100%),
+      radial-gradient(circle at 18% 18%, rgb(216 119 81 / 0.28), transparent 38%);
+  }
+
+  .cc-ior-replay-mobile-poster img {
+    position: absolute;
+    z-index: -2;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.74;
+  }
+
+  .cc-ior-replay-mobile-poster span {
+    display: grid;
+    gap: 7px;
+    max-width: 15rem;
+  }
+
+  .cc-ior-replay-mobile-poster small {
+    color: rgb(216 119 81 / 0.96);
+    font-size: 0.68rem;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .cc-ior-replay-mobile-poster strong {
+    color: #fffaf0;
+    font-family: var(--cc-font-display);
+    font-size: clamp(1.58rem, 7.2vw, 2.15rem);
+    font-weight: 700;
+    line-height: 0.96;
+  }
+
+  .cc-ior-replay-mobile-poster svg {
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    width: 42px;
+    height: 42px;
+    padding: 11px;
+    border: 1px solid rgb(255 250 240 / 0.24);
+    border-radius: 999px;
+    background: rgb(255 250 240 / 0.1);
+  }
+
+  .cc-ior-replay-mobile-trigger {
+    display: none !important;
+  }
+
+  .cc-ior-lightbox {
+    width: calc(100vw - 24px) !important;
+    max-height: min(72svh, 580px) !important;
+  }
+
+  .cc-ior-lightbox-frame {
+    min-height: clamp(218px, 56vw, 292px) !important;
+  }
+
+  .cc-mega-close {
+    padding-bottom: 0 !important;
+  }
+
+  .cc-footer {
+    padding: 24px 18px calc(env(safe-area-inset-bottom, 0px) + 38px) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .cc-intro-profit-column strong {
+    font-size: clamp(1.94rem, 9.8vw, 2.28rem) !important;
+  }
+
+  .cc-intro-profit-column small {
+    max-width: 8.6rem !important;
+    font-size: clamp(0.58rem, 2.55vw, 0.68rem) !important;
+  }
+
+  .cc-fan-card {
+    width: clamp(244px, 69vw, 284px) !important;
+    height: clamp(410px, 108vw, 474px) !important;
+  }
+
+  .cc-fan-track {
+    --fan-circle-size: 2140px;
+    --fan-radius: 1070px;
+  }
+}
