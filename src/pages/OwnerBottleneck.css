@@ -234,8 +234,68 @@
   .ob-stage { aspect-ratio: 1 / 1; min-height: 520px; }
 }
 @media (max-width: 560px) {
-  .ob-card { min-width: 140px; max-width: 170px; padding: 10px 12px; }
-  .ob-card p { font-size: 12px; }
-  .ob-card-icon { width: 30px; height: 30px; }
+  .ob-section {
+    overflow: hidden;
+    padding-inline: 20px;
+  }
+
+  .ob-grid,
+  .ob-copy,
+  .ob-stage {
+    width: 100%;
+    max-width: calc(100vw - 40px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .ob-section .ob-headline,
+  .cc-stack-card .ob-section .ob-headline {
+    font-size: clamp(32px, 11vw, 48px) !important;
+    letter-spacing: 0 !important;
+  }
+
+  .ob-body {
+    font-size: 15px;
+  }
+
+  .ob-stage {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    aspect-ratio: auto;
+    min-height: calc(100vw - 40px);
+    height: auto;
+    margin-bottom: 40px;
+  }
+
+  .ob-svg,
+  .ob-hub {
+    display: none !important;
+  }
+
+  .ob-card {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    min-width: 0;
+    max-width: none;
+    width: 100%;
+    align-items: flex-start;
+    padding: 12px;
+    gap: 9px;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .ob-card-feature {
+    grid-column: 1 / -1;
+    justify-self: stretch;
+    min-width: 0;
+    max-width: none;
+    padding: 16px;
+  }
+
+  .ob-card p { font-size: 11.5px; line-height: 1.28; }
+  .ob-card-icon { width: 28px; height: 28px; }
   .ob-card-icon svg { width: 15px; height: 15px; }
 }

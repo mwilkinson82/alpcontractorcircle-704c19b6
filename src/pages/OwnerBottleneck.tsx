@@ -275,6 +275,7 @@ export default function OwnerBottleneck() {
             <div
               key={n.id}
               className="ob-card"
+              data-node-id={n.id}
               style={{ left: `${n.x}%`, top: `${n.y}%` }}
             >
               <span className="ob-card-icon" style={{ background: n.tint, color: n.dot }}>
@@ -291,6 +292,7 @@ export default function OwnerBottleneck() {
           {/* Bottom highlighted card */}
           <div
             className="ob-card ob-card-feature"
+            data-node-id="team-process"
             style={{ left: `${BOTTOM.x}%`, top: `${BOTTOM.y}%` }}
           >
             <span className="ob-card-icon ob-card-icon-feature" style={{ background: BOTTOM.tint, color: BOTTOM.dot }}>
