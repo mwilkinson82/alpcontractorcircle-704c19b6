@@ -881,6 +881,7 @@ export default function ContractorCircle() {
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
   const [heroVideoReady, setHeroVideoReady] = useState(false);
+  const [heroVideoPlaying, setHeroVideoPlaying] = useState(false);
   const [heroIntroComplete, setHeroIntroComplete] = useState(() => {
     if (typeof window === "undefined") return true;
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
