@@ -725,16 +725,9 @@ function PillarsSection() {
                     <div className="cc-fan-card-body">
                       <h3>{item.headlineLines.join(" ")}</h3>
                       <p className="cc-fan-card-body-copy">{item.body}</p>
-                      <button
-                        type="button"
-                        className="cc-fan-card-learn"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          openCard();
-                        }}
-                      >
+                      <span className="cc-fan-card-learn">
                         Learn More <span className="cc-fan-card-learn-arrow">→</span>
-                      </button>
+                      </span>
                     </div>
                   </div>
                 </div>

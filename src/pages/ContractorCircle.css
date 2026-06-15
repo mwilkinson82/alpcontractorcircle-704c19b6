@@ -6140,9 +6140,6 @@ body:has(.cc-page) {
 }
 
 .cc-fan-card-learn {
-  appearance: none;
-  background: none;
-  border: 0;
   margin-top: auto;
   padding: 8px 0 4px;
   display: inline-flex;
@@ -6162,6 +6159,8 @@ body:has(.cc-page) {
   z-index: 2;
 }
 
+.cc-fan-card:hover .cc-fan-card-learn,
+.cc-fan-card:focus-within .cc-fan-card-learn,
 .cc-fan-card-learn:hover,
 .cc-fan-card-learn:focus-visible {
   color: var(--cc-orange, #f08236);
@@ -6881,6 +6880,7 @@ body:has(.cc-page) {
   padding-top: 8px;
   padding-bottom: 6px;
   cursor: pointer;
+  pointer-events: none;
   position: relative;
   z-index: 2;
 }
