@@ -13110,17 +13110,19 @@ body:has(.cc-page) {
 
   .cc-intro-profit-column strong {
     margin: clamp(28px, 4.6svh, 44px) 0 6px !important;
-    font-size: clamp(1.88rem, 9.4vw, 2.5rem) !important;
+    font-size: clamp(1.3rem, 6.6vw, 1.75rem) !important;
     line-height: 1 !important;
     white-space: nowrap !important;
+    text-align: center !important;
   }
 
   .cc-intro-profit-column small {
     display: block !important;
-    max-width: 9.4rem !important;
-    margin: 0 !important;
-    font-size: clamp(0.58rem, 2.55vw, 0.7rem) !important;
-    line-height: 1.1 !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    font-size: clamp(0.54rem, 2.35vw, 0.66rem) !important;
+    line-height: 1.15 !important;
+    text-align: center !important;
   }
 
   .cc-intro-risk-impact {
