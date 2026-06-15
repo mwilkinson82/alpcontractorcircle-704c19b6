@@ -982,7 +982,11 @@ export default function ContractorCircle() {
     if (!player) return;
     if (!heroBridgeStartedRef.current && !heroIntroCompleteRef.current) return;
     if (restartFromStart) {
-      player.currentTime = 0;
+      try {
+        player.currentTime = 0;
+      } catch {
+        // Cloudflare's iframe player may reject seeking until metadata is ready.
+      }
       heroPlaybackRequestedRef.current = false;
     }
     if (heroPlaybackRequestedRef.current && !player.paused) return;
@@ -1066,7 +1070,11 @@ export default function ContractorCircle() {
     player.controls = false;
     player.loop = true;
     player.muted = mutedPreferenceRef.current;
-    player.currentTime = 0;
+    try {
+      player.currentTime = 0;
+    } catch {
+      // Cloudflare's iframe player may reject seeking until metadata is ready.
+    }
     setMuted(mutedPreferenceRef.current);
     player.addEventListener?.("canplay", playWhenReady);
     player.addEventListener?.("playing", markReady);
