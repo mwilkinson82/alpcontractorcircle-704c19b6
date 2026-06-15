@@ -1423,8 +1423,8 @@ export default function ContractorCircle() {
               <div>
                 <b>What changes</b>
                 <small>
-                  Vision, numbers, issues, to-dos, roles, and tools move into a
-                  weekly operating process.
+                  Decisions, numbers, issues, to-dos, roles, and tools move
+                  into a weekly operating process.
                 </small>
               </div>
             </aside>
