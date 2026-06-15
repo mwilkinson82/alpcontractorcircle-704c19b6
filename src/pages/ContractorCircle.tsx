@@ -878,6 +878,7 @@ export default function ContractorCircle() {
   const heroRevealStartedRef = useRef(false);
   const heroIntroCompleteRef = useRef(false);
   const heroPlaybackSeenRef = useRef(false);
+  const heroBridgeStartedRef = useRef(false);
   const heroPlaybackRequestedRef = useRef(false);
   const [muted, setMuted] = useState(true);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
@@ -971,9 +972,14 @@ export default function ContractorCircle() {
 
 
 
-  const ensureHeroVideoPlayback = useCallback((allowMutedFallback = false) => {
+  const ensureHeroVideoPlayback = useCallback((allowMutedFallback = false, restartFromStart = false) => {
     const player = streamPlayerRef.current;
     if (!player) return;
+    if (!heroBridgeStartedRef.current && !heroIntroCompleteRef.current) return;
+    if (restartFromStart) {
+      player.currentTime = 0;
+      heroPlaybackRequestedRef.current = false;
+    }
     if (heroPlaybackRequestedRef.current && !player.paused) return;
 
     heroPlaybackRequestedRef.current = true;
@@ -986,8 +992,9 @@ export default function ContractorCircle() {
   }, []);
 
   const handleHeroIntroBridge = useCallback(() => {
+    heroBridgeStartedRef.current = true;
     setHeroRevealActive(true);
-    ensureHeroVideoPlayback(true);
+    ensureHeroVideoPlayback(true, true);
 
     if (heroPlaybackSeenRef.current || heroFrameLoaded) {
       setVideoUnavailable(false);
@@ -1050,7 +1057,7 @@ export default function ContractorCircle() {
       setHeroVideoReady(true);
     };
 
-    player.autoplay = true;
+    player.autoplay = false;
     player.controls = false;
     player.loop = true;
     player.muted = mutedPreferenceRef.current;
