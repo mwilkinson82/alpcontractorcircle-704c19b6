@@ -698,19 +698,26 @@ function PillarsSection() {
                 "--fan-angle-start": `${slot * 4.7}deg`,
                 "--fan-z": 90 - Math.round(distance * 4),
               } as CSSProperties;
+              const openCard = () => setOpenIndex(index);
               return (
                 <div
                   key={item.number}
                   className="cc-fan-card"
                   style={style}
                   role="listitem"
+                  onMouseEnter={() => setActiveFanIndex(index)}
                 >
-                  <button
-                    type="button"
+                  <div
+                    role="button"
+                    tabIndex={0}
                     className="cc-fan-card-hit"
                     aria-label={`${item.eyebrow}: ${item.headlineLines.join(" ")} — open details`}
-                    onClick={() => {
-                      setOpenIndex(index);
+                    onClick={openCard}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        openCard();
+                      }
                     }}
                   >
                     <figure className="cc-fan-card-media">
@@ -719,11 +726,18 @@ function PillarsSection() {
                     <div className="cc-fan-card-body">
                       <h3>{item.headlineLines.join(" ")}</h3>
                       <p className="cc-fan-card-body-copy">{item.body}</p>
-                      <span className="cc-fan-card-learn" aria-hidden="true">
+                      <button
+                        type="button"
+                        className="cc-fan-card-learn"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          openCard();
+                        }}
+                      >
                         Learn More <span className="cc-fan-card-learn-arrow">→</span>
-                      </span>
+                      </button>
                     </div>
-                  </button>
+                  </div>
                 </div>
               );
             })}
