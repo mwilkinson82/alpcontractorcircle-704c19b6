@@ -113,7 +113,7 @@ const installedItems: Array<{
     icon: Video,
     title: "Calls + Bootcamps",
     outcome: "Guidance becomes implementation",
-    body: "Bi-weekly live calls plus monthly bootcamps. The room finds the issue, then builds the operating asset.",
+    body: "Live calls with Marshall plus monthly bootcamps. The room finds the issue, then builds the operating asset.",
   },
   {
     number: "04",
@@ -177,7 +177,7 @@ const productProofItems: Array<{
     headlineLines: ["The room is live.", "The work is real."],
     body: "The live room and monthly bootcamps are where owner pressure becomes a decision, a tool, a template, or a system the company can use on Monday. The replays keep that leverage available after the call.",
     image: "/manus-storage/exact-bootcamp_9c719283.png",
-    imageAlt: "Contractor Circle bi-weekly call replay and bootcamp screen",
+    imageAlt: "Contractor Circle live call replay and bootcamp screen",
     points: [
       { label: "Live room", value: "Bring the real issue." },
       { label: "Bootcamp", value: "Build the system live." },
@@ -435,7 +435,7 @@ type Pillar = {
 const pillars: Pillar[] = [
   {
     number: "01",
-    eyebrow: "Bi-weekly Calls + Curriculum",
+    eyebrow: "Live Calls + Curriculum",
     title: "Live with Marshall, on a real curriculum.",
     outcome: "Bring the issue. Leave with the move.",
     bullets: [
@@ -444,7 +444,7 @@ const pillars: Pillar[] = [
       "Replays stay in the portal for life",
     ],
     image: "/manus-storage/exact-bootcamp_9c719283.png",
-    imageAlt: "Bi-weekly Contractor Circle call session",
+    imageAlt: "Live Contractor Circle call session",
     icon: CalendarDays,
   },
   {
@@ -531,7 +531,7 @@ const memoryFillWords = [
   "that",
   "installs",
   "it —",
-  "bi-weekly",
+  "live",
   "calls",
   "with",
   "Marshall,",
