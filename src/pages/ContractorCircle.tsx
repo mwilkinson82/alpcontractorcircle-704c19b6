@@ -1535,7 +1535,7 @@ export default function ContractorCircle() {
                 aria-label="Watch the IOR field session replay"
               >
                 <img
-                  src={MARGIN_CRUMBLE_POSTER}
+                  src={IOR_REPLAY_THUMB}
                   alt=""
                   loading="lazy"
                   aria-hidden="true"
