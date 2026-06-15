@@ -880,6 +880,7 @@ export default function ContractorCircle() {
   const heroPlaybackSeenRef = useRef(false);
   const heroBridgeStartedRef = useRef(false);
   const heroPlaybackRequestedRef = useRef(false);
+  const heroFrameLoadedRef = useRef(false);
   const [muted, setMuted] = useState(true);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
   const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
@@ -969,6 +970,10 @@ export default function ContractorCircle() {
     heroIntroCompleteRef.current = heroIntroComplete;
   }, [heroIntroComplete]);
 
+  useEffect(() => {
+    heroFrameLoadedRef.current = heroFrameLoaded;
+  }, [heroFrameLoaded]);
+
 
 
 
@@ -996,11 +1001,11 @@ export default function ContractorCircle() {
     setHeroRevealActive(true);
     ensureHeroVideoPlayback(true, true);
 
-    if (heroPlaybackSeenRef.current || heroFrameLoaded) {
+    if (heroPlaybackSeenRef.current || heroFrameLoadedRef.current) {
       setVideoUnavailable(false);
       setHeroVideoReady(true);
     }
-  }, [ensureHeroVideoPlayback, heroFrameLoaded]);
+  }, [ensureHeroVideoPlayback]);
 
   const scheduleHeroVideoPlayback = useCallback(() => {
     if (typeof window === "undefined") return () => undefined;
