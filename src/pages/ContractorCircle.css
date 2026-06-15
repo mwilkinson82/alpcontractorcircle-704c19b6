@@ -12596,3 +12596,203 @@ body:has(.cc-page) {
     font-size: clamp(1.34rem, 7.05vw, 1.72rem) !important;
   }
 }
+
+/* ============================================================
+   DESKTOP FAN REGRESSION CORRECTION
+   Keep the phone/tablet arc isolated above, and restore the
+   spacious physical-card fan on desktop without touching content.
+   ============================================================ */
+@media (min-width: 861px) {
+  .cc-pillars-section {
+    min-height: 100svh !important;
+    overflow: hidden !important;
+    padding-top: clamp(58px, 7svh, 92px) !important;
+    padding-bottom: clamp(44px, 5svh, 72px) !important;
+  }
+
+  .cc-pillars-inner {
+    gap: clamp(28px, 4svh, 54px) !important;
+  }
+
+  .cc-pillars-copy {
+    padding-inline: 28px !important;
+  }
+
+  .cc-pillars-copy h2 {
+    font-size: clamp(4rem, 6.05vw, 7.2rem) !important;
+    line-height: 0.98 !important;
+    white-space: nowrap !important;
+  }
+
+  .cc-fan-stage {
+    height: clamp(650px, calc(100svh - 218px), 820px) !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    touch-action: pan-y;
+  }
+
+  .cc-fan-track {
+    --fan-circle-size: clamp(5400px, 530vw, 6800px);
+    --fan-radius: calc(var(--fan-circle-size) / 2);
+    position: absolute !important;
+    left: 50% !important;
+    top: clamp(18px, 2.6svh, 38px) !important;
+    display: block !important;
+    width: var(--fan-circle-size) !important;
+    height: var(--fan-circle-size) !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+    overflow: visible !important;
+    pointer-events: none !important;
+    transform: translateX(-50%) !important;
+    transform-origin: 50% 50% !important;
+    scroll-snap-type: none !important;
+    perspective: 2100px !important;
+  }
+
+  .cc-fan-card {
+    position: absolute !important;
+    left: 50% !important;
+    top: 0 !important;
+    flex: none !important;
+    width: clamp(400px, 44vw, 520px) !important;
+    height: clamp(520px, 55vw, 620px) !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: calc(var(--fan-z) * 1) !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) rotate(calc(var(--fan-slot) * 12.5deg)) !important;
+    transform-origin: 50% var(--fan-radius) !important;
+  }
+
+  .cc-fan-card-hit {
+    border-radius: 30px !important;
+    box-shadow: 0 34px 86px -52px rgb(13 13 12 / 0.48) !important;
+  }
+
+  .cc-fan-card:hover .cc-fan-card-hit,
+  .cc-fan-card:focus-within .cc-fan-card-hit {
+    transform: translateY(-14px) scale(1.008) !important;
+  }
+
+  .cc-fan-card-media {
+    height: 47% !important;
+    margin: 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .cc-fan-card-body {
+    padding: clamp(6px, 0.9vw, 12px) clamp(22px, 2vw, 30px) clamp(28px, 2.4vw, 38px) !important;
+    gap: clamp(10px, 1vw, 14px) !important;
+  }
+
+  .cc-fan-card-body h3 {
+    font-size: clamp(1.55rem, 2.25vw, 2.25rem) !important;
+    line-height: 1.04 !important;
+  }
+
+  .cc-fan-card-body-copy {
+    font-size: clamp(0.98rem, 1.1vw, 1.12rem) !important;
+    line-height: 1.36 !important;
+    -webkit-line-clamp: 3 !important;
+  }
+
+  .cc-fan-card-learn {
+    padding-top: clamp(12px, 1.4vw, 20px) !important;
+    padding-bottom: 0 !important;
+    font-size: clamp(0.98rem, 1vw, 1.08rem) !important;
+  }
+
+  .cc-fan-controls {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: clamp(18px, 2.2svh, 34px) !important;
+    z-index: 180 !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: clamp(16px, 1.8vw, 24px) !important;
+  }
+
+  .cc-fan-arrow {
+    width: clamp(54px, 4.2vw, 66px) !important;
+    height: clamp(54px, 4.2vw, 66px) !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  .cc-fan-stage {
+    height: clamp(680px, calc(100svh - 214px), 860px) !important;
+  }
+
+  .cc-fan-track {
+    --fan-circle-size: clamp(6500px, 442vw, 8600px);
+    top: clamp(20px, 2.8svh, 46px) !important;
+  }
+
+  .cc-fan-card {
+    width: clamp(460px, 34vw, 620px) !important;
+    height: clamp(570px, 42vw, 690px) !important;
+    transform: translateX(-50%) rotate(calc(var(--fan-slot) * 12deg)) !important;
+  }
+}
+
+@media (min-width: 861px) and (max-height: 860px) {
+  .cc-pillars-section {
+    padding-top: clamp(44px, 6svh, 62px) !important;
+    padding-bottom: clamp(32px, 4.5svh, 50px) !important;
+  }
+
+  .cc-pillars-inner {
+    gap: clamp(18px, 3svh, 30px) !important;
+  }
+
+  .cc-pillars-copy h2 {
+    font-size: clamp(3.35rem, 5.3vw, 5.4rem) !important;
+  }
+
+  .cc-fan-stage {
+    height: clamp(590px, calc(100svh - 182px), 690px) !important;
+  }
+
+  .cc-fan-track {
+    top: clamp(12px, 1.8svh, 22px) !important;
+  }
+
+  .cc-fan-card {
+    width: clamp(390px, 31vw, 500px) !important;
+    height: clamp(500px, 38vw, 590px) !important;
+  }
+
+  .cc-fan-card-body h3 {
+    font-size: clamp(1.35rem, 1.9vw, 1.9rem) !important;
+  }
+
+  .cc-fan-card-body-copy {
+    font-size: clamp(0.9rem, 0.98vw, 1.02rem) !important;
+    line-height: 1.32 !important;
+  }
+
+  .cc-fan-controls {
+    bottom: clamp(10px, 1.8svh, 22px) !important;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 860px) {
+  .cc-fan-controls {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: clamp(48px, 8vw, 72px) !important;
+    z-index: 180 !important;
+    margin: 0 !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+}
