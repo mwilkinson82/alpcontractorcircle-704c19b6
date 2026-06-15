@@ -1030,6 +1030,7 @@ export default function ContractorCircle() {
     let readyTimer = 0;
     const markReady = () => {
       heroPlaybackSeenRef.current = true;
+      setHeroVideoPlaying(true);
 
       window.clearTimeout(readyTimer);
       readyTimer = window.setTimeout(() => {
