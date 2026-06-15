@@ -1362,6 +1362,7 @@ export default function ContractorCircle() {
           <HeroIntroMotion
             onBridgeStart={handleHeroIntroBridge}
             onComplete={handleHeroIntroComplete}
+            videoPlaying={heroVideoPlaying || videoUnavailable}
           />
           {!videoUnavailable ? (
             <button
