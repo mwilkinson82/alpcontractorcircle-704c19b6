@@ -705,7 +705,6 @@ function PillarsSection() {
                   className="cc-fan-card"
                   style={style}
                   role="listitem"
-                  onMouseEnter={() => setActiveFanIndex(index)}
                 >
                   <div
                     role="button"
