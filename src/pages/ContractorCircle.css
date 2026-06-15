@@ -13071,3 +13071,97 @@ body:has(.cc-page) {
     --fan-radius: 1070px;
   }
 }
+
+/* ============================================================
+   PHONE: Hero intro chart — eliminate text overlap on iPhone.
+   Force clean vertical flex stacking with explicit gaps so no
+   element layers on top of another. Desktop/tablet untouched.
+   ============================================================ */
+@media (max-width: 640px) {
+  .cc-intro-chart-column {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 0 12px !important;
+  }
+
+  .cc-intro-profit-column {
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  .cc-intro-risk-column {
+    align-items: flex-end !important;
+    text-align: right !important;
+  }
+
+  .cc-intro-chart-label {
+    margin: 0 0 4px !important;
+    font-size: clamp(1.95rem, 10.4vw, 2.55rem) !important;
+    line-height: 0.95 !important;
+  }
+
+  .cc-intro-profit-column strong {
+    margin: clamp(28px, 4.6svh, 44px) 0 6px !important;
+    font-size: clamp(1.88rem, 9.4vw, 2.5rem) !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  .cc-intro-profit-column small {
+    display: block !important;
+    max-width: 9.4rem !important;
+    margin: 0 !important;
+    font-size: clamp(0.58rem, 2.55vw, 0.7rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  .cc-intro-risk-impact {
+    position: static !important;
+    top: auto !important;
+    align-self: flex-start !important;
+    width: auto !important;
+    max-width: 90% !important;
+    margin: clamp(34px, 5.2svh, 52px) 0 0 !important;
+    padding: 8px 12px 10px !important;
+    text-align: left !important;
+  }
+
+  .cc-intro-risk-impact small {
+    margin-top: 4px !important;
+    font-size: clamp(0.56rem, 2.4vw, 0.66rem) !important;
+    line-height: 1.1 !important;
+  }
+
+  .cc-intro-risk-item {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    align-self: flex-end !important;
+    width: auto !important;
+    max-width: 92% !important;
+    margin: clamp(28px, 4.6svh, 44px) 0 0 !important;
+    padding: 8px 12px !important;
+    text-align: left !important;
+  }
+
+  .cc-intro-risk-item-title {
+    display: block !important;
+    margin-bottom: 4px !important;
+    font-size: clamp(0.62rem, 2.65vw, 0.76rem) !important;
+    line-height: 1.18 !important;
+  }
+
+  .cc-intro-risk-item-value {
+    display: block !important;
+    font-size: clamp(1.32rem, 6.8vw, 1.78rem) !important;
+    line-height: 1 !important;
+  }
+
+  .cc-intro-risk-impact-value {
+    display: block !important;
+    font-size: clamp(1.32rem, 6.8vw, 1.78rem) !important;
+    line-height: 1 !important;
+  }
+}
+

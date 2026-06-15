@@ -1495,8 +1495,8 @@ export default function ContractorCircle() {
                       poster={MARGIN_CRUMBLE_POSTER}
                       aria-hidden="true"
                     >
-                      <source src={MARGIN_CRUMBLE_WEBM} type="video/webm" />
                       <source src={MARGIN_CRUMBLE_MP4} type="video/mp4" />
+                      <source src={MARGIN_CRUMBLE_WEBM} type="video/webm" />
                     </video>
                     <img
                       className="cc-margin-crumble-poster"
@@ -1527,12 +1527,11 @@ export default function ContractorCircle() {
                   referrerPolicy="strict-origin-when-cross-origin"
                 />
               </div>
-              <a
-                href={IOR_ZOOM_SHARE_URL}
-                target="_blank"
-                rel="noreferrer"
+              <button
+                type="button"
                 className="cc-ior-replay-mobile-poster"
                 aria-label="Watch the IOR field session replay"
+                onClick={() => setIsReplayOpen(true)}
               >
                 <img
                   src={IOR_REPLAY_THUMB}
@@ -1545,7 +1544,7 @@ export default function ContractorCircle() {
                   <strong>Watch the IOR margin split</strong>
                 </span>
                 <Play aria-hidden="true" />
-              </a>
+              </button>
               <button
                 type="button"
                 className="cc-ior-replay-mobile-trigger"
