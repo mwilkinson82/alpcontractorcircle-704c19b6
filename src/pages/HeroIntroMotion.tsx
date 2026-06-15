@@ -1,6 +1,7 @@
 import { useEffect, useState, type CSSProperties } from "react";
 
 const INTRO_DURATION_MS = 10000;
+const INTRO_BRIDGE_START_MS = INTRO_DURATION_MS * 0.76;
 const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
 
 type FloatingWord = {
@@ -254,11 +255,15 @@ function wordStyle(word: FloatingWord) {
   } as CSSProperties;
 }
 
+type HeroIntroMotionProps = {
+  onComplete: () => void;
+  onBridgeStart?: () => void;
+};
+
 export default function HeroIntroMotion({
   onComplete,
-}: {
-  onComplete: () => void;
-}) {
+  onBridgeStart,
+}: HeroIntroMotionProps) {
   const [shouldRender, setShouldRender] = useState(() => {
     if (typeof window === "undefined") return false;
     return !window.matchMedia(REDUCED_MOTION_QUERY).matches;
@@ -273,9 +278,14 @@ export default function HeroIntroMotion({
 
     if (prefersReducedMotion) {
       setShouldRender(false);
+      onBridgeStart?.();
       onComplete();
       return;
     }
+
+    const bridgeTimer = window.setTimeout(() => {
+      onBridgeStart?.();
+    }, INTRO_BRIDGE_START_MS);
 
     const timer = window.setTimeout(() => {
       setShouldRender(false);
@@ -283,9 +293,10 @@ export default function HeroIntroMotion({
     }, INTRO_DURATION_MS);
 
     return () => {
+      window.clearTimeout(bridgeTimer);
       window.clearTimeout(timer);
     };
-  }, [onComplete]);
+  }, [onBridgeStart, onComplete]);
 
   if (!shouldRender) return null;
 

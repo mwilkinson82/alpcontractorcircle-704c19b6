@@ -18,14 +18,12 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleDollarSign,
-  ClipboardList,
   LockKeyhole,
   MessageSquare,
   Network,
   Play,
   Rocket,
   Settings2,
-  ShieldCheck,
   Sparkles,
   UserRoundCheck,
   Users,
@@ -74,6 +72,9 @@ const PORTAL_LOGIN_URL = "https://app.alpcontractorcircle.com/login";
 const WHY_AOS_URL = "https://why.alpcontractorcircle.com";
 const IOR_ZOOM_EMBED_URL =
   "https://us06web.zoom.us/clips/embed/Xz5pycRtQXaogCx_FRwLbw";
+const MARGIN_CRUMBLE_WEBM = "/assets/proof/margin-crumble.webm";
+const MARGIN_CRUMBLE_MP4 = "/assets/proof/margin-crumble.mp4";
+const MARGIN_CRUMBLE_POSTER = "/assets/proof/margin-crumble-poster.webp";
 
 const problemItems: Array<{ icon: LucideIcon; text: string }> = [
   { icon: Users, text: "Every decision comes back to you." },
@@ -291,25 +292,6 @@ const productProofItems: Array<{
       { label: "Schedule", value: "LDs, notice, critical path exposure." },
       { label: "Output", value: "Sample language and negotiation points." },
     ],
-  },
-];
-
-const fitItems: Array<{ icon: LucideIcon; text: string }> = [
-  {
-    icon: ShieldCheck,
-    text: "The business is moving, but too much still routes through your head.",
-  },
-  {
-    icon: Network,
-    text: "PMs, finance, admin, and field leaders still wait for decisions.",
-  },
-  {
-    icon: ClipboardList,
-    text: "You want cleaner handoffs, fewer surprises, and fewer margin leaks.",
-  },
-  {
-    icon: Check,
-    text: "You need an operating process the team can see, use, and own.",
   },
 ];
 
@@ -817,6 +799,7 @@ export default function ContractorCircle() {
   });
   const [heroRevealActive, setHeroRevealActive] = useState(false);
   const [showMobileCta, setShowMobileCta] = useState(false);
+  const [activeStepIndex, setActiveStepIndex] = useState(0);
 
   const streamRuntimeReady = useCloudflareStreamRuntime();
   useContractorCircleMotion(rootRef);
@@ -843,6 +826,16 @@ export default function ContractorCircle() {
       void player.play().catch(() => undefined);
     });
   }, []);
+
+  const handleHeroIntroBridge = useCallback(() => {
+    setHeroRevealActive(true);
+    ensureHeroVideoPlayback(true);
+
+    if (heroPlaybackSeenRef.current || heroFrameLoaded) {
+      setVideoUnavailable(false);
+      setHeroVideoReady(true);
+    }
+  }, [ensureHeroVideoPlayback, heroFrameLoaded]);
 
   const scheduleHeroVideoPlayback = useCallback(() => {
     if (typeof window === "undefined") return () => undefined;
@@ -1193,7 +1186,10 @@ export default function ContractorCircle() {
             />
           ) : null}
           <div className="cc-video-shade" />
-          <HeroIntroMotion onComplete={handleHeroIntroComplete} />
+          <HeroIntroMotion
+            onBridgeStart={handleHeroIntroBridge}
+            onComplete={handleHeroIntroComplete}
+          />
           {!videoUnavailable ? (
             <button
               className="cc-sound-button"
@@ -1290,19 +1286,52 @@ export default function ContractorCircle() {
                   <span>Margin protection</span>
                 </div>
               </div>
-              <div className="cc-ior-video-frame">
-                <div className="cc-ior-frame-bar" aria-hidden="true">
-                  <span>IOR replay</span>
-                  <span>Profit / Risk method</span>
+              <div className="cc-ior-media-stack">
+                <div className="cc-margin-crumble-card">
+                  <div className="cc-margin-crumble-header" aria-hidden="true">
+                    <span>Margin at risk</span>
+                    <span>Unmanaged exposure</span>
+                  </div>
+                  <div
+                    className="cc-margin-crumble-media"
+                    aria-label="The word Margin built from cinderblocks crumbling apart"
+                  >
+                    <video
+                      className="cc-margin-crumble-video"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      preload="metadata"
+                      poster={MARGIN_CRUMBLE_POSTER}
+                      aria-hidden="true"
+                    >
+                      <source src={MARGIN_CRUMBLE_WEBM} type="video/webm" />
+                      <source src={MARGIN_CRUMBLE_MP4} type="video/mp4" />
+                    </video>
+                    <img
+                      className="cc-margin-crumble-poster"
+                      src={MARGIN_CRUMBLE_POSTER}
+                      alt="The word MARGIN built from cinderblocks before unmanaged risk breaks it apart."
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
-                <div className="cc-ior-video-window">
-                  <iframe
-                    title="Marshall Wilkinson IOR field session"
-                    src={IOR_ZOOM_EMBED_URL}
-                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-                    allowFullScreen
-                    loading="lazy"
-                  />
+
+                <div className="cc-ior-video-frame cc-ior-replay-frame">
+                  <div className="cc-ior-frame-bar" aria-hidden="true">
+                    <span>Watch the field session</span>
+                    <span>IOR replay</span>
+                  </div>
+                  <div className="cc-ior-video-window">
+                    <iframe
+                      title="Marshall Wilkinson IOR field session"
+                      src={IOR_ZOOM_EMBED_URL}
+                      allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+                      allowFullScreen
+                      loading="lazy"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -1429,17 +1458,6 @@ export default function ContractorCircle() {
               </div>
             </aside>
 
-            <div
-              className="cc-fit-list cc-diagnostic-tiles"
-              aria-label="Owner diagnostic signals"
-            >
-              {fitItems.map(({ text }, index) => (
-                <article key={text} className="cc-diagnostic-item cc-lower-motion">
-                  <span>{String(index + 1).padStart(2, "0")}</span>
-                  <p>{text}</p>
-                </article>
-              ))}
-            </div>
           </div>
         </section>
 
@@ -1464,22 +1482,43 @@ export default function ContractorCircle() {
               </p>
             </div>
 
-            <div className="cc-onboarding-command-panel cc-lower-motion">
+            <div
+              className="cc-onboarding-command-panel cc-lower-motion"
+              style={
+                {
+                  "--active-step": activeStepIndex,
+                } as CSSProperties
+              }
+            >
               <div className="cc-command-panel-head" aria-hidden="true">
                 <span>Operating room</span>
                 <span>First moves after checkout</span>
+              </div>
+              <div className="cc-command-progress" aria-hidden="true">
+                <span />
               </div>
               <ol
                 className="cc-onboarding-steps cc-onboarding-timeline"
                 aria-label="What happens after joining"
               >
-                {onboardingSteps.map(step => (
+                {onboardingSteps.map((step, index) => (
                   <li className="cc-command-step" key={step.number}>
-                    <span>{step.number}</span>
-                    <div>
-                      <h3>{step.title}</h3>
-                      <p>{step.body}</p>
-                    </div>
+                    <button
+                      type="button"
+                      className={
+                        activeStepIndex === index ? "is-active" : undefined
+                      }
+                      aria-expanded={activeStepIndex === index}
+                      onClick={() => setActiveStepIndex(index)}
+                      onFocus={() => setActiveStepIndex(index)}
+                      onMouseEnter={() => setActiveStepIndex(index)}
+                    >
+                      <span>{step.number}</span>
+                      <div>
+                        <h3>{step.title}</h3>
+                        <p>{step.body}</p>
+                      </div>
+                    </button>
                   </li>
                 ))}
               </ol>
