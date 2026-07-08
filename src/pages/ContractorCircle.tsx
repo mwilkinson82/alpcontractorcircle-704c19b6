@@ -43,30 +43,16 @@ import HeroIntroMotion from "./HeroIntroMotion";
 import OwnerBottleneck from "./OwnerBottleneck";
 import "./ContractorCircle.css";
 
-type CloudflareStreamPlayer = {
-  autoplay: boolean;
-  controls: boolean;
-  currentTime: number;
-  loop: boolean;
-  muted: boolean;
-  paused: boolean;
-  play: () => Promise<void>;
-  addEventListener?: (type: string, listener: () => void) => void;
-  removeEventListener?: (type: string, listener: () => void) => void;
-};
-
-declare global {
-  interface Window {
-    Stream?: (element: HTMLIFrameElement) => CloudflareStreamPlayer;
-  }
-}
-
 const CHECKOUT_URL =
   "https://buy.stripe.com/28EcN66xPcXk53GdXIeQM18";
 const CLOUDFLARE_STREAM_ID = "5867cd561f133a4299bfb06e9e2f01d1";
-const CLOUDFLARE_STREAM_SCRIPT_SRC =
-  "https://embed.cloudflarestream.com/embed/sdk.latest.js";
-const CLOUDFLARE_STREAM_IFRAME_SRC = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}?muted=true&controls=false&preload=auto&letterboxColor=transparent`;
+// The hero is a full-length (~3 min) narrated film, not a background loop.
+// It is click-to-play: while idle only metadata is fetched (no autoplay, no
+// forced loop) so we never pull the whole adaptive stream before the viewer
+// asks. On play we reload the iframe with autoplay=true + controls.
+const CLOUDFLARE_STREAM_IFRAME_BASE = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}`;
+const CLOUDFLARE_STREAM_IFRAME_IDLE = `${CLOUDFLARE_STREAM_IFRAME_BASE}?preload=metadata&letterboxColor=transparent`;
+const CLOUDFLARE_STREAM_IFRAME_PLAYING = `${CLOUDFLARE_STREAM_IFRAME_BASE}?preload=auto&autoplay=true&controls=true&letterboxColor=transparent`;
 const HERO_VIDEO_POSTER = "/manus-storage/alp-hero-poster_167efce2.webp";
 const AOS_URL = "https://alpos.alpcontractorcircle.com";
 const HANDBOOK_URL = "https://alphandbook.com";
@@ -836,56 +822,17 @@ function PillarsSection() {
 
 
 
-function useCloudflareStreamRuntime() {
-  const [isReady, setIsReady] = useState(false);
-
-  useEffect(() => {
-    if (window.Stream) {
-      setIsReady(true);
-      return;
-    }
-
-    let script = document.querySelector<HTMLScriptElement>(
-      `script[src="${CLOUDFLARE_STREAM_SCRIPT_SRC}"]`
-    );
-    const handleLoad = () => setIsReady(true);
-
-    if (!script) {
-      script = document.createElement("script");
-      script.src = CLOUDFLARE_STREAM_SCRIPT_SRC;
-      script.async = true;
-      script.defer = true;
-      document.head.appendChild(script);
-    }
-
-    script.addEventListener("load", handleLoad);
-
-    return () => {
-      script.removeEventListener("load", handleLoad);
-    };
-  }, []);
-
-  return isReady;
-}
-
 export default function ContractorCircle() {
   const rootRef = useRef<HTMLDivElement>(null);
   const streamFrameRef = useRef<HTMLIFrameElement>(null);
-  const streamPlayerRef = useRef<CloudflareStreamPlayer | null>(null);
   const marginVideoRef = useRef<HTMLVideoElement>(null);
-  
-  const mutedPreferenceRef = useRef(true);
+
   const heroRevealStartedRef = useRef(false);
-  const heroIntroCompleteRef = useRef(false);
-  const heroPlaybackSeenRef = useRef(false);
-  const heroBridgeStartedRef = useRef(false);
-  const heroPlaybackRequestedRef = useRef(false);
-  const heroFrameLoadedRef = useRef(false);
   const [muted, setMuted] = useState(true);
   const [videoUnavailable, setVideoUnavailable] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(false);
   const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
   const [heroVideoReady, setHeroVideoReady] = useState(false);
-  const [heroVideoPlaying, setHeroVideoPlaying] = useState(false);
   const [heroIntroComplete, setHeroIntroComplete] = useState(() => {
     if (typeof window === "undefined") return true;
     return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -895,7 +842,6 @@ export default function ContractorCircle() {
   const [isReplayOpen, setIsReplayOpen] = useState(false);
   const [activeStepIndex, setActiveStepIndex] = useState(0);
 
-  const streamRuntimeReady = useCloudflareStreamRuntime();
   useContractorCircleMotion(rootRef);
 
   useEffect(() => {
@@ -966,63 +912,27 @@ export default function ContractorCircle() {
     setHeroIntroComplete(true);
   }, []);
 
-  useEffect(() => {
-    heroIntroCompleteRef.current = heroIntroComplete;
-  }, [heroIntroComplete]);
-
-  useEffect(() => {
-    heroFrameLoadedRef.current = heroFrameLoaded;
-  }, [heroFrameLoaded]);
-
-
-
-
-  const ensureHeroVideoPlayback = useCallback((allowMutedFallback = false, restartFromStart = false) => {
-    const player = streamPlayerRef.current;
-    if (!player) return;
-    if (!heroBridgeStartedRef.current && !heroIntroCompleteRef.current) return;
-    if (restartFromStart) {
-      try {
-        player.currentTime = 0;
-      } catch {
-        // Cloudflare's iframe player may reject seeking until metadata is ready.
-      }
-      heroPlaybackRequestedRef.current = false;
-    }
-    if (heroPlaybackRequestedRef.current && !player.paused) return;
-
-    heroPlaybackRequestedRef.current = true;
-    void player.play().catch(() => {
-      if (!allowMutedFallback) return;
-      player.muted = true;
-      setMuted(true);
-      void player.play().catch(() => undefined);
-    });
+  // Start the film on an explicit user gesture. Flipping videoStarted reloads
+  // the Cloudflare iframe with autoplay=true as a direct result of the click,
+  // which is the reliable way to start a cross-origin Stream player (calling
+  // player.play() into the iframe is not honored as a user activation).
+  const startHeroVideo = useCallback(() => {
+    // Reload the iframe synchronously inside the click so the user activation
+    // carries into the Stream player, then mirror it into state.
+    const frame = streamFrameRef.current;
+    if (frame) frame.src = CLOUDFLARE_STREAM_IFRAME_PLAYING;
+    setVideoStarted(true);
+    setMuted(false);
   }, []);
 
+  // The intro's cross-fade "bridge" fires ~1.5s before it finishes. Reveal the
+  // hero poster underneath so the hand-off lands on a still frame, not a
+  // loading spinner. No video playback is triggered here anymore.
   const handleHeroIntroBridge = useCallback(() => {
-    heroBridgeStartedRef.current = true;
     setHeroRevealActive(true);
-    ensureHeroVideoPlayback(true, true);
-
-    if (heroPlaybackSeenRef.current || heroFrameLoadedRef.current) {
-      setVideoUnavailable(false);
-      setHeroVideoReady(true);
-    }
-  }, [ensureHeroVideoPlayback]);
-
-  const scheduleHeroVideoPlayback = useCallback(() => {
-    if (typeof window === "undefined") return () => undefined;
-
-    const retryDelays = [0, 180, 640, 1380, 2600, 4200];
-    const timers = retryDelays.map(delay =>
-      window.setTimeout(() => ensureHeroVideoPlayback(true), delay)
-    );
-
-    return () => {
-      timers.forEach(timer => window.clearTimeout(timer));
-    };
-  }, [ensureHeroVideoPlayback]);
+    setVideoUnavailable(false);
+    setHeroVideoReady(true);
+  }, []);
 
   useEffect(() => {
     document.title =
@@ -1039,64 +949,6 @@ export default function ContractorCircle() {
     }
     meta.content = description;
   }, []);
-
-  useEffect(() => {
-    if (!streamRuntimeReady || !window.Stream || !streamFrameRef.current) {
-      return;
-    }
-
-    const player = window.Stream(streamFrameRef.current);
-    streamPlayerRef.current = player;
-    let readyTimer = 0;
-    const markReady = () => {
-      heroPlaybackSeenRef.current = true;
-      setHeroVideoPlaying(true);
-
-      window.clearTimeout(readyTimer);
-      readyTimer = window.setTimeout(() => {
-        setVideoUnavailable(false);
-        setHeroVideoReady(true);
-      }, 420);
-    };
-    const playWhenReady = () => {
-      ensureHeroVideoPlayback(true);
-    };
-    const markUnavailable = () => {
-      setVideoUnavailable(true);
-      setHeroVideoReady(true);
-    };
-
-    player.autoplay = false;
-    player.controls = false;
-    player.loop = false;
-    player.muted = mutedPreferenceRef.current;
-    try {
-      player.currentTime = 0;
-    } catch {
-      // Cloudflare's iframe player may reject seeking until metadata is ready.
-    }
-    setMuted(mutedPreferenceRef.current);
-    player.addEventListener?.("canplay", playWhenReady);
-    player.addEventListener?.("playing", markReady);
-    player.addEventListener?.("error", markUnavailable);
-    const cancelPlaybackRetries = () => undefined;
-
-    return () => {
-      cancelPlaybackRetries();
-      window.clearTimeout(readyTimer);
-      player.removeEventListener?.("canplay", playWhenReady);
-      player.removeEventListener?.("playing", markReady);
-      player.removeEventListener?.("error", markUnavailable);
-      streamPlayerRef.current = null;
-    };
-  }, [ensureHeroVideoPlayback, scheduleHeroVideoPlayback, streamRuntimeReady]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (!heroFrameLoaded || !streamRuntimeReady) return;
-
-    return scheduleHeroVideoPlayback();
-  }, [heroFrameLoaded, scheduleHeroVideoPlayback, streamRuntimeReady]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -1117,126 +969,22 @@ export default function ContractorCircle() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    const timers = [0, 220, 720].map(delay =>
-      window.setTimeout(() => ensureHeroVideoPlayback(true), delay)
+
+    setHeroVideoReady(true);
+
+    if (prefersReducedMotion || heroRevealStartedRef.current) return;
+
+    heroRevealStartedRef.current = true;
+    setHeroRevealActive(true);
+    const revealTimer = window.setTimeout(
+      () => setHeroRevealActive(false),
+      1900
     );
-    let revealTimer = 0;
-    let readyBridgeTimer = 0;
-
-    if (!prefersReducedMotion && !heroRevealStartedRef.current) {
-      heroRevealStartedRef.current = true;
-      setHeroRevealActive(true);
-      revealTimer = window.setTimeout(() => setHeroRevealActive(false), 1900);
-    }
-
-    if (heroPlaybackSeenRef.current || heroFrameLoaded) {
-      readyBridgeTimer = window.setTimeout(() => {
-        setVideoUnavailable(false);
-        setHeroVideoReady(true);
-      }, prefersReducedMotion ? 0 : 180);
-    }
 
     return () => {
-      timers.forEach(timer => window.clearTimeout(timer));
       window.clearTimeout(revealTimer);
-      window.clearTimeout(readyBridgeTimer);
     };
-  }, [ensureHeroVideoPlayback, heroFrameLoaded, heroIntroComplete, streamRuntimeReady]);
-
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-
-    let raf = 0;
-    let retryTimer = 0;
-    let heartbeatTimer = 0;
-    const replayIfHeroIsVisible = () => {
-      if (raf) return;
-      raf = window.requestAnimationFrame(() => {
-        raf = 0;
-        const player = streamPlayerRef.current;
-        const frame = streamFrameRef.current;
-        if (!player || !frame) return;
-
-        const rect = frame.getBoundingClientRect();
-        const isNearHero = window.scrollY < window.innerHeight * 1.35;
-        const isHeroVisible =
-          isNearHero ||
-          (rect.bottom > 0 && rect.top < window.innerHeight * 1.15);
-        if (isHeroVisible) {
-          ensureHeroVideoPlayback(true);
-          window.clearTimeout(retryTimer);
-          retryTimer = window.setTimeout(() => {
-            ensureHeroVideoPlayback(true);
-            retryTimer = window.setTimeout(
-              () => ensureHeroVideoPlayback(true),
-              420
-            );
-          }, 140);
-        }
-      });
-    };
-
-    const replayAfterScrollSettles = () => {
-      replayIfHeroIsVisible();
-      window.clearTimeout(retryTimer);
-      retryTimer = window.setTimeout(() => {
-        replayIfHeroIsVisible();
-        retryTimer = window.setTimeout(replayIfHeroIsVisible, 520);
-      }, 180);
-    };
-
-    const replayAfterVisibilityReturn = () => {
-      if (!document.hidden) {
-        replayAfterScrollSettles();
-      }
-    };
-
-    window.addEventListener("scroll", replayIfHeroIsVisible, { passive: true });
-    window.addEventListener("scrollend", replayAfterScrollSettles);
-    window.addEventListener("wheel", replayAfterScrollSettles, {
-      passive: true,
-    });
-    window.addEventListener("resize", replayIfHeroIsVisible);
-    window.addEventListener("orientationchange", replayAfterScrollSettles);
-    window.addEventListener("focus", replayIfHeroIsVisible);
-    window.addEventListener("pageshow", replayIfHeroIsVisible);
-    window.addEventListener("pointerup", replayAfterScrollSettles, {
-      passive: true,
-    });
-    window.addEventListener("touchend", replayAfterScrollSettles, {
-      passive: true,
-    });
-    window.addEventListener("touchmove", replayIfHeroIsVisible, {
-      passive: true,
-    });
-    document.addEventListener("visibilitychange", replayAfterVisibilityReturn);
-    heartbeatTimer = window.setInterval(() => {
-      if (!document.hidden) replayIfHeroIsVisible();
-    }, 900);
-    replayIfHeroIsVisible();
-
-    return () => {
-      if (raf) {
-        window.cancelAnimationFrame(raf);
-      }
-      window.clearTimeout(retryTimer);
-      window.clearInterval(heartbeatTimer);
-      window.removeEventListener("scroll", replayIfHeroIsVisible);
-      window.removeEventListener("scrollend", replayAfterScrollSettles);
-      window.removeEventListener("wheel", replayAfterScrollSettles);
-      window.removeEventListener("resize", replayIfHeroIsVisible);
-      window.removeEventListener("orientationchange", replayAfterScrollSettles);
-      window.removeEventListener("focus", replayIfHeroIsVisible);
-      window.removeEventListener("pageshow", replayIfHeroIsVisible);
-      window.removeEventListener("pointerup", replayAfterScrollSettles);
-      window.removeEventListener("touchend", replayAfterScrollSettles);
-      window.removeEventListener("touchmove", replayIfHeroIsVisible);
-      document.removeEventListener(
-        "visibilitychange",
-        replayAfterVisibilityReturn
-      );
-    };
-  }, [ensureHeroVideoPlayback, streamRuntimeReady]);
+  }, [heroIntroComplete]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -1289,17 +1037,6 @@ export default function ContractorCircle() {
     };
   }, []);
 
-  const toggleAudio = () => {
-    const player = streamPlayerRef.current;
-    const nextMuted = !muted;
-    mutedPreferenceRef.current = nextMuted;
-    setMuted(nextMuted);
-
-    if (!player) return;
-    player.muted = nextMuted;
-    if (!nextMuted || player.paused) ensureHeroVideoPlayback();
-  };
-
   return (
     <div ref={rootRef} className="cc-page">
       <header
@@ -1334,8 +1071,10 @@ export default function ContractorCircle() {
             heroIntroComplete
               ? "is-hero-intro-complete"
               : "is-hero-intro-active"
-          } ${heroRevealActive ? "is-hero-intro-revealing" : ""}`}
-          aria-label="Contractor Circle introduction video"
+          } ${heroRevealActive ? "is-hero-intro-revealing" : ""} ${
+            videoStarted ? "is-video-started" : "is-video-idle"
+          }`}
+          aria-label="Contractor Circle introduction film"
         >
           <img
             className="cc-video-poster"
@@ -1347,8 +1086,12 @@ export default function ContractorCircle() {
             <iframe
               ref={streamFrameRef}
               className="cc-video cc-stream-video"
-              title="Contractor Circle introduction video"
-              src={CLOUDFLARE_STREAM_IFRAME_SRC}
+              title="Contractor Circle introduction film"
+              src={
+                videoStarted
+                  ? CLOUDFLARE_STREAM_IFRAME_PLAYING
+                  : CLOUDFLARE_STREAM_IFRAME_IDLE
+              }
               allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
               allowFullScreen
               loading="eager"
@@ -1384,20 +1127,27 @@ export default function ContractorCircle() {
             />
           ) : null}
           <div className="cc-video-shade" />
+          {!videoStarted && !videoUnavailable ? (
+            <button
+              className="cc-video-play"
+              type="button"
+              onClick={startHeroVideo}
+              aria-label="Play the Contractor Circle film (2 minutes 55 seconds)"
+            >
+              <span className="cc-video-play-icon" aria-hidden="true">
+                <Play />
+              </span>
+              <span className="cc-video-play-label">
+                Watch the film
+                <small>2 min 55 sec</small>
+              </span>
+            </button>
+          ) : null}
           <HeroIntroMotion
             onBridgeStart={handleHeroIntroBridge}
             onComplete={handleHeroIntroComplete}
-            videoPlaying={heroVideoPlaying || videoUnavailable}
+            videoPlaying={heroFrameLoaded || videoUnavailable}
           />
-          {!videoUnavailable ? (
-            <button
-              className="cc-sound-button"
-              type="button"
-              onClick={toggleAudio}
-            >
-              {muted ? "Tap for Sound" : "Sound On"}
-            </button>
-          ) : null}
         </section>
 
         <div id="whats-installed">

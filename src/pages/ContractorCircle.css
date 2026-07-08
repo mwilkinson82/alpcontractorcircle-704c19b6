@@ -466,6 +466,111 @@ body:has(.cc-page) {
   display: none;
 }
 
+/* Click-to-play film: the hero is a full ~3-min narrated film, so it holds on
+   the poster until the viewer presses play (no autoplay, no loop). The poster
+   therefore stays put once the intro finishes and only clears on start. */
+.cc-video-hero.is-video-idle .cc-video-poster {
+  opacity: 1;
+  visibility: visible;
+}
+
+.cc-video-hero.is-video-started .cc-video-poster,
+.cc-video-hero.is-video-started .cc-hero-loader {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.cc-video-play {
+  position: absolute;
+  z-index: 8;
+  left: 50%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 26px 12px 12px;
+  border: 1px solid rgb(255 255 255 / 0.28);
+  border-radius: 999px;
+  background: rgb(10 10 10 / 0.46);
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(16px) saturate(140%);
+  -webkit-backdrop-filter: blur(16px) saturate(140%);
+  box-shadow: 0 22px 60px -20px rgb(0 0 0 / 0.7);
+  transition:
+    transform 220ms var(--cc-caption-ease),
+    border-color 220ms var(--cc-caption-ease),
+    background 220ms var(--cc-caption-ease);
+  animation: cc-video-play-in 900ms var(--cc-caption-ease) both;
+}
+
+.cc-video-play:hover {
+  transform: translate(-50%, calc(-50% - 2px));
+  border-color: rgb(255 255 255 / 0.52);
+  background: rgb(10 10 10 / 0.6);
+}
+
+.cc-video-play:focus-visible {
+  outline: 2px solid var(--cc-orange);
+  outline-offset: 3px;
+}
+
+.cc-video-play-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 999px;
+  background: var(--cc-orange);
+  color: #ffffff;
+  box-shadow: 0 8px 22px -6px rgb(219 106 63 / 0.8);
+}
+
+.cc-video-play-icon svg {
+  width: 22px;
+  height: 22px;
+  margin-left: 2px;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+.cc-video-play-label {
+  display: grid;
+  gap: 3px;
+  font-family: var(--cc-font-body);
+  font-size: 1.02rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  text-align: left;
+}
+
+.cc-video-play-label small {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.62);
+}
+
+@keyframes cc-video-play-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% + 12px));
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-video-play {
+    animation: none;
+  }
+}
+
 .cc-hero-loader {
   position: absolute;
   z-index: 3;
@@ -635,7 +740,8 @@ body:has(.cc-page) {
   visibility: hidden !important;
 }
 
-.cc-video-hero.is-hero-intro-active .cc-sound-button {
+.cc-video-hero.is-hero-intro-active .cc-sound-button,
+.cc-video-hero.is-hero-intro-active .cc-video-play {
   opacity: 0 !important;
   pointer-events: none;
   visibility: hidden;
@@ -13174,6 +13280,288 @@ body:has(.cc-page) {
     display: block !important;
     font-size: clamp(1.32rem, 6.8vw, 1.78rem) !important;
     line-height: 1 !important;
+  }
+}
+
+/* ==========================================================================
+   Opening graphic — the Indicated Outcome Report (IOR) reveal.
+   Replaces the old scattered word-cloud + blue chart. Warm paper + ink with a
+   single rationed terracotta accent for risk. Teaches Planned − Risk =
+   Indicated as one legible bar plus a ledger. New namespace (.cc-ior-intro*)
+   so none of the legacy .cc-intro-* responsive rules apply.
+   ========================================================================== */
+.cc-hero-intro-motion.cc-ior-intro {
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 5vw, 64px);
+  background: linear-gradient(180deg, #fbf9f3 0%, var(--cc-paper) 58%, #f1ece1 100%);
+  color: var(--cc-ink);
+  /* Fade is driven by the parent's reveal bridge (below), not a fixed-length
+     self-animation — so it stays synced to the JS intro timeline. */
+  animation: none;
+  opacity: 1;
+  transition: opacity 1200ms var(--cc-caption-ease);
+}
+
+.cc-video-hero.is-hero-intro-revealing .cc-ior-intro {
+  opacity: 0;
+}
+
+.cc-ior-intro-inner {
+  display: grid;
+  gap: clamp(20px, 3.6vh, 44px);
+  width: min(880px, 100%);
+  justify-items: center;
+  text-align: center;
+}
+
+.cc-ior-intro-eyebrow {
+  margin: 0;
+  font-family: var(--cc-font-body);
+  font-size: clamp(0.64rem, 1vw, 0.76rem);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--cc-orange-dark);
+  opacity: 0;
+  animation: cc-ior-fade-rise 700ms var(--cc-caption-ease) 120ms forwards;
+}
+
+.cc-ior-intro-title {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--cc-font-display);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 5.2vw, 3.7rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--cc-ink);
+  text-wrap: balance;
+  opacity: 0;
+  animation: cc-ior-fade-rise 800ms var(--cc-caption-ease) 320ms forwards;
+}
+
+.cc-ior-intro-title em {
+  font-family: var(--cc-font-italic);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.cc-ior-intro-title em:nth-of-type(2) {
+  color: var(--cc-orange-dark);
+}
+
+.cc-ior-intro-figure {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  opacity: 0;
+  animation: cc-ior-fade-rise 700ms var(--cc-caption-ease) 900ms forwards;
+}
+
+.cc-ior-intro-track {
+  position: relative;
+  width: 100%;
+  height: clamp(54px, 8vh, 76px);
+  overflow: hidden;
+  border: 1px solid var(--cc-line);
+  border-radius: 5px;
+  background: #efeade;
+}
+
+.cc-ior-intro-fill {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  clip-path: inset(0 100% 0 0);
+  animation: cc-ior-draw 950ms var(--cc-caption-ease) 1150ms forwards;
+}
+
+.cc-ior-intro-fill-indicated,
+.cc-ior-intro-fill-risk {
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(12px, 2vw, 24px);
+  font-family: var(--cc-font-body);
+  font-size: clamp(0.6rem, 1.05vw, 0.78rem);
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #f4efe4;
+}
+
+.cc-ior-intro-fill-indicated {
+  flex: 0 0 65%;
+  background: var(--cc-ink);
+}
+
+/* Risk starts as part of the ink profit bar, then "eats" the margin: its
+   segment turns terracotta once the bar has drawn. */
+.cc-ior-intro-fill-risk {
+  flex: 0 0 35%;
+  justify-content: flex-end;
+  color: #ffffff;
+  background: var(--cc-ink);
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgb(0 0 0 / 0.12) 0 2px,
+    transparent 2px 9px
+  );
+  animation: cc-ior-eat 800ms var(--cc-caption-ease) 2200ms forwards;
+}
+
+.cc-ior-intro-project {
+  margin: 0;
+  font-family: var(--cc-font-body);
+  font-size: clamp(0.62rem, 1vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cc-muted);
+  text-align: left;
+}
+
+.cc-ior-intro-ledger {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(10px, 2.2vw, 26px);
+}
+
+.cc-ior-intro-cell {
+  display: grid;
+  gap: 5px;
+  justify-items: center;
+  opacity: 0;
+  animation: cc-ior-fade-rise 600ms var(--cc-caption-ease) forwards;
+}
+
+.cc-ior-intro-cell:nth-child(1) {
+  animation-delay: 2600ms;
+}
+
+.cc-ior-intro-cell.is-risk {
+  animation-delay: 2900ms;
+}
+
+.cc-ior-intro-cell.is-indicated {
+  animation-delay: 3300ms;
+}
+
+.cc-ior-intro-cell small {
+  font-family: var(--cc-font-body);
+  font-size: clamp(0.6rem, 0.95vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cc-muted);
+}
+
+.cc-ior-intro-cell strong {
+  font-family: var(--cc-font-display);
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3.6vw, 2.6rem);
+  line-height: 1;
+  color: var(--cc-ink);
+}
+
+.cc-ior-intro-cell.is-risk strong {
+  color: var(--cc-orange-dark);
+}
+
+.cc-ior-intro-cell.is-indicated strong {
+  font-family: var(--cc-font-italic);
+  font-style: italic;
+  font-size: clamp(1.9rem, 4.6vw, 3.3rem);
+}
+
+.cc-ior-intro-op {
+  align-self: center;
+  font-family: var(--cc-font-display);
+  font-size: clamp(1.2rem, 2.6vw, 2rem);
+  font-weight: 400;
+  color: var(--cc-muted);
+  opacity: 0;
+  animation: cc-ior-fade-rise 500ms var(--cc-caption-ease) 3050ms forwards;
+}
+
+@keyframes cc-ior-fade-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cc-ior-draw {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes cc-ior-eat {
+  from {
+    background-color: var(--cc-ink);
+  }
+  to {
+    background-color: var(--cc-orange);
+  }
+}
+
+@media (max-width: 560px) {
+  .cc-ior-intro-title {
+    font-size: clamp(1.7rem, 8.4vw, 2.4rem);
+  }
+
+  .cc-ior-intro-ledger {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .cc-ior-intro-op {
+    transform: rotate(90deg);
+  }
+
+  .cc-ior-intro-fill-indicated span,
+  .cc-ior-intro-fill-indicated,
+  .cc-ior-intro-fill-risk {
+    font-size: 0.56rem;
+    letter-spacing: 0.08em;
+  }
+}
+
+/* Defensive: if this ever renders under reduced motion, show the composed
+   final state with no animation. (The component also skips rendering entirely
+   when prefers-reduced-motion is set.) */
+@media (prefers-reduced-motion: reduce) {
+  .cc-hero-intro-motion.cc-ior-intro,
+  .cc-ior-intro-eyebrow,
+  .cc-ior-intro-title,
+  .cc-ior-intro-figure,
+  .cc-ior-intro-cell,
+  .cc-ior-intro-op {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .cc-ior-intro-fill {
+    clip-path: none !important;
+    animation: none !important;
+  }
+
+  .cc-ior-intro-fill-risk {
+    background-color: var(--cc-orange) !important;
+    animation: none !important;
   }
 }
 
