@@ -52,9 +52,9 @@ const CLOUDFLARE_STREAM_ID = "5867cd561f133a4299bfb06e9e2f01d1";
 // sound + controls (mounted only while open, so it plays on the click).
 const CLOUDFLARE_FILM_IFRAME = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}?autoplay=true&controls=true&preload=auto&letterboxColor=transparent`;
 // ?v cache-bust — files under public/ are served without content hashing.
-const HERO_AMBIENT_MP4 = "/assets/hero/ambient.mp4?v=2";
-const HERO_AMBIENT_WEBM = "/assets/hero/ambient.webm?v=2";
-const HERO_AMBIENT_POSTER = "/assets/hero/ambient-poster.jpg?v=2";
+const HERO_AMBIENT_MP4 = "/assets/hero/ambient.mp4?v=3";
+const HERO_AMBIENT_WEBM = "/assets/hero/ambient.webm?v=3";
+const HERO_AMBIENT_POSTER = "/assets/hero/ambient-poster.jpg?v=3";
 const AOS_URL = "https://alpos.alpcontractorcircle.com";
 const HANDBOOK_URL = "https://alphandbook.com";
 const PORTAL_LOGIN_URL = "https://app.alpcontractorcircle.com/login";
@@ -1089,9 +1089,12 @@ export default function ContractorCircle() {
           <div className="cc-hero-overlay">
             <p className="cc-hero-overlay-eyebrow">ALP Contractor Circle</p>
             <h1 className="cc-hero-overlay-title">
-              You&rsquo;re in the business of{" "}
-              <em>selling construction services.</em>
+              You&rsquo;re a contractor. But contracting is a{" "}
+              <em>business.</em>
             </h1>
+            <p className="cc-hero-overlay-sub">
+              Business principles and systems are what make it profitable.
+            </p>
             <button
               className="cc-video-play"
               type="button"
