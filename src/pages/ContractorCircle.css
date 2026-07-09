@@ -13652,6 +13652,17 @@ body:has(.cc-page) {
   color: #eaa079;
 }
 
+.cc-hero-overlay-sub {
+  margin: 0;
+  max-width: 34ch;
+  font-family: var(--cc-font-body);
+  font-size: clamp(1rem, 1.5vw, 1.3rem);
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgb(255 255 255 / 0.86);
+  text-shadow: 0 1px 18px rgb(0 0 0 / 0.4);
+}
+
 /* The play pill lives in the overlay flow here, not centered/absolute. */
 .cc-hero-overlay .cc-video-play {
   position: static;
