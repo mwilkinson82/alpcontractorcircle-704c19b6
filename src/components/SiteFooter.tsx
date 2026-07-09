@@ -14,6 +14,7 @@ export const SiteFooter = () => {
           <Link to="/estimating" className="hover:text-foreground">Estimating</Link>
           <Link to="/q2" className="hover:text-foreground">Q1/Q2</Link>
           <Link to="/silos" className="hover:text-foreground">Three Silos</Link>
+          <Link to="/cancellation-policy" className="hover:text-foreground">Cancellation Policy</Link>
           <a href="https://app.alpcontractorcircle.com/login" className="hover:text-foreground">Sign in</a>
         </div>
         <div className="text-xs text-muted-foreground">

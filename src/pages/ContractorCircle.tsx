@@ -1642,6 +1642,7 @@ export default function ContractorCircle() {
       <footer className="cc-footer">
         <p>© 2026 ALP Contractor Circle. All rights reserved.</p>
         <div>
+          <a href="/cancellation-policy">Cancellation Policy</a>
           <a href={HANDBOOK_URL} target="_blank" rel="noreferrer">
             ALP Handbook
           </a>
