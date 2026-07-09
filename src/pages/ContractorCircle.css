@@ -13565,3 +13565,162 @@ body:has(.cc-page) {
   }
 }
 
+/* ==========================================================================
+   Hero (Option C) — a short, silent, self-hosted b-roll loop plays seamlessly
+   behind an editorial headline; the full narrated film is one tap away in a
+   lightbox with sound. Replaces the click-to-play Cloudflare iframe hero.
+   ========================================================================== */
+.cc-hero-ambient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cc-video-hero .cc-video-shade {
+  display: block;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  /* Vertical scrim for depth + a left-weighted wash so the headline column
+     stays legible and background clutter behind the text is muted. */
+  background:
+    linear-gradient(
+      90deg,
+      rgb(6 5 4 / 0.72) 0%,
+      rgb(6 5 4 / 0.34) 34%,
+      rgb(6 5 4 / 0) 62%
+    ),
+    linear-gradient(
+      180deg,
+      rgb(8 7 5 / 0.42) 0%,
+      rgb(8 7 5 / 0.08) 30%,
+      rgb(8 7 5 / 0.3) 62%,
+      rgb(8 7 5 / 0.82) 100%
+    );
+}
+
+.cc-hero-overlay {
+  position: absolute;
+  z-index: 6;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: grid;
+  justify-items: start;
+  gap: clamp(18px, 2.6vh, 30px);
+  width: min(1160px, 100%);
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 72px);
+  opacity: 0;
+  transition: opacity 900ms var(--cc-caption-ease);
+}
+
+.cc-video-hero.is-hero-intro-complete .cc-hero-overlay {
+  opacity: 1;
+}
+
+.cc-hero-overlay-eyebrow {
+  margin: 0;
+  font-family: var(--cc-font-body);
+  font-size: clamp(0.66rem, 1vw, 0.8rem);
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.82);
+}
+
+.cc-hero-overlay-title {
+  margin: 0;
+  max-width: 16ch;
+  font-family: var(--cc-font-display);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  text-shadow: 0 2px 30px rgb(0 0 0 / 0.45);
+  text-wrap: balance;
+}
+
+.cc-hero-overlay-title em {
+  font-family: var(--cc-font-italic);
+  font-style: italic;
+  color: #eaa079;
+}
+
+/* The play pill lives in the overlay flow here, not centered/absolute. */
+.cc-hero-overlay .cc-video-play {
+  position: static;
+  transform: none;
+  animation: none;
+}
+
+.cc-hero-overlay .cc-video-play:hover {
+  transform: translateY(-2px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cc-hero-overlay {
+    opacity: 1;
+    transition: none;
+  }
+}
+
+/* Full-film lightbox (the "Watch the film" modal). Large 16:9 with sound. */
+.cc-film-lightbox {
+  width: min(1120px, 94vw) !important;
+  max-width: none !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 16px !important;
+  background: #0b0b0a !important;
+  overflow: hidden !important;
+  box-shadow: 0 40px 120px -24px rgb(0 0 0 / 0.7) !important;
+}
+
+.cc-film-lightbox-frame {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #0b0b0a;
+}
+
+.cc-film-lightbox-frame iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Radix renders its own close button as the last child — restyle it so it
+   reads on the dark panel. */
+.cc-film-lightbox > button {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 1px solid rgb(255 255 255 / 0.28);
+  background: rgb(11 11 10 / 0.72);
+  color: #ffffff;
+  opacity: 1;
+}
+
+.cc-film-lightbox > button svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 560px) {
+  .cc-film-lightbox {
+    width: calc(100vw - 20px) !important;
+    border-radius: 14px !important;
+  }
+}
+

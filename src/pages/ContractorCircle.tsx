@@ -46,14 +46,15 @@ import "./ContractorCircle.css";
 const CHECKOUT_URL =
   "https://buy.stripe.com/28EcN66xPcXk53GdXIeQM18";
 const CLOUDFLARE_STREAM_ID = "5867cd561f133a4299bfb06e9e2f01d1";
-// The hero is a full-length (~3 min) narrated film, not a background loop.
-// It is click-to-play: while idle only metadata is fetched (no autoplay, no
-// forced loop) so we never pull the whole adaptive stream before the viewer
-// asks. On play we reload the iframe with autoplay=true + controls.
-const CLOUDFLARE_STREAM_IFRAME_BASE = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}`;
-const CLOUDFLARE_STREAM_IFRAME_IDLE = `${CLOUDFLARE_STREAM_IFRAME_BASE}?preload=metadata&letterboxColor=transparent`;
-const CLOUDFLARE_STREAM_IFRAME_PLAYING = `${CLOUDFLARE_STREAM_IFRAME_BASE}?preload=auto&autoplay=true&controls=true&letterboxColor=transparent`;
-const HERO_VIDEO_POSTER = "/manus-storage/alp-hero-poster_167efce2.webp";
+// The hero background is a short, silent, self-hosted b-roll loop (trimmed
+// from the film, captions cropped out) — it autoplays seamlessly and never
+// buffers. The full ~3-min narrated film opens on demand in a lightbox with
+// sound + controls (mounted only while open, so it plays on the click).
+const CLOUDFLARE_FILM_IFRAME = `https://iframe.videodelivery.net/${CLOUDFLARE_STREAM_ID}?autoplay=true&controls=true&preload=auto&letterboxColor=transparent`;
+// ?v cache-bust — files under public/ are served without content hashing.
+const HERO_AMBIENT_MP4 = "/assets/hero/ambient.mp4?v=2";
+const HERO_AMBIENT_WEBM = "/assets/hero/ambient.webm?v=2";
+const HERO_AMBIENT_POSTER = "/assets/hero/ambient-poster.jpg?v=2";
 const AOS_URL = "https://alpos.alpcontractorcircle.com";
 const HANDBOOK_URL = "https://alphandbook.com";
 const PORTAL_LOGIN_URL = "https://app.alpcontractorcircle.com/login";
@@ -824,13 +825,11 @@ function PillarsSection() {
 
 export default function ContractorCircle() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const streamFrameRef = useRef<HTMLIFrameElement>(null);
+  const heroAmbientRef = useRef<HTMLVideoElement>(null);
   const marginVideoRef = useRef<HTMLVideoElement>(null);
 
   const heroRevealStartedRef = useRef(false);
-  const [muted, setMuted] = useState(true);
-  const [videoUnavailable, setVideoUnavailable] = useState(false);
-  const [videoStarted, setVideoStarted] = useState(false);
+  const [filmOpen, setFilmOpen] = useState(false);
   const [heroFrameLoaded, setHeroFrameLoaded] = useState(false);
   const [heroVideoReady, setHeroVideoReady] = useState(false);
   const [heroIntroComplete, setHeroIntroComplete] = useState(() => {
@@ -912,25 +911,11 @@ export default function ContractorCircle() {
     setHeroIntroComplete(true);
   }, []);
 
-  // Start the film on an explicit user gesture. Flipping videoStarted reloads
-  // the Cloudflare iframe with autoplay=true as a direct result of the click,
-  // which is the reliable way to start a cross-origin Stream player (calling
-  // player.play() into the iframe is not honored as a user activation).
-  const startHeroVideo = useCallback(() => {
-    // Reload the iframe synchronously inside the click so the user activation
-    // carries into the Stream player, then mirror it into state.
-    const frame = streamFrameRef.current;
-    if (frame) frame.src = CLOUDFLARE_STREAM_IFRAME_PLAYING;
-    setVideoStarted(true);
-    setMuted(false);
-  }, []);
-
   // The intro's cross-fade "bridge" fires ~1.5s before it finishes. Reveal the
-  // hero poster underneath so the hand-off lands on a still frame, not a
-  // loading spinner. No video playback is triggered here anymore.
+  // ambient hero loop underneath so the hand-off lands on live motion, not a
+  // blank frame.
   const handleHeroIntroBridge = useCallback(() => {
     setHeroRevealActive(true);
-    setVideoUnavailable(false);
     setHeroVideoReady(true);
   }, []);
 
@@ -952,16 +937,29 @@ export default function ContractorCircle() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!heroFrameLoaded || videoUnavailable) return;
+    if (!heroFrameLoaded) return;
 
     const readyTimer = window.setTimeout(() => {
       setHeroVideoReady(true);
-    }, 560);
+    }, 400);
 
     return () => {
       window.clearTimeout(readyTimer);
     };
-  }, [heroFrameLoaded, videoUnavailable]);
+  }, [heroFrameLoaded]);
+
+  // Honor reduced motion: hold the ambient loop on its poster frame instead of
+  // playing it. (The intro is skipped entirely under this setting.)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const video = heroAmbientRef.current;
+    if (video) {
+      video.autoplay = false;
+      video.pause();
+    }
+    setHeroVideoReady(true);
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined" || !heroIntroComplete) return;
@@ -1064,75 +1062,41 @@ export default function ContractorCircle() {
       <main id="top">
         <section
           className={`cc-video-hero ${
-            heroVideoReady || videoUnavailable
-              ? "is-video-ready"
-              : "is-video-loading"
+            heroVideoReady ? "is-video-ready" : "is-video-loading"
           } ${
             heroIntroComplete
               ? "is-hero-intro-complete"
               : "is-hero-intro-active"
-          } ${heroRevealActive ? "is-hero-intro-revealing" : ""} ${
-            videoStarted ? "is-video-started" : "is-video-idle"
-          }`}
-          aria-label="Contractor Circle introduction film"
+          } ${heroRevealActive ? "is-hero-intro-revealing" : ""}`}
+          aria-label="Contractor Circle"
         >
-          <img
-            className="cc-video-poster"
-            src={HERO_VIDEO_POSTER}
-            alt=""
+          <video
+            ref={heroAmbientRef}
+            className="cc-hero-ambient"
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="auto"
+            poster={HERO_AMBIENT_POSTER}
             aria-hidden="true"
-          />
-          <div className="cc-video-media">
-            <iframe
-              ref={streamFrameRef}
-              className="cc-video cc-stream-video"
-              title="Contractor Circle introduction film"
-              src={
-                videoStarted
-                  ? CLOUDFLARE_STREAM_IFRAME_PLAYING
-                  : CLOUDFLARE_STREAM_IFRAME_IDLE
-              }
-              allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture"
-              allowFullScreen
-              loading="eager"
-              onLoad={() => {
-                setHeroFrameLoaded(true);
-                setVideoUnavailable(false);
-              }}
-              onError={() => {
-                setVideoUnavailable(true);
-                setHeroVideoReady(true);
-              }}
-            />
-          </div>
-          <div className="cc-hero-loader" aria-hidden="true">
-            <SystemsField className="cc-hero-loader-field" variant="stack" />
-            <div className="cc-loader-deck">
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
-            <div className="cc-loader-readout">
-              <span>ALP</span>
-              <strong>Contractor Circle</strong>
-            </div>
-          </div>
-          {videoUnavailable ? (
-            <img
-              className="cc-video-fallback"
-              src={HERO_VIDEO_POSTER}
-              alt=""
-              aria-hidden="true"
-            />
-          ) : null}
+            onCanPlay={() => setHeroFrameLoaded(true)}
+          >
+            <source src={HERO_AMBIENT_WEBM} type="video/webm" />
+            <source src={HERO_AMBIENT_MP4} type="video/mp4" />
+          </video>
           <div className="cc-video-shade" />
-          {!videoStarted && !videoUnavailable ? (
+          <div className="cc-hero-overlay">
+            <p className="cc-hero-overlay-eyebrow">ALP Contractor Circle</p>
+            <h1 className="cc-hero-overlay-title">
+              You&rsquo;re in the business of{" "}
+              <em>selling construction services.</em>
+            </h1>
             <button
               className="cc-video-play"
               type="button"
-              onClick={startHeroVideo}
-              aria-label="Play the Contractor Circle film (2 minutes 55 seconds)"
+              onClick={() => setFilmOpen(true)}
+              aria-label="Watch the Contractor Circle film (2 minutes 55 seconds)"
             >
               <span className="cc-video-play-icon" aria-hidden="true">
                 <Play />
@@ -1142,13 +1106,32 @@ export default function ContractorCircle() {
                 <small>2 min 55 sec</small>
               </span>
             </button>
-          ) : null}
+          </div>
           <HeroIntroMotion
             onBridgeStart={handleHeroIntroBridge}
             onComplete={handleHeroIntroComplete}
-            videoPlaying={heroFrameLoaded || videoUnavailable}
+            videoPlaying={heroVideoReady}
           />
         </section>
+
+        <Dialog open={filmOpen} onOpenChange={setFilmOpen}>
+          <DialogContent
+            className="cc-film-lightbox"
+            onOpenAutoFocus={event => event.preventDefault()}
+          >
+            <div className="cc-film-lightbox-frame">
+              {filmOpen ? (
+                <iframe
+                  title="ALP Contractor Circle film"
+                  src={CLOUDFLARE_FILM_IFRAME}
+                  allow="autoplay; fullscreen; encrypted-media; picture-in-picture"
+                  allowFullScreen
+                  loading="eager"
+                />
+              ) : null}
+            </div>
+          </DialogContent>
+        </Dialog>
 
         <div id="whats-installed">
           <PillarsSection />
