@@ -1,0 +1,227 @@
+.audit-page {
+  --audit-paper: #f6f1e7;
+  --audit-ink: #171714;
+  --audit-orange: #e85c17;
+  --audit-rule: rgba(23, 23, 20, 0.18);
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--audit-ink);
+  background:
+    linear-gradient(rgba(246, 241, 231, 0.94), rgba(246, 241, 231, 0.94)),
+    repeating-linear-gradient(90deg, transparent 0 79px, rgba(23, 23, 20, 0.05) 80px),
+    var(--audit-paper);
+}
+
+.audit-nav,
+.audit-hero,
+.audit-thesis,
+.audit-disciplines,
+.audit-method,
+.audit-final-cta,
+.audit-footer {
+  width: min(1240px, calc(100% - 48px));
+  margin-inline: auto;
+}
+
+.audit-nav {
+  min-height: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--audit-rule);
+}
+
+.audit-logo { width: 232px; height: auto; display: block; }
+.audit-nav-link,
+.audit-footer a {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 160ms ease;
+}
+.audit-nav-link:hover,
+.audit-footer a:hover { color: var(--audit-orange); }
+
+.audit-hero {
+  min-height: 690px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(380px, 0.88fr);
+  gap: 7vw;
+  align-items: center;
+  padding: 72px 0 84px;
+}
+
+.audit-eyebrow,
+.audit-section-number {
+  margin: 0;
+  color: var(--audit-orange);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+}
+
+.audit-hero h1 {
+  max-width: 760px;
+  margin: 24px 0 28px;
+  font-size: clamp(62px, 7.1vw, 108px);
+  font-weight: 800;
+  letter-spacing: -0.065em;
+  line-height: 0.87;
+}
+
+.audit-lede {
+  max-width: 660px;
+  margin: 0;
+  font-family: var(--font-italic);
+  font-size: clamp(23px, 2.2vw, 34px);
+  line-height: 1.2;
+}
+
+.audit-actions { margin-top: 38px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+.audit-actions > span { color: rgba(23, 23, 20, 0.62); font-size: 12px; font-weight: 650; }
+.audit-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 0 24px;
+  background: var(--audit-orange);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: 7px 7px 0 var(--audit-ink);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+.audit-primary:hover { transform: translate(3px, 3px); box-shadow: 4px 4px 0 var(--audit-ink); }
+
+.audit-document { display: block; transform: rotate(1.4deg); }
+.audit-document-frame {
+  padding: 13px;
+  background: #fff;
+  border: 1px solid rgba(23, 23, 20, 0.16);
+  box-shadow: 24px 28px 0 rgba(23, 23, 20, 0.1), 0 24px 60px rgba(23, 23, 20, 0.17);
+}
+.audit-document-frame img { display: block; width: 100%; height: auto; }
+.audit-document > span {
+  display: block;
+  margin-top: 42px;
+  font-size: 11px;
+  font-weight: 800;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+.audit-thesis {
+  display: grid;
+  grid-template-columns: 0.42fr 1fr;
+  gap: 48px;
+  padding: 112px 0;
+  border-top: 1px solid var(--audit-rule);
+}
+.audit-thesis h2,
+.audit-disciplines h2,
+.audit-final-cta h2 {
+  margin: 0;
+  font-size: clamp(42px, 5vw, 72px);
+  font-weight: 750;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+.audit-thesis p:not(.audit-section-number) {
+  max-width: 770px;
+  margin: 30px 0 0;
+  font-size: clamp(18px, 1.8vw, 25px);
+  line-height: 1.5;
+}
+
+.audit-disciplines {
+  display: grid;
+  grid-template-columns: 0.82fr 1fr;
+  gap: 8vw;
+  padding: 112px 0;
+  border-top: 1px solid var(--audit-rule);
+}
+.audit-disciplines h2 { margin-top: 28px; }
+.audit-disciplines ol { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--audit-ink); }
+.audit-disciplines li {
+  display: grid;
+  grid-template-columns: 42px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  min-height: 66px;
+  border-bottom: 1px solid var(--audit-rule);
+}
+.audit-disciplines li span { color: var(--audit-orange); font-size: 11px; font-weight: 800; }
+.audit-disciplines li strong { font-size: clamp(16px, 1.5vw, 21px); }
+.audit-disciplines li svg { color: var(--audit-orange); }
+
+.audit-method { padding: 112px 0 124px; border-top: 1px solid var(--audit-rule); }
+.audit-method-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 48px; border: 1px solid var(--audit-ink); }
+.audit-method-grid > div { min-height: 230px; padding: 36px; border-right: 1px solid var(--audit-ink); }
+.audit-method-grid > div:last-child { border-right: 0; }
+.audit-method-grid strong { display: block; max-width: 220px; font-size: 25px; line-height: 1.05; }
+.audit-method-grid p { margin: 24px 0 0; color: rgba(23, 23, 20, 0.72); line-height: 1.55; }
+
+.audit-final-cta {
+  width: 100%;
+  max-width: none;
+  padding: 92px max(24px, calc((100vw - 1240px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 42px;
+  color: #fff;
+  background: var(--audit-ink);
+}
+.audit-final-cta .audit-eyebrow { margin-bottom: 22px; }
+.audit-primary-light { box-shadow: 7px 7px 0 #fff; flex: 0 0 auto; }
+.audit-primary-light:hover { box-shadow: 4px 4px 0 #fff; }
+
+.audit-footer { min-height: 180px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.audit-footer > img { width: 216px; }
+.audit-footer-links { display: flex; gap: 28px; flex-wrap: wrap; justify-content: flex-end; }
+
+@media (max-width: 900px) {
+  .audit-hero { grid-template-columns: 1fr; gap: 70px; }
+  .audit-document { width: min(600px, 88%); margin-inline: auto; }
+  .audit-thesis,
+  .audit-disciplines { grid-template-columns: 1fr; }
+  .audit-method-grid { grid-template-columns: 1fr; }
+  .audit-method-grid > div { min-height: auto; border-right: 0; border-bottom: 1px solid var(--audit-ink); }
+  .audit-method-grid > div:last-child { border-bottom: 0; }
+  .audit-final-cta { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 620px) {
+  .audit-nav,
+  .audit-hero,
+  .audit-thesis,
+  .audit-disciplines,
+  .audit-method,
+  .audit-footer { width: min(100% - 32px, 1240px); }
+  .audit-nav { min-height: 84px; }
+  .audit-logo { width: 174px; }
+  .audit-nav-link { font-size: 0; gap: 0; }
+  .audit-nav-link svg { width: 22px; height: 22px; }
+  .audit-hero { min-height: auto; padding: 64px 0 72px; }
+  .audit-hero h1 { font-size: clamp(52px, 16vw, 72px); }
+  .audit-primary { width: 100%; }
+  .audit-actions > span { width: 100%; text-align: center; }
+  .audit-document { width: 90%; }
+  .audit-thesis,
+  .audit-disciplines,
+  .audit-method { padding: 78px 0; }
+  .audit-method-grid > div { padding: 28px; }
+  .audit-final-cta { padding-top: 72px; padding-bottom: 72px; }
+  .audit-footer { min-height: 230px; align-items: flex-start; justify-content: center; flex-direction: column; }
+  .audit-footer-links { justify-content: flex-start; flex-direction: column; gap: 18px; }
+}

@@ -8,6 +8,7 @@ import Circle from "./pages/Circle.tsx";
 import LeadMagnet from "./pages/LeadMagnet.tsx";
 import ContractorCircle from "./pages/ContractorCircle.tsx";
 import CancellationPolicy from "./pages/CancellationPolicy.tsx";
+import ContractorEntrepreneurAudit from "./pages/ContractorEntrepreneurAudit.tsx";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/q2" element={<LeadMagnet magnet="q2" />} />
           <Route path="/silos" element={<LeadMagnet magnet="silos" />} />
           <Route path="/cancellation-policy" element={<CancellationPolicy />} />
+          <Route path="/resources/contractor-entrepreneur-audit" element={<ContractorEntrepreneurAudit />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
