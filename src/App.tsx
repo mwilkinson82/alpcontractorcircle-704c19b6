@@ -9,6 +9,9 @@ import LeadMagnet from "./pages/LeadMagnet.tsx";
 import ContractorCircle from "./pages/ContractorCircle.tsx";
 import CancellationPolicy from "./pages/CancellationPolicy.tsx";
 import ContractorEntrepreneurAudit from "./pages/ContractorEntrepreneurAudit.tsx";
+import DelayIntensive from "./pages/DelayIntensive.tsx";
+import DelayIntensiveConfirmed from "./pages/DelayIntensiveConfirmed.tsx";
+import DelayIntensiveTerms from "./pages/DelayIntensiveTerms.tsx";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +30,10 @@ const App = () => (
           <Route path="/silos" element={<LeadMagnet magnet="silos" />} />
           <Route path="/cancellation-policy" element={<CancellationPolicy />} />
           <Route path="/resources/contractor-entrepreneur-audit" element={<ContractorEntrepreneurAudit />} />
+          <Route path="/delay-intensive" element={<DelayIntensive />} />
+          <Route path="/delay-intensive/member" element={<DelayIntensive />} />
+          <Route path="/delay-intensive/confirmed" element={<DelayIntensiveConfirmed />} />
+          <Route path="/delay-intensive/terms" element={<DelayIntensiveTerms />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

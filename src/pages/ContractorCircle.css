@@ -159,6 +159,16 @@ body:has(.cc-page) {
   padding: 0 20px;
 }
 
+.cc-nav-intensive {
+  color: #e68068 !important;
+}
+
+@media (max-width: 720px) {
+  .cc-nav-intensive {
+    display: none;
+  }
+}
+
 .cc-opening-brand {
   position: fixed;
   z-index: 100;
@@ -13734,4 +13744,3 @@ body:has(.cc-page) {
     border-radius: 14px !important;
   }
 }
-

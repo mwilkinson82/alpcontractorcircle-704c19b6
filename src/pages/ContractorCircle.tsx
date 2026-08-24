@@ -1050,6 +1050,9 @@ export default function ContractorCircle() {
           <span className="cc-brand-name">Contractor Circle</span>
         </a>
         <nav className="cc-nav-actions" aria-label="Primary">
+          <a href="/delay-intensive" className="cc-nav-link cc-nav-intensive">
+            Sept. 4–6 Intensive
+          </a>
           <a href={PORTAL_LOGIN_URL} className="cc-nav-link">
             Sign In
           </a>
