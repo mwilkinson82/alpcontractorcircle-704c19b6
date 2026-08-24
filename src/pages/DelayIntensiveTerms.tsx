@@ -20,7 +20,9 @@ export default function DelayIntensiveTerms() {
         <h2>Educational purpose</h2>
         <p>The intensive provides educational and professional training. It is not legal advice, does not create an attorney-client relationship and does not guarantee entitlement, recovery or a particular project outcome. Contract language, governing law and project-specific facts must be reviewed by qualified counsel and appropriate technical professionals.</p>
         <h2>Project-specific work</h2>
-        <p>Tuition includes group instruction and group questions. It does not include individual review, certification or preparation of an attendee’s contract notices, schedule analysis, damages calculation or claim. Project-specific services require a separate written engagement.</p>
+        <p>Tuition includes group instruction, group questions and the opportunity for a verified purchaser to submit one live claim candidate. Marshall Wilkinson has sole discretion to select which claim or claims, if any, will be dissected with the cohort and to determine the depth, sequence and treatment of that discussion. Submission does not guarantee selection, feedback or individual review.</p>
+        <h2>Live claim submissions</h2>
+        <p>Submitters must have authority to provide the information and must identify any required redactions. ALP may anonymize, redact, decline or discontinue use of a submission. Selected claim material is used only for group educational discussion. It is not legal advice, expert analysis, certification, claim preparation or a project-specific consulting engagement. Confidential project files should not be uploaded through the public form; ALP will provide separate transfer instructions if additional records are requested.</p>
         <h2>Technology and conduct</h2>
         <p>Attendees are responsible for a reliable internet connection and appropriate equipment. ALP may remove a participant who disrupts the program, violates confidentiality or shares access without permission.</p>
         <p className="di-terms-back"><Link to="/delay-intensive">← Return to the intensive</Link></p>

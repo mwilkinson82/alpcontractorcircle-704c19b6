@@ -107,7 +107,7 @@ const faq = [
   },
   {
     q: "Can I bring a live claim?",
-    a: "You can use the framework against your own facts, but enrollment does not include individual review of your contract, schedules, notices or cost records. A project-specific Claim Diagnostic is a separate engagement.",
+    a: "Yes—after purchase, you may submit one live claim candidate from the confirmation page. Marshall will review the verified-purchaser submissions and choose which claim or claims, if any, will create the strongest group learning. Submission does not guarantee selection. Selected material may be anonymized or redacted and is discussed for group education, not as legal advice or an individual engagement.",
   },
   {
     q: "What does the company pass include?",
@@ -291,14 +291,34 @@ export default function DelayIntensive() {
         </section>
 
         <section className="di-authority">
-          <div>
-            <p className="di-section-label">Led by Marshall Wilkinson</p>
-            <h2>Built from the table where the money, schedule and record have to survive.</h2>
+          <figure className="di-authority-visual">
+            <img src="/assets/delay-intensive/marshall-conference.jpg" alt="Marshall Wilkinson teaching contractors from a conference stage" loading="lazy" />
+            <figcaption>Marshall Wilkinson · Contractor operator, advisor and instructor</figcaption>
+          </figure>
+          <div className="di-authority-content">
+            <div>
+              <p className="di-section-label">Led by Marshall Wilkinson</p>
+              <h2>Built from the table where the money, schedule and record have to survive.</h2>
+            </div>
+            <div className="di-authority-copy">
+              <p>Marshall brings direct experience navigating a $30 million delay claim against the City of New York, alongside years spent inside contractor operations, commercial risk, CPM controls and claim development.</p>
+              <p>This is not a lawyer reading clauses or a scheduler teaching software buttons. It is the integrated commercial sequence: entitlement, documentation, time causation, cost recovery and claim assembly.</p>
+            </div>
           </div>
-          <div className="di-authority-copy">
-            <p>Marshall brings direct experience navigating a $30 million delay claim against the City of New York, alongside years spent inside contractor operations, commercial risk, CPM controls and claim development.</p>
-            <p>This is not a lawyer reading clauses or a scheduler teaching software buttons. It is the integrated commercial sequence: entitlement, documentation, time causation, cost recovery and claim assembly.</p>
+        </section>
+
+        <section className="di-live-claim">
+          <div className="di-live-claim-head">
+            <p className="di-section-label">Available after purchase</p>
+            <h2>Your claim can enter the working room. Marshall decides which one gets dissected.</h2>
+            <p>Every paid attendee may submit one live claim candidate. The point is not to turn the weekend into private consulting. It is to choose the strongest real-world record for a disciplined, educational dissection the whole room can learn from.</p>
           </div>
+          <ol>
+            <li><span>01</span><strong>Enroll</strong><p>Complete checkout and use the purchaser-only form on the confirmation page.</p></li>
+            <li><span>02</span><strong>Submit the outline</strong><p>Describe the event, stage, amount or time at issue, and the records that exist. No confidential files are uploaded publicly.</p></li>
+            <li><span>03</span><strong>Marshall selects</strong><p>ALP verifies the purchase. Marshall alone chooses which claim or claims, if any, are dissected live and what must be redacted.</p></li>
+          </ol>
+          <p className="di-live-claim-terms"><strong>Important:</strong> submission does not guarantee selection or individual review. A selected dissection is group education—not legal advice, expert certification or a project-specific consulting engagement.</p>
         </section>
 
         <section className="di-schedule">
@@ -325,6 +345,10 @@ export default function DelayIntensive() {
             <p className="di-section-label">You leave with the working system</p>
             <h2>Not one giant PDF.</h2>
             <p>Instruction belongs in the playbook. Notices and narratives belong in editable Word files. Calculations belong in Excel. Schedule analysis belongs in schedule files, exports and exhibits.</p>
+            <figure className="di-playbook-visual">
+              <img src="/assets/delay-intensive/claims-playbook.jpg" alt="Claims Recovery Playbook with notice, delay-analysis, damages and claim-index tools" loading="lazy" />
+              <figcaption>The system is delivered in the file type where the work actually belongs.</figcaption>
+            </figure>
           </div>
           <ul>
             {deliverables.map((item, index) => (
@@ -362,27 +386,39 @@ export default function DelayIntensive() {
           </header>
 
           {enrollmentOpen ? (
-            <div className="di-price-grid">
-              {(["individual", "company"] as Enrollment[]).map((type) => {
-                const plan = pricing[type];
-                const current = isEarly ? plan.early : plan.standard;
-                return (
-                  <article key={type} className={type === "company" ? "di-price-featured" : ""}>
-                    <div className="di-price-topline">
-                      <span>{type === "individual" ? "Individual" : "Company pass"}</span>
-                      {type === "company" && <b>Recommended</b>}
-                    </div>
-                    <div className="di-price">
-                      {isEarly && <del>{money(plan.standard)}</del>}
-                      <strong>{money(current)}</strong>
-                    </div>
-                    <p>{type === "individual" ? "One named participant" : "Two named participants from the same company"}</p>
-                    <a className="di-button di-button-primary" href={checkoutUrl(type)}>Reserve {type === "individual" ? "my seat" : "the company pass"}</a>
-                    <small>One-time tuition · Secure checkout through Stripe</small>
-                  </article>
-                );
-              })}
-            </div>
+            <>
+              <figure className="di-pass-visual">
+                <img src="/assets/delay-intensive/enrollment-passes.jpg" alt="Individual and company-pass credentials for the ALP Delay and Damages Intensive" loading="lazy" />
+                <figcaption>Individual: one attendee · Company pass: two attendees from the same company</figcaption>
+              </figure>
+              <div className="di-price-grid">
+                {(["individual", "company"] as Enrollment[]).map((type) => {
+                  const plan = pricing[type];
+                  const current = isEarly ? plan.early : plan.standard;
+                  return (
+                    <article key={type} className={type === "company" ? "di-price-featured" : ""}>
+                      <div className="di-price-topline">
+                        <span>{type === "individual" ? "Individual" : "Company pass"}</span>
+                        {type === "company" && <b>Recommended</b>}
+                      </div>
+                      <div className="di-price">
+                        {isEarly && <del>{money(plan.standard)}</del>}
+                        <strong>{money(current)}</strong>
+                      </div>
+                      <p>{type === "individual" ? "One named participant" : "Two named participants from the same company"}</p>
+                      <a className="di-button di-button-primary" href={checkoutUrl(type)}>Reserve {type === "individual" ? "my seat" : "the company pass"}</a>
+                      <small>One-time tuition · Secure checkout through Stripe</small>
+                    </article>
+                  );
+                })}
+              </div>
+              <aside className="di-terms-callout" aria-label="Key enrollment terms">
+                <div><span>Refund cutoff</span><strong>August 28, 2026</strong></div>
+                <div><span>After cutoff</span><strong>Non-refundable; transferable inside your company</strong></div>
+                <div><span>Materials</span><strong>Internal company-use license</strong></div>
+                <p>By enrolling, you agree to the <Link to="/delay-intensive/terms">complete Intensive Enrollment Terms</Link>, including the educational-purpose, live-claim and recording provisions.</p>
+              </aside>
+            </>
           ) : (
             <div id="enrollment-closed" className="di-closed">
               <p>The live room is no longer accepting online enrollment.</p>
@@ -427,6 +463,12 @@ export default function DelayIntensive() {
         </nav>
         <p>Educational and professional training. Not legal advice. No guarantee of entitlement or recovery.</p>
       </footer>
+      {enrollmentOpen && (
+        <a className="di-mobile-cta" href="#enroll">
+          <span>{isEarly ? `From ${money(pricing.individual.early)}` : `From ${money(pricing.individual.standard)}`}</span>
+          <strong>Reserve your seat</strong>
+        </a>
+      )}
     </div>
   );
 }

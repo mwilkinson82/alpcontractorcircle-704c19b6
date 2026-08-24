@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      intensive_claim_submissions: {
+        Row: {
+          amount_at_issue: string | null
+          claim_stage: string
+          claim_summary: string
+          company_name: string
+          created_at: string
+          discussion_permission: boolean
+          id: string
+          internal_notes: string | null
+          project_name: string
+          purchase_status: string
+          purchaser_email: string
+          records_available: string
+          redaction_notes: string | null
+          selected_for_live_dissection: boolean
+          submitter_name: string
+        }
+        Insert: {
+          amount_at_issue?: string | null
+          claim_stage: string
+          claim_summary: string
+          company_name: string
+          created_at?: string
+          discussion_permission?: boolean
+          id?: string
+          internal_notes?: string | null
+          project_name: string
+          purchase_status?: string
+          purchaser_email: string
+          records_available: string
+          redaction_notes?: string | null
+          selected_for_live_dissection?: boolean
+          submitter_name: string
+        }
+        Update: {
+          amount_at_issue?: string | null
+          claim_stage?: string
+          claim_summary?: string
+          company_name?: string
+          created_at?: string
+          discussion_permission?: boolean
+          id?: string
+          internal_notes?: string | null
+          project_name?: string
+          purchase_status?: string
+          purchaser_email?: string
+          records_available?: string
+          redaction_notes?: string | null
+          selected_for_live_dissection?: boolean
+          submitter_name?: string
+        }
+        Relationships: []
+      }
       drip_enrollments: {
         Row: {
           converted_at: string | null
