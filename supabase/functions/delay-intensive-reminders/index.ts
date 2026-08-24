@@ -14,6 +14,14 @@ const reminders = [
   { kind: "event_day_one", dueAt: "2026-09-04T12:00:00.000Z" },
 ];
 
+const onboardingReminderKinds = [
+  "onboarding_reminder_1",
+  "onboarding_reminder_2",
+  "onboarding_reminder_3",
+] as const;
+const FIRST_ONBOARDING_REMINDER_DELAY_MS = 24 * 60 * 60 * 1000;
+const NEXT_ONBOARDING_REMINDER_DELAY_MS = 48 * 60 * 60 * 1000;
+
 Deno.serve(async (request) => {
   if (request.method === "OPTIONS") return new Response(null, { headers: CORS_HEADERS });
   if (request.method !== "POST") return json({ error: "Method not allowed." }, 405);
@@ -21,6 +29,55 @@ Deno.serve(async (request) => {
     const now = new Date();
     const supabase = adminClient();
     const results: Array<Record<string, unknown>> = [];
+
+    const { data: incompleteEnrollments, error: incompleteError } = await supabase
+      .from("intensive_enrollments")
+      .select("*")
+      .eq("payment_status", "paid")
+      .is("onboarding_completed_at", null);
+    if (incompleteError) throw incompleteError;
+
+    for (const enrollment of (incompleteEnrollments || []) as Enrollment[]) {
+      const { data: events, error: eventError } = await supabase
+        .from("intensive_email_events")
+        .select("email_kind,status,sent_at")
+        .eq("enrollment_id", enrollment.id)
+        .in("email_kind", [...onboardingReminderKinds]);
+      if (eventError) throw eventError;
+
+      const sentAtByKind = new Map(
+        (events || [])
+          .filter((event) => event.status === "sent" && event.sent_at)
+          .map((event) => [event.email_kind, new Date(event.sent_at)]),
+      );
+      const nextIndex = onboardingReminderKinds.findIndex((kind) => !sentAtByKind.has(kind));
+      if (nextIndex === -1) continue;
+
+      const dueAt = nextIndex === 0
+        ? new Date(new Date(enrollment.created_at).getTime() + FIRST_ONBOARDING_REMINDER_DELAY_MS)
+        : (() => {
+          const previousKind = onboardingReminderKinds[nextIndex - 1];
+          const previousSentAt = sentAtByKind.get(previousKind);
+          return previousSentAt
+            ? new Date(previousSentAt.getTime() + NEXT_ONBOARDING_REMINDER_DELAY_MS)
+            : null;
+        })();
+      if (!dueAt || now < dueAt) continue;
+
+      const kind = onboardingReminderKinds[nextIndex];
+      try {
+        const delivery = await deliverEnrollmentEmail(enrollment, kind);
+        results.push({ enrollment_id: enrollment.id, kind, due_at: dueAt.toISOString(), ...delivery });
+      } catch (error) {
+        results.push({
+          enrollment_id: enrollment.id,
+          kind,
+          due_at: dueAt.toISOString(),
+          error: error instanceof Error ? error.message : "Delivery failed",
+        });
+      }
+    }
+
     for (const reminder of reminders) {
       const dueAt = new Date(reminder.dueAt);
       if (now < dueAt) continue;

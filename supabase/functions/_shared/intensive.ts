@@ -70,6 +70,7 @@ export type Enrollment = {
   access_token: string;
   onboarding_completed_at: string | null;
   materials_release_at: string;
+  created_at: string;
 };
 
 export async function findPaidEnrollment(token: string) {
@@ -121,6 +122,24 @@ export function reminderEmail(enrollment: Enrollment, kind: string) {
       title: `Get the claim out of your head, ${firstName}.`,
       copy: "Finish the attendee checklist and submit your live claim candidate now if you want Marshall to consider it for the room.",
     },
+    onboarding_reminder_1: {
+      subject: "Action required: finish your Intensive onboarding",
+      eyebrow: "Your seat is confirmed",
+      title: "Finish your attendee setup.",
+      copy: "Your seat is paid and confirmed, but your attendee profile is not complete. Open your private portal to confirm who is attending and tell Marshall what you need from the room.",
+    },
+    onboarding_reminder_2: {
+      subject: "Your Intensive onboarding is still open",
+      eyebrow: "Attendee setup incomplete",
+      title: "Put your project on Marshall's radar.",
+      copy: "Complete the attendee checklist now. After onboarding, you can submit a live claim candidate for Marshall to consider dissecting during the Intensive.",
+    },
+    onboarding_reminder_3: {
+      subject: "Final reminder: complete your Intensive onboarding",
+      eyebrow: "Final onboarding reminder",
+      title: "We still need your attendee details.",
+      copy: "Open your private portal and complete the short attendee checklist. This is the final onboarding reminder; your scheduled class and materials notices will still arrive separately.",
+    },
     forty_eight_hour: {
       subject: "48 hours: your ALP Intensive readiness check",
       eyebrow: "48 hours out",
@@ -141,6 +160,7 @@ export function reminderEmail(enrollment: Enrollment, kind: string) {
     },
   };
   const definition = definitions[kind];
+  if (!definition) throw new Error(`Unknown enrollment email kind: ${kind}`);
   const body = `<p style="margin:0 0 10px;color:#c9482e;font-size:11px;letter-spacing:.14em;text-transform:uppercase">${definition.eyebrow}</p><h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:36px;line-height:1.08;font-weight:400">${definition.title}</h1><p style="margin:0 0 24px;font-size:16px;line-height:1.65;color:#49443d">${definition.copy}</p><p style="margin:0"><a href="${portalLink}" style="display:inline-block;background:#11110f;color:#fff;text-decoration:none;padding:15px 22px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Open attendee portal</a></p>`;
   return { subject: definition.subject, html: emailFrame(definition.copy, body) };
 }
