@@ -182,6 +182,8 @@ export default function DelayIntensive() {
   }, [isMember]);
 
   const pricing = isMember ? memberPricing : publicPricing;
+  const currentRateLabel = `${money(pricing.individual.early)} individual / ${money(pricing.company.early)} company`;
+  const standardRateLabel = `${money(pricing.individual.standard)} individual / ${money(pricing.company.standard)} company`;
 
   const checkoutUrl = useMemo(
     () => (type: Enrollment) => {
@@ -245,9 +247,20 @@ export default function DelayIntensive() {
         </section>
 
         <section className="di-deadline" aria-label="Pricing deadline">
-          <div>
-            <span>{isEarly ? "Lock-in pricing closes" : "Standard enrollment"}</span>
-            <strong>{isEarly ? "Sunday, August 30 at 11:59 p.m. ET" : "Now in effect"}</strong>
+          <div className="di-deadline-copy">
+            <span>{isEarly ? "Current tuition expires" : "Standard tuition is now in effect"}</span>
+            <strong>{isEarly ? "Sunday, August 30 at 11:59 p.m. ET" : "Enrollment closes September 3 at noon ET"}</strong>
+            <p>{isEarly ? "Reserve now or pay the higher rate beginning August 31." : "The August 30 lock-in window has ended."}</p>
+          </div>
+          <div className="di-deadline-prices" aria-label="Current and standard tuition">
+            <div className={isEarly ? "is-current" : ""}>
+              <span>Through August 30</span>
+              <b>{currentRateLabel}</b>
+            </div>
+            <div className={!isEarly ? "is-current" : ""}>
+              <span>Beginning August 31</span>
+              <b>{standardRateLabel}</b>
+            </div>
           </div>
           {isEarly ? (
             <div className="di-clock" aria-label="Time remaining for lock-in pricing">
@@ -256,7 +269,7 @@ export default function DelayIntensive() {
               ))}
             </div>
           ) : (
-            <p>Enrollment closes September 3 at noon ET, or when the room is full.</p>
+            <p className="di-deadline-close">Enrollment closes September 3 at noon ET, or when the room is full.</p>
           )}
         </section>
 
@@ -382,7 +395,11 @@ export default function DelayIntensive() {
           <header>
             <p className="di-section-label">Inaugural live cohort</p>
             <h2>{enrollmentOpen ? "Choose your seat." : "Enrollment is closed."}</h2>
-            <p>{isMember ? "Private Contractor Circle member pricing is reflected below." : "Lock in by August 30. Standard tuition begins August 31."}</p>
+            <p>
+              {isEarly
+                ? `${isMember ? "Contractor Circle member tuition" : "Current tuition"} through August 30: ${currentRateLabel}. On August 31: ${standardRateLabel}.`
+                : `${isMember ? "Contractor Circle member tuition" : "Standard tuition"}: ${standardRateLabel}.`}
+            </p>
           </header>
 
           {enrollmentOpen ? (

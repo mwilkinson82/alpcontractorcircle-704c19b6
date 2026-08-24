@@ -173,18 +173,26 @@
 
 .di-deadline {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: minmax(250px, 0.75fr) minmax(390px, 1fr) auto;
   align-items: center;
-  gap: 40px;
+  gap: clamp(28px, 4vw, 64px);
   padding: 28px max(24px, calc((100vw - 1440px) / 2));
   background: var(--di-ink);
   color: var(--di-paper);
 }
 
-.di-deadline > div:first-child { display: flex; flex-direction: column; gap: 7px; }
+.di-deadline-copy { display: flex; flex-direction: column; gap: 7px; }
 .di-deadline span { font-family: "DM Mono", monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: #dc7e68; }
 .di-deadline strong { font-family: "Libre Caslon Display", Georgia, serif; font-size: clamp(20px, 2.4vw, 34px); font-weight: 400; }
-.di-deadline > p { max-width: 440px; font-size: 14px; line-height: 1.5; color: rgba(244, 240, 232, 0.7); }
+.di-deadline-copy p,
+.di-deadline-close { max-width: 440px; font-size: 12px; line-height: 1.5; color: rgba(244, 240, 232, 0.68); }
+
+.di-deadline-prices { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid rgba(244, 240, 232, 0.22); }
+.di-deadline-prices > div { display: flex; flex-direction: column; gap: 9px; min-width: 0; padding: 16px 18px; }
+.di-deadline-prices > div + div { border-left: 1px solid rgba(244, 240, 232, 0.22); }
+.di-deadline-prices > div.is-current { background: var(--di-paper); color: var(--di-ink); }
+.di-deadline-prices > div.is-current span { color: var(--di-signal); }
+.di-deadline-prices b { font-size: clamp(13px, 1.3vw, 17px); line-height: 1.35; font-weight: 600; }
 
 .di-clock { display: grid; grid-template-columns: repeat(4, minmax(54px, 72px)); }
 .di-clock div { display: flex; flex-direction: column; align-items: center; padding: 4px 14px; border-left: 1px solid rgba(244, 240, 232, 0.22); }
@@ -444,8 +452,15 @@
 .di-terms-back { margin-top: 60px !important; }
 .di-terms a { color: inherit; }
 
+@media (max-width: 1180px) {
+  .di-deadline { grid-template-columns: 1fr auto; }
+  .di-deadline-prices { grid-column: 1 / -1; grid-row: 2; }
+}
+
 @media (max-width: 900px) {
   .di-hero { grid-template-columns: 1fr; }
+  .di-deadline { grid-template-columns: 1fr 1fr; }
+  .di-deadline-prices { grid-column: 1 / -1; grid-row: 2; }
   .di-brief { max-width: 540px; }
   .di-section-head { grid-template-columns: 1fr; }
   .di-section-head > p:last-child { max-width: 680px; margin-top: 25px; }
@@ -494,6 +509,9 @@
   .di-text-link { align-self: flex-start; min-height: 44px; display: inline-flex; align-items: center; }
   .di-brief { width: 100%; padding: 22px 18px; }
   .di-deadline { grid-template-columns: 1fr; padding: 28px 16px; }
+  .di-deadline-prices { grid-column: auto; grid-row: auto; }
+  .di-deadline-prices > div { padding: 15px 12px; }
+  .di-deadline-prices b { font-size: 13px; }
   .di-clock { width: 100%; grid-template-columns: repeat(4, 1fr); }
   .di-clock div:first-child { border-left: 0; }
   .di-problem,
