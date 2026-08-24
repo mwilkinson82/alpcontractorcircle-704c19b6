@@ -189,7 +189,7 @@ export default function DelayIntensive() {
       if (!enrollmentOpen) return "#enrollment-closed";
       const plan = pricing[type];
       const code = isEarly ? plan.earlyCode : "standardCode" in plan ? plan.standardCode : undefined;
-      return code ? `${base}?prefilled_promo_code=${encodeURIComponent(code as string)}` : base;
+      return code ? `${base}?prefilled_promo_code=${encodeURIComponent(code)}` : base;
     },
     [enrollmentOpen, isEarly, pricing],
   );
