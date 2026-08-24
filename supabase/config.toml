@@ -1,1 +1,10 @@
 project_id = "nereqcvadsqdbinyhsnr"
+
+[functions.delay-intensive-webhook]
+verify_jwt = false
+
+[functions.delay-intensive-portal]
+verify_jwt = false
+
+[functions.delay-intensive-reminders]
+verify_jwt = false
