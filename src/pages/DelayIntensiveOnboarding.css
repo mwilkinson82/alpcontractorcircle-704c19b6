@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Libre+Caslon+Display&display=swap");
+
+.dip-page {
+  --ink: #11110f;
+  --paper: #f4f0e8;
+  --paper-deep: #e9e3d8;
+  --signal: #c9482e;
+  --rule: rgba(17, 17, 15, .2);
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+.dip-page * { box-sizing: border-box; }
+.dip-page nav, .dip-page footer { display:flex; align-items:center; justify-content:space-between; width:min(100% - 32px, 1180px); margin:auto; }
+.dip-page nav { height:72px; border-bottom:1px solid var(--rule); }
+.dip-page nav > a:last-child, .dip-page footer a { color:inherit; font:500 9px/1 "DM Mono",monospace; letter-spacing:.12em; text-transform:uppercase; text-decoration:none; }
+.dip-mark { display:flex; align-items:baseline; gap:10px; color:inherit; text-decoration:none; }
+.dip-mark span { font-size:19px; font-weight:800; letter-spacing:-.06em; }
+.dip-mark small { font:400 9px/1 "DM Mono",monospace; letter-spacing:.13em; text-transform:uppercase; }
+.dip-shell { width:min(100% - 32px, 1180px); margin:auto; padding:48px 0 90px; }
+.dip-page h1,.dip-page h2,.dip-page h3 { margin:0; font-family:"Libre Caslon Display",Georgia,serif; font-weight:400; }
+.dip-page p { margin:0; }
+
+.dip-ticket { overflow:hidden; background:var(--ink); color:var(--paper); box-shadow:0 28px 70px -45px rgba(0,0,0,.8); }
+.dip-ticket-top { display:flex; justify-content:space-between; gap:16px; padding:15px 20px; border-bottom:1px solid rgba(244,240,232,.2); font:400 9px/1.4 "DM Mono",monospace; letter-spacing:.13em; text-transform:uppercase; color:#d0c8bc; }
+.dip-ticket-main { display:grid; gap:28px; padding:32px 20px; }
+.dip-ticket-main p { margin-bottom:12px; font:400 9px/1 "DM Mono",monospace; letter-spacing:.14em; text-transform:uppercase; color:#dc7e68; }
+.dip-ticket-main h1 { font-size:clamp(42px,9vw,82px); line-height:.9; letter-spacing:-.045em; }
+.dip-ticket-main h2 { margin-top:14px; font-family:Inter,sans-serif; font-size:13px; color:#c9c1b5; }
+.dip-ticket-status { align-self:end; min-width:170px; padding-top:14px; border-top:1px solid rgba(244,240,232,.2); }
+.dip-ticket-status span { display:block; margin-bottom:6px; font:400 9px/1 "DM Mono",monospace; letter-spacing:.12em; text-transform:uppercase; color:#8f887e; }
+.dip-ticket-status strong { font:400 18px/1.2 "Libre Caslon Display",serif; color:#dc7e68; }
+.dip-ticket dl { display:grid; margin:0; border-top:1px dashed rgba(244,240,232,.26); }
+.dip-ticket dl div { padding:17px 20px; border-bottom:1px solid rgba(244,240,232,.12); }
+.dip-ticket dt { margin-bottom:7px; font:400 8px/1 "DM Mono",monospace; letter-spacing:.13em; text-transform:uppercase; color:#8f887e; }
+.dip-ticket dd { margin:0; font-size:12px; line-height:1.4; }
+
+.dip-progress { display:grid; margin:22px 0 54px; border:1px solid var(--rule); background:rgba(255,255,255,.18); }
+.dip-progress > div { display:grid; grid-template-columns:32px 1fr auto; align-items:center; min-height:58px; padding:0 16px; border-bottom:1px solid var(--rule); }
+.dip-progress > div:last-child { border-bottom:0; }
+.dip-progress span,.dip-progress small { font:400 9px/1 "DM Mono",monospace; letter-spacing:.08em; text-transform:uppercase; }
+.dip-progress span { color:#837c72; }.dip-progress small { color:#837c72; }.dip-progress strong { font-size:12px; }
+.dip-progress .active { box-shadow:inset 3px 0 var(--signal); background:#f8f4ec; }.dip-progress .complete span,.dip-progress .complete small { color:#327051; }
+
+.dip-grid { display:grid; gap:24px; }
+.dip-panel { padding:28px 20px; border:1px solid var(--rule); background:rgba(255,255,255,.22); }
+.dip-panel header>p,.dip-materials>div>p,.dip-claim-intro>p { margin-bottom:14px; color:var(--signal); font:500 9px/1 "DM Mono",monospace; letter-spacing:.13em; text-transform:uppercase; }
+.dip-panel h2,.dip-materials h2,.dip-claim h2 { font-size:clamp(30px,6vw,46px); line-height:1; letter-spacing:-.025em; }
+.dip-onboarding form,.dip-claim form { display:grid; gap:18px; margin-top:28px; }
+.dip-page label { display:grid; gap:8px; }
+.dip-page label>span { font:500 9px/1.4 "DM Mono",monospace; letter-spacing:.08em; text-transform:uppercase; }
+.dip-page label em { color:#847c72; font-style:normal; }
+.dip-page input,.dip-page textarea,.dip-page select { width:100%; min-height:46px; padding:11px 12px; border:1px solid rgba(17,17,15,.28); border-radius:0; background:#faf7f0; color:var(--ink); font:400 16px/1.45 Inter,sans-serif; }
+.dip-page textarea { resize:vertical; }.dip-page input:focus,.dip-page textarea:focus,.dip-page select:focus { outline:2px solid rgba(201,72,46,.25); border-color:var(--signal); }
+.dip-page button { min-height:50px; padding:0 18px; border:0; border-radius:0; background:var(--ink); color:var(--paper); font:500 10px/1 "DM Mono",monospace; letter-spacing:.09em; text-transform:uppercase; cursor:pointer; }
+.dip-page button:disabled { cursor:not-allowed; opacity:.48; }
+
+.dip-agenda ol { margin:28px 0 0; padding:0; list-style:none; }
+.dip-agenda li { display:grid; grid-template-columns:32px 1fr; gap:12px; padding:20px 0; border-top:1px solid var(--rule); }
+.dip-agenda li>span { padding-top:4px; color:var(--signal); font:500 9px/1 "DM Mono",monospace; }
+.dip-agenda li strong,.dip-agenda li time { display:block; font-size:11px; line-height:1.5; }.dip-agenda li time { color:#6c655c; }
+.dip-agenda li h3 { margin-top:13px; font-size:26px; }.dip-agenda li p { margin-top:6px; color:#5d574f; font-size:13px; line-height:1.55; }
+
+.dip-materials { display:grid; gap:30px; margin-top:24px; padding:32px 20px; border:1px solid var(--rule); }
+.dip-materials.locked { background:var(--paper-deep); }.dip-materials.released { background:#e8efe8; }
+.dip-materials>div>p:last-child { margin-top:18px; max-width:650px; color:#5d574f; font-size:14px; line-height:1.65; }
+.dip-material-list { display:grid; gap:10px; }
+.dip-material-list>a,.dip-lock { display:grid; gap:7px; padding:17px; border:1px solid var(--rule); background:rgba(255,255,255,.34); color:inherit; text-decoration:none; }
+.dip-material-list span { color:var(--signal); font:500 8px/1 "DM Mono",monospace; letter-spacing:.12em; text-transform:uppercase; }
+.dip-material-list strong { font-family:"Libre Caslon Display",Georgia,serif; font-size:20px; font-weight:400; }.dip-material-list small { color:#6d665d; font-size:11px; line-height:1.5; }
+.dip-release-pending { padding:16px; border-left:3px solid var(--signal); color:#5d574f; font-size:13px; line-height:1.6; }
+
+.dip-claim { display:grid; gap:34px; margin-top:24px; padding:36px 20px; border:1px solid var(--rule); background:#f8f4ec; }
+.dip-claim-intro>p:nth-of-type(2) { margin-top:20px; color:#5d574f; font-size:14px; line-height:1.65; }
+.dip-claim-intro>div { display:grid; gap:7px; margin-top:24px; padding:16px; border-left:3px solid var(--signal); background:var(--paper-deep); }
+.dip-claim-intro>div strong { font-size:12px; }.dip-claim-intro>div span { color:#5d574f; font-size:12px; line-height:1.6; }
+.dip-claim form.is-disabled { opacity:.72; }.dip-form-gate { padding:13px; border:1px solid var(--signal); color:#8d2f1c; font-size:12px; line-height:1.5; }
+.dip-upload input { padding:12px; border-style:dashed; }.dip-upload small { color:#6b645b; font-size:11px; line-height:1.5; }
+.dip-consent { grid-template-columns:20px 1fr!important; align-items:start; }.dip-consent input { width:17px; min-height:17px; margin:2px 0 0; }.dip-consent span { font:400 11px/1.55 Inter,sans-serif!important; letter-spacing:0!important; text-transform:none!important; }
+.dip-upload-progress { color:var(--signal); font:500 10px/1.4 "DM Mono",monospace; }
+.dip-claim-received { align-self:start; padding:28px; background:var(--ink); color:var(--paper); }.dip-claim-received>span { color:#dc7e68; font:500 9px/1 "DM Mono",monospace; letter-spacing:.12em; text-transform:uppercase; }.dip-claim-received h3 { margin-top:18px; font-size:30px; }.dip-claim-received p { margin-top:12px; color:#cbc4b9; font-size:13px; line-height:1.6; }
+
+.dip-toast { position:fixed; right:16px; bottom:16px; z-index:30; display:grid; gap:12px; width:min(calc(100% - 32px),420px); padding:18px; background:#8d2f1c; color:white; box-shadow:0 15px 40px rgba(0,0,0,.25); font-size:13px; line-height:1.5; }.dip-toast button { min-height:34px; border:1px solid rgba(255,255,255,.45); background:transparent; }
+.dip-state { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; min-height:55vh; text-align:center; color:#5d574f; }.dip-state h1 { color:var(--ink); font-size:42px; }.dip-state p { max-width:560px; line-height:1.6; }.dip-state a { color:var(--ink); text-underline-offset:4px; }.dip-spinner { width:26px; height:26px; border:2px solid var(--rule); border-top-color:var(--signal); border-radius:50%; animation:dip-spin .75s linear infinite; }@keyframes dip-spin{to{transform:rotate(360deg)}}
+.dip-page footer { min-height:78px; border-top:1px solid var(--rule); color:#6e675e; font:400 9px/1.4 "DM Mono",monospace; letter-spacing:.08em; text-transform:uppercase; }
+
+@media (min-width:760px) {
+  .dip-page nav,.dip-page footer,.dip-shell { width:min(100% - 64px,1180px); }
+  .dip-shell { padding-top:64px; }
+  .dip-ticket-main { grid-template-columns:1fr auto; padding:48px 44px; }
+  .dip-ticket-top { padding:17px 44px; }.dip-ticket dl { grid-template-columns:repeat(3,1fr); }.dip-ticket dl div { padding:19px 22px; border-right:1px solid rgba(244,240,232,.12); border-bottom:0; }
+  .dip-progress { grid-template-columns:repeat(3,1fr); }.dip-progress>div { border-right:1px solid var(--rule); border-bottom:0; }.dip-progress>div:last-child { border-right:0; }
+  .dip-grid { grid-template-columns:minmax(0,1fr) minmax(310px,.72fr); }.dip-panel { padding:38px; }
+  .dip-materials { grid-template-columns:minmax(0,1fr) minmax(320px,.72fr); padding:44px; }
+  .dip-claim { grid-template-columns:minmax(280px,.72fr) minmax(0,1fr); padding:44px; }
+}
+
+@media (max-width:420px) {
+  .dip-mark small { display:none; }.dip-ticket-top strong { font-size:8px; }.dip-ticket-main h1 { font-size:44px; }.dip-page footer { align-items:flex-start; flex-direction:column; justify-content:center; gap:8px; }
+}
