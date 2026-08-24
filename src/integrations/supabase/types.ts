@@ -136,6 +136,54 @@ export type Database = {
         }
         Relationships: []
       }
+      intensive_claim_attachments: {
+        Row: {
+          claim_submission_id: string | null
+          created_at: string
+          enrollment_id: string
+          id: string
+          mime_type: string
+          original_name: string
+          size_bytes: number
+          storage_path: string
+        }
+        Insert: {
+          claim_submission_id?: string | null
+          created_at?: string
+          enrollment_id: string
+          id?: string
+          mime_type: string
+          original_name: string
+          size_bytes: number
+          storage_path: string
+        }
+        Update: {
+          claim_submission_id?: string | null
+          created_at?: string
+          enrollment_id?: string
+          id?: string
+          mime_type?: string
+          original_name?: string
+          size_bytes?: number
+          storage_path?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "intensive_claim_attachments_claim_submission_id_fkey"
+            columns: ["claim_submission_id"]
+            isOneToOne: false
+            referencedRelation: "intensive_claim_submissions"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "intensive_claim_attachments_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "intensive_enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       intensive_claim_submissions: {
         Row: {
           amount_at_issue: string | null
@@ -144,6 +192,7 @@ export type Database = {
           company_name: string
           created_at: string
           discussion_permission: boolean
+          enrollment_id: string | null
           id: string
           internal_notes: string | null
           project_name: string
@@ -151,7 +200,9 @@ export type Database = {
           purchaser_email: string
           records_available: string
           redaction_notes: string | null
+          review_notified_at: string | null
           selected_for_live_dissection: boolean
+          submitted_via_portal: boolean
           submitter_name: string
         }
         Insert: {
@@ -161,6 +212,7 @@ export type Database = {
           company_name: string
           created_at?: string
           discussion_permission?: boolean
+          enrollment_id?: string | null
           id?: string
           internal_notes?: string | null
           project_name: string
@@ -168,7 +220,9 @@ export type Database = {
           purchaser_email: string
           records_available: string
           redaction_notes?: string | null
+          review_notified_at?: string | null
           selected_for_live_dissection?: boolean
+          submitted_via_portal?: boolean
           submitter_name: string
         }
         Update: {
@@ -178,6 +232,7 @@ export type Database = {
           company_name?: string
           created_at?: string
           discussion_permission?: boolean
+          enrollment_id?: string | null
           id?: string
           internal_notes?: string | null
           project_name?: string
@@ -185,8 +240,170 @@ export type Database = {
           purchaser_email?: string
           records_available?: string
           redaction_notes?: string | null
+          review_notified_at?: string | null
           selected_for_live_dissection?: boolean
+          submitted_via_portal?: boolean
           submitter_name?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "intensive_claim_submissions_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "intensive_enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      intensive_email_events: {
+        Row: {
+          attempt_count: number
+          created_at: string
+          email_kind: string
+          enrollment_id: string
+          id: string
+          last_error: string | null
+          provider_message_id: string | null
+          recipient: string
+          sent_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          attempt_count?: number
+          created_at?: string
+          email_kind: string
+          enrollment_id: string
+          id?: string
+          last_error?: string | null
+          provider_message_id?: string | null
+          recipient: string
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          attempt_count?: number
+          created_at?: string
+          email_kind?: string
+          enrollment_id?: string
+          id?: string
+          last_error?: string | null
+          provider_message_id?: string | null
+          recipient?: string
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "intensive_email_events_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "intensive_enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      intensive_enrollments: {
+        Row: {
+          access_token: string
+          amount_total: number | null
+          attendee_names: Json
+          company_name: string | null
+          created_at: string
+          currency: string | null
+          enrollment_type: string
+          id: string
+          materials_release_at: string
+          onboarding_completed_at: string | null
+          payment_status: string
+          phone: string | null
+          preparation_notes: string | null
+          purchaser_email: string
+          purchaser_name: string | null
+          seats: number
+          stripe_checkout_session_id: string
+          stripe_customer_id: string | null
+          stripe_payment_intent_id: string | null
+          stripe_payment_link_id: string
+          updated_at: string
+        }
+        Insert: {
+          access_token?: string
+          amount_total?: number | null
+          attendee_names?: Json
+          company_name?: string | null
+          created_at?: string
+          currency?: string | null
+          enrollment_type: string
+          id?: string
+          materials_release_at?: string
+          onboarding_completed_at?: string | null
+          payment_status?: string
+          phone?: string | null
+          preparation_notes?: string | null
+          purchaser_email: string
+          purchaser_name?: string | null
+          seats: number
+          stripe_checkout_session_id: string
+          stripe_customer_id?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_payment_link_id: string
+          updated_at?: string
+        }
+        Update: {
+          access_token?: string
+          amount_total?: number | null
+          attendee_names?: Json
+          company_name?: string | null
+          created_at?: string
+          currency?: string | null
+          enrollment_type?: string
+          id?: string
+          materials_release_at?: string
+          onboarding_completed_at?: string | null
+          payment_status?: string
+          phone?: string | null
+          preparation_notes?: string | null
+          purchaser_email?: string
+          purchaser_name?: string | null
+          seats?: number
+          stripe_checkout_session_id?: string
+          stripe_customer_id?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_payment_link_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      intensive_materials: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_published: boolean
+          sort_order: number
+          storage_path: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          sort_order?: number
+          storage_path: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          sort_order?: number
+          storage_path?: string
+          title?: string
         }
         Relationships: []
       }
