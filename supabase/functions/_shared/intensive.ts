@@ -146,16 +146,26 @@ export function reminderEmail(enrollment: Enrollment, kind: string) {
 }
 
 export async function sendEmail(to: string, subject: string, html: string, replyTo = "marshall@marshallwilkinson.com") {
-  const apiKey = Deno.env.get("RESEND_API_KEY");
+  const connectionKey = Deno.env.get("RESEND_API_KEY");
+  const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
   const from = Deno.env.get("INTENSIVE_EMAIL_FROM") || "ALP Intensive <intensive@alpcontractorcircle.com>";
-  if (!apiKey) throw new Error("RESEND_API_KEY is not configured.");
-  const response = await fetch("https://api.resend.com/emails", {
+  if (!connectionKey) throw new Error("RESEND_API_KEY is not configured.");
+  if (!lovableApiKey) throw new Error("LOVABLE_API_KEY is not configured.");
+  const response = await fetch("https://connector-gateway.lovable.dev/resend/emails", {
     method: "POST",
-    headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+    headers: {
+      Authorization: `Bearer ${lovableApiKey}`,
+      "X-Connection-Api-Key": connectionKey,
+      "Content-Type": "application/json",
+    },
     body: JSON.stringify({ from, to: [to], subject, html, reply_to: replyTo }),
   });
-  const payload = await response.json();
-  if (!response.ok) throw new Error(payload?.message || `Email provider returned ${response.status}.`);
+  const payloadText = await response.text();
+  if (!response.ok) {
+    console.error(`Resend gateway request failed [${response.status}]: ${payloadText}`);
+    throw new Error(`Email provider returned ${response.status}.`);
+  }
+  const payload = JSON.parse(payloadText);
   return payload.id as string;
 }
 
