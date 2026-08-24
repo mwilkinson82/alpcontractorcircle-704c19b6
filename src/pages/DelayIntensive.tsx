@@ -188,7 +188,11 @@ export default function DelayIntensive() {
       const base = type === "individual" ? INDIVIDUAL_CHECKOUT : COMPANY_CHECKOUT;
       if (!enrollmentOpen) return "#enrollment-closed";
       const plan = pricing[type];
-      const code = isEarly ? plan.earlyCode : "standardCode" in plan ? plan.standardCode : undefined;
+      const code: string | undefined = isEarly
+        ? plan.earlyCode
+        : "standardCode" in plan
+          ? (plan as { standardCode: string }).standardCode
+          : undefined;
       return code ? `${base}?prefilled_promo_code=${encodeURIComponent(code)}` : base;
     },
     [enrollmentOpen, isEarly, pricing],
