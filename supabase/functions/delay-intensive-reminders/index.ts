@@ -1,6 +1,8 @@
 import {
+  CLAIM_RECEIPT_KIND,
   CORS_HEADERS,
   adminClient,
+  deliverClaimSubmissionReceipt,
   deliverEnrollmentEmail,
   json,
   notifyMarshallOfClaim,
