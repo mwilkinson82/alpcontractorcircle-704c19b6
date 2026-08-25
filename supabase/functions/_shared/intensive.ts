@@ -228,6 +228,77 @@ export async function notifyMarshallOfClaim(claimId: string) {
   return { sent: true, notifiedAt };
 }
 
+export const CLAIM_RECEIPT_KIND = "claim_submission_receipt";
+
+export function claimReceiptEmail(firstNameRaw: string | null | undefined, projectNameRaw: string) {
+  const firstName = escapeHtml(String(firstNameRaw || "").trim().split(/\s+/)[0] || "there");
+  const projectName = escapeHtml(projectNameRaw);
+  const paragraph = "margin:0 0 18px;font-size:16px;line-height:1.65;color:#49443d";
+  const body = `<p style="margin:0 0 4px;color:#c9482e;font-size:11px;letter-spacing:.14em;text-transform:uppercase">ALP Delay &amp; Damages Intensive</p><p style="margin:0 0 10px;color:#6b645b;font-size:11px;letter-spacing:.14em;text-transform:uppercase">Claim submission received</p><h1 style="margin:0 0 22px;font-family:Georgia,serif;font-size:36px;line-height:1.08;font-weight:400">Your claim is now on Marshall's desk.</h1><p style="${paragraph}">Hi ${firstName},</p><p style="${paragraph}">Thank you for submitting your claim involving ${projectName}.</p><p style="${paragraph}">We received your completed claim outline and supporting materials. Everything came through successfully and is now inside Marshall's private review queue.</p><p style="${paragraph}">Marshall is reviewing the submission to determine whether its narrative, notice history, delay analysis, damages, calculations, and supporting records could create a valuable live dissection for the room.</p><p style="${paragraph}">You do not need to send anything else right now. If Marshall needs another document, clarification, or specific redaction, we will contact you directly.</p><p style="${paragraph}">We're looking forward to meeting you and having you inside the ALP Delay &amp; Damages Intensive, September 4–6.</p><p style="${paragraph}">You've done the important part: you moved the claim out of your head and put the actual facts and records on the table.</p><p style="${paragraph}">Your claim is received. Your seat is confirmed. Now we build the room.</p><p style="${paragraph}">We'll see you at the Intensive.</p><p style="margin:0 0 24px;font-size:16px;line-height:1.65;color:#11110f"><strong>The ALP Intensive Team</strong><br><span style="color:#6b645b;font-size:14px">Delay &amp; Damages Intensive</span></p><div style="padding:14px;border-left:3px solid #c9482e;background:#eee9df;color:#5e574f;font-size:12px;line-height:1.6">Submission does not guarantee selection for live dissection or individual claim analysis. Marshall will choose the submission or submissions that create the strongest educational value for the group. All submitted materials remain private unless separately selected and approved for anonymized or redacted discussion.</div>`;
+  return {
+    subject: "Your claim is now on Marshall's desk.",
+    html: emailFrame(`Your ${projectNameRaw} claim has been received for review.`, body),
+  };
+}
+
+export async function deliverClaimSubmissionReceipt(claimId: string) {
+  const supabase = adminClient();
+  const { data: claim, error } = await supabase
+    .from("intensive_claim_submissions")
+    .select("id,project_name,enrollment_id,intensive_enrollments!inner(id,purchaser_email,purchaser_name,payment_status)")
+    .eq("id", claimId)
+    .maybeSingle();
+  if (error) throw error;
+  if (!claim || !claim.enrollment_id) return { skipped: true, reason: "claim_not_found" };
+  const enrollment = (claim as any).intensive_enrollments;
+  if (!enrollment || enrollment.payment_status !== "paid") return { skipped: true, reason: "enrollment_not_paid" };
+
+  const { data: existing } = await supabase
+    .from("intensive_email_events")
+    .select("id,status,attempt_count")
+    .eq("enrollment_id", enrollment.id)
+    .eq("email_kind", CLAIM_RECEIPT_KIND)
+    .maybeSingle();
+  if (existing?.status === "sent") return { skipped: true, reason: "already_sent" };
+
+  const attempts = Number(existing?.attempt_count || 0) + 1;
+  const record = {
+    enrollment_id: enrollment.id,
+    email_kind: CLAIM_RECEIPT_KIND,
+    recipient: enrollment.purchaser_email,
+    status: "pending",
+    attempt_count: attempts,
+    last_error: null,
+    updated_at: new Date().toISOString(),
+  };
+  if (existing) await supabase.from("intensive_email_events").update(record).eq("id", existing.id);
+  else await supabase.from("intensive_email_events").insert(record);
+
+  try {
+    const email = claimReceiptEmail(enrollment.purchaser_name, claim.project_name);
+    const providerMessageId = await sendEmail(
+      enrollment.purchaser_email,
+      email.subject,
+      email.html,
+      "marshall@marshallwilkinson.com",
+    );
+    await supabase.from("intensive_email_events").update({
+      status: "sent",
+      provider_message_id: providerMessageId,
+      sent_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }).eq("enrollment_id", enrollment.id).eq("email_kind", CLAIM_RECEIPT_KIND);
+    return { sent: true, providerMessageId };
+  } catch (sendError) {
+    await supabase.from("intensive_email_events").update({
+      status: "failed",
+      last_error: sendError instanceof Error ? sendError.message.slice(0, 1000) : "Unknown email error",
+      updated_at: new Date().toISOString(),
+    }).eq("enrollment_id", enrollment.id).eq("email_kind", CLAIM_RECEIPT_KIND);
+    throw sendError;
+  }
+}
+
 export async function deliverEnrollmentEmail(enrollment: Enrollment, kind: string) {
   const supabase = adminClient();
   const { data: existing } = await supabase
