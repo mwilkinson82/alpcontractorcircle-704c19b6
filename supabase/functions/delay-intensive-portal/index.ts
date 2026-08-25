@@ -205,6 +205,11 @@ async function submitClaim(enrollment: Enrollment, body: Record<string, any>) {
   } catch (notificationError) {
     console.error("Claim saved but review notification failed", notificationError);
   }
+  try {
+    await deliverClaimSubmissionReceipt(claim.id);
+  } catch (receiptError) {
+    console.error("Claim saved but attendee receipt failed", receiptError);
+  }
   return json({ ok: true, claim });
 }
 
