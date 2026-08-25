@@ -1,6 +1,8 @@
 import {
+  CLAIM_RECEIPT_KIND,
   CORS_HEADERS,
   adminClient,
+  deliverClaimSubmissionReceipt,
   deliverEnrollmentEmail,
   json,
   notifyMarshallOfClaim,
@@ -112,6 +114,33 @@ Deno.serve(async (request) => {
         results.push({ claim_id: claim.id, kind: "claim_review", ...delivery });
       } catch (error) {
         results.push({ claim_id: claim.id, kind: "claim_review", error: error instanceof Error ? error.message : "Delivery failed" });
+      }
+    }
+
+    const { data: portalClaims, error: portalClaimError } = await supabase
+      .from("intensive_claim_submissions")
+      .select("id,enrollment_id")
+      .eq("submitted_via_portal", true)
+      .not("enrollment_id", "is", null);
+    if (portalClaimError) throw portalClaimError;
+    for (const claim of portalClaims || []) {
+      const { data: receipt, error: receiptLookupError } = await supabase
+        .from("intensive_email_events")
+        .select("status")
+        .eq("enrollment_id", claim.enrollment_id)
+        .eq("email_kind", CLAIM_RECEIPT_KIND)
+        .maybeSingle();
+      if (receiptLookupError) throw receiptLookupError;
+      if (receipt?.status === "sent") continue;
+      try {
+        const delivery = await deliverClaimSubmissionReceipt(claim.id);
+        results.push({ claim_id: claim.id, kind: CLAIM_RECEIPT_KIND, ...delivery });
+      } catch (error) {
+        results.push({
+          claim_id: claim.id,
+          kind: CLAIM_RECEIPT_KIND,
+          error: error instanceof Error ? error.message : "Delivery failed",
+        });
       }
     }
     return json({ ok: true, checked_at: now.toISOString(), results });
