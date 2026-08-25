@@ -310,10 +310,13 @@ export type Database = {
           access_token: string
           amount_total: number | null
           attendee_names: Json
+          audience_channel: string
+          checkout_reference: string | null
           company_name: string | null
           created_at: string
           currency: string | null
           enrollment_type: string
+          funnel_session_id: string | null
           id: string
           materials_release_at: string
           onboarding_completed_at: string | null
@@ -328,15 +331,19 @@ export type Database = {
           stripe_payment_intent_id: string | null
           stripe_payment_link_id: string
           updated_at: string
+          visitor_id: string | null
         }
         Insert: {
           access_token?: string
           amount_total?: number | null
           attendee_names?: Json
+          audience_channel?: string
+          checkout_reference?: string | null
           company_name?: string | null
           created_at?: string
           currency?: string | null
           enrollment_type: string
+          funnel_session_id?: string | null
           id?: string
           materials_release_at?: string
           onboarding_completed_at?: string | null
@@ -351,15 +358,19 @@ export type Database = {
           stripe_payment_intent_id?: string | null
           stripe_payment_link_id: string
           updated_at?: string
+          visitor_id?: string | null
         }
         Update: {
           access_token?: string
           amount_total?: number | null
           attendee_names?: Json
+          audience_channel?: string
+          checkout_reference?: string | null
           company_name?: string | null
           created_at?: string
           currency?: string | null
           enrollment_type?: string
+          funnel_session_id?: string | null
           id?: string
           materials_release_at?: string
           onboarding_completed_at?: string | null
@@ -374,6 +385,43 @@ export type Database = {
           stripe_payment_intent_id?: string | null
           stripe_payment_link_id?: string
           updated_at?: string
+          visitor_id?: string | null
+        }
+        Relationships: []
+      }
+      intensive_funnel_events: {
+        Row: {
+          audience_channel: string
+          enrollment_type: string | null
+          event_type: string
+          id: string
+          occurred_at: string
+          page_path: string
+          referrer_host: string | null
+          session_id: string
+          visitor_id: string
+        }
+        Insert: {
+          audience_channel: string
+          enrollment_type?: string | null
+          event_type: string
+          id?: string
+          occurred_at?: string
+          page_path: string
+          referrer_host?: string | null
+          session_id: string
+          visitor_id: string
+        }
+        Update: {
+          audience_channel?: string
+          enrollment_type?: string | null
+          event_type?: string
+          id?: string
+          occurred_at?: string
+          page_path?: string
+          referrer_host?: string | null
+          session_id?: string
+          visitor_id?: string
         }
         Relationships: []
       }
@@ -433,7 +481,24 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      intensive_conversion_dashboard: {
+        Row: {
+          audience_channel: string | null
+          checkout_starts: number | null
+          checkout_to_purchase_percent: number | null
+          enrollment_type: string | null
+          gross_revenue_cents: number | null
+          landing_sessions: number | null
+          landing_visitors: number | null
+          last_checkout_at: string | null
+          last_purchase_at: string | null
+          last_visit_at: string | null
+          paid_purchases: number | null
+          paid_seats: number | null
+          visitor_to_purchase_percent: number | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       [_ in never]: never
