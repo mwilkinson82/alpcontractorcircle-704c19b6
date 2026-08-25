@@ -167,10 +167,13 @@ export function reminderEmail(enrollment: Enrollment, kind: string) {
   return { subject: definition.subject, html: emailFrame(definition.copy, body) };
 }
 
+// Approved, locked sender identity for all Intensive transactional email.
+export const INTENSIVE_EMAIL_FROM = "ALP Intensive <intensive@alpcontractorcircle.com>";
+
 export async function sendEmail(to: string, subject: string, html: string, replyTo = "marshall@marshallwilkinson.com") {
   const connectionKey = Deno.env.get("RESEND_API_KEY");
   const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
-  const from = Deno.env.get("INTENSIVE_EMAIL_FROM") || "ALP Intensive <intensive@alpcontractorcircle.com>";
+  const from = INTENSIVE_EMAIL_FROM;
   if (!connectionKey) throw new Error("RESEND_API_KEY is not configured.");
   if (!lovableApiKey) throw new Error("LOVABLE_API_KEY is not configured.");
   const response = await fetch("https://connector-gateway.lovable.dev/resend/emails", {
