@@ -67,6 +67,7 @@ export type Enrollment = {
   amount_total: number | null;
   currency: string | null;
   payment_status: "paid" | "refunded" | "disputed" | "revoked";
+  audience_channel: "public" | "contractor_circle" | "unattributed";
   access_token: string;
   onboarding_completed_at: string | null;
   materials_release_at: string;

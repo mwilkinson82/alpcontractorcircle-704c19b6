@@ -55,6 +55,22 @@ function asId(value: unknown) {
   return null;
 }
 
+function checkoutAttribution(value: unknown) {
+  if (typeof value !== "string") return null;
+  const match = value.match(
+    /^di_(public|contractor_circle)_(individual|company)_v_([0-9a-f]{32})_s_([0-9a-f]{32})$/i,
+  );
+  if (!match) return null;
+  const uuid = (hex: string) =>
+    `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+  return {
+    audienceChannel: match[1].toLowerCase(),
+    enrollmentType: match[2].toLowerCase(),
+    visitorId: uuid(match[3].toLowerCase()),
+    sessionId: uuid(match[4].toLowerCase()),
+  };
+}
+
 async function enrollFromCheckout(session: Record<string, any>) {
   const paymentLinkId = asId(session.payment_link);
   if (
@@ -76,6 +92,10 @@ async function enrollFromCheckout(session: Record<string, any>) {
   const enrollmentType = paymentLinkId === COMPANY_PAYMENT_LINK
     ? "company"
     : "individual";
+  const attribution = checkoutAttribution(session.client_reference_id);
+  const validAttribution = attribution?.enrollmentType === enrollmentType
+    ? attribution
+    : null;
   const supabase = adminClient();
   const values = {
     stripe_checkout_session_id: String(session.id),
@@ -95,6 +115,10 @@ async function enrollFromCheckout(session: Record<string, any>) {
       : null,
     currency: session.currency || "usd",
     payment_status: "paid",
+    checkout_reference: validAttribution ? String(session.client_reference_id) : null,
+    audience_channel: validAttribution?.audienceChannel || "unattributed",
+    visitor_id: validAttribution?.visitorId || null,
+    funnel_session_id: validAttribution?.sessionId || null,
     updated_at: new Date().toISOString(),
   };
 

@@ -1,5 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import {
+  buildAttributedCheckoutUrl,
+  funnelSessionId,
+  trackIntensiveEvent,
+  visitorId,
+  type IntensiveAudience,
+} from "@/lib/intensive-attribution";
 import "./DelayIntensive.css";
 
 const INDIVIDUAL_CHECKOUT = "https://book.stripe.com/00waEY7BTcXk3ZCaLweQM1b";
@@ -149,6 +156,7 @@ const upsertMeta = (selector: string, attribute: "name" | "property", key: strin
 export default function DelayIntensive() {
   const location = useLocation();
   const isMember = location.pathname.endsWith("/member");
+  const audience: IntensiveAudience = isMember ? "contractor_circle" : "public";
   const [now, setNow] = useState(Date.now());
   const isEarly = now <= LOCK_IN_DEADLINE;
   const enrollmentOpen = now < ENROLLMENT_CLOSE;
@@ -158,6 +166,10 @@ export default function DelayIntensive() {
     const timer = window.setInterval(() => setNow(Date.now()), 1000);
     return () => window.clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    void trackIntensiveEvent("landing_view", audience);
+  }, [audience]);
 
   useEffect(() => {
     const title = "Construction Delay & Damages Intensive | ALP";
@@ -191,9 +203,16 @@ export default function DelayIntensive() {
       if (!enrollmentOpen) return "#enrollment-closed";
       const plan = pricing[type];
       const code = (isEarly ? plan.earlyCode : "standardCode" in plan ? plan.standardCode : undefined) as string | undefined;
-      return code ? `${base}?prefilled_promo_code=${encodeURIComponent(code)}` : base;
+      return buildAttributedCheckoutUrl({
+        base,
+        promoCode: code,
+        audience,
+        ticketType: type,
+        visitor: visitorId(),
+        session: funnelSessionId(),
+      });
     },
-    [enrollmentOpen, isEarly, pricing],
+    [audience, enrollmentOpen, isEarly, pricing],
   );
 
   return (
@@ -423,7 +442,11 @@ export default function DelayIntensive() {
                         <strong>{money(current)}</strong>
                       </div>
                       <p>{type === "individual" ? "One named participant" : "Two named participants from the same company"}</p>
-                      <a className="di-button di-button-primary" href={checkoutUrl(type)}>Reserve {type === "individual" ? "my seat" : "the company pass"}</a>
+                      <a
+                        className="di-button di-button-primary"
+                        href={checkoutUrl(type)}
+                        onClick={() => void trackIntensiveEvent("checkout_started", audience, type)}
+                      >Reserve {type === "individual" ? "my seat" : "the company pass"}</a>
                       <small>One-time tuition · Secure checkout through Stripe</small>
                     </article>
                   );
