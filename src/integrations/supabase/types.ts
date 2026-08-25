@@ -325,6 +325,7 @@ export type Database = {
           preparation_notes: string | null
           purchaser_email: string
           purchaser_name: string | null
+          reporting_status: string
           seats: number
           stripe_checkout_session_id: string
           stripe_customer_id: string | null
@@ -352,6 +353,7 @@ export type Database = {
           preparation_notes?: string | null
           purchaser_email: string
           purchaser_name?: string | null
+          reporting_status?: string
           seats: number
           stripe_checkout_session_id: string
           stripe_customer_id?: string | null
@@ -379,6 +381,7 @@ export type Database = {
           preparation_notes?: string | null
           purchaser_email?: string
           purchaser_name?: string | null
+          reporting_status?: string
           seats?: number
           stripe_checkout_session_id?: string
           stripe_customer_id?: string | null
