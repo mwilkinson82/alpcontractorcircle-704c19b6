@@ -245,7 +245,7 @@ export async function deliverClaimSubmissionReceipt(claimId: string) {
   const supabase = adminClient();
   const { data: claim, error } = await supabase
     .from("intensive_claim_submissions")
-    .select("id,project_name,enrollment_id,intensive_enrollments!inner(id,purchaser_email,purchaser_name,payment_status)")
+    .select("id,project_name,submitter_name,enrollment_id,intensive_enrollments!inner(id,purchaser_email,purchaser_name,payment_status)")
     .eq("id", claimId)
     .maybeSingle();
   if (error) throw error;
@@ -275,7 +275,7 @@ export async function deliverClaimSubmissionReceipt(claimId: string) {
   else await supabase.from("intensive_email_events").insert(record);
 
   try {
-    const email = claimReceiptEmail(enrollment.purchaser_name, claim.project_name);
+    const email = claimReceiptEmail(String((claim as any).submitter_name || "").trim() || enrollment.purchaser_name, claim.project_name);
     const providerMessageId = await sendEmail(
       enrollment.purchaser_email,
       email.subject,
