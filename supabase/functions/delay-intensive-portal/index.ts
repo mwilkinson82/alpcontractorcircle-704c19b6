@@ -27,18 +27,20 @@ function accessFromRequest(request: Request, body: Record<string, any>) {
 }
 
 async function resolveEnrollment(request: Request, body: Record<string, any>) {
+  const sessionId = String(body.session_id || "").trim();
+  if (/^cs_(live|test)_[A-Za-z0-9]+$/.test(sessionId)) {
+    const { data, error } = await adminClient()
+      .from("intensive_enrollments")
+      .select("*")
+      .eq("stripe_checkout_session_id", sessionId)
+      .eq("payment_status", "paid")
+      .maybeSingle();
+    if (error) throw error;
+    return data as Enrollment | null;
+  }
   const access = accessFromRequest(request, body);
   if (access) return findPaidEnrollment(access);
-  const sessionId = String(body.session_id || "").trim();
-  if (!/^cs_(live|test)_[A-Za-z0-9]+$/.test(sessionId)) return null;
-  const { data, error } = await adminClient()
-    .from("intensive_enrollments")
-    .select("*")
-    .eq("stripe_checkout_session_id", sessionId)
-    .eq("payment_status", "paid")
-    .maybeSingle();
-  if (error) throw error;
-  return data as Enrollment | null;
+  return null;
 }
 
 async function portalState(enrollment: Enrollment) {

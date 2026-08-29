@@ -60,7 +60,10 @@ export default function DelayIntensiveOnboarding() {
     const fromUrl = search.get("access") || undefined;
     const sessionId = search.get("session_id") || undefined;
     const stored = window.localStorage.getItem(ACCESS_KEY) || undefined;
-    const access = fromUrl || stored;
+    // A fresh Stripe return must identify the purchase being opened. Reusing a
+    // cached attendee token here can otherwise show a previous purchaser's
+    // portal on a shared browser.
+    const access = fromUrl || (sessionId ? undefined : stored);
 
     async function connect() {
       if (!access && !sessionId) {
