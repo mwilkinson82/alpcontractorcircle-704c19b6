@@ -250,7 +250,7 @@ export default function DelayIntensive() {
               A live, advanced working intensive for contractors, project executives, project managers and schedulers who need to develop a defensible extension-of-time and delay-damages claim—not merely understand the vocabulary.
             </p>
             <div className="di-hero-actions">
-              <a href="#enroll" className="di-button di-button-primary">Reserve your seat</a>
+              <span className="di-button di-button-primary di-soldout" aria-disabled="true">Sold out</span>
               <a href="#curriculum" className="di-text-link">See the working sequence ↓</a>
             </div>
           </div>
