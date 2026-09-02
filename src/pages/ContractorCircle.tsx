@@ -920,19 +920,54 @@ export default function ContractorCircle() {
   }, []);
 
   useEffect(() => {
-    document.title =
-      "ALP Contractor Circle | Operating System for Construction Owners";
+    const title =
+      "Contractor Circle | Marshall Wilkinson / ALP — Build the company behind the projects.";
     const description =
-      "The Contractor Circle gives construction owners the operating system, tools, and weekly process to scale without becoming the bottleneck.";
-    let meta = document.querySelector<HTMLMetaElement>(
-      'meta[name="description"]'
+      "Contractor Circle is Marshall Wilkinson's ALP membership for construction business owners: live calls, AOS, replays, templates, and field-tested doctrine to build the company behind the projects.";
+    const canonicalUrl = "https://alpcontractorcircle.com/";
+
+    document.title = title;
+
+    const upsert = (
+      selector: string,
+      attr: "name" | "property",
+      key: string,
+      content: string
+    ) => {
+      let tag = document.head.querySelector<HTMLMetaElement>(selector);
+      if (!tag) {
+        tag = document.createElement("meta");
+        tag.setAttribute(attr, key);
+        document.head.appendChild(tag);
+      }
+      tag.content = content;
+    };
+
+    upsert('meta[name="description"]', "name", "description", description);
+    upsert('meta[property="og:title"]', "property", "og:title", title);
+    upsert(
+      'meta[property="og:description"]',
+      "property",
+      "og:description",
+      description
     );
-    if (!meta) {
-      meta = document.createElement("meta");
-      meta.name = "description";
-      document.head.appendChild(meta);
+    upsert('meta[property="og:url"]', "property", "og:url", canonicalUrl);
+    upsert('meta[name="twitter:title"]', "name", "twitter:title", title);
+    upsert(
+      'meta[name="twitter:description"]',
+      "name",
+      "twitter:description",
+      description
+    );
+
+    let canonicalLink =
+      document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonicalLink) {
+      canonicalLink = document.createElement("link");
+      canonicalLink.rel = "canonical";
+      document.head.appendChild(canonicalLink);
     }
-    meta.content = description;
+    canonicalLink.href = canonicalUrl;
   }, []);
 
   useEffect(() => {
@@ -1662,11 +1697,14 @@ export default function ContractorCircle() {
             Marshall Wilkinson
           </a>
           <a
-            href="https://instagram.com/realmarshallwilkinson"
+            href="https://www.instagram.com/realmarshallwilkinson"
             target="_blank"
             rel="noreferrer"
           >
             Instagram
+          </a>
+          <a href="https://marshallinbio.com" target="_blank" rel="noreferrer">
+            marshallinbio.com
           </a>
         </div>
       </footer>
