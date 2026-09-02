@@ -397,63 +397,13 @@ export default function DelayIntensive() {
         <section id="enroll" className="di-enroll">
           <header>
             <p className="di-section-label">Inaugural live cohort</p>
-            <h2>{enrollmentOpen ? "Choose your seat." : "Enrollment is closed."}</h2>
-            <p>
-              {isEarly
-                ? `${isMember ? "Contractor Circle member tuition" : "Current tuition"} through August 30: ${currentRateLabel}. On August 31: ${standardRateLabel}.`
-                : `${isMember ? "Contractor Circle member tuition" : "Standard tuition"}: ${standardRateLabel}.`}
-            </p>
+            <h2>Sold out.</h2>
+            <p>The September 4–6, 2026 live cohort is full. No seats remain.</p>
           </header>
 
-          {enrollmentOpen ? (
-            <>
-              <figure className="di-pass-visual">
-                <img src="/assets/delay-intensive/enrollment-passes.jpg" alt="Individual and company-pass credentials for the ALP Delay and Damages Intensive" loading="lazy" />
-                <figcaption>Individual: one attendee · Company pass: two attendees from the same company</figcaption>
-              </figure>
-              <div className="di-price-grid">
-                {(["individual", "company"] as Enrollment[]).map((type) => {
-                  const plan = pricing[type];
-                  const current = isEarly ? plan.early : plan.standard;
-                  return (
-                    <article key={type} className={type === "company" ? "di-price-featured" : ""}>
-                      <div className="di-price-topline">
-                        <span>{type === "individual" ? "Individual" : "Company pass"}</span>
-                        {type === "company" && <b>Recommended</b>}
-                      </div>
-                      <div className="di-price">
-                        {isEarly && <del>{money(plan.standard)}</del>}
-                        <strong>{money(current)}</strong>
-                      </div>
-                      <p>{type === "individual" ? "One named participant" : "Two named participants from the same company"}</p>
-                      <a
-                        className="di-button di-button-primary"
-                        href={checkoutUrl(type)}
-                        onClick={() => void trackIntensiveEvent("checkout_started", audience, type)}
-                      >Reserve {type === "individual" ? "my seat" : "the company pass"}</a>
-                      <small>One-time tuition · Secure checkout through Stripe</small>
-                    </article>
-                  );
-                })}
-              </div>
-              <aside className="di-terms-callout" aria-label="Key enrollment terms">
-                <div><span>Refund cutoff</span><strong>August 28, 2026</strong></div>
-                <div><span>After cutoff</span><strong>Non-refundable; transferable inside your company</strong></div>
-                <div><span>Materials</span><strong>Internal company-use license</strong></div>
-                <p>By enrolling, you agree to the <Link to="/delay-intensive/terms">complete Intensive Enrollment Terms</Link>, including the educational-purpose, live-claim and recording provisions.</p>
-              </aside>
-            </>
-          ) : (
-            <div id="enrollment-closed" className="di-closed">
-              <p>The live room is no longer accepting online enrollment.</p>
-              <a href="mailto:marshall@marshallwilkinson.com">Ask about the next cohort</a>
-            </div>
-          )}
-
-          {!isMember && (
-            <p className="di-member-note">Current Contractor Circle member? Your private enrollment link is inside the member room.</p>
-          )}
-          <p className="di-capacity">Limited to 10 companies. Enrollment closes September 3 at noon ET, or when all company positions are filled.</p>
+          <div id="enrollment-closed" className="di-closed">
+            <p>Online enrollment is closed for this cohort.</p>
+          </div>
         </section>
 
         <section className="di-faq">
