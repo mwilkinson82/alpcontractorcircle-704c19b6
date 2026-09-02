@@ -224,8 +224,8 @@ export default function DelayIntensive() {
           <span>ALP</span>
           <small>Professional Intensive</small>
         </a>
-        <a className="di-nav-cta" href="#enroll">
-          {enrollmentOpen ? "Reserve your seat" : "Enrollment closed"}
+        <a className="di-nav-cta" href="#enroll" aria-disabled="true">
+          {enrollmentOpen ? "Reserve your seat" : "Sold out"}
         </a>
       </header>
 
