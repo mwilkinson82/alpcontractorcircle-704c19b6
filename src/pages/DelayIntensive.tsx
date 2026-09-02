@@ -158,8 +158,10 @@ export default function DelayIntensive() {
   const isMember = location.pathname.endsWith("/member");
   const audience: IntensiveAudience = isMember ? "contractor_circle" : "public";
   const [now, setNow] = useState(Date.now());
+  // The public inaugural cohort is sold out; preserve private member enrollment behavior.
+  const soldOut = !isMember;
   const isEarly = now <= LOCK_IN_DEADLINE;
-  const enrollmentOpen = now < ENROLLMENT_CLOSE;
+  const enrollmentOpen = !soldOut && now < ENROLLMENT_CLOSE;
   const clock = remaining(now);
 
   useEffect(() => {
@@ -222,9 +224,11 @@ export default function DelayIntensive() {
           <span>ALP</span>
           <small>Professional Intensive</small>
         </a>
-        <a className="di-nav-cta" href="#enroll">
-          {enrollmentOpen ? "Reserve your seat" : "Enrollment closed"}
-        </a>
+        {soldOut ? (
+          <span className="di-nav-cta di-soldout" aria-label="Intensive sold out">Sold out</span>
+        ) : (
+          <a className="di-nav-cta" href="#enroll">Reserve your seat</a>
+        )}
       </header>
 
       {isMember && (
@@ -248,7 +252,11 @@ export default function DelayIntensive() {
               A live, advanced working intensive for contractors, project executives, project managers and schedulers who need to develop a defensible extension-of-time and delay-damages claim—not merely understand the vocabulary.
             </p>
             <div className="di-hero-actions">
-              <a href="#enroll" className="di-button di-button-primary">Reserve your seat</a>
+              {soldOut ? (
+                <span className="di-button di-button-primary di-soldout" aria-disabled="true">Sold out</span>
+              ) : (
+                <a href="#enroll" className="di-button di-button-primary">Reserve your seat</a>
+              )}
               <a href="#curriculum" className="di-text-link">See the working sequence ↓</a>
             </div>
           </div>
@@ -265,32 +273,42 @@ export default function DelayIntensive() {
           </aside>
         </section>
 
-        <section className="di-deadline" aria-label="Pricing deadline">
-          <div className="di-deadline-copy">
-            <span>{isEarly ? "Current tuition expires" : "Standard tuition is now in effect"}</span>
-            <strong>{isEarly ? "Sunday, August 30 at 11:59 p.m. ET" : "Enrollment closes September 3 at noon ET"}</strong>
-            <p>{isEarly ? "Reserve now or pay the higher rate beginning August 31." : "The August 30 lock-in window has ended."}</p>
-          </div>
-          <div className="di-deadline-prices" aria-label="Current and standard tuition">
-            <div className={isEarly ? "is-current" : ""}>
-              <span>Through August 30</span>
-              <b>{currentRateLabel}</b>
+        {soldOut ? (
+          <section className="di-deadline" aria-label="Enrollment status">
+            <div className="di-deadline-copy">
+              <span>Enrollment status</span>
+              <strong>Sold out</strong>
+              <p>The September 4–6, 2026 cohort is full. No seats remain.</p>
             </div>
-            <div className={!isEarly ? "is-current" : ""}>
-              <span>Beginning August 31</span>
-              <b>{standardRateLabel}</b>
+          </section>
+        ) : (
+          <section className="di-deadline" aria-label="Pricing deadline">
+            <div className="di-deadline-copy">
+              <span>{isEarly ? "Current tuition expires" : "Standard tuition is now in effect"}</span>
+              <strong>{isEarly ? "Sunday, August 30 at 11:59 p.m. ET" : "Enrollment closes September 3 at noon ET"}</strong>
+              <p>{isEarly ? "Reserve now or pay the higher rate beginning August 31." : "The August 30 lock-in window has ended."}</p>
             </div>
-          </div>
-          {isEarly ? (
-            <div className="di-clock" aria-label="Time remaining for lock-in pricing">
-              {Object.entries(clock).map(([label, value]) => (
-                <div key={label}><b>{String(value).padStart(2, "0")}</b><small>{label}</small></div>
-              ))}
+            <div className="di-deadline-prices" aria-label="Current and standard tuition">
+              <div className={isEarly ? "is-current" : ""}>
+                <span>Through August 30</span>
+                <b>{currentRateLabel}</b>
+              </div>
+              <div className={!isEarly ? "is-current" : ""}>
+                <span>Beginning August 31</span>
+                <b>{standardRateLabel}</b>
+              </div>
             </div>
-          ) : (
-            <p className="di-deadline-close">Enrollment closes September 3 at noon ET, or when the room is full.</p>
-          )}
-        </section>
+            {isEarly ? (
+              <div className="di-clock" aria-label="Time remaining for lock-in pricing">
+                {Object.entries(clock).map(([label, value]) => (
+                  <div key={label}><b>{String(value).padStart(2, "0")}</b><small>{label}</small></div>
+                ))}
+              </div>
+            ) : (
+              <p className="di-deadline-close">Enrollment closes September 3 at noon ET, or when the room is full.</p>
+            )}
+          </section>
+        )}
 
         <section className="di-problem">
           <p className="di-section-label">The commercial reality</p>
@@ -413,11 +431,13 @@ export default function DelayIntensive() {
         <section id="enroll" className="di-enroll">
           <header>
             <p className="di-section-label">Inaugural live cohort</p>
-            <h2>{enrollmentOpen ? "Choose your seat." : "Enrollment is closed."}</h2>
+            <h2>{enrollmentOpen ? "Choose your seat." : soldOut ? "Sold out." : "Enrollment is closed."}</h2>
             <p>
-              {isEarly
-                ? `${isMember ? "Contractor Circle member tuition" : "Current tuition"} through August 30: ${currentRateLabel}. On August 31: ${standardRateLabel}.`
-                : `${isMember ? "Contractor Circle member tuition" : "Standard tuition"}: ${standardRateLabel}.`}
+              {soldOut
+                ? "The September 4–6, 2026 live cohort is full. No seats remain."
+                : isEarly
+                  ? `${isMember ? "Contractor Circle member tuition" : "Current tuition"} through August 30: ${currentRateLabel}. On August 31: ${standardRateLabel}.`
+                  : `${isMember ? "Contractor Circle member tuition" : "Standard tuition"}: ${standardRateLabel}.`}
             </p>
           </header>
 
@@ -461,15 +481,15 @@ export default function DelayIntensive() {
             </>
           ) : (
             <div id="enrollment-closed" className="di-closed">
-              <p>The live room is no longer accepting online enrollment.</p>
-              <a href="mailto:marshall@marshallwilkinson.com">Ask about the next cohort</a>
+              <p>{soldOut ? "Online enrollment is closed for this cohort." : "The live room is no longer accepting online enrollment."}</p>
+              {!soldOut && <a href="mailto:marshall@marshallwilkinson.com">Ask about the next cohort</a>}
             </div>
           )}
 
           {!isMember && (
             <p className="di-member-note">Current Contractor Circle member? Your private enrollment link is inside the member room.</p>
           )}
-          <p className="di-capacity">Limited to 10 companies. Enrollment closes September 3 at noon ET, or when all company positions are filled.</p>
+          {soldOut ? null : <p className="di-capacity">Limited to 10 companies. Enrollment closes September 3 at noon ET, or when all company positions are filled.</p>}
         </section>
 
         <section className="di-faq">
@@ -490,7 +510,11 @@ export default function DelayIntensive() {
         <section className="di-closing">
           <p className="di-section-label">The claim is already being built.</p>
           <h2>The question is whether your company is building it deliberately.</h2>
-          <a href="#enroll" className="di-button di-button-light">Reserve your seat</a>
+          {soldOut ? (
+            <span className="di-button di-button-light di-soldout" aria-disabled="true">Sold out</span>
+          ) : (
+            <a href="#enroll" className="di-button di-button-light">Reserve your seat</a>
+          )}
         </section>
       </main>
 
@@ -503,7 +527,11 @@ export default function DelayIntensive() {
         </nav>
         <p>Educational and professional training. Not legal advice. No guarantee of entitlement or recovery.</p>
       </footer>
-      {enrollmentOpen && (
+      {soldOut ? (
+        <div className="di-mobile-cta di-soldout" aria-label="Intensive sold out">
+          <strong>Sold out</strong>
+        </div>
+      ) : (
         <a className="di-mobile-cta" href="#enroll">
           <span>{isEarly ? `From ${money(pricing.individual.early)}` : `From ${money(pricing.individual.standard)}`}</span>
           <strong>Reserve your seat</strong>
