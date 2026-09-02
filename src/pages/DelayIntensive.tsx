@@ -424,7 +424,7 @@ export default function DelayIntensive() {
         <section className="di-closing">
           <p className="di-section-label">The claim is already being built.</p>
           <h2>The question is whether your company is building it deliberately.</h2>
-          <a href="#enroll" className="di-button di-button-light">Reserve your seat</a>
+          <span className="di-button di-button-light di-soldout" aria-disabled="true">Sold out</span>
         </section>
       </main>
 
@@ -437,12 +437,9 @@ export default function DelayIntensive() {
         </nav>
         <p>Educational and professional training. Not legal advice. No guarantee of entitlement or recovery.</p>
       </footer>
-      {enrollmentOpen && (
-        <a className="di-mobile-cta" href="#enroll">
-          <span>{isEarly ? `From ${money(pricing.individual.early)}` : `From ${money(pricing.individual.standard)}`}</span>
-          <strong>Reserve your seat</strong>
-        </a>
-      )}
+      <div className="di-mobile-cta di-soldout" aria-label="Intensive sold out">
+        <strong>Sold out</strong>
+      </div>
     </div>
   );
 }
