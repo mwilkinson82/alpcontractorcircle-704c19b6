@@ -158,8 +158,10 @@ export default function DelayIntensive() {
   const isMember = location.pathname.endsWith("/member");
   const audience: IntensiveAudience = isMember ? "contractor_circle" : "public";
   const [now, setNow] = useState(Date.now());
-  const isEarly = now <= LOCK_IN_DEADLINE;
-  const enrollmentOpen = now < ENROLLMENT_CLOSE;
+  // The inaugural cohort is sold out. No seats remain and checkout is closed.
+  const SOLD_OUT = true;
+  const isEarly = false;
+  const enrollmentOpen = !SOLD_OUT && now < ENROLLMENT_CLOSE;
   const clock = remaining(now);
 
   useEffect(() => {
