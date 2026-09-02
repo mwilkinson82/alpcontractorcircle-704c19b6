@@ -267,32 +267,14 @@ export default function DelayIntensive() {
           </aside>
         </section>
 
-        <section className="di-deadline" aria-label="Pricing deadline">
+        <section className="di-deadline" aria-label="Enrollment status">
           <div className="di-deadline-copy">
-            <span>{isEarly ? "Current tuition expires" : "Standard tuition is now in effect"}</span>
-            <strong>{isEarly ? "Sunday, August 30 at 11:59 p.m. ET" : "Enrollment closes September 3 at noon ET"}</strong>
-            <p>{isEarly ? "Reserve now or pay the higher rate beginning August 31." : "The August 30 lock-in window has ended."}</p>
+            <span>Enrollment status</span>
+            <strong>Sold out</strong>
+            <p>The September 4–6, 2026 cohort is full. No seats remain.</p>
           </div>
-          <div className="di-deadline-prices" aria-label="Current and standard tuition">
-            <div className={isEarly ? "is-current" : ""}>
-              <span>Through August 30</span>
-              <b>{currentRateLabel}</b>
-            </div>
-            <div className={!isEarly ? "is-current" : ""}>
-              <span>Beginning August 31</span>
-              <b>{standardRateLabel}</b>
-            </div>
-          </div>
-          {isEarly ? (
-            <div className="di-clock" aria-label="Time remaining for lock-in pricing">
-              {Object.entries(clock).map(([label, value]) => (
-                <div key={label}><b>{String(value).padStart(2, "0")}</b><small>{label}</small></div>
-              ))}
-            </div>
-          ) : (
-            <p className="di-deadline-close">Enrollment closes September 3 at noon ET, or when the room is full.</p>
-          )}
         </section>
+
 
         <section className="di-problem">
           <p className="di-section-label">The commercial reality</p>
