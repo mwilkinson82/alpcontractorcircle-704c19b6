@@ -24,22 +24,18 @@ const ENROLLMENT_CLOSE = new Date("2026-10-15T16:00:00Z").getTime();
 type Enrollment = "individual" | "company";
 
 const publicPricing = {
-  individual: { early: 2500, standard: 3500, earlyCode: "LOCKIN2500" },
-  company: { early: 3500, standard: 5000, earlyCode: "LOCKIN3500" },
+  individual: { early: 2500, standard: 3500 },
+  company: { early: 3500, standard: 5000 },
 };
 
 const memberPricing = {
   individual: {
     early: 2000,
     standard: 2800,
-    earlyCode: "CIRCLE2000",
-    standardCode: "CIRCLEMEMBERIND",
   },
   company: {
     early: 2800,
     standard: 4000,
-    earlyCode: "CIRCLE2800",
-    standardCode: "CIRCLEMEMBERCO",
   },
 };
 
