@@ -311,6 +311,7 @@ export type Database = {
           amount_total: number | null
           attendee_names: Json
           audience_channel: string
+          can_submit_claim: boolean | null
           checkout_reference: string | null
           company_name: string | null
           created_at: string
@@ -329,7 +330,6 @@ export type Database = {
           reporting_status: string
           seat_override_reason: string | null
           seats: number
-          can_submit_claim: boolean
           stripe_checkout_session_id: string
           stripe_customer_id: string | null
           stripe_payment_intent_id: string | null
@@ -342,6 +342,7 @@ export type Database = {
           amount_total?: number | null
           attendee_names?: Json
           audience_channel?: string
+          can_submit_claim?: boolean | null
           checkout_reference?: string | null
           company_name?: string | null
           created_at?: string
@@ -372,6 +373,7 @@ export type Database = {
           amount_total?: number | null
           attendee_names?: Json
           audience_channel?: string
+          can_submit_claim?: boolean | null
           checkout_reference?: string | null
           company_name?: string | null
           created_at?: string
