@@ -175,7 +175,7 @@ export function reminderEmail(enrollment: Enrollment, kind: string) {
       subject: "Your Intensive materials are now available",
       eyebrow: "Materials released",
       title: "The working files are ready.",
-      copy: "Your playbook, templates, worksheets, and Zoom access are now available inside the attendee portal.",
+      copy: "Your playbook, fill-in packet, CPM worksheets, claim assembly index, editable notices, and damages control workbook are now available inside the attendee portal.",
     },
     event_day_one: {
       subject: "Today at 1:00 p.m. ET: enter the Intensive",
