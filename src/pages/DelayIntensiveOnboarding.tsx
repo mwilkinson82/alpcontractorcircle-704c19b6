@@ -20,16 +20,18 @@ const agenda = [
   ["Sunday · September 6", "10:00 a.m.–1:00 p.m. ET", "Build", "Claim assembly, red-team review and submission architecture."],
 ];
 
-type Session = { id: string; day: string; time: string; title: string; start: string; end: string };
+type Session = { id: string; day: string; time: string; title: string; date: string; start: string; end: string };
 
 // September 2026 in America/New_York is EDT (UTC-4).
 const sessions: Session[] = [
-  { id: "preserve", day: "Friday · September 4", time: "1:00–5:00 PM ET", title: "Preserve", start: "20260904T170000Z", end: "20260904T210000Z" },
-  { id: "prove-price", day: "Saturday · September 5", time: "9:00 AM–5:00 PM ET", title: "Prove + Price", start: "20260905T130000Z", end: "20260905T210000Z" },
-  { id: "build", day: "Sunday · September 6", time: "10:00 AM–1:00 PM ET", title: "Build", start: "20260906T140000Z", end: "20260906T170000Z" },
+  { id: "preserve", date: "2026-09-04", day: "Friday · September 4", time: "1:00–5:00 PM ET", title: "Preserve", start: "20260904T170000Z", end: "20260904T210000Z" },
+  { id: "prove-price", date: "2026-09-05", day: "Saturday · September 5", time: "9:00 AM–5:00 PM ET", title: "Prove + Price", start: "20260905T130000Z", end: "20260905T210000Z" },
+  { id: "build", date: "2026-09-06", day: "Sunday · September 6", time: "10:00 AM–1:00 PM ET", title: "Build", start: "20260906T140000Z", end: "20260906T170000Z" },
 ];
 
 const SESSION_DETAILS = "Open your personal attendee portal one hour before the session for the live-room link.";
+const etToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+
 const sessionTitle = (session: Session) => `ALP Delay & Damages Intensive · ${session.title}`;
 
 function googleCalendarUrl(session: Session) {
@@ -260,7 +262,7 @@ export default function DelayIntensiveOnboarding() {
               <span>Attendance</span>
               <strong>{session.day} · {session.title}</strong>
               <small>{session.time}</small>
-              {portal.materials.zoom_url
+              {portal.materials.zoom_url && session.date === etToday()
                 ? <a className="dip-session-live" href={portal.materials.zoom_url} target="_blank" rel="noreferrer">Open live room</a>
                 : <small>The live-room link will appear here one hour before this session. Return to this personal attendee portal to enter the room.</small>}
               <div className="dip-session-actions">
