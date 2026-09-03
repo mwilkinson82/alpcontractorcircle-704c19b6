@@ -9,8 +9,14 @@ import {
 } from "@/lib/intensive-attribution";
 import "./DelayIntensive.css";
 
-const INDIVIDUAL_CHECKOUT = "";
-const COMPANY_CHECKOUT = "";
+const PUBLIC_CHECKOUT = {
+  individual: "https://buy.stripe.com/6oU4gA8FX1eC67K6vgeQM1f",
+  company: "https://buy.stripe.com/4gMeVef4lbTgbs48DoeQM1g",
+};
+const MEMBER_CHECKOUT = {
+  individual: "https://buy.stripe.com/fZu9AU8FX9L853Gg5QeQM1i",
+  company: "https://buy.stripe.com/9B63cw7BT3mK8fS1aWeQM1h",
+};
 const CHECKOUT_PENDING = "#checkout-pending";
 const LOCK_IN_DEADLINE = new Date("2026-10-01T03:59:59Z").getTime();
 const ENROLLMENT_CLOSE = new Date("2026-10-15T16:00:00Z").getTime();
@@ -18,22 +24,18 @@ const ENROLLMENT_CLOSE = new Date("2026-10-15T16:00:00Z").getTime();
 type Enrollment = "individual" | "company";
 
 const publicPricing = {
-  individual: { early: 2500, standard: 3500, earlyCode: "LOCKIN2500" },
-  company: { early: 3500, standard: 5000, earlyCode: "LOCKIN3500" },
+  individual: { early: 2500, standard: 3500 },
+  company: { early: 3500, standard: 5000 },
 };
 
 const memberPricing = {
   individual: {
     early: 2000,
     standard: 2800,
-    earlyCode: "CIRCLE2000",
-    standardCode: "CIRCLEMEMBERIND",
   },
   company: {
     early: 2800,
     standard: 4000,
-    earlyCode: "CIRCLE2800",
-    standardCode: "CIRCLEMEMBERCO",
   },
 };
 
@@ -201,21 +203,18 @@ export default function DelayIntensive() {
 
   const checkoutUrl = useMemo(
     () => (type: Enrollment) => {
-      const base = type === "individual" ? INDIVIDUAL_CHECKOUT : COMPANY_CHECKOUT;
+      const base = (isMember ? MEMBER_CHECKOUT : PUBLIC_CHECKOUT)[type];
       if (!enrollmentOpen) return "#enrollment-closed";
       if (!base) return CHECKOUT_PENDING;
-      const plan = pricing[type];
-      const code = (isEarly ? plan.earlyCode : "standardCode" in plan ? plan.standardCode : undefined) as string | undefined;
       return buildAttributedCheckoutUrl({
         base,
-        promoCode: code,
         audience,
         ticketType: type,
         visitor: visitorId(),
         session: funnelSessionId(),
       });
     },
-    [audience, enrollmentOpen, isEarly, pricing],
+    [audience, enrollmentOpen, isMember],
   );
 
   return (
@@ -468,7 +467,7 @@ export default function DelayIntensive() {
                         href={checkoutUrl(type)}
                         onClick={() => void trackIntensiveEvent("checkout_started", audience, type)}
                       >Reserve {type === "individual" ? "my seat" : "the company pass"}</a>
-                      <small>October payment links are being issued — these are not the September links.</small>
+                      <small>One-time tuition · Secure checkout through Stripe</small>
                     </article>
                   );
                 })}
