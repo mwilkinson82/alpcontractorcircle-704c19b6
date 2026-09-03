@@ -115,6 +115,9 @@ async function enrollFromCheckout(session: Record<string, any>) {
       : null,
     currency: session.currency || "usd",
     payment_status: "paid",
+    // Public Delay payment links always mint a purchaser / claim-enabled pass.
+    // Extra named-seat rows created by hand must set pass_kind = 'named_seat'.
+    pass_kind: "purchaser",
     checkout_reference: validAttribution ? String(session.client_reference_id) : null,
     audience_channel: validAttribution?.audienceChannel || "unattributed",
     visitor_id: validAttribution?.visitorId || null,

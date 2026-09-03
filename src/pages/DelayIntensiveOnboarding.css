@@ -90,7 +90,7 @@
   .dip-shell { padding-top:64px; }
   .dip-ticket-main { grid-template-columns:1fr auto; padding:48px 44px; }
   .dip-ticket-top { padding:17px 44px; }.dip-ticket dl { grid-template-columns:repeat(3,1fr); }.dip-ticket dl div { padding:19px 22px; border-right:1px solid rgba(244,240,232,.12); border-bottom:0; }
-  .dip-progress { grid-template-columns:repeat(3,1fr); }.dip-progress>div { border-right:1px solid var(--rule); border-bottom:0; }.dip-progress>div:last-child { border-right:0; }
+  .dip-progress { grid-template-columns:repeat(3,1fr); }.dip-progress.dip-progress-two { grid-template-columns:repeat(2,1fr); }.dip-progress>div { border-right:1px solid var(--rule); border-bottom:0; }.dip-progress>div:last-child { border-right:0; }
   .dip-grid { grid-template-columns:minmax(0,1fr) minmax(310px,.72fr); }.dip-panel { padding:38px; }
   .dip-materials { grid-template-columns:minmax(0,1fr) minmax(320px,.72fr); padding:44px; }
   .dip-claim { grid-template-columns:minmax(280px,.72fr) minmax(0,1fr); padding:44px; }

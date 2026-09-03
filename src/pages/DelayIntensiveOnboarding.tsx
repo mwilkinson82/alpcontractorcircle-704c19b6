@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import {
   ClaimAttachment,
   PortalState,
+  buildPreviewPortalState,
   loadPortal,
   saveOnboarding,
   submitPortalClaim,
   uploadClaimFile,
 } from "@/lib/intensive-portal";
+import { enrollmentCanSubmitClaim, passKindFromPreviewFlag } from "@/lib/intensive-pass";
 import "./DelayIntensiveOnboarding.css";
 
 const ACCESS_KEY = "alp.delay-intensive.access";
@@ -31,29 +33,9 @@ export default function DelayIntensiveOnboarding() {
   useEffect(() => {
     let cancelled = false;
     const search = new URLSearchParams(window.location.search);
-    if (import.meta.env.DEV && search.get("preview") === "1") {
-      setPortal({
-        access: "preview",
-        attendee: {
-          email: "owner@example.com",
-          name: "Michael Contractor",
-          company_name: "Contractor & Sons",
-          attendee_names: [],
-          phone: null,
-          preparation_notes: null,
-          enrollment_type: "company",
-          seats: 2,
-          ticket_number: "ALP-8F2A91C4",
-          onboarding_completed_at: null,
-        },
-        claim: null,
-        materials: {
-          released: false,
-          release_at: "2026-09-03T16:00:00.000Z",
-          zoom_url: null,
-          files: [],
-        },
-      });
+    const previewKind = import.meta.env.DEV ? passKindFromPreviewFlag(search.get("preview")) : null;
+    if (previewKind) {
+      setPortal(buildPreviewPortalState(previewKind));
       setLoading(false);
       return () => { cancelled = true; };
     }
@@ -175,7 +157,12 @@ export default function DelayIntensiveOnboarding() {
   if (!portal) return <PortalShell><div className="dip-state dip-state-error"><h1>We could not open your pass.</h1><p>{error}</p><a href="mailto:marshall@marshallwilkinson.com">Contact ALP</a></div></PortalShell>;
 
   const onboarded = Boolean(portal.attendee.onboarding_completed_at);
+  const canSubmitClaim = enrollmentCanSubmitClaim(portal);
   const claimSubmitted = Boolean(portal.claim || claimComplete);
+  const passLabel = canSubmitClaim
+    ? (portal.attendee.enrollment_type === "company" ? "Company · 2 seats" : "Individual · 1 seat")
+    : "Attendee";
+  const nameLabel = canSubmitClaim ? "Purchaser" : "Attendee";
 
   return (
     <PortalShell>
@@ -186,15 +173,15 @@ export default function DelayIntensiveOnboarding() {
           <div className="dip-ticket-status"><span>Payment</span><strong>Confirmed</strong></div>
         </div>
         <dl>
-          <div><dt>Pass</dt><dd>{portal.attendee.enrollment_type === "company" ? "Company · 2 seats" : "Individual · 1 seat"}</dd></div>
-          <div><dt>Purchaser</dt><dd>{portal.attendee.name || portal.attendee.email}</dd></div>
+          <div><dt>Pass</dt><dd>{passLabel}</dd></div>
+          <div><dt>{nameLabel}</dt><dd>{portal.attendee.name || portal.attendee.email}</dd></div>
           <div><dt>Materials</dt><dd>{portal.materials.released ? "Released" : `Unlock ${releaseLabel}`}</dd></div>
         </dl>
       </section>
 
-      <section className="dip-progress" aria-label="Attendee readiness">
+      <section className={`dip-progress${canSubmitClaim ? "" : " dip-progress-two"}`} aria-label="Attendee readiness">
         <div className={onboarded ? "complete" : "active"}><span>01</span><strong>Onboarding</strong><small>{onboarded ? "Complete" : "Required"}</small></div>
-        <div className={claimSubmitted ? "complete" : ""}><span>02</span><strong>Live claim</strong><small>{claimSubmitted ? "Submitted" : "Optional"}</small></div>
+        {canSubmitClaim ? <div className={claimSubmitted ? "complete" : ""}><span>02</span><strong>Live claim</strong><small>{claimSubmitted ? "Submitted" : "Optional"}</small></div> : null}
         <div className={portal.materials.released ? "complete" : ""}><span>03</span><strong>Materials</strong><small>{portal.materials.released ? "Available" : "Timed release"}</small></div>
       </section>
 
@@ -228,6 +215,7 @@ export default function DelayIntensiveOnboarding() {
         </div>
       </section>
 
+      {canSubmitClaim ? (
       <section className="dip-claim">
         <div className="dip-claim-intro"><p>Step 02 · Optional</p><h2>Put one live claim in front of Marshall.</h2><p>You may submit one active claim candidate after purchase. Marshall chooses which claim or claims, if any, create the strongest group dissection. Selection is not guaranteed.</p><div><strong>Private intake</strong><span>Files are stored privately and are not visible to other attendees. Upload only records you have authority to share. Selected material may be anonymized or redacted.</span></div></div>
         {claimSubmitted ? <div className="dip-claim-received"><span>Submission received</span><h3>{portal.claim?.project_name || "Marshall has your claim outline."}</h3><p>ALP will contact you if Marshall needs clarification, additional records, or redaction before the weekend.</p></div> : (
@@ -246,6 +234,7 @@ export default function DelayIntensiveOnboarding() {
           </form>
         )}
       </section>
+      ) : null}
       {error ? <div className="dip-toast" role="alert">{error}<button onClick={() => setError("")}>Dismiss</button></div> : null}
     </PortalShell>
   );

@@ -1,7 +1,14 @@
 import { supabase } from "@/integrations/supabase/client";
+import {
+  enrollmentCanSubmitClaim,
+  PASS_KIND_NAMED_SEAT,
+  type IntensivePassKind,
+} from "@/lib/intensive-pass";
 
 export type PortalState = {
   access: string;
+  pass_kind: IntensivePassKind;
+  can_submit_claim: boolean;
   attendee: {
     email: string;
     name: string | null;
@@ -36,6 +43,34 @@ export type ClaimAttachment = {
   size_bytes: number;
 };
 
+export function buildPreviewPortalState(passKind: IntensivePassKind = "purchaser"): PortalState {
+  const named = passKind === PASS_KIND_NAMED_SEAT;
+  return {
+    access: named ? "preview-named-seat" : "preview",
+    pass_kind: passKind,
+    can_submit_claim: enrollmentCanSubmitClaim({ pass_kind: passKind }),
+    attendee: {
+      email: named ? "attendee@example.com" : "owner@example.com",
+      name: named ? "Jordan Superintendent" : "Michael Contractor",
+      company_name: named ? "Registered company" : "Contractor & Sons",
+      attendee_names: named ? ["Jordan Superintendent"] : [],
+      phone: null,
+      preparation_notes: null,
+      enrollment_type: named ? "individual" : "company",
+      seats: named ? 1 : 2,
+      ticket_number: named ? "ALP-A1B2C3D4" : "ALP-8F2A91C4",
+      onboarding_completed_at: named ? "2026-09-03T10:00:00.000Z" : null,
+    },
+    claim: null,
+    materials: {
+      released: false,
+      release_at: "2026-09-03T16:00:00.000Z",
+      zoom_url: null,
+      files: [],
+    },
+  };
+}
+
 const PORTAL_FUNCTION = "delay-intensive-portal";
 
 async function invoke<T>(body: Record<string, unknown>): Promise<T> {
@@ -54,8 +89,21 @@ async function invoke<T>(body: Record<string, unknown>): Promise<T> {
   return data as T;
 }
 
-export function loadPortal(access?: string, sessionId?: string) {
-  return invoke<PortalState>({ action: "get", access, session_id: sessionId });
+function normalizePortalState(state: PortalState): PortalState {
+  const pass_kind = state.pass_kind === "named_seat" ? "named_seat" : "purchaser";
+  return {
+    ...state,
+    pass_kind,
+    can_submit_claim: enrollmentCanSubmitClaim({
+      pass_kind,
+      can_submit_claim: state.can_submit_claim,
+    }),
+  };
+}
+
+export async function loadPortal(access?: string, sessionId?: string) {
+  const state = await invoke<PortalState>({ action: "get", access, session_id: sessionId });
+  return normalizePortalState(state);
 }
 
 export function saveOnboarding(access: string, input: {

@@ -320,6 +320,7 @@ export type Database = {
           id: string
           materials_release_at: string
           onboarding_completed_at: string | null
+          pass_kind: string
           payment_status: string
           phone: string | null
           preparation_notes: string | null
@@ -328,6 +329,7 @@ export type Database = {
           reporting_status: string
           seat_override_reason: string | null
           seats: number
+          can_submit_claim: boolean
           stripe_checkout_session_id: string
           stripe_customer_id: string | null
           stripe_payment_intent_id: string | null
@@ -349,6 +351,7 @@ export type Database = {
           id?: string
           materials_release_at?: string
           onboarding_completed_at?: string | null
+          pass_kind?: string
           payment_status?: string
           phone?: string | null
           preparation_notes?: string | null
@@ -378,6 +381,7 @@ export type Database = {
           id?: string
           materials_release_at?: string
           onboarding_completed_at?: string | null
+          pass_kind?: string
           payment_status?: string
           phone?: string | null
           preparation_notes?: string | null

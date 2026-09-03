@@ -73,7 +73,20 @@ export type Enrollment = {
   onboarding_completed_at: string | null;
   materials_release_at: string;
   created_at: string;
+  pass_kind?: "purchaser" | "named_seat";
+  can_submit_claim?: boolean;
 };
+
+export const CLAIM_ACTION_FORBIDDEN = "This attendee pass does not include live claim submission.";
+
+export function enrollmentCanSubmitClaim(enrollment: {
+  pass_kind?: string | null;
+  can_submit_claim?: boolean | null;
+}) {
+  if (enrollment.can_submit_claim === false) return false;
+  if (enrollment.pass_kind === "named_seat") return false;
+  return true;
+}
 
 export async function findPaidEnrollment(token: string) {
   if (!/^[a-f0-9]{64}$/i.test(token)) return null;
@@ -107,7 +120,10 @@ export function onboardingEmail(enrollment: Enrollment) {
   const firstName = escapeHtml(enrollment.purchaser_name?.split(" ")[0] || "there");
   const portalLink = `${PORTAL_URL}?access=${encodeURIComponent(enrollment.access_token)}`;
   const ticket = ticketNumber(enrollment);
-  const body = `<p style="margin:0 0 10px;color:#c9482e;font-size:11px;letter-spacing:.14em;text-transform:uppercase">Enrollment confirmed</p><h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:38px;line-height:1.05;font-weight:400">You are in the room, ${firstName}.</h1><p style="margin:0 0 24px;font-size:16px;line-height:1.65;color:#49443d">Your payment has been confirmed. Your private attendee portal is where you will finish onboarding, submit a live claim candidate, receive reminders, and access the class materials when they are released.</p><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 24px;background:#11110f;color:#f4f0e8"><tr><td style="padding:22px"><p style="margin:0 0 16px;color:#dc7e68;font-size:10px;letter-spacing:.15em;text-transform:uppercase">Official e-ticket</p><p style="margin:0 0 4px;font-family:Georgia,serif;font-size:26px">Delay &amp; Damages Intensive</p><p style="margin:0 0 18px;color:#c8c0b4;font-size:13px">September 4–6, 2026 · Live via Zoom</p><table role="presentation" width="100%"><tr><td style="font-size:11px;color:#aaa196">PASS</td><td style="font-size:11px;color:#aaa196">SEATS</td><td style="font-size:11px;color:#aaa196">PAID</td></tr><tr><td style="padding-top:5px;font-size:14px">${escapeHtml(ticket)}</td><td style="padding-top:5px;font-size:14px">${enrollment.seats}</td><td style="padding-top:5px;font-size:14px">${escapeHtml(money(enrollment.amount_total, enrollment.currency))}</td></tr></table></td></tr></table><p style="margin:0 0 14px"><a href="${portalLink}" style="display:inline-block;background:#c9482e;color:#fff;text-decoration:none;padding:15px 22px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Open your attendee portal</a></p><p style="margin:0 0 25px;color:#6b645b;font-size:12px;line-height:1.6">This link is personal to your purchase. Do not forward it.</p><h2 style="margin:0 0 12px;font-family:Georgia,serif;font-size:24px;font-weight:400">The working agenda</h2><p style="margin:0 0 8px;font-size:14px;line-height:1.5"><strong>Friday, September 4 · 1:00–5:00 p.m. ET</strong><br>Preserve — entitlement, notice, reservation of rights and the record.</p><p style="margin:0 0 8px;font-size:14px;line-height:1.5"><strong>Saturday, September 5 · 9:00 a.m.–5:00 p.m. ET</strong><br>Prove + Price — CPM causation, concurrency, mitigation and damages.</p><p style="margin:0 0 24px;font-size:14px;line-height:1.5"><strong>Sunday, September 6 · 10:00 a.m.–1:00 p.m. ET</strong><br>Build — claim assembly, red-team review and submission architecture.</p><div style="padding:16px;border-left:3px solid #c9482e;background:#eee9df"><strong style="font-size:13px">Materials stay locked until September 3 at noon ET.</strong><p style="margin:6px 0 0;color:#5e574f;font-size:13px;line-height:1.55">You will receive a reminder when the working files are released. Refunds, disputes, and revoked enrollments automatically lose portal and material access.</p></div>`;
+  const portalPurpose = enrollmentCanSubmitClaim(enrollment)
+    ? "Your payment has been confirmed. Your private attendee portal is where you will finish onboarding, submit a live claim candidate, receive reminders, and access the class materials when they are released."
+    : "Your seat is confirmed. Your private attendee portal is where you will finish onboarding, receive reminders, and access the class materials when they are released.";
+  const body = `<p style="margin:0 0 10px;color:#c9482e;font-size:11px;letter-spacing:.14em;text-transform:uppercase">Enrollment confirmed</p><h1 style="margin:0 0 18px;font-family:Georgia,serif;font-size:38px;line-height:1.05;font-weight:400">You are in the room, ${firstName}.</h1><p style="margin:0 0 24px;font-size:16px;line-height:1.65;color:#49443d">${portalPurpose}</p><table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="margin:0 0 24px;background:#11110f;color:#f4f0e8"><tr><td style="padding:22px"><p style="margin:0 0 16px;color:#dc7e68;font-size:10px;letter-spacing:.15em;text-transform:uppercase">Official e-ticket</p><p style="margin:0 0 4px;font-family:Georgia,serif;font-size:26px">Delay &amp; Damages Intensive</p><p style="margin:0 0 18px;color:#c8c0b4;font-size:13px">September 4–6, 2026 · Live via Zoom</p><table role="presentation" width="100%"><tr><td style="font-size:11px;color:#aaa196">PASS</td><td style="font-size:11px;color:#aaa196">SEATS</td><td style="font-size:11px;color:#aaa196">PAID</td></tr><tr><td style="padding-top:5px;font-size:14px">${escapeHtml(ticket)}</td><td style="padding-top:5px;font-size:14px">${enrollment.seats}</td><td style="padding-top:5px;font-size:14px">${escapeHtml(money(enrollment.amount_total, enrollment.currency))}</td></tr></table></td></tr></table><p style="margin:0 0 14px"><a href="${portalLink}" style="display:inline-block;background:#c9482e;color:#fff;text-decoration:none;padding:15px 22px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase">Open your attendee portal</a></p><p style="margin:0 0 25px;color:#6b645b;font-size:12px;line-height:1.6">This link is personal to your purchase. Do not forward it.</p><h2 style="margin:0 0 12px;font-family:Georgia,serif;font-size:24px;font-weight:400">The working agenda</h2><p style="margin:0 0 8px;font-size:14px;line-height:1.5"><strong>Friday, September 4 · 1:00–5:00 p.m. ET</strong><br>Preserve — entitlement, notice, reservation of rights and the record.</p><p style="margin:0 0 8px;font-size:14px;line-height:1.5"><strong>Saturday, September 5 · 9:00 a.m.–5:00 p.m. ET</strong><br>Prove + Price — CPM causation, concurrency, mitigation and damages.</p><p style="margin:0 0 24px;font-size:14px;line-height:1.5"><strong>Sunday, September 6 · 10:00 a.m.–1:00 p.m. ET</strong><br>Build — claim assembly, red-team review and submission architecture.</p><div style="padding:16px;border-left:3px solid #c9482e;background:#eee9df"><strong style="font-size:13px">Materials stay locked until September 3 at noon ET.</strong><p style="margin:6px 0 0;color:#5e574f;font-size:13px;line-height:1.55">You will receive a reminder when the working files are released. Refunds, disputes, and revoked enrollments automatically lose portal and material access.</p></div>`;
   return {
     subject: "Your ALP Intensive e-ticket + attendee portal",
     html: emailFrame("Your seat is confirmed. Open your private attendee portal.", body),
@@ -117,12 +133,15 @@ export function onboardingEmail(enrollment: Enrollment) {
 export function reminderEmail(enrollment: Enrollment, kind: string) {
   const portalLink = `${PORTAL_URL}?access=${encodeURIComponent(enrollment.access_token)}`;
   const firstName = escapeHtml(enrollment.purchaser_name?.split(" ")[0] || "there");
+  const canClaim = enrollmentCanSubmitClaim(enrollment);
   const definitions: Record<string, { subject: string; eyebrow: string; title: string; copy: string }> = {
     seven_day: {
       subject: "One week: finish your Intensive onboarding",
       eyebrow: "One week out",
-      title: `Get the claim out of your head, ${firstName}.`,
-      copy: "Finish the attendee checklist and submit your live claim candidate now if you want Marshall to consider it for the room.",
+      title: canClaim ? `Get the claim out of your head, ${firstName}.` : `Get ready for the room, ${firstName}.`,
+      copy: canClaim
+        ? "Finish the attendee checklist and submit your live claim candidate now if you want Marshall to consider it for the room."
+        : "Finish the attendee checklist if it is still open, then review the agenda before the room opens.",
     },
     onboarding_reminder_1: {
       subject: "Action required: finish your Intensive onboarding",
@@ -133,8 +152,10 @@ export function reminderEmail(enrollment: Enrollment, kind: string) {
     onboarding_reminder_2: {
       subject: "Your Intensive onboarding is still open",
       eyebrow: "Attendee setup incomplete",
-      title: "Put your project on Marshall's radar.",
-      copy: "Complete the attendee checklist now. After onboarding, you can submit a live claim candidate for Marshall to consider dissecting during the Intensive.",
+      title: canClaim ? "Put your project on Marshall's radar." : "Finish your attendee setup.",
+      copy: canClaim
+        ? "Complete the attendee checklist now. After onboarding, you can submit a live claim candidate for Marshall to consider dissecting during the Intensive."
+        : "Complete the attendee checklist now so your name, company, and seat are confirmed for the room.",
     },
     onboarding_reminder_3: {
       subject: "Final reminder: complete your Intensive onboarding",
@@ -146,7 +167,9 @@ export function reminderEmail(enrollment: Enrollment, kind: string) {
       subject: "48 hours: your ALP Intensive readiness check",
       eyebrow: "48 hours out",
       title: "Clear the room. Clear the calendar.",
-      copy: "Confirm the attendee names, review the agenda, and make sure the claim record you want to discuss is organized.",
+      copy: canClaim
+        ? "Confirm the attendee names, review the agenda, and make sure the claim record you want to discuss is organized."
+        : "Confirm your attendee details, review the agenda, and make sure you can join Zoom when the room opens.",
     },
     materials_release: {
       subject: "Your Intensive materials are now available",
