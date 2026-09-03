@@ -9,8 +9,14 @@ import {
 } from "@/lib/intensive-attribution";
 import "./DelayIntensive.css";
 
-const INDIVIDUAL_CHECKOUT = "";
-const COMPANY_CHECKOUT = "";
+const PUBLIC_CHECKOUT = {
+  individual: "https://buy.stripe.com/6oU4gA8FX1eC67K6vgeQM1f",
+  company: "https://buy.stripe.com/4gMeVef4lbTgbs48DoeQM1g",
+};
+const MEMBER_CHECKOUT = {
+  individual: "https://buy.stripe.com/fZu9AU8FX9L853Gg5QeQM1i",
+  company: "https://buy.stripe.com/9B63cw7BT3mK8fS1aWeQM1h",
+};
 const CHECKOUT_PENDING = "#checkout-pending";
 const LOCK_IN_DEADLINE = new Date("2026-10-01T03:59:59Z").getTime();
 const ENROLLMENT_CLOSE = new Date("2026-10-15T16:00:00Z").getTime();
