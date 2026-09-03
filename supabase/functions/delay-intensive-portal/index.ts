@@ -1,7 +1,9 @@
 import {
+  CLAIM_ACTION_FORBIDDEN,
   CORS_HEADERS,
   adminClient,
   deliverClaimSubmissionReceipt,
+  enrollmentCanSubmitClaim,
   findPaidEnrollment,
   json,
   notifyMarshallOfClaim,
@@ -47,13 +49,16 @@ async function portalState(enrollment: Enrollment) {
   const supabase = adminClient();
   const now = new Date();
   const materialsReleased = now >= new Date(enrollment.materials_release_at);
+  const canSubmitClaim = enrollmentCanSubmitClaim(enrollment);
   const [{ data: claim }, { data: materials }] = await Promise.all([
-    supabase
-      .from("intensive_claim_submissions")
-      .select("id,project_name,claim_stage,created_at,selected_for_live_dissection")
-      .eq("enrollment_id", enrollment.id)
-      .eq("submitted_via_portal", true)
-      .maybeSingle(),
+    canSubmitClaim
+      ? supabase
+          .from("intensive_claim_submissions")
+          .select("id,project_name,claim_stage,created_at,selected_for_live_dissection")
+          .eq("enrollment_id", enrollment.id)
+          .eq("submitted_via_portal", true)
+          .maybeSingle()
+      : Promise.resolve({ data: null }),
     materialsReleased
       ? supabase
           .from("intensive_materials")
@@ -78,6 +83,8 @@ async function portalState(enrollment: Enrollment) {
 
   return {
     access: enrollment.access_token,
+    pass_kind: enrollment.pass_kind === "named_seat" ? "named_seat" : "purchaser",
+    can_submit_claim: canSubmitClaim,
     attendee: {
       email: enrollment.purchaser_email,
       name: enrollment.purchaser_name,
@@ -90,7 +97,7 @@ async function portalState(enrollment: Enrollment) {
       ticket_number: ticketNumber(enrollment),
       onboarding_completed_at: enrollment.onboarding_completed_at,
     },
-    claim: claim || null,
+    claim: canSubmitClaim ? claim || null : null,
     materials: {
       released: materialsReleased,
       release_at: enrollment.materials_release_at,
@@ -127,6 +134,9 @@ async function completeOnboarding(enrollment: Enrollment, body: Record<string, a
 }
 
 async function createUpload(enrollment: Enrollment, body: Record<string, any>) {
+  if (!enrollmentCanSubmitClaim(enrollment)) {
+    return json({ error: CLAIM_ACTION_FORBIDDEN }, 403);
+  }
   const originalName = String(body.name || "").trim();
   const mimeType = String(body.type || "application/octet-stream").trim().toLowerCase();
   const size = Number(body.size || 0);
@@ -148,6 +158,9 @@ async function createUpload(enrollment: Enrollment, body: Record<string, any>) {
 }
 
 async function submitClaim(enrollment: Enrollment, body: Record<string, any>) {
+  if (!enrollmentCanSubmitClaim(enrollment)) {
+    return json({ error: CLAIM_ACTION_FORBIDDEN }, 403);
+  }
   const text = (key: string, max: number) => String(body[key] || "").trim().slice(0, max);
   const projectName = text("project_name", 200);
   const claimStage = text("claim_stage", 40);
