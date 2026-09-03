@@ -20,6 +20,52 @@ const agenda = [
   ["Sunday · September 6", "10:00 a.m.–1:00 p.m. ET", "Build", "Claim assembly, red-team review and submission architecture."],
 ];
 
+type Session = { id: string; day: string; time: string; title: string; start: string; end: string };
+
+// September 2026 in America/New_York is EDT (UTC-4).
+const sessions: Session[] = [
+  { id: "preserve", day: "Friday · September 4", time: "1:00–5:00 PM ET", title: "Preserve", start: "20260904T170000Z", end: "20260904T210000Z" },
+  { id: "prove-price", day: "Saturday · September 5", time: "9:00 AM–5:00 PM ET", title: "Prove + Price", start: "20260905T130000Z", end: "20260905T210000Z" },
+  { id: "build", day: "Sunday · September 6", time: "10:00 AM–1:00 PM ET", title: "Build", start: "20260906T140000Z", end: "20260906T170000Z" },
+];
+
+const SESSION_DETAILS = "Open your personal attendee portal one hour before the session for the live-room link.";
+const sessionTitle = (session: Session) => `ALP Delay & Damages Intensive · ${session.title}`;
+
+function googleCalendarUrl(session: Session) {
+  const params = new URLSearchParams({
+    action: "TEMPLATE",
+    text: sessionTitle(session),
+    dates: `${session.start}/${session.end}`,
+    details: SESSION_DETAILS,
+    ctz: "America/New_York",
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
+function downloadIcs(session: Session) {
+  const ics = [
+    "BEGIN:VCALENDAR",
+    "VERSION:2.0",
+    "PRODID:-//ALP//Delay Intensive//EN",
+    "BEGIN:VEVENT",
+    `UID:alp-delay-intensive-${session.id}@alpcontractorcircle.com`,
+    `DTSTAMP:${new Date().toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "")}`,
+    `DTSTART:${session.start}`,
+    `DTEND:${session.end}`,
+    `SUMMARY:${sessionTitle(session)}`,
+    `DESCRIPTION:${SESSION_DETAILS}`,
+    "END:VEVENT",
+    "END:VCALENDAR",
+  ].join("\r\n");
+  const url = URL.createObjectURL(new Blob([ics], { type: "text/calendar" }));
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `alp-delay-intensive-${session.id}.ics`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
 export default function DelayIntensiveOnboarding() {
   const [portal, setPortal] = useState<PortalState | null>(null);
   const [loading, setLoading] = useState(true);
