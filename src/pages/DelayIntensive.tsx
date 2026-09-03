@@ -471,7 +471,7 @@ export default function DelayIntensive() {
                         href={checkoutUrl(type)}
                         onClick={() => void trackIntensiveEvent("checkout_started", audience, type)}
                       >Reserve {type === "individual" ? "my seat" : "the company pass"}</a>
-                      <small>October payment links are being issued — these are not the September links.</small>
+                      <small>One-time tuition · Secure checkout through Stripe</small>
                     </article>
                   );
                 })}
