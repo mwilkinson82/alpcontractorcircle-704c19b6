@@ -207,21 +207,18 @@ export default function DelayIntensive() {
 
   const checkoutUrl = useMemo(
     () => (type: Enrollment) => {
-      const base = type === "individual" ? INDIVIDUAL_CHECKOUT : COMPANY_CHECKOUT;
+      const base = (isMember ? MEMBER_CHECKOUT : PUBLIC_CHECKOUT)[type];
       if (!enrollmentOpen) return "#enrollment-closed";
       if (!base) return CHECKOUT_PENDING;
-      const plan = pricing[type];
-      const code = (isEarly ? plan.earlyCode : "standardCode" in plan ? plan.standardCode : undefined) as string | undefined;
       return buildAttributedCheckoutUrl({
         base,
-        promoCode: code,
         audience,
         ticketType: type,
         visitor: visitorId(),
         session: funnelSessionId(),
       });
     },
-    [audience, enrollmentOpen, isEarly, pricing],
+    [audience, enrollmentOpen, isMember],
   );
 
   return (
