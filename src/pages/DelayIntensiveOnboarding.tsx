@@ -209,9 +209,20 @@ export default function DelayIntensiveOnboarding() {
         <div><p>Step 03 · Controlled release</p><h2>{portal.materials.released ? "Your working files are ready." : "Your materials are protected until the room opens."}</h2><p>{portal.materials.released ? "Use these files during the live working sessions. Download links are private and last 30 minutes; if one expires, refresh this page for a new link. Your personal attendee portal remains active." : `The playbook, templates, workbooks, and class files unlock ${releaseLabel}. We will email you when they are available.`}</p></div>
         <div className="dip-material-list">
           {!portal.materials.released ? <div className="dip-lock"><span>Locked</span><strong>Claims Recovery Playbook</strong><small>+ editable notices, CPM worksheets, damages workbooks and claim index</small></div> : null}
-          {portal.materials.zoom_url
-            ? <a href={portal.materials.zoom_url} target="_blank" rel="noreferrer"><span>Attendance</span><strong>Open live room</strong></a>
-            : <div className="dip-lock"><span>Attendance</span><strong>The live-room link will appear here one hour before the session.</strong><small>Return to this personal attendee portal to enter the room.</small></div>}
+          {sessions.map((session) => (
+            <div className="dip-lock dip-session" key={session.id}>
+              <span>Attendance</span>
+              <strong>{session.day} · {session.title}</strong>
+              <small>{session.time}</small>
+              {portal.materials.zoom_url
+                ? <a className="dip-session-live" href={portal.materials.zoom_url} target="_blank" rel="noreferrer">Open live room</a>
+                : <small>The live-room link will appear here one hour before this session. Return to this personal attendee portal to enter the room.</small>}
+              <div className="dip-session-actions">
+                <a href={googleCalendarUrl(session)} target="_blank" rel="noreferrer">Add to Google Calendar</a>
+                <button type="button" onClick={() => downloadIcs(session)}>Download .ics</button>
+              </div>
+            </div>
+          ))}
           {portal.materials.files.map((file) => <a href={file.url} key={file.id} target="_blank" rel="noreferrer"><span>Private file</span><strong>{file.title}</strong><small>{file.description}</small></a>)}
           {portal.materials.released && !portal.materials.zoom_url && portal.materials.files.length === 0 ? <p className="dip-release-pending">The release window is open. ALP is finishing the room package; your email reminder will arrive as soon as the files are posted.</p> : null}
         </div>
