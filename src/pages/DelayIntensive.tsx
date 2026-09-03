@@ -9,10 +9,11 @@ import {
 } from "@/lib/intensive-attribution";
 import "./DelayIntensive.css";
 
-const INDIVIDUAL_CHECKOUT = "https://book.stripe.com/00waEY7BTcXk3ZCaLweQM1b";
-const COMPANY_CHECKOUT = "https://book.stripe.com/6oUaEY5tLbTg1Ru7zkeQM1c";
-const LOCK_IN_DEADLINE = new Date("2026-08-31T03:59:59Z").getTime();
-const ENROLLMENT_CLOSE = new Date("2026-09-03T16:00:00Z").getTime();
+const INDIVIDUAL_CHECKOUT = "";
+const COMPANY_CHECKOUT = "";
+const CHECKOUT_PENDING = "#checkout-pending";
+const LOCK_IN_DEADLINE = new Date("2026-10-01T03:59:59Z").getTime();
+const ENROLLMENT_CLOSE = new Date("2026-10-15T16:00:00Z").getTime();
 
 type Enrollment = "individual" | "company";
 
@@ -66,22 +67,22 @@ const gates = [
 const schedule = [
   {
     day: "Friday",
-    date: "September 4",
-    time: "1:00–5:00 p.m. ET",
+    date: "October 16",
+    time: "1:00–5:00 PM ET",
     title: "Preserve",
     body: "Entitlement, notice, reservation of rights and the record that must exist before the dispute hardens.",
   },
   {
     day: "Saturday",
-    date: "September 5",
-    time: "9:00 a.m.–5:00 p.m. ET",
+    date: "October 17",
+    time: "9:00 AM–5:00 PM ET",
     title: "Prove + Price",
     body: "CPM causation, forensic methods, concurrency, mitigation and damages calculations. Includes a one-hour working break.",
   },
   {
     day: "Sunday",
-    date: "September 6",
-    time: "10:00 a.m.–1:00 p.m. ET",
+    date: "October 18",
+    time: "10:00 AM–1:00 PM ET",
     title: "Build",
     body: "Claim assembly lab, case architecture, red-team review and the path from first notice to submission.",
   },
@@ -122,7 +123,7 @@ const faq = [
   },
   {
     q: "What are the transfer and refund terms?",
-    a: "Tuition is refundable through August 28, 2026. After that date, it is non-refundable but may be transferred to another attendee in the same company before the intensive begins.",
+    a: "Tuition is refundable through October 9, 2026. After that date, it is non-refundable but may be transferred to another attendee in the same company before the intensive begins.",
   },
 ];
 
@@ -158,8 +159,7 @@ export default function DelayIntensive() {
   const isMember = location.pathname.endsWith("/member");
   const audience: IntensiveAudience = isMember ? "contractor_circle" : "public";
   const [now, setNow] = useState(Date.now());
-  // The public inaugural cohort is sold out; preserve private member enrollment behavior.
-  const soldOut = !isMember;
+  const soldOut = false;
   const isEarly = now <= LOCK_IN_DEADLINE;
   const enrollmentOpen = !soldOut && now < ENROLLMENT_CLOSE;
   const clock = remaining(now);
@@ -203,6 +203,7 @@ export default function DelayIntensive() {
     () => (type: Enrollment) => {
       const base = type === "individual" ? INDIVIDUAL_CHECKOUT : COMPANY_CHECKOUT;
       if (!enrollmentOpen) return "#enrollment-closed";
+      if (!base) return CHECKOUT_PENDING;
       const plan = pricing[type];
       const code = (isEarly ? plan.earlyCode : "standardCode" in plan ? plan.standardCode : undefined) as string | undefined;
       return buildAttributedCheckoutUrl({
@@ -241,7 +242,7 @@ export default function DelayIntensive() {
       <main>
         <section className="di-hero">
           <div className="di-hero-copy">
-            <p className="di-kicker">September 4–6, 2026 · Live via Zoom · 10 companies</p>
+            <p className="di-kicker">October 16–18, 2026 · Live via Zoom · 10 companies</p>
             <h1>
               Preserve the right.<br />
               Prove the delay.<br />
@@ -265,7 +266,7 @@ export default function DelayIntensive() {
             <div className="di-brief-rule" />
             <dl>
               <div><dt>Format</dt><dd>15 live hours</dd></div>
-              <div><dt>Dates</dt><dd>Fri–Sun, Sept. 4–6</dd></div>
+              <div><dt>Dates</dt><dd>Fri–Sun, Oct 16–18</dd></div>
               <div><dt>Room</dt><dd>10 companies maximum</dd></div>
               <div><dt>Result</dt><dd>A working claim architecture</dd></div>
             </dl>
@@ -285,16 +286,16 @@ export default function DelayIntensive() {
           <section className="di-deadline" aria-label="Pricing deadline">
             <div className="di-deadline-copy">
               <span>{isEarly ? "Current tuition expires" : "Standard tuition is now in effect"}</span>
-              <strong>{isEarly ? "Sunday, August 30 at 11:59 p.m. ET" : "Enrollment closes September 3 at noon ET"}</strong>
-              <p>{isEarly ? "Reserve now or pay the higher rate beginning August 31." : "The August 30 lock-in window has ended."}</p>
+              <strong>{isEarly ? "Wednesday, September 30 at 11:59 PM ET" : "Enrollment closes October 15 at noon ET"}</strong>
+              <p>{isEarly ? "Reserve now or pay the higher rate beginning October 1." : "The September 30 early-attendee window has ended."}</p>
             </div>
             <div className="di-deadline-prices" aria-label="Current and standard tuition">
               <div className={isEarly ? "is-current" : ""}>
-                <span>Through August 30</span>
+                <span>Through September 30</span>
                 <b>{currentRateLabel}</b>
               </div>
               <div className={!isEarly ? "is-current" : ""}>
-                <span>Beginning August 31</span>
+                <span>Beginning October 1</span>
                 <b>{standardRateLabel}</b>
               </div>
             </div>
@@ -305,7 +306,7 @@ export default function DelayIntensive() {
                 ))}
               </div>
             ) : (
-              <p className="di-deadline-close">Enrollment closes September 3 at noon ET, or when the room is full.</p>
+              <p className="di-deadline-close">Enrollment closes October 15 at noon ET, or when the room is full.</p>
             )}
           </section>
         )}
@@ -430,13 +431,13 @@ export default function DelayIntensive() {
 
         <section id="enroll" className="di-enroll">
           <header>
-            <p className="di-section-label">Inaugural live cohort</p>
+            <p className="di-section-label">October 16–18, 2026 cohort</p>
             <h2>{enrollmentOpen ? "Choose your seat." : soldOut ? "Sold out." : "Enrollment is closed."}</h2>
             <p>
               {soldOut
-                ? "The September 4–6, 2026 live cohort is full. No seats remain."
+                ? "This live cohort is full. No seats remain."
                 : isEarly
-                  ? `${isMember ? "Contractor Circle member tuition" : "Current tuition"} through August 30: ${currentRateLabel}. On August 31: ${standardRateLabel}.`
+                  ? `The inaugural September 4–6 room is full. October is open. ${isMember ? "Contractor Circle member tuition" : "Early-attendee tuition"} through September 30: ${currentRateLabel}. Beginning October 1: ${standardRateLabel}.`
                   : `${isMember ? "Contractor Circle member tuition" : "Standard tuition"}: ${standardRateLabel}.`}
             </p>
           </header>
@@ -467,13 +468,13 @@ export default function DelayIntensive() {
                         href={checkoutUrl(type)}
                         onClick={() => void trackIntensiveEvent("checkout_started", audience, type)}
                       >Reserve {type === "individual" ? "my seat" : "the company pass"}</a>
-                      <small>One-time tuition · Secure checkout through Stripe</small>
+                      <small>October payment links are being issued — these are not the September links.</small>
                     </article>
                   );
                 })}
               </div>
               <aside className="di-terms-callout" aria-label="Key enrollment terms">
-                <div><span>Refund cutoff</span><strong>August 28, 2026</strong></div>
+                <div><span>Refund cutoff</span><strong>October 9, 2026</strong></div>
                 <div><span>After cutoff</span><strong>Non-refundable; transferable inside your company</strong></div>
                 <div><span>Materials</span><strong>Internal company-use license</strong></div>
                 <p>By enrolling, you agree to the <Link to="/delay-intensive/terms">complete Intensive Enrollment Terms</Link>, including the educational-purpose, live-claim and recording provisions.</p>
@@ -489,7 +490,7 @@ export default function DelayIntensive() {
           {!isMember && (
             <p className="di-member-note">Current Contractor Circle member? Your private enrollment link is inside the member room.</p>
           )}
-          {soldOut ? null : <p className="di-capacity">Limited to 10 companies. Enrollment closes September 3 at noon ET, or when all company positions are filled.</p>}
+          {soldOut ? null : <p className="di-capacity">Limited to 10 companies. Enrollment closes October 15 at noon ET, or when all company positions are filled.</p>}
         </section>
 
         <section className="di-faq">
