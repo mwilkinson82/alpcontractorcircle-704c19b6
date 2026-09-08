@@ -107,6 +107,30 @@ const deliverables = [
   "One 90-minute implementation clinic",
 ];
 
+const stories = [
+  {
+    number: "02",
+    name: "Elijah Fuentes",
+    role: "Project Engineer, McKenzie Construction",
+    quote:
+      "This weekend taught me the importance of communication and keeping track of the causes of the delays on site… Moving forward I plan on continuing to take pictures and being more detailed on my daily reports.",
+  },
+  {
+    number: "03",
+    name: "Jesus Sanchez",
+    role: "Superintendent, McKenzie Construction",
+    quote:
+      "Your class was engaging from start to finish, and your level of knowledge is incredible. You completely opened my mind to taking detailed notes with critical information I never would have thought to include, which will fundamentally change how I approach my work on future jobs.",
+  },
+  {
+    number: "04",
+    name: "Simon Lopez",
+    role: "Site Superintendent, McKenzie Construction",
+    quote:
+      "The course taught me to have a greater level of day-to-day awareness on a project, allowing me to recognize the situations and events that could potentially lead to a claim. More importantly, it helped me understand when a claim should be identified, documented, and introduced, rather than waiting until the impact has already occurred.",
+  },
+];
+
 const faq = [
   {
     q: "Is this legal advice?",
