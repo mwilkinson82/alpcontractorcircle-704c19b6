@@ -7,6 +7,7 @@ import {
   visitorId,
   type IntensiveAudience,
 } from "@/lib/intensive-attribution";
+import oliverTestimonial from "@/assets/oliver-fernandez-testimonial.mp4.asset.json";
 import "./DelayIntensive.css";
 
 const PUBLIC_CHECKOUT = {
@@ -405,9 +406,37 @@ export default function DelayIntensive() {
               <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
             ))}
           </ul>
+
+        <section id="stories" className="di-stories">
+          <header className="di-section-head">
+            <p className="di-section-label">From the field</p>
+            <h2>What the inaugural cohort took back to the job.</h2>
+            <p>Sept 4–6 McKenzie Construction attendees — notes from the room, not marketing copy.</p>
+          </header>
+          <div className="di-stories-grid">
+            <figure className="di-story-video">
+              <span>01</span>
+              <video
+                controls
+                playsInline
+                preload="metadata"
+                poster="/assets/delay-intensive/oliver-fernandez-poster.jpg"
+                src={oliverTestimonial.url}
+              />
+              <figcaption>Oliver Fernandez — McKenzie Construction</figcaption>
+            </figure>
+            {stories.map((story) => (
+              <figure key={story.name} className="di-story">
+                <span>{story.number}</span>
+                <blockquote>{story.quote}</blockquote>
+                <figcaption>{story.name}<em>{story.role}</em></figcaption>
+              </figure>
+            ))}
+          </div>
         </section>
 
         <section className="di-fit">
+
           <div>
             <p className="di-section-label">This is for you if</p>
             <ul>
