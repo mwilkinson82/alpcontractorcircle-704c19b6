@@ -406,6 +406,8 @@ export default function DelayIntensive() {
               <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
             ))}
           </ul>
+        </section>
+
 
         <section id="stories" className="di-stories">
           <header className="di-section-head">
