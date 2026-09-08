@@ -436,7 +436,7 @@ export default function DelayIntensive() {
         <section id="stories" className="di-stories">
           <header className="di-section-head">
             <p className="di-section-label">From the field</p>
-            <h2>What the inaugural cohort took back to the job.</h2>
+            <h2>What attendees have to say.</h2>
             <p>Sept 4–6 McKenzie Construction attendees — notes from the room, not marketing copy.</p>
           </header>
           <div className="di-stories-grid">
