@@ -129,6 +129,20 @@ const stories = [
     quote:
       "The course taught me to have a greater level of day-to-day awareness on a project, allowing me to recognize the situations and events that could potentially lead to a claim. More importantly, it helped me understand when a claim should be identified, documented, and introduced, rather than waiting until the impact has already occurred.",
   },
+  {
+    number: "05",
+    name: "Michael Eargle",
+    role: "M.E. Contracting",
+    quote:
+      "I really can't put into words how much this intensive helped me. Every point Marshall touched on feels like he's talking directly to me. Things that I've been dealing with and fighting with agencies on, and not really knowing if I am operating correctly, he laid out a perfect framework for how to operate in the public contracting space. It's changed how I'm doing things in the day-to-day of my business immediately.",
+  },
+  {
+    number: "06",
+    name: "Sean McDevitt",
+    role: "Traditional Air Conditioning",
+    quote:
+      "The intensive exceeded all expectations and completely changed how I view our construction projects. I used to look at every job as a team effort between the contractor, CM, design team, and owner. But the reality is that we are not on a team at all, and we must protect ourselves at every turn. Marshall taught us what to look for in the contract, exactly what to say, and when to say it so that we can advocate for ourselves.",
+  },
 ];
 
 const faq = [
