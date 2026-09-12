@@ -1516,6 +1516,70 @@ export default function ContractorCircle() {
           </div>
         </section>
 
+        <section
+          id="field-notes"
+          className="cc-lower-section cc-field"
+          aria-label="What attendees have to say"
+        >
+          <div className="cc-lower-inner cc-field-inner">
+            <div className="cc-lower-heading">
+              <p className="cc-eyebrow" data-caption>
+                From the field
+              </p>
+              <h2>
+                <span data-caption>What attendees</span>
+                <span data-caption>have to say.</span>
+              </h2>
+              <p className="cc-subhead" data-caption>
+                Notes from operators who sat in the room. Unedited.
+              </p>
+              <a className="cc-field-link" href="/delay-intensive" data-caption>
+                See the Delay &amp; Damages Intensive
+              </a>
+            </div>
+
+            <div className="cc-field-grid">
+              <figure className="cc-field-media cc-lower-motion">
+                <video
+                  controls
+                  playsInline
+                  preload="metadata"
+                  poster="/assets/delay-intensive/oliver-fernandez-poster.jpg"
+                  src="https://alpcontractorcircle.com/__l5e/assets-v1/4ae0a49a-d0f7-4fb7-acea-752774228a96/oliver-fernandez-testimonial.mp4"
+                />
+                <figcaption>
+                  <span>01</span>
+                  Oliver Fernandez — McKenzie Construction
+                </figcaption>
+              </figure>
+
+              <div className="cc-field-quotes">
+                {fieldNotes.map((note, index) => (
+                  <figure className="cc-field-note cc-lower-motion" key={note.name}>
+                    <span aria-hidden="true">{String(index + 2).padStart(2, "0")}</span>
+                    <blockquote>"{note.quote}"</blockquote>
+                    <figcaption>
+                      <strong>{note.name}</strong>
+                      <small>{note.role}</small>
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+
+              <figure className="cc-field-social cc-lower-motion">
+                <img
+                  src="/assets/social-proof/adrian-online1-boss-school-district.jpg"
+                  alt="Instagram comment from adrian.online1 saying he quoted Marshall to his boss, who repeated it to a school district client days later."
+                  loading="lazy"
+                />
+                <figcaption>
+                  <span>05</span>
+                  @adrian.online1 — Instagram
+                </figcaption>
+              </figure>
+            </div>
+          </div>
+        </section>
 
         <section
           className="cc-lower-section cc-fit-editorial"
