@@ -13744,3 +13744,126 @@ body:has(.cc-page) {
     border-radius: 14px !important;
   }
 }
+
+/* ===== From the field — homepage social proof band ===== */
+.cc-field-inner {
+  display: grid;
+  gap: clamp(28px, 3.4vw, 52px);
+}
+
+.cc-field-link {
+  justify-self: start;
+  margin-top: 18px;
+  border-bottom: 1px solid rgb(21 21 21 / 0.28);
+  color: var(--cc-ink);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.cc-field-link:hover {
+  color: var(--cc-orange-dark);
+  border-color: var(--cc-orange-dark);
+}
+
+.cc-field-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(20px, 2.4vw, 36px);
+  align-items: start;
+}
+
+.cc-field-media,
+.cc-field-social {
+  margin: 0;
+  border: 1px solid var(--cc-line);
+  background: var(--cc-white);
+  padding: clamp(14px, 1.4vw, 20px);
+}
+
+.cc-field-media video {
+  display: block;
+  width: 100%;
+  max-height: 540px;
+  object-fit: contain;
+  background: #111;
+}
+
+.cc-field-social img {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #0b0b0b;
+}
+
+.cc-field-media figcaption,
+.cc-field-social figcaption,
+.cc-field-note figcaption {
+  margin-top: 14px;
+  color: var(--cc-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cc-field-media figcaption span,
+.cc-field-social figcaption span,
+.cc-field-note > span {
+  display: inline-block;
+  margin-right: 10px;
+  color: var(--cc-orange-dark);
+  font-weight: 700;
+}
+
+.cc-field-quotes {
+  display: grid;
+  gap: clamp(16px, 1.8vw, 24px);
+}
+
+.cc-field-note {
+  margin: 0;
+  border-top: 1px solid var(--cc-line);
+  padding-top: clamp(16px, 1.6vw, 22px);
+}
+
+.cc-field-note blockquote {
+  margin: 12px 0 0;
+  color: rgb(21 21 21 / 0.82);
+  font-size: clamp(0.98rem, 1.05vw, 1.1rem);
+  line-height: 1.6;
+}
+
+.cc-field-note figcaption {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.cc-field-note figcaption strong {
+  color: var(--cc-ink);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+.cc-field-social {
+  grid-column: 1 / -1;
+  max-width: 640px;
+}
+
+@media (max-width: 900px) {
+  .cc-field-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .cc-field-social {
+    max-width: none;
+  }
+
+  .cc-field-media video {
+    max-height: 460px;
+  }
+}
