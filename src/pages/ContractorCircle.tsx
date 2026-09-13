@@ -1099,6 +1099,9 @@ export default function ContractorCircle() {
         ".cc-ior-feature",
         ".cc-ior-replay-card",
         ".cc-proof-fill",
+        "#field-notes",
+        ".cc-field-social-grid",
+        ".cc-field-social-shots",
         ".cc-mega-close",
         ".cc-footer",
       ];

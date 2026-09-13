@@ -13904,5 +13904,15 @@ body:has(.cc-page) {
   }
 }
 
+@media (max-width: 900px) {
+  #field-notes {
+    padding-bottom: calc(clamp(80px, 14vw, 120px) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .cc-field-social-shots {
+    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  }
+}
+
 
 
