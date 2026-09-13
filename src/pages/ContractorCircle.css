@@ -13910,7 +13910,7 @@ body:has(.cc-page) {
   }
 
   .cc-field-social-shots {
-    padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    padding-bottom: calc(clamp(80px, 12vw, 100px) + env(safe-area-inset-bottom, 0px));
   }
 }
 
