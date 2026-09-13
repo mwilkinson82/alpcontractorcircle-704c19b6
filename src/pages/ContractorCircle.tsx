@@ -404,6 +404,32 @@ const socialShots = [
     src: "/assets/social-proof/saxumfundingllc-genius.jpg",
     alt: "Instagram comment from saxumfundingllc calling Marshall's breakdown genius.",
   },
+  {
+    handle: "@believing_since_85",
+    src: "/assets/social-proof/believing_since_85-genius.jpg",
+    alt: "Instagram comment from believing_since_85 calling Marshall's breakdown genius.",
+  },
+  {
+    handle: "@contractorlord",
+    src: "/assets/social-proof/contractorlord-never-misses.jpg",
+    alt: "Instagram comment from contractorlord saying Marshall never misses.",
+  },
+  {
+    handle: "@__joeybrown__",
+    src: "/assets/social-proof/joeybrown-positive.jpg",
+    alt: "Instagram comment from __joeybrown__ praising Marshall's contracting breakdown.",
+  },
+  {
+    handle: "@josh.c.lyle",
+    src: "/assets/social-proof/josh-c-lyle-positive.jpg",
+    alt: "Instagram comment from josh.c.lyle praising Marshall's contracting breakdown.",
+  },
+  {
+    handle: "@mr.robato",
+    src: "/assets/social-proof/mr-robato-real-deal.jpg",
+    alt: "Instagram comment from mr.robato saying Marshall is the real deal.",
+  },
+
 
 ] as const;
 
