@@ -13881,12 +13881,15 @@ body:has(.cc-page) {
     grid-template-columns: minmax(0, 1fr);
   }
 
-  .cc-field-social-shots {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
   .cc-field-media video {
     max-height: 460px;
   }
 }
+
+@media (max-width: 639px) {
+  .cc-field-social-shots {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 
