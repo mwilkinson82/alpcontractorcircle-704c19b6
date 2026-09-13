@@ -392,6 +392,21 @@ const fieldNotes = [
   },
 ] as const;
 
+/* Instagram / feed screenshots. Add new shots here — the grid scales on its own. */
+const socialShots = [
+  {
+    handle: "@adrian.online1",
+    src: "/assets/social-proof/adrian-online1-boss-school-district.jpg",
+    alt: "Instagram comment from adrian.online1 saying he quoted Marshall to his boss, who repeated it to a school district client days later.",
+  },
+  // {
+  //   handle: "@saxumfundingllc",
+  //   src: "/assets/social-proof/saxumfundingllc-genius.png",
+  //   alt: "Instagram comment from saxumfundingllc calling Marshall's breakdown genius.",
+  // },
+] as const;
+
+
 const testimonials = [
   {
     quote:
