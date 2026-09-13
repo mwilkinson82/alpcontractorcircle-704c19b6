@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import {
   buildAttributedCheckoutUrl,
   funnelSessionId,
@@ -185,14 +186,12 @@ const remaining = (now: number) => {
   };
 };
 
-const upsertMeta = (selector: string, attribute: "name" | "property", key: string, content: string) => {
-  let element = document.head.querySelector<HTMLMetaElement>(selector);
-  if (!element) {
-    element = document.createElement("meta");
-    element.setAttribute(attribute, key);
-    document.head.appendChild(element);
-  }
-  element.content = content;
+export const INTENSIVE_SEO = {
+  title: "Damage & Delay Intensive | ALP Contractor Circle — Oct 16–18 2026",
+  description:
+    "A live 3-day intensive for construction owners on delay, claims, and money — preserve entitlement, prove delay, quantify damages, assemble a defensible claim. October 16–18, 2026, live via Zoom. Early-attendee tuition through Sep 30: $2,500 individual / $3,500 company.",
+  canonical: "https://alpcontractorcircle.com/delay-intensive",
+  image: "https://alpcontractorcircle.com/og-delay-intensive.png",
 };
 
 export default function DelayIntensive() {
@@ -214,27 +213,6 @@ export default function DelayIntensive() {
     void trackIntensiveEvent("landing_view", audience);
   }, [audience]);
 
-  useEffect(() => {
-    const title = "Construction Delay & Damages Intensive | ALP";
-    const description =
-      "A live, advanced working intensive for contractors who need to preserve entitlement, prove delay, quantify damages and assemble a defensible claim.";
-    const canonical = `https://alpcontractorcircle.com${isMember ? "/delay-intensive/member" : "/delay-intensive"}`;
-    document.title = title;
-    upsertMeta('meta[name="description"]', "name", "description", description);
-    upsertMeta('meta[property="og:title"]', "property", "og:title", title);
-    upsertMeta('meta[property="og:description"]', "property", "og:description", description);
-    upsertMeta('meta[property="og:image"]', "property", "og:image", "https://alpcontractorcircle.com/og-delay-intensive.png");
-    upsertMeta('meta[name="twitter:title"]', "name", "twitter:title", title);
-    upsertMeta('meta[name="twitter:description"]', "name", "twitter:description", description);
-    upsertMeta('meta[name="twitter:image"]', "name", "twitter:image", "https://alpcontractorcircle.com/og-delay-intensive.png");
-    let canonicalLink = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (!canonicalLink) {
-      canonicalLink = document.createElement("link");
-      canonicalLink.rel = "canonical";
-      document.head.appendChild(canonicalLink);
-    }
-    canonicalLink.href = canonical;
-  }, [isMember]);
 
   const pricing = isMember ? memberPricing : publicPricing;
   const currentRateLabel = `${money(pricing.individual.early)} individual / ${money(pricing.company.early)} company`;
@@ -258,6 +236,24 @@ export default function DelayIntensive() {
 
   return (
     <div className="di-page">
+      <Helmet>
+        <title>{INTENSIVE_SEO.title}</title>
+        <meta name="description" content={INTENSIVE_SEO.description} />
+        {isMember ? (
+          <meta name="robots" content="noindex, nofollow" />
+        ) : (
+          <link rel="canonical" href={INTENSIVE_SEO.canonical} />
+        )}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={INTENSIVE_SEO.canonical} />
+        <meta property="og:title" content={INTENSIVE_SEO.title} />
+        <meta property="og:description" content={INTENSIVE_SEO.description} />
+        <meta property="og:image" content={INTENSIVE_SEO.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={INTENSIVE_SEO.title} />
+        <meta name="twitter:description" content={INTENSIVE_SEO.description} />
+        <meta name="twitter:image" content={INTENSIVE_SEO.image} />
+      </Helmet>
       <header className="di-nav">
         <a className="di-mark" href="/" aria-label="ALP Contractor Circle home">
           <span>ALP</span>
