@@ -13801,9 +13801,7 @@ body:has(.cc-page) {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 300px;
   object-fit: contain;
-  object-position: left top;
   border: 1px solid rgb(21 21 21 / 0.08);
   border-radius: 2px;
   background: transparent;
