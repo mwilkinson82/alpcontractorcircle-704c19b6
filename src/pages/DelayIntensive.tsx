@@ -236,6 +236,24 @@ export default function DelayIntensive() {
 
   return (
     <div className="di-page">
+      <Helmet>
+        <title>{INTENSIVE_SEO.title}</title>
+        <meta name="description" content={INTENSIVE_SEO.description} />
+        {isMember ? (
+          <meta name="robots" content="noindex, nofollow" />
+        ) : (
+          <link rel="canonical" href={INTENSIVE_SEO.canonical} />
+        )}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={INTENSIVE_SEO.canonical} />
+        <meta property="og:title" content={INTENSIVE_SEO.title} />
+        <meta property="og:description" content={INTENSIVE_SEO.description} />
+        <meta property="og:image" content={INTENSIVE_SEO.image} />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={INTENSIVE_SEO.title} />
+        <meta name="twitter:description" content={INTENSIVE_SEO.description} />
+        <meta name="twitter:image" content={INTENSIVE_SEO.image} />
+      </Helmet>
       <header className="di-nav">
         <a className="di-mark" href="/" aria-label="ALP Contractor Circle home">
           <span>ALP</span>
