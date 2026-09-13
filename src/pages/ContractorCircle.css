@@ -13916,3 +13916,10 @@ body:has(.cc-page) {
 
 
 
+
+/* Field Notes visibility hardening — never let motion state strand this band */
+#field-notes .cc-lower-motion,
+#field-notes [data-caption] {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
