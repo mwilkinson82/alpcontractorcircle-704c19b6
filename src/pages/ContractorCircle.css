@@ -13894,10 +13894,17 @@ body:has(.cc-page) {
   }
 }
 
-@media (max-width: 639px) {
+.cc-field-social figcaption {
+  margin-top: 12px;
+  border-top: 1px solid rgb(21 21 21 / 0.08);
+  padding-top: 10px;
+}
+
+@media (max-width: 479px) {
   .cc-field-social-shots {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
 
 
