@@ -399,11 +399,12 @@ const socialShots = [
     src: "/assets/social-proof/adrian-online1-boss-school-district.jpg",
     alt: "Instagram comment from adrian.online1 saying he quoted Marshall to his boss, who repeated it to a school district client days later.",
   },
-  // {
-  //   handle: "@saxumfundingllc",
-  //   src: "/assets/social-proof/saxumfundingllc-genius.png",
-  //   alt: "Instagram comment from saxumfundingllc calling Marshall's breakdown genius.",
-  // },
+  {
+    handle: "@saxumfundingllc",
+    src: "/assets/social-proof/saxumfundingllc-genius.jpg",
+    alt: "Instagram comment from saxumfundingllc calling Marshall's breakdown genius.",
+  },
+
 ] as const;
 
 
