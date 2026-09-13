@@ -13797,8 +13797,11 @@ body:has(.cc-page) {
   display: block;
   width: 100%;
   height: auto;
+  max-height: 520px;
+  object-fit: contain;
   background: #0b0b0b;
 }
+
 
 .cc-field-media figcaption,
 .cc-field-social figcaption,
