@@ -13781,8 +13781,12 @@ body:has(.cc-page) {
 .cc-field-social {
   margin: 0;
   border: 1px solid var(--cc-line);
+  border-radius: 3px;
   background: var(--cc-white);
-  padding: clamp(14px, 1.4vw, 20px);
+  padding: clamp(12px, 1.2vw, 18px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .cc-field-media video {
@@ -13797,10 +13801,12 @@ body:has(.cc-page) {
   display: block;
   width: 100%;
   height: auto;
-  max-height: 520px;
   object-fit: contain;
-  background: #0b0b0b;
+  border: 1px solid rgb(21 21 21 / 0.08);
+  border-radius: 2px;
+  background: transparent;
 }
+
 
 
 .cc-field-media figcaption,
@@ -13886,10 +13892,17 @@ body:has(.cc-page) {
   }
 }
 
-@media (max-width: 639px) {
+.cc-field-social figcaption {
+  margin-top: 12px;
+  border-top: 1px solid rgb(21 21 21 / 0.08);
+  padding-top: 10px;
+}
+
+@media (max-width: 479px) {
   .cc-field-social-shots {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
 
 
