@@ -1587,17 +1587,23 @@ export default function ContractorCircle() {
                 ))}
               </div>
 
-              <figure className="cc-field-social cc-lower-motion">
-                <img
-                  src="/assets/social-proof/adrian-online1-boss-school-district.jpg"
-                  alt="Instagram comment from adrian.online1 saying he quoted Marshall to his boss, who repeated it to a school district client days later."
-                  loading="lazy"
-                />
-                <figcaption>
-                  <span>05</span>
-                  @adrian.online1 — Instagram
-                </figcaption>
-              </figure>
+              <div className="cc-field-social-grid">
+                <p className="cc-eyebrow cc-field-social-label" data-caption>
+                  Straight off the feed
+                </p>
+                <div className="cc-field-social-shots">
+                  {socialShots.map((shot, index) => (
+                    <figure className="cc-field-social cc-lower-motion" key={shot.handle}>
+                      <img src={shot.src} alt={shot.alt} loading="lazy" />
+                      <figcaption>
+                        <span aria-hidden="true">{String(index + 5).padStart(2, "0")}</span>
+                        {shot.handle} — Instagram
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
