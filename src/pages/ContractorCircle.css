@@ -13922,4 +13922,6 @@ body:has(.cc-page) {
 #field-notes [data-caption] {
   opacity: 1 !important;
   visibility: visible !important;
+  transform: none !important;
+  filter: none !important;
 }
