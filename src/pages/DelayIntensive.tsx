@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import {
   buildAttributedCheckoutUrl,
   funnelSessionId,
@@ -185,14 +186,12 @@ const remaining = (now: number) => {
   };
 };
 
-const upsertMeta = (selector: string, attribute: "name" | "property", key: string, content: string) => {
-  let element = document.head.querySelector<HTMLMetaElement>(selector);
-  if (!element) {
-    element = document.createElement("meta");
-    element.setAttribute(attribute, key);
-    document.head.appendChild(element);
-  }
-  element.content = content;
+export const INTENSIVE_SEO = {
+  title: "Damage & Delay Intensive | ALP Contractor Circle — Oct 16–18 2026",
+  description:
+    "A live 3-day intensive for construction owners on delay, claims, and money — preserve entitlement, prove delay, quantify damages, assemble a defensible claim. October 16–18, 2026, live via Zoom. Early-attendee tuition through Sep 30: $2,500 individual / $3,500 company.",
+  canonical: "https://alpcontractorcircle.com/delay-intensive",
+  image: "https://alpcontractorcircle.com/og-delay-intensive.png",
 };
 
 export default function DelayIntensive() {
