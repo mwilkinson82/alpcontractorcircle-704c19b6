@@ -213,27 +213,6 @@ export default function DelayIntensive() {
     void trackIntensiveEvent("landing_view", audience);
   }, [audience]);
 
-  useEffect(() => {
-    const title = "Construction Delay & Damages Intensive | ALP";
-    const description =
-      "A live, advanced working intensive for contractors who need to preserve entitlement, prove delay, quantify damages and assemble a defensible claim.";
-    const canonical = `https://alpcontractorcircle.com${isMember ? "/delay-intensive/member" : "/delay-intensive"}`;
-    document.title = title;
-    upsertMeta('meta[name="description"]', "name", "description", description);
-    upsertMeta('meta[property="og:title"]', "property", "og:title", title);
-    upsertMeta('meta[property="og:description"]', "property", "og:description", description);
-    upsertMeta('meta[property="og:image"]', "property", "og:image", "https://alpcontractorcircle.com/og-delay-intensive.png");
-    upsertMeta('meta[name="twitter:title"]', "name", "twitter:title", title);
-    upsertMeta('meta[name="twitter:description"]', "name", "twitter:description", description);
-    upsertMeta('meta[name="twitter:image"]', "name", "twitter:image", "https://alpcontractorcircle.com/og-delay-intensive.png");
-    let canonicalLink = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (!canonicalLink) {
-      canonicalLink = document.createElement("link");
-      canonicalLink.rel = "canonical";
-      document.head.appendChild(canonicalLink);
-    }
-    canonicalLink.href = canonical;
-  }, [isMember]);
 
   const pricing = isMember ? memberPricing : publicPricing;
   const currentRateLabel = `${money(pricing.individual.early)} individual / ${money(pricing.company.early)} company`;
