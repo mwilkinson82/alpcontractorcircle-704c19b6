@@ -1610,7 +1610,16 @@ export default function ContractorCircle() {
                 <div className="cc-field-social-shots">
                   {socialShots.map((shot, index) => (
                     <figure className="cc-field-social cc-lower-motion" key={shot.handle}>
-                      <img src={shot.src} alt={shot.alt} loading="lazy" />
+                      <img
+                        src={shot.src}
+                        alt={shot.alt}
+                        loading="lazy"
+                        onError={(event) => {
+                          const figure = event.currentTarget.closest("figure");
+                          if (figure) figure.style.display = "none";
+                        }}
+                      />
+
                       <figcaption>
                         <span aria-hidden="true">{String(index + 5).padStart(2, "0")}</span>
                         {shot.handle} — Instagram
