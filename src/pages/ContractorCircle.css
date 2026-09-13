@@ -13866,10 +13866,11 @@ body:has(.cc-page) {
 
 .cc-field-social-shots {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: clamp(14px, 1.8vw, 26px);
   align-items: start;
 }
+
 
 .cc-field-social {
   margin: 0;
