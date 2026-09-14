@@ -34,22 +34,75 @@ const outcomes = [
   },
 ];
 
-const artifacts = [
-  "CPM working templates",
-  "Update runbook",
-  "Delay analysis worksheets",
-  "Monday install checklist",
+const packs = [
+  {
+    day: "Day 1 pack",
+    items: [
+      "CPM one-pager",
+      "Activity standards sheet",
+      "Logic rules sheet",
+      "Baseline checklist",
+      "Update runbook",
+      "Concurrent-delay card",
+      "Intro fragment worksheet",
+      "Reports cheat-sheet",
+      "Light narrative card",
+      "Monday install checklist",
+    ],
+  },
+  {
+    day: "Day 2 pack",
+    items: [
+      "Delay analysis method map",
+      "Prove-delay checklist",
+      "Analysis fragment worksheet",
+      "Delay-claim narrative outline",
+    ],
+  },
 ];
 
 const agenda = [
-  { number: "Day 1", title: "CPM", body: "Placeholder — outline TBA." },
-  { number: "Day 2", title: "Delay analysis", body: "Placeholder — outline TBA. Delay analysis is Day 2 of this intensive." },
+  {
+    day: "Day 1",
+    title: "CPM",
+    beats: [
+      "What CPM is",
+      "IDs",
+      "Descriptions",
+      "Durations",
+      "Relationships / logic",
+      "Critical path",
+      "Baseline",
+      "Updates",
+      "Concurrent-delay discipline",
+      "Intro fragments / COs",
+      "Reports",
+      "Narrative",
+      "P6 as camera",
+    ],
+  },
+  {
+    day: "Day 2",
+    title: "Delay analysis",
+    beats: [
+      "Plan vs as-built",
+      "Collapsed as-built",
+      "Windows",
+      "Prove delay",
+      "Fragments in analysis",
+      "Delay-claim narratives",
+    ],
+  },
 ];
 
 const faq = [
   {
     q: "What is the format?",
     a: "Two live days via Google Meet. Working session, not a lecture — Day 1 on CPM, Day 2 on delay analysis.",
+  },
+  {
+    q: "How is this different from the Damage-for-Delay intensive?",
+    a: "Damage-for-Delay is the broader damages and money intensive — LDs and claim packaging beyond schedule method. Day 2 of this intensive is the schedule and analysis method block: how to do delay analysis with the CPM (plan vs as-built, collapsed as-built, windows, prove delay, fragments in analysis, delay-claim narratives).",
   },
   {
     q: "Is the session recorded?",
@@ -110,7 +163,7 @@ export default function CpmIntensive() {
             <p className="di-hero-lede">
               <strong>Own the CPM. Build it. Update it. Prove time with it.</strong> 2 days · $1,997 · unlimited seats · Not software school.
             </p>
-            <p className="cpm-soft">Live via Google Meet · recording included for attendees</p>
+            <p className="cpm-soft">Day 1 — CPM. Day 2 — Delay analysis. Live via Google Meet · recording included for attendees</p>
             <div className="di-hero-actions">
               <a href="#checkout" className="di-button di-button-primary">See tuition</a>
               <a href="#agenda" className="di-text-link">See the two days ↓</a>
@@ -191,32 +244,45 @@ export default function CpmIntensive() {
           <div className="di-deliverables-intro">
             <p className="di-section-label">Leave-with artifacts</p>
             <h2>Tools, not a giant PDF.</h2>
-            <p>Working files you can hand to a PM on Monday morning. Final pack TBA.</p>
+            <p>Working files you can hand to a PM on Monday morning.</p>
           </div>
-          <ul>
-            {artifacts.map((item, index) => (
-              <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
+          <div className="cpm-pack-grid">
+            {packs.map((pack) => (
+              <div key={pack.day} className="cpm-pack">
+                <p className="di-section-label">{pack.day}</p>
+                <ul>
+                  {pack.items.map((item, index) => (
+                    <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
+                  ))}
+                </ul>
+              </div>
             ))}
-          </ul>
-          <p className="cpm-soft">Pack list is soft until the outline is set. Not included — P6 / MSP click-paths and ribbon tours.</p>
+          </div>
+          <p className="cpm-soft">Not included — P6 / MSP click-path tourism.</p>
         </section>
 
         <section id="agenda" className="di-schedule">
           <header className="di-section-head">
-            <p className="di-section-label">Agenda TBA — draft</p>
-            <h2>Two days. Outline still being built.</h2>
+            <p className="di-section-label">Two-day outline</p>
+            <h2>Day 1 builds the CPM. Day 2 proves delay with it.</h2>
           </header>
-          <div className="di-schedule-grid cpm-agenda-grid">
-            {agenda.map((slot) => (
-              <article key={slot.number}>
-                <span>{slot.number}</span>
-                <time>Time TBA</time>
-                <h3>{slot.title}</h3>
-                <p>{slot.body}</p>
+          <div className="cpm-day-grid">
+            {agenda.map((day) => (
+              <article key={day.day} className="cpm-day">
+                <div className="cpm-day-head">
+                  <span>{day.day}</span>
+                  <time>Times TBA</time>
+                </div>
+                <h3>{day.title}</h3>
+                <ul>
+                  {day.beats.map((beat) => (
+                    <li key={beat}>{beat}</li>
+                  ))}
+                </ul>
               </article>
             ))}
           </div>
-          <p className="di-schedule-note">Outline being rebuilt — soft Day 1 / Day 2 only for now.</p>
+          <p className="di-schedule-note">Session times are posted once the two dates are confirmed.</p>
         </section>
 
         <section id="checkout" className="di-enroll">

@@ -55,3 +55,78 @@
   .cpm-page .cpm-agenda-grid { grid-template-columns: minmax(0, 1fr); }
   .cpm-page .cpm-price-grid { grid-template-columns: minmax(0, 1fr); }
 }
+
+/* Agenda v3 — two day blocks */
+.cpm-day-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0;
+  border-top: 1px solid var(--di-rule, rgba(17, 17, 15, 0.16));
+}
+.cpm-day {
+  padding: 32px 32px 40px;
+  border-bottom: 1px solid var(--di-rule, rgba(17, 17, 15, 0.16));
+}
+.cpm-day + .cpm-day {
+  border-left: 1px solid var(--di-rule, rgba(17, 17, 15, 0.16));
+}
+.cpm-day-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+.cpm-day-head span,
+.cpm-day-head time {
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.cpm-day-head time { opacity: 0.55; }
+.cpm-day h3 {
+  margin: 14px 0 20px;
+  font-size: clamp(1.5rem, 2.4vw, 2rem);
+  line-height: 1.05;
+}
+.cpm-day ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cpm-day li {
+  padding: 9px 0;
+  font-size: 0.95rem;
+  border-top: 1px solid rgba(17, 17, 15, 0.1);
+}
+
+/* Leave-with packs */
+.cpm-pack-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+}
+.cpm-pack ul {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+}
+.cpm-pack li {
+  display: flex;
+  gap: 14px;
+  padding: 9px 0;
+  font-size: 0.95rem;
+  border-top: 1px solid rgba(17, 17, 15, 0.1);
+}
+.cpm-pack li span {
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 11px;
+  opacity: 0.5;
+}
+
+@media (max-width: 900px) {
+  .cpm-day-grid,
+  .cpm-pack-grid { grid-template-columns: minmax(0, 1fr); }
+  .cpm-day + .cpm-day { border-left: 0; }
+  .cpm-pack-grid { gap: 32px; }
+}
