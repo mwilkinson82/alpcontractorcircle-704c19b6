@@ -464,6 +464,14 @@
   border-top: 1px solid var(--cpm-ink);
   background: var(--cpm-paper-2);
 }
+.cpm-setup-title,
+.cpm-tuition h2 + .cpm-setup-lede { }
+.cpm-setup-title {
+  font-size: clamp(1.9rem, 4.2vw, 3.2rem);
+  line-height: 1.03;
+  max-width: 28ch;
+  margin: 12px 0 18px;
+}
 .cpm-setup-lede {
   max-width: 60ch;
   font-size: clamp(1.02rem, 1.5vw, 1.2rem);

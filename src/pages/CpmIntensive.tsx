@@ -289,14 +289,14 @@ export default function CpmIntensive() {
           </figure>
         </section>
 
-        <section className="cpm-strip" aria-label="Offer at a glance">
+        <dl className="cpm-strip" aria-label="Offer at a glance">
           {offerStrip.map((item) => (
             <div key={item.label}>
               <dt>{item.label}</dt>
               <dd>{item.value}</dd>
             </div>
           ))}
-        </section>
+        </dl>
 
         <section className="cpm-promise">
           <p className="cpm-label">The point</p>
