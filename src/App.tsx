@@ -14,6 +14,7 @@ import DelayIntensive from "./pages/DelayIntensive.tsx";
 import DelayIntensiveConfirmed from "./pages/DelayIntensiveConfirmed.tsx";
 import DelayIntensiveTerms from "./pages/DelayIntensiveTerms.tsx";
 import DelayIntensiveOnboarding from "./pages/DelayIntensiveOnboarding.tsx";
+import CpmIntensive from "./pages/CpmIntensive.tsx";
 
 const queryClient = new QueryClient();
 
