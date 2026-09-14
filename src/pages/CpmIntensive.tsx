@@ -29,41 +29,27 @@ const outcomes = [
   },
   {
     number: "04",
-    title: "Stop handing over concurrent delay.",
-    body: "How not to show concurrent delay in your own schedule, plus an intro to change-order and delay fragments and light narrative habits.",
+    title: "Work the delay side on Day 2.",
+    body: "Delay analysis sits inside this intensive — you use the schedule you built to look at time, impact and exposure.",
   },
 ];
 
 const artifacts = [
-  "CPM one-pager",
-  "Activity standards sheet (ID · description · duration)",
-  "Relationship & logic rules sheet",
-  "Baseline best-practices checklist",
-  "Update best-practices runbook",
-  "Concurrent-delay discipline card",
-  "Intro fragment worksheet",
-  "Light narrative habits card",
+  "CPM working templates",
+  "Update runbook",
+  "Delay analysis worksheets",
   "Monday install checklist",
 ];
 
 const agenda = [
-  { number: "01", title: "Basics", body: "What CPM is · activity IDs · descriptions · durations." },
-  { number: "02", title: "Relationships / logic", body: "Ties that don’t invent float." },
-  { number: "03", title: "Baseline", body: "Best practices for creating a baseline schedule." },
-  { number: "04", title: "Updates", body: "Best practices for updates." },
-  { number: "05", title: "Concurrent delay discipline", body: "How to NOT show concurrent delay." },
-  { number: "06", title: "Intro fragments", body: "Impact the critical path with change orders and delay fragments — intro only." },
-  { number: "07", title: "Light narrative habits", body: "Protect risk to the reader. Full delay narratives are Module B." },
+  { number: "Day 1", title: "CPM", body: "Placeholder — outline TBA." },
+  { number: "Day 2", title: "Delay analysis", body: "Placeholder — outline TBA. Delay analysis is Day 2 of this intensive." },
 ];
 
 const faq = [
   {
     q: "What is the format?",
-    a: "Two live days via Google Meet. Working session, not a lecture — you build, baseline and update a schedule across both days.",
-  },
-  {
-    q: "Is full delay analysis included?",
-    a: "No. Full delay analysis — fragments that prove delay, collapsed as-built, plan vs as-built, windows, and deep delay narratives — is a separate Module B / Delay intensive. This 2-day covers build, baseline, updates, concurrent-delay discipline, and intro fragments only.",
+    a: "Two live days via Google Meet. Working session, not a lecture — Day 1 on CPM, Day 2 on delay analysis.",
   },
   {
     q: "Is the session recorded?",
@@ -205,20 +191,20 @@ export default function CpmIntensive() {
           <div className="di-deliverables-intro">
             <p className="di-section-label">Leave-with artifacts</p>
             <h2>Tools, not a giant PDF.</h2>
-            <p>Working files you can hand to a PM on Monday morning.</p>
+            <p>Working files you can hand to a PM on Monday morning. Final pack TBA.</p>
           </div>
           <ul>
             {artifacts.map((item, index) => (
               <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
             ))}
           </ul>
-          <p className="cpm-soft">Not included — P6 / MSP click-paths and ribbon tours.</p>
+          <p className="cpm-soft">Pack list is soft until the outline is set. Not included — P6 / MSP click-paths and ribbon tours.</p>
         </section>
 
         <section id="agenda" className="di-schedule">
           <header className="di-section-head">
-            <p className="di-section-label">Two-day outline</p>
-            <h2>What we cover, in order.</h2>
+            <p className="di-section-label">Agenda TBA — draft</p>
+            <h2>Two days. Outline still being built.</h2>
           </header>
           <div className="di-schedule-grid cpm-agenda-grid">
             {agenda.map((slot) => (
@@ -230,7 +216,7 @@ export default function CpmIntensive() {
               </article>
             ))}
           </div>
-          <p className="di-schedule-note">Order is locked. Session times are posted once the two dates are confirmed.</p>
+          <p className="di-schedule-note">Outline being rebuilt — soft Day 1 / Day 2 only for now.</p>
         </section>
 
         <section id="checkout" className="di-enroll">
