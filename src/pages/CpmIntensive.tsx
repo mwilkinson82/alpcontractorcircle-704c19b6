@@ -59,7 +59,7 @@ const agenda = [
 const faq = [
   {
     q: "What is the format?",
-    a: "One live day via Google Meet. Working session, not a lecture — you build, update and defend a schedule during the day.",
+    a: "Two live days via Google Meet. Working session, not a lecture — you build, update and defend a schedule across both days.",
   },
   {
     q: "Is the session recorded?",
@@ -67,7 +67,7 @@ const faq = [
   },
   {
     q: "How many seats?",
-    a: "Seats are limited so every attendee gets time on their own schedule.",
+    a: "Enrollment is open — there is no seat cap.",
   },
   {
     q: "What should I prepare?",
