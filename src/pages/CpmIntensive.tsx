@@ -116,13 +116,13 @@ export default function CpmIntensive() {
       <main>
         <section className="di-hero">
           <div className="di-hero-copy">
-            <p className="di-kicker">Date TBA · Two live days via Google Meet</p>
+            <p className="di-kicker">Date TBA · 2 days · $1,997 · unlimited seats</p>
             <h1>
               CPM Schedule<br />
               <em>Intensive (2-Day)</em>
             </h1>
             <p className="di-hero-lede">
-              <strong>Own the CPM. Build it. Update it. Prove time with it.</strong> A two-day intensive for contractor CEOs and PMs — WBS, logic, calendars, updates, claims-ready as-built. Not software school.
+              <strong>Own the CPM. Build it. Update it. Prove time with it.</strong> 2 days · $1,997 · unlimited seats · Not software school.
             </p>
             <p className="cpm-soft">Live via Google Meet · recording included for attendees</p>
             <div className="di-hero-actions">
