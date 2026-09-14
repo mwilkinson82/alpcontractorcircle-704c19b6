@@ -163,7 +163,7 @@ export default function CpmIntensive() {
             <p className="di-hero-lede">
               <strong>Own the CPM. Build it. Update it. Prove time with it.</strong> 2 days · $1,997 · unlimited seats · Not software school.
             </p>
-            <p className="cpm-soft">Live via Google Meet · recording included for attendees</p>
+            <p className="cpm-soft">Day 1 — CPM. Day 2 — Delay analysis. Live via Google Meet · recording included for attendees</p>
             <div className="di-hero-actions">
               <a href="#checkout" className="di-button di-button-primary">See tuition</a>
               <a href="#agenda" className="di-text-link">See the two days ↓</a>
