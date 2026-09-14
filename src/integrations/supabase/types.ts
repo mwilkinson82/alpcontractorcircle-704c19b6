@@ -14,6 +14,117 @@ export type Database = {
   }
   public: {
     Tables: {
+      cpm_intensive_enrollments: {
+        Row: {
+          access_token: string
+          created_at: string
+          id: string
+          purchaser_email: string
+          purchaser_name: string | null
+          revoked_at: string | null
+          stripe_checkout_session_id: string
+          stripe_payment_intent_id: string
+        }
+        Insert: {
+          access_token: string
+          created_at?: string
+          id?: string
+          purchaser_email: string
+          purchaser_name?: string | null
+          revoked_at?: string | null
+          stripe_checkout_session_id: string
+          stripe_payment_intent_id: string
+        }
+        Update: {
+          access_token?: string
+          created_at?: string
+          id?: string
+          purchaser_email?: string
+          purchaser_name?: string | null
+          revoked_at?: string | null
+          stripe_checkout_session_id?: string
+          stripe_payment_intent_id?: string
+        }
+        Relationships: []
+      }
+      cpm_intensive_materials: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          is_published: boolean
+          release_at: string | null
+          sort_order: number
+          storage_path: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          release_at?: string | null
+          sort_order?: number
+          storage_path: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_published?: boolean
+          release_at?: string | null
+          sort_order?: number
+          storage_path?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      cpm_intensive_payment_blocks: {
+        Row: {
+          blocked_at: string
+          reason: string
+          stripe_payment_intent_id: string
+        }
+        Insert: {
+          blocked_at?: string
+          reason: string
+          stripe_payment_intent_id: string
+        }
+        Update: {
+          blocked_at?: string
+          reason?: string
+          stripe_payment_intent_id?: string
+        }
+        Relationships: []
+      }
+      cpm_intensive_settings: {
+        Row: {
+          dates_label: string | null
+          id: number
+          materials_release_at: string | null
+          meet_release_at: string | null
+          meet_url: string | null
+          timezone: string | null
+        }
+        Insert: {
+          dates_label?: string | null
+          id?: number
+          materials_release_at?: string | null
+          meet_release_at?: string | null
+          meet_url?: string | null
+          timezone?: string | null
+        }
+        Update: {
+          dates_label?: string | null
+          id?: number
+          materials_release_at?: string | null
+          meet_release_at?: string | null
+          meet_url?: string | null
+          timezone?: string | null
+        }
+        Relationships: []
+      }
       drip_enrollments: {
         Row: {
           converted_at: string | null
