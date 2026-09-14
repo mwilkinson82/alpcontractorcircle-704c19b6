@@ -46,7 +46,7 @@ No Stripe products, prices, payment links or account settings were created or ch
 - All visible interactive targets at least 44px; mobile checkout remains fixed at bottom with safe-area clearance.
 - All five enrollment links point to the exact supplied Stripe URL; no disabled checkout, coming-soon language or one-named-attendee copy remains.
 - Vite production build, scoped ESLint and whitespace checks.
-- Existing shared bundle-size warning remains. The incoming npm lockfile is stale; local dependencies were installed without altering package manifests or locks.
+- Existing shared bundle-size warning remains. The incoming npm lockfile omitted the existing react-helmet-async dependency. The lockfile was repaired before publication without changing package.json or upgrading its locked dependencies.
 
 ## Release gate
 
