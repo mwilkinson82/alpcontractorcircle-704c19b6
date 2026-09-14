@@ -212,25 +212,25 @@ export default function CpmIntensive() {
               <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
             ))}
           </ul>
+          <p className="cpm-soft">Not included — P6 / MSP click-paths and ribbon tours.</p>
         </section>
 
         <section id="agenda" className="di-schedule">
           <header className="di-section-head">
-            <p className="di-section-label">Agenda — outline TBA</p>
-            <h2>Nine beats. Times still draft.</h2>
-            <p>Agenda expanding to 2-day — outline TBA.</p>
+            <p className="di-section-label">Two-day outline</p>
+            <h2>What we cover, in order.</h2>
           </header>
           <div className="di-schedule-grid cpm-agenda-grid">
             {agenda.map((slot) => (
               <article key={slot.number}>
-                <span>Slot {slot.number}</span>
+                <span>{slot.number}</span>
                 <time>Time TBA</time>
                 <h3>{slot.title}</h3>
                 <p>{slot.body}</p>
               </article>
             ))}
           </div>
-          <p className="di-schedule-note">Beat order is locked. Session times are draft until the two dates are confirmed.</p>
+          <p className="di-schedule-note">Order is locked. Session times are posted once the two dates are confirmed.</p>
         </section>
 
         <section id="checkout" className="di-enroll">
