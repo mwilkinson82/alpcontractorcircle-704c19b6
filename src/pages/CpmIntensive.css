@@ -1,0 +1,57 @@
+/* CPM Schedule Intensive — additions on top of the shared di-* system. */
+
+.cpm-page .cpm-soft {
+  margin-top: 14px;
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(17, 17, 15, 0.62);
+}
+
+.cpm-draft {
+  display: inline-block;
+  padding: 3px 8px;
+  border: 1px solid var(--di-signal);
+  color: var(--di-signal);
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.cpm-page .cpm-agenda-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cpm-page .cpm-price-grid {
+  grid-template-columns: minmax(0, 460px);
+}
+
+.cpm-page .cpm-price-draft {
+  border: 1px solid var(--di-rule);
+  padding: 28px;
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.cpm-page .cpm-button-pending {
+  width: 100%;
+  cursor: default;
+  background: rgba(17, 17, 15, 0.35);
+  border-color: transparent;
+  font-size: 13px;
+  text-align: center;
+}
+
+.cpm-page .cpm-button-pending:hover {
+  background: rgba(17, 17, 15, 0.35);
+}
+
+@media (max-width: 900px) {
+  .cpm-page .cpm-agenda-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 640px) {
+  .cpm-page .cpm-agenda-grid { grid-template-columns: minmax(0, 1fr); }
+  .cpm-page .cpm-price-grid { grid-template-columns: minmax(0, 1fr); }
+}

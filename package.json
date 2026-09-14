@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/prerender-delay-intensive.mjs",
+    "build": "vite build && node scripts/prerender-delay-intensive.mjs && node scripts/prerender-cpm-intensive.mjs",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
