@@ -1,22 +1,27 @@
 /* ============================================================
    CPM Schedule Intensive — standalone visual system.
    No dependency on DelayIntensive.css. All classes cpm-*.
-   Brand kit: cream paper, ink black, signal orange-red.
+   Brand kit: ALP House Marketing / Editorial tier.
+   Source: docs/marketing-brand-kit/README.md and color/type tokens.
    Motif: schedule board — activity rows, bars, critical path.
    ============================================================ */
 
 .cpm-page {
-  --cpm-paper: #f4f0e8;
-  --cpm-paper-2: #eee8dd;
-  --cpm-ink: #11110f;
-  --cpm-signal: #c9482e;
-  --cpm-rule: rgba(17, 17, 15, 0.16);
-  --cpm-hair: rgba(17, 17, 15, 0.1);
-  --cpm-mute: rgba(17, 17, 15, 0.6);
-  --cpm-serif: "Libre Caslon Display", "Libre Caslon Text", Georgia, serif;
-  --cpm-sans: "Inter", system-ui, -apple-system, sans-serif;
-  --cpm-mono: "DM Mono", ui-monospace, SFMono-Regular, monospace;
-  --cpm-pad: clamp(20px, 6vw, 96px);
+  --cpm-paper: #F7F2EA;
+  --cpm-paper-2: #EFEADE;
+  --cpm-ink: #1C1A17;
+  --cpm-signal: #F76A16;
+  --cpm-rule: #DCD5C8;
+  --cpm-hair: #DCD5C8;
+  --cpm-mute: #6B655D;
+  --cpm-serif: "Instrument Serif", ui-serif, Georgia, serif;
+  --cpm-sans: "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui;
+  --cpm-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --cpm-pad: max(clamp(20px, 5vw, 64px), calc((100vw - 1160px) / 2));
+  --cpm-surface: #F8F4ED;
+  --cpm-dark: #171310;
+  --cpm-clay: #D97757;
+  --cpm-crit: #B5432E;
 
   background: var(--cpm-paper);
   color: var(--cpm-ink);
@@ -64,7 +69,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: 14px var(--cpm-pad);
-  background: rgba(244, 240, 232, 0.94);
+  background: rgba(247, 242, 234, 0.94);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--cpm-rule);
 }
@@ -154,7 +159,7 @@
   gap: 12px;
   padding: 9px 14px 9px 12px;
   border: 1px solid var(--cpm-signal);
-  background: rgba(201, 72, 46, 0.06);
+  background: rgba(247, 106, 22, 0.06);
   margin-bottom: 22px;
 }
 .cpm-trial-badge b {
@@ -257,7 +262,7 @@
 }
 .cpm-strip > div {
   padding: 20px var(--cpm-pad-cell, 20px);
-  border-right: 1px solid rgba(244, 240, 232, 0.16);
+  border-right: 1px solid rgba(247, 242, 234, 0.16);
 }
 .cpm-strip > div:last-child { border-right: 0; }
 .cpm-strip dt {
@@ -576,7 +581,7 @@
   align-items: start;
 }
 .cpm-card {
-  border: 1px solid rgba(244, 240, 232, 0.24);
+  border: 1px solid rgba(247, 242, 234, 0.24);
   padding: 26px;
 }
 .cpm-card > span {
@@ -595,12 +600,12 @@
 .cpm-card p { font-size: 0.94rem; line-height: 1.5; opacity: 0.82; margin-bottom: 20px; }
 .cpm-page .cpm-card .cpm-btn-pending {
   width: 100%;
-  color: rgba(244, 240, 232, 0.72);
-  border-color: rgba(244, 240, 232, 0.34);
+  color: rgba(247, 242, 234, 0.72);
+  border-color: rgba(247, 242, 234, 0.34);
 }
 .cpm-page .cpm-card .cpm-btn-pending:hover {
-  color: rgba(244, 240, 232, 0.72);
-  border-color: rgba(244, 240, 232, 0.34);
+  color: rgba(247, 242, 234, 0.72);
+  border-color: rgba(247, 242, 234, 0.34);
 }
 .cpm-card small {
   display: block;
@@ -615,7 +620,7 @@
   justify-content: space-between;
   gap: 16px;
   padding: 13px 0;
-  border-top: 1px solid rgba(244, 240, 232, 0.2);
+  border-top: 1px solid rgba(247, 242, 234, 0.2);
 }
 .cpm-terms span {
   font-family: var(--cpm-mono);
@@ -730,7 +735,7 @@
 
 @media (max-width: 640px) {
   .cpm-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .cpm-strip > div { border-right: 1px solid rgba(244, 240, 232, 0.16); }
+  .cpm-strip > div { border-right: 1px solid rgba(247, 242, 234, 0.16); }
   .cpm-strip > div:nth-child(2n) { border-right: 0; }
   .cpm-strip > div:last-child { grid-column: 1 / -1; }
   .cpm-setup-grid { grid-template-columns: minmax(0, 1fr); }
@@ -751,7 +756,7 @@
     background: var(--cpm-ink);
     color: var(--cpm-paper);
     text-decoration: none;
-    border-top: 1px solid rgba(244, 240, 232, 0.2);
+    border-top: 1px solid rgba(247, 242, 234, 0.2);
   }
   .cpm-mobile-cta span { font-family: var(--cpm-serif); font-size: 22px; }
   .cpm-mobile-cta strong {
@@ -828,45 +833,35 @@
 
 .cpm-mini img { object-position: 100% 25%; }
 
-/* CPM edition: technical type, midnight ink and high-visibility lime. */
-.cpm-page {
-  --cpm-paper: #f6f7f3;
-  --cpm-paper-2: #e8ece7;
-  --cpm-ink: #142a32;
-  --cpm-signal: #b13c26;
-  --cpm-rule: rgba(20, 42, 50, 0.2);
-  --cpm-hair: rgba(20, 42, 50, 0.12);
-  --cpm-mute: #526168;
-  --cpm-serif: "Inter", system-ui, sans-serif;
-  --cpm-lime: #d7f36b;
-}
+/* ALP marketing skin. The CPM page retains its schedule-led composition. */
+.cpm-page { font-size: 17px; line-height: 1.65; letter-spacing: .005em; }
 .cpm-page h1, .cpm-page h2, .cpm-page h3 {
-  font-weight: 650;
-  letter-spacing: -0.045em;
+  font-family: var(--cpm-serif);
+  font-weight: 400;
+  letter-spacing: -.01em;
 }
 .cpm-page :is(a, button, summary):focus-visible {
-  outline: 3px solid #b13c26;
+  outline: 2px solid var(--cpm-ink);
   outline-offset: 5px;
 }
-.cpm-page :is(#agenda, #checkout) { scroll-margin-top: 88px; }
+.cpm-page :is(#agenda, #checkout, #cpm-terms) { scroll-margin-top: 88px; }
+.cpm-page .cpm-label { color: var(--cpm-clay); font-size: 12px; font-weight: 700; letter-spacing: .18em; }
+.cpm-page .cpm-label-mute { color: var(--cpm-mute); }
 .cpm-preview-note {
   padding: 10px 20px;
-  background: var(--cpm-lime);
+  background: var(--cpm-paper-2);
+  color: var(--cpm-mute);
   text-align: center;
-  font-family: var(--cpm-mono);
-  font-size: 11px;
-  line-height: 1.5;
+  font: 500 11px/1.5 var(--cpm-mono);
+  border-bottom: 1px solid var(--cpm-rule);
 }
-.cpm-nav { background: rgba(246, 247, 243, 0.96); }
-.cpm-mark > span { font-family: var(--cpm-sans); font-size: 25px; font-weight: 800; letter-spacing: -0.07em; }
-.cpm-mark .cpm-logo-dot { color: var(--cpm-signal); }
-.cpm-nav-cta { min-height: 44px; display: inline-flex; align-items: center; }
+.cpm-nav { background: rgba(247,242,234,.82); backdrop-filter: saturate(140%) blur(10px); }
+.cpm-mark > span { font-family: var(--cpm-sans); font-size: 25px; font-weight: 800; letter-spacing: -.05em; }
+.cpm-nav-cta { min-height: 44px; display: inline-flex; align-items: center; border-radius: 11px; }
 .cpm-hero {
-  background-color: var(--cpm-ink);
-  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-  background-size: 52px 52px;
-  color: var(--cpm-paper);
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
+  background: var(--cpm-paper);
+  color: var(--cpm-ink);
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, .92fr);
   gap: clamp(28px, 4vw, 64px);
 }
 .cpm-page .cpm-trial-badge {
@@ -874,49 +869,83 @@
   padding: 0;
   border: 0;
   background: none;
-  color: var(--cpm-lime);
-  font-family: var(--cpm-mono);
-  font-size: 11px;
-  letter-spacing: .1em;
+  color: var(--cpm-clay);
+  font: 700 11px/1.7 var(--cpm-mono);
+  letter-spacing: .18em;
   text-transform: uppercase;
-  line-height: 1.65;
   margin-bottom: 25px;
 }
-.cpm-hero h1 { font-size: clamp(2.5rem, 4.6vw, 4.8rem); line-height: 1.05; }
-.cpm-hero-number { display: block; color: var(--cpm-lime); margin-bottom: 7px; }
-.cpm-page .cpm-hero-sub { margin-bottom: 20px; font-size: clamp(1rem, 1.4vw, 1.16rem); color: #e2e8e5; }
-.cpm-hero .cpm-soft { color: #c1cfc9; }
-.cpm-hero .cpm-btn { color: var(--cpm-ink); background: var(--cpm-lime); border-color: var(--cpm-lime); }
-.cpm-hero .cpm-btn:hover { background: #e5ff8c; }
-.cpm-hero .cpm-jump { color: var(--cpm-paper); border-color: var(--cpm-lime); }
-.cpm-hero .cpm-board { color: var(--cpm-ink); padding: 16px; background: #fff; border: 0; box-shadow: 16px 16px 0 rgba(215,243,107,.14); }
-.cpm-board-head span:last-child { color: var(--cpm-mute); }
+.cpm-hero h1 { font-size: clamp(44px, 5.4vw, 78px); line-height: 1.03; }
+.cpm-hero-number { display: block; margin-bottom: 7px; font-style: italic; }
+.cpm-page .cpm-hero-sub { margin-bottom: 20px; font-size: 19px; line-height: 1.55; color: var(--cpm-mute); }
+.cpm-hero-sub strong { color: var(--cpm-ink); }
+.cpm-page .cpm-btn {
+  min-height: 48px;
+  border-radius: 11px;
+  padding: 12px 22px;
+  font: 600 15px/1.5 var(--cpm-sans);
+  letter-spacing: .005em;
+  text-transform: none;
+}
+.cpm-hero .cpm-btn { color: var(--cpm-ink); background: var(--cpm-signal); border-color: var(--cpm-signal); }
+.cpm-hero .cpm-btn:hover { background: var(--cpm-ink); border-color: var(--cpm-ink); color: var(--cpm-paper); }
+.cpm-hero .cpm-jump { border-color: var(--cpm-rule); min-height: 44px; display: inline-flex; align-items: center; }
+.cpm-hero .cpm-board {
+  position: relative;
+  color: var(--cpm-paper);
+  padding: 20px;
+  margin: 12px;
+  background: var(--cpm-dark);
+  border: 0;
+}
+.cpm-hero .cpm-board::before, .cpm-hero .cpm-board::after {
+  content: "";
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: solid var(--cpm-ink);
+  pointer-events: none;
+}
+.cpm-hero .cpm-board::before { top: -12px; left: -12px; border-width: 1px 0 0 1px; }
+.cpm-hero .cpm-board::after { bottom: -12px; right: -12px; border-width: 0 1px 1px 0; }
+.cpm-hero .cpm-board :is(.cpm-board-head, .cpm-board-foot) { border-color: rgba(247,242,234,.2); }
+.cpm-hero .cpm-board :is(figcaption, .cpm-board-key) { color: var(--cpm-paper); }
+.cpm-board-head span:last-child { color: #DCD5C8; }
 .cpm-board img { aspect-ratio: 1.25; object-fit: cover; max-height: none; }
-.cpm-strip { background: var(--cpm-lime); color: var(--cpm-ink); border: 0; }
-.cpm-strip > div { border-right: 1px solid var(--cpm-rule); }
-.cpm-strip dt { opacity: 1; color: #405238; }
-.cpm-strip dd { font-size: clamp(1rem, 1.6vw, 1.3rem); font-weight: 600; letter-spacing: -.025em; line-height: 1.3; }
-.cpm-promise h2 em { font-style: normal; }
-.cpm-quote { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: -.02em; }
+.cpm-board-key i { background: var(--cpm-paper); }
+.cpm-board-key.is-critical i { background: #EF8A7A; }
+.cpm-strip { background: var(--cpm-paper-2); color: var(--cpm-ink); border-color: var(--cpm-rule); }
+.cpm-strip > div { border-color: var(--cpm-rule); }
+.cpm-strip dt { opacity: 1; color: var(--cpm-mute); }
+.cpm-strip dd { font-size: clamp(1.05rem, 1.6vw, 1.3rem); font-family: var(--cpm-mono); font-weight: 500; letter-spacing: -.02em; line-height: 1.4; }
+.cpm-promise h2 em { color: var(--cpm-ink); }
+.cpm-quote { border-color: var(--cpm-clay); font-size: clamp(1.4rem, 2.5vw, 2rem); }
 .cpm-head { max-width: 72ch; }
-.cpm-head h2 { font-size: clamp(1.85rem, 3.6vw, 3rem); line-height: 1.12; }
-.cpm-track { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+.cpm-head h2 { font-size: clamp(28px, 4.4vw, 46px); line-height: 1.12; }
+.cpm-track { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); border-color: var(--cpm-rule); }
+.cpm-track:last-of-type { border-color: var(--cpm-rule); }
+.cpm-track-id > span { color: var(--cpm-clay); }
 .cpm-mini { display: block; padding: 8px; max-width: 100%; }
 .cpm-mini img { height: auto; max-height: none; aspect-ratio: 1.9; object-fit: cover; object-position: right center; }
 .cpm-mini figcaption { line-height: 1.5; }
 .cpm-bar b { max-width: 54px; }
-.cpm-tuition .cpm-label { color: var(--cpm-lime); }
-.cpm-page .cpm-mobile-cta { color: var(--cpm-paper); }
-.cpm-price { font-weight: 650; letter-spacing: -.06em; }
-.cpm-card { border-color: #64777b; }
-.cpm-page .cpm-btn { min-height: 48px; }
+.cpm-track.is-critical .cpm-bar b { background: var(--cpm-crit); }
+.cpm-outcome-list > article > span, .cpm-setup-grid dt, .cpm-fit-pair li::before, .cpm-wide figcaption > span { color: var(--cpm-clay); }
+.cpm-pack { border: 0; border-top: 1px solid var(--cpm-rule); background: transparent; padding: 22px 0; }
+.cpm-tuition { background: var(--cpm-dark); }
+.cpm-tuition .cpm-label { color: var(--cpm-clay); }
+.cpm-page .cpm-mobile-cta { background: var(--cpm-dark); color: var(--cpm-paper); }
+.cpm-price { font-family: var(--cpm-mono); font-weight: 500; font-size: clamp(2.8rem, 5.8vw, 4rem); letter-spacing: -.05em; }
 .cpm-card small { font-size: 12px; line-height: 1.6; opacity: .8; }
 .cpm-terms strong { text-align: right; }
 .cpm-footer a { display: inline-flex; align-items: center; min-height: 44px; }
 .cpm-footer > p { line-height: 1.7; }
+.cpm-faq summary span { position: relative; display: block; flex: 0 0 16px; width: 16px; height: 16px; color: var(--cpm-ink); }
+.cpm-faq summary span::before, .cpm-faq summary span::after { content: ""; position: absolute; left: 0; top: 7px; width: 16px; height: 1px; background: currentColor; }
+.cpm-faq summary span::after { transform: rotate(90deg); }
 @media (max-width: 900px) {
   .cpm-hero { grid-template-columns: minmax(0, 1fr); }
-  .cpm-hero h1 { font-size: clamp(2.4rem, 7vw, 4.8rem); }
+  .cpm-hero h1 { font-size: clamp(44px, 8vw, 78px); }
   .cpm-board { max-width: 650px; }
   .cpm-track { grid-template-columns: minmax(0, 1fr); }
   .cpm-mini { max-width: 560px; }
@@ -925,18 +954,23 @@
   .cpm-mark { gap: 10px; }
   .cpm-mark small { font-size: 9px; letter-spacing: .08em; }
   .cpm-hero { padding-bottom: 48px; }
-  .cpm-hero h1 { font-size: clamp(2.2rem, 9.7vw, 3.5rem); }
-  .cpm-hero .cpm-board { box-shadow: 8px 8px 0 rgba(215,243,107,.14); }
+  .cpm-hero h1 { font-size: clamp(44px, 12vw, 66px); }
+  .cpm-page .cpm-hero-sub { font-size: 17px; }
+  .cpm-hero .cpm-board { padding: 14px; }
+  .cpm-board-head { gap: 10px; }
+  .cpm-board-head span { font-size: 9px; letter-spacing: .08em; }
   .cpm-strip > div { padding: 18px 20px; border-color: var(--cpm-rule); }
   .cpm-strip > div:nth-child(3) { border-right: 1px solid var(--cpm-rule); }
+  .cpm-strip dd { font-size: 1rem; }
   .cpm-bar { gap: 9px; }
   .cpm-bar b { max-width: 28px; }
   .cpm-bar span { font-size: .94rem; }
   .cpm-card { padding: 22px; }
   .cpm-footer { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
   .cpm-page main { padding-bottom: 0; }
-  .cpm-mobile-cta strong { color: var(--cpm-lime); }
+  .cpm-mobile-cta strong { color: var(--cpm-paper); }
 }
 /* Keep the Tallman title block outside the marketing crop. */
 .cpm-track.is-critical .cpm-mini img { aspect-ratio: 2; object-position: right top; }
-.cpm-page #cpm-terms { scroll-margin-top: 88px; }
+@media (prefers-reduced-motion: reduce) { .cpm-page *, .cpm-page *::before, .cpm-page *::after { transition: none; } }
+.cpm-mobile-cta > span { font-family: var(--cpm-mono); font-weight: 500; font-size: 20px; }

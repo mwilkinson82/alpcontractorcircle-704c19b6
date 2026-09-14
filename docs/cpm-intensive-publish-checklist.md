@@ -11,7 +11,7 @@ Status: HOLD PUBLICATION. Marshall must approve the page and live dates before c
 - Day 2: plan vs as-built, collapsed as-built, windows, proving delay and delay narratives.
 - P6 Professional classroom build tool. Oracle 30-day trial link supplied on enrollment; existing company license also works.
 - Recording included for attendees; evergreen Learn course after recording. No Learn engineering in this change.
-- Navy/lime grid hero, sans-serif typography, PS338 critical-path hero and schedule crops, Tallman longest-path example. Source images reused from the verified Lovable/GitHub asset commit `2fd083bae56828705d4b65b4acbe82cb2e31d813`; no new Drive transfer required. Images upright; Tallman title block cropped out of its marketing frame via CSS.
+- ALP House marketing brand: editorial cream #F7F2EA, ink #1C1A17, rationed orange #F76A16, Instrument Serif headings, Helvetica Neue body and JetBrains Mono labels. PS338 critical-path hero in a dark bracket frame, schedule crops and Tallman longest-path example. Source images reused from the verified Lovable/GitHub asset commit `2fd083bae56828705d4b65b4acbe82cb2e31d813`; no new Drive transfer required. Images upright; Tallman title block cropped out of its marketing frame via CSS.
 - Existing take-home pack promises retained from the incoming page; Marshall should confirm those materials before launch.
 - Dates remain TBA. Candidate: Friday–Saturday, September 25–26, 2026. September 27 remains free for Contractor Circle. Daily hours and timezone still needed.
 
@@ -49,7 +49,7 @@ Add the confirmed class dates, daily times/timezone and meeting-delivery instruc
 - Scoped ESLint passes; `git diff --check` passes.
 - Incoming npm lockfile is stale (missing react-helmet-async entries). Local verification used `npm install --no-package-lock`; dependency manifests/locks were left unchanged. `npm ci` remains a pre-existing limitation.
 - Existing shared bundle-size warning remains; no unrelated bundle refactor.
-- Browser QA at 375×812, 768×1024 and desktop; verify loaded images, no horizontal overflow, tuition anchor, disabled checkout, expandable recording FAQ, sticky footer clearance.
+- Browser QA at 320px, 375×812, 768×1024 and 1440px desktop; verify loaded images, no horizontal overflow, tuition anchor, disabled checkout, expandable recording FAQ, sticky footer clearance.
 - Schedule source crops remain the incoming resolution: useful visual evidence, not intended as fully legible schedule documents at phone size.
 
 ## Publish gate
@@ -65,3 +65,9 @@ Add the confirmed class dates, daily times/timezone and meeting-delivery instruc
 - [ ] After green, publish through Lovable and verify the public `/cpm-intensive` page plus hosted checkout. No DNS changes needed for this existing route.
 
 Out of scope remains Learn portal, OverWatch/Westside, Delay page changes, outbound email and DNS.
+
+## Marketing brand alignment
+
+Brand source: `/Users/marshallwilkinson/Documents/OverWatch-ALP-Brand-Kits.tgz`, `Marketing/README.md` and its exact color/type token files. Copies are in `docs/marketing-brand-kit/`. The Marketing tier governs this page; the Application tier does not. The archive's old deploy map is historical: the verified repo and hold-publish instruction above control this release.
+
+Marshall approved the schedule-led composition and asked for its skin to match the local marketing brand kit. The layout, offer and curriculum remain intact. The user's explicit request for real PS338 and Tallman crops governs those images despite the kit's default fictional-data guidance. Orange primary buttons use dark ink labels for readable contrast.

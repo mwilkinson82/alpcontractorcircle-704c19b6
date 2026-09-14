@@ -170,6 +170,8 @@ export default function CpmIntensive() {
     <div className="cpm-page">
       <Helmet>
         <title>{CPM_SEO.title}</title>
+        <meta name="theme-color" content="#F7F2EA" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;700&display=swap" />
         <meta name="description" content={CPM_SEO.description} />
         <link rel="canonical" href={CPM_SEO.canonical} />
         <meta property="og:type" content="website" />
@@ -187,7 +189,7 @@ export default function CpmIntensive() {
 
       <header className="cpm-nav">
         <a className="cpm-mark" href="/" aria-label="ALP Contractor Circle home">
-          <span>ALP<span className="cpm-logo-dot">.</span></span>
+          <span>ALP</span>
           <small>CPM Schedule Intensive</small>
         </a>
         <a className="cpm-nav-cta" href="#checkout">See tuition</a>
@@ -208,7 +210,7 @@ export default function CpmIntensive() {
             </p>
             <p className="cpm-soft">$1,997 · Unlimited seats · Live on Google Meet · Recording included</p>
             <div className="cpm-hero-actions">
-              <a href="#checkout" className="cpm-btn">See tuition</a>
+              <a href="#checkout" className="cpm-btn">See tuition →</a>
               <a href="#agenda" className="cpm-jump">See the two days ↓</a>
             </div>
           </div>
@@ -445,7 +447,7 @@ export default function CpmIntensive() {
           <div>
             {faq.map((item) => (
               <details key={item.q}>
-                <summary>{item.q}<span>+</span></summary>
+                <summary>{item.q}<span aria-hidden="true" /></summary>
                 <p>{item.a}</p>
               </details>
             ))}
@@ -455,7 +457,7 @@ export default function CpmIntensive() {
         <section className="cpm-closing">
           <p className="cpm-label">Time is the money nobody itemizes.</p>
           <h2>Own the CPM or keep paying for the days you cannot prove.</h2>
-          <a href="#checkout" className="cpm-btn">See tuition</a>
+          <a href="#checkout" className="cpm-btn">See tuition →</a>
         </section>
       </main>
 

@@ -1,0 +1,25 @@
+/* ALP House — MARKETING / EDITORIAL tier type tokens.
+   Verified 2026-07-13 against live https://overwatch-marketing.vercel.app/.
+   Marketing uses Instrument Serif + Helvetica Neue; the App tier is a
+   deliberately separate system on Source Serif 4 + Archivo (do not reconcile).
+   Archivo is loaded ONLY at weight 800 on marketing — for the wordmark, not body.
+   Google Fonts import in use on the live site:
+   family=Archivo:wght@800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;700 */
+:root,
+.alp-marketing {
+  --serif: "Instrument Serif", ui-serif, Georgia, serif;         /* display / headings / big editorial statements */
+  --sans:  "Helvetica Neue", Helvetica, Arial, ui-sans-serif, system-ui;  /* body & UI */
+  --mono:  "JetBrains Mono", ui-monospace, Menlo, monospace;     /* eyebrows, labels, numbers, meta */
+}
+
+/* Responsive display scale (clamp) — from the house spec §3:
+   h1.hero        font-size: clamp(44px, 6.4vw, 86px);  max-width: 13ch; text-wrap: balance;
+   h1.big         font-size: clamp(40px, 7vw,   80px);  max-width: 16ch;   (interior hero)
+   h2.lead        font-size: clamp(28px, 4.4vw, 46px);  max-width: 22ch; text-wrap: balance;
+   .big-statement font-size: clamp(30px, 5.4vw, 62px);                     (scroll-fill statements)
+   .sub           color: var(--muted); font-size: 19px; line-height: 1.55; max-width: 60ch;
+   .eyebrow       font: 700 12px var(--mono); letter-spacing: .22em; text-transform: uppercase; color: var(--clay);
+
+   Body: Helvetica Neue 17px / 1.65, letter-spacing .005em, ~60ch measure.
+   Instrument Serif: letter-spacing -.01em, line-height 1.03–1.2.
+   Load via Google Fonts: Instrument+Serif + JetBrains+Mono. */
