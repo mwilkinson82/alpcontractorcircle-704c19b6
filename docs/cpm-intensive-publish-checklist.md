@@ -51,8 +51,8 @@ No Stripe products, prices, payment links or account settings were created or ch
 ## Release gate
 
 - [x] Marshall approved the updated landing page and explicitly authorized Lovable production publication.
-- [ ] Verify the separately implemented post-payment attendee hub before release; see `docs/cpm-intensive-attendee-hub.md`.
-- [ ] Inspect the full pending Lovable publish diff. Lovable publishes the project bundle; isolate unrelated pending changes before release.
+- [x] Verify the separately implemented post-payment attendee hub before release; see `docs/cpm-intensive-attendee-hub.md`.
+- [x] Inspect the full pending Lovable publish diff. Lovable publishes the project bundle; isolate unrelated pending changes before release.
 - [ ] After green, publish through Lovable and verify the public `/cpm-intensive` page and its Stripe links.
 
 Calendar dates and timezone remain pending clarification; the approved daily hours are 10 a.m.–5 p.m. both days. Refunds remain TBD. No Learn, OverWatch/Westside, Delay-page changes, outbound email or DNS work is included.

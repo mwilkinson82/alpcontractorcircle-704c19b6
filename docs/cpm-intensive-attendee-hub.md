@@ -38,3 +38,12 @@ The Oracle URL supplied in the prompt returned 404. The software CTA uses https:
 - The local design fixture is development-only and clearly labelled. It is eliminated from production builds and never grants server access.
 - No live purchase was made during testing; no checkout or Link authentication was opened.
 - Phone 375px, tablet 834px/900px, desktop 1280px checked for overflow and touch targets.
+
+## Deployed backend verification (September 14, 2026)
+
+- Lovable applied migration `20260914234141_ad99fc39-2672-45c8-8920-424faf89e081.sql`. The earlier draft migration was never applied and was removed to avoid duplicating table creation on future rebuilds. Lovable created the private 50 MB storage bucket through its Storage tool separately.
+- The deployment bundler requires shared imports under `_shared`; CPM validation now lives in `_shared/cpm-intensive-validation.ts`, with a compatibility re-export at the original path.
+- Both functions deployed. Independent HTTP checks: missing/invalid pass and template session return 401; unsigned webhook returns 400. Lovable also verified unknown live-formatted session returns 409 pending, foreign origin 403, GET 405.
+- Four tables have RLS and no anon/authenticated SELECT privileges. Private storage bucket verified, with zero browser storage policies. Meet URL, calendar dates, timezone and material-release timestamp remain null as intended.
+- All 37 project tests passed in Lovable (including 25 CPM tests and 2 Delay regression tests); production build and type checks passed. No local design-fixture data remains in production JS.
+- Existing Stripe connection returned zero completed CPM sessions, so no earlier purchases need backfill. No live payment was created during verification.
