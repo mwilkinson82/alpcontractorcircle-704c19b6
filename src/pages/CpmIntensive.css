@@ -825,3 +825,5 @@
 }
 
 .cpm-mini img { height: 190px; width: 100%; }
+
+.cpm-mini img { object-position: 100% 25%; }
