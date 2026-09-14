@@ -86,7 +86,7 @@
   text-transform: uppercase;
   color: var(--cpm-mute);
 }
-.cpm-nav-cta {
+.cpm-page .cpm-nav-cta {
   font-family: var(--cpm-mono);
   font-size: 11px;
   letter-spacing: 0.14em;
@@ -95,10 +95,10 @@
   padding: 9px 16px;
   border: 1px solid var(--cpm-ink);
 }
-.cpm-nav-cta:hover { background: var(--cpm-ink); color: var(--cpm-paper); }
+.cpm-page .cpm-nav-cta:hover { background: var(--cpm-ink); color: var(--cpm-paper); }
 
 /* ---------- buttons ---------- */
-.cpm-btn {
+.cpm-page .cpm-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -113,10 +113,10 @@
   color: var(--cpm-paper);
   transition: background 0.18s ease, color 0.18s ease;
 }
-.cpm-btn:hover { background: var(--cpm-signal); border-color: var(--cpm-signal); }
-.cpm-btn-ghost { background: transparent; color: var(--cpm-ink); }
-.cpm-btn-ghost:hover { background: var(--cpm-ink); color: var(--cpm-paper); }
-.cpm-btn-pending {
+.cpm-page .cpm-btn:hover { background: var(--cpm-signal); border-color: var(--cpm-signal); }
+.cpm-page .cpm-btn-ghost { background: transparent; color: var(--cpm-ink); }
+.cpm-page .cpm-btn-ghost:hover { background: var(--cpm-ink); color: var(--cpm-paper); }
+.cpm-page .cpm-btn-pending {
   background: transparent;
   color: var(--cpm-mute);
   border-style: dashed;
@@ -125,12 +125,12 @@
   text-align: center;
   line-height: 1.4;
 }
-.cpm-btn-pending:hover {
+.cpm-page .cpm-btn-pending:hover {
   background: transparent;
   color: var(--cpm-mute);
   border-color: var(--cpm-rule);
 }
-.cpm-jump {
+.cpm-page .cpm-jump {
   font-family: var(--cpm-mono);
   font-size: 11px;
   letter-spacing: 0.12em;
@@ -574,12 +574,12 @@
   margin: 12px 0 10px;
 }
 .cpm-card p { font-size: 0.94rem; line-height: 1.5; opacity: 0.82; margin-bottom: 20px; }
-.cpm-card .cpm-btn-pending {
+.cpm-card .cpm-page .cpm-btn-pending {
   width: 100%;
   color: rgba(244, 240, 232, 0.72);
   border-color: rgba(244, 240, 232, 0.34);
 }
-.cpm-card .cpm-btn-pending:hover {
+.cpm-card .cpm-page .cpm-btn-pending:hover {
   color: rgba(244, 240, 232, 0.72);
   border-color: rgba(244, 240, 232, 0.34);
 }
@@ -715,7 +715,7 @@
   .cpm-strip > div:nth-child(2n) { border-right: 0; }
   .cpm-strip > div:last-child { grid-column: 1 / -1; }
   .cpm-setup-grid { grid-template-columns: minmax(0, 1fr); }
-  .cpm-nav-cta { display: none; }
+  .cpm-page .cpm-nav-cta { display: none; }
   .cpm-hero-actions .cpm-btn { width: 100%; }
 
   .cpm-mobile-cta {

@@ -171,8 +171,8 @@ const boardRows = [
   { label: "Foundations", x: 118, w: 84, critical: true },
   { label: "Steel", x: 176, w: 108, critical: true },
   { label: "Envelope", x: 232, w: 92, critical: false },
-  { label: "MEP rough", x: 262, w: 118, critical: true },
-  { label: "Finishes", x: 340, w: 96, critical: false },
+  { label: "MEP rough", x: 258, w: 96, critical: true },
+  { label: "Finishes", x: 318, w: 74, critical: false },
 ];
 
 function ScheduleBoard() {
