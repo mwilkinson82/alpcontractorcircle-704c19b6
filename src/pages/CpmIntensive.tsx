@@ -34,22 +34,75 @@ const outcomes = [
   },
 ];
 
-const artifacts = [
-  "CPM working templates",
-  "Update runbook",
-  "Delay analysis worksheets",
-  "Monday install checklist",
+const packs = [
+  {
+    day: "Day 1 pack",
+    items: [
+      "CPM one-pager",
+      "Activity standards sheet",
+      "Logic rules sheet",
+      "Baseline checklist",
+      "Update runbook",
+      "Concurrent-delay card",
+      "Intro fragment worksheet",
+      "Reports cheat-sheet",
+      "Light narrative card",
+      "Monday install checklist",
+    ],
+  },
+  {
+    day: "Day 2 pack",
+    items: [
+      "Delay analysis method map",
+      "Prove-delay checklist",
+      "Analysis fragment worksheet",
+      "Delay-claim narrative outline",
+    ],
+  },
 ];
 
 const agenda = [
-  { number: "Day 1", title: "CPM", body: "Placeholder — outline TBA." },
-  { number: "Day 2", title: "Delay analysis", body: "Placeholder — outline TBA. Delay analysis is Day 2 of this intensive." },
+  {
+    day: "Day 1",
+    title: "CPM",
+    beats: [
+      "What CPM is",
+      "IDs",
+      "Descriptions",
+      "Durations",
+      "Relationships / logic",
+      "Critical path",
+      "Baseline",
+      "Updates",
+      "Concurrent-delay discipline",
+      "Intro fragments / COs",
+      "Reports",
+      "Narrative",
+      "P6 as camera",
+    ],
+  },
+  {
+    day: "Day 2",
+    title: "Delay analysis",
+    beats: [
+      "Plan vs as-built",
+      "Collapsed as-built",
+      "Windows",
+      "Prove delay",
+      "Fragments in analysis",
+      "Delay-claim narratives",
+    ],
+  },
 ];
 
 const faq = [
   {
     q: "What is the format?",
     a: "Two live days via Google Meet. Working session, not a lecture — Day 1 on CPM, Day 2 on delay analysis.",
+  },
+  {
+    q: "How is this different from the Damage-for-Delay intensive?",
+    a: "Damage-for-Delay is the broader damages and money intensive — LDs and claim packaging beyond schedule method. Day 2 of this intensive is the schedule and analysis method block: how to do delay analysis with the CPM (plan vs as-built, collapsed as-built, windows, prove delay, fragments in analysis, delay-claim narratives).",
   },
   {
     q: "Is the session recorded?",
