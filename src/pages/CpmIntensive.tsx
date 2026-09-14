@@ -181,7 +181,7 @@ export default function CpmIntensive() {
         <section className="di-gates">
           <header className="di-section-head">
             <p className="di-section-label">Walk out with</p>
-            <h2>Four things you own by the end of the day.</h2>
+            <h2>Four things you own by the end of the second day.</h2>
             <p>Every job, contract and calendar is different. The method is the same, and you run it yourself.</p>
           </header>
           <div className="di-gate-list">
