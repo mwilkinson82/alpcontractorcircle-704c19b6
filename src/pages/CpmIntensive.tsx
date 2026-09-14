@@ -224,6 +224,33 @@ function ScheduleBoard() {
   );
 }
 
+/* Compact motif used inside each day track.
+   ASSET SWAP SLOT — replace with the matching Tallman Island screenshot when paths arrive. */
+function MiniBoard({ critical }: { critical: boolean }) {
+  const rows = [12, 30, 22, 40, 26, 34];
+  return (
+    <svg viewBox="0 0 120 78" role="presentation" aria-hidden="true">
+      {rows.map((w, i) => (
+        <rect
+          key={i}
+          x={i * 12}
+          y={4 + i * 12}
+          width={w}
+          height="5"
+          fill={critical ? "#c9482e" : "#11110f"}
+          opacity={critical ? 0.85 : 0.7}
+        />
+      ))}
+      <path
+        d="M 2 2 V 76"
+        stroke={critical ? "#c9482e" : "rgba(17,17,15,0.3)"}
+        strokeWidth="1"
+        strokeDasharray="2 3"
+      />
+    </svg>
+  );
+}
+
 export default function CpmIntensive() {
   return (
     <div className="cpm-page">
@@ -331,6 +358,10 @@ export default function CpmIntensive() {
                 <span>{day.day}</span>
                 <h3>{day.title}</h3>
                 <time>Times TBA</time>
+                {/* ASSET SWAP SLOT — Tallman Island export for this day drops in here. */}
+                <figure className="cpm-mini" data-asset-slot={`tallman-${day.day.toLowerCase().replace(" ", "-")}`}>
+                  <MiniBoard critical={day.critical} />
+                </figure>
               </div>
               <ol className="cpm-bars">
                 {day.beats.map((beat, index) => (

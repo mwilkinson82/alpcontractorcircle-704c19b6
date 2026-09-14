@@ -379,6 +379,16 @@
   line-height: 1.35;
 }
 
+.cpm-mini {
+  margin: 22px 0 0;
+  padding: 12px;
+  border: 1px solid var(--cpm-hair);
+  background: var(--cpm-paper-2);
+  max-width: 220px;
+}
+.cpm-mini svg { display: block; width: 100%; height: auto; }
+@media (max-width: 900px) { .cpm-mini { display: none; } }
+
 /* ---------- asset swap slot ---------- */
 .cpm-slot {
   position: relative;
