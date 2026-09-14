@@ -20,7 +20,7 @@ export default function CpmIntensiveOnboarding() {
   useEffect(() => {
     let cancelled = false;
     window.history.replaceState({}, "", CPM_PORTAL_PATH);
-    if (localPreview) {
+    if (import.meta.env.DEV && localPreview) {
       setPortal({ access: "local-preview", attendee: { name: "Sample attendee", email: "attendee@example.com", ticket_number: "CPM-PREVIEW" }, schedule: { dates_label: null, timezone: null, hours: "10 a.m.–5 p.m. each day", meet_url: null }, materials: { released: false, release_at: null, files: [] } });
       setBusy(false);
       return;
@@ -58,7 +58,7 @@ export default function CpmIntensiveOnboarding() {
       {busy ? <section className="cpm-hub-state" role="status"><p className="cpm-hub-label">Your personal pass</p><h1>Confirming your enrollment.</h1><p>We’re checking your completed purchase. This won’t start a payment.</p></section>
       : !portal ? <section className="cpm-hub-state"><p className="cpm-hub-label">Attendee access</p><h1>{error ? "We couldn’t open your pass." : "Your classroom starts here."}</h1><p role={error ? "alert" : undefined}>{error || "Return here from your completed CPM Intensive checkout, or open your saved personal attendee link."}</p><div className="cpm-hub-actions">{credentials && <button className="cpm-hub-button" onClick={() => setAttempt(n => n + 1)}>Try again</button>}<a className="cpm-hub-button cpm-hub-outline" href="/cpm-intensive">View the intensive</a><a className="cpm-hub-text-link" href="mailto:marshall@marshallwilkinson.com">Contact ALP</a></div></section>
       : <>
-        {localPreview && <p className="cpm-hub-preview">Local design preview · Sample attendee · No purchase verified</p>}
+        {import.meta.env.DEV && localPreview && <p className="cpm-hub-preview">Local design preview · Sample attendee · No purchase verified</p>}
         <section className="cpm-hub-welcome"><div><p className="cpm-hub-label">ALP CPM Schedule Intensive (2-Day)</p><h1>Your CPM classroom.</h1><p>Build the baseline. Keep the updates connected. Put the schedule to work.</p></div><div className="cpm-hub-pass"><span className="cpm-hub-label">{localPreview ? "Sample pass" : "Enrollment confirmed"}</span><strong>{portal.attendee.name || "Registered attendee"}</strong><span>{portal.attendee.email}</span><small>{portal.attendee.ticket_number}</small></div></section>
         <section className="cpm-hub-software" aria-labelledby="cpm-p6-heading"><div><p className="cpm-hub-label">01 · Get ready to build</p><h2 id="cpm-p6-heading">Primavera P6 Professional.</h2><p>Use your company license if you already have P6 Professional. Otherwise, start Oracle’s <strong>30-day free trial</strong> for the classroom exercises.</p><a href={P6_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="cpm-hub-button">Get P6 from Oracle ↗</a><p className="cpm-hub-fine">Oracle account and trial acceptance happen directly with Oracle.</p></div><div className="cpm-hub-prep"><h3>Have it running before Day 1.</h3><ol><li>Sign in to Oracle Software Delivery Cloud.</li><li>Find Primavera P6 Professional and follow Oracle’s download and installation instructions.</li><li>Use a Windows machine that can run P6 Professional. You’ll build your own schedule as you learn.</li></ol><a href="https://docs.oracle.com/cd/G18296_01/English/Installing/p6_pro_install_config_standalone/703.htm" target="_blank" rel="noopener noreferrer">Oracle installation guidance ↗</a></div></section>
         <div className="cpm-hub-grid">
