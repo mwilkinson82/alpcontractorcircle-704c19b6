@@ -14,52 +14,56 @@ export const CPM_SEO = {
 const outcomes = [
   {
     number: "01",
-    title: "Build and defend a simple CPM.",
-    body: "WBS to logic to calendars to a critical path you can explain out loud without a consultant in the room.",
+    title: "Build a schedule that holds up.",
+    body: "Activity IDs, descriptions, durations and relationships that read clean and do not invent float.",
   },
   {
     number: "02",
-    title: "Run an honest update.",
-    body: "Data date, actual progress, remaining duration. No padding, no lying to yourself, no schedule that only works on paper.",
+    title: "Set a baseline the right way.",
+    body: "Best practices for creating the baseline everything else gets measured against.",
   },
   {
     number: "03",
-    title: "Keep a claims-ready pack.",
-    body: "Baseline, updates, constraint and look-ahead log, notice trail — built while the job is moving, not after the fight starts.",
+    title: "Run honest updates.",
+    body: "Data date, actual progress, remaining duration — updates that reflect the job instead of protecting a story.",
   },
   {
     number: "04",
-    title: "Know a Gantt from a proof machine.",
-    body: "One looks good in a meeting. The other survives an LD assessment or an extension-of-time fight. You will know which you are holding.",
+    title: "Stop handing over concurrent delay.",
+    body: "How not to show concurrent delay in your own schedule, plus an intro to change-order and delay fragments and light narrative habits.",
   },
 ];
 
 const artifacts = [
-  "Schedule Doctrine card",
-  "WBS template",
-  "Logic rules sheet",
-  "Calendar checklist",
-  "Update runbook",
-  "Constraint / look-ahead log",
-  "As-built / claims pack outline",
+  "CPM one-pager",
+  "Activity standards sheet (ID · description · duration)",
+  "Relationship & logic rules sheet",
+  "Baseline best-practices checklist",
+  "Update best-practices runbook",
+  "Concurrent-delay discipline card",
+  "Intro fragment worksheet",
+  "Light narrative habits card",
+  "Monday install checklist",
 ];
 
 const agenda = [
-  { number: "01", title: "Control room why", body: "Why the schedule is a money instrument, not a wall decoration." },
-  { number: "02", title: "WBS", body: "Break the job into work you can price, assign and measure." },
-  { number: "03", title: "Logic ties", body: "Predecessors, successors and the ties that decide who owns the delay." },
-  { number: "04", title: "Calendars", body: "Work days, shutdowns, weather and shift reality." },
-  { number: "05", title: "Baseline / float / critical path", body: "What gets frozen, who owns float, where the path actually runs." },
-  { number: "06", title: "Weekly updates", body: "The update loop a PM can run every week without a scheduler." },
-  { number: "07", title: "Constraint log + look-ahead", body: "Track what is blocking the field and put it on the record." },
-  { number: "08", title: "Claims-ready as-built", body: "Turn updates into the contemporaneous record that proves time." },
-  { number: "09", title: "Install Monday", body: "What you change on your jobs the next working day." },
+  { number: "01", title: "Basics", body: "What CPM is · activity IDs · descriptions · durations." },
+  { number: "02", title: "Relationships / logic", body: "Ties that don’t invent float." },
+  { number: "03", title: "Baseline", body: "Best practices for creating a baseline schedule." },
+  { number: "04", title: "Updates", body: "Best practices for updates." },
+  { number: "05", title: "Concurrent delay discipline", body: "How to NOT show concurrent delay." },
+  { number: "06", title: "Intro fragments", body: "Impact the critical path with change orders and delay fragments — intro only." },
+  { number: "07", title: "Light narrative habits", body: "Protect risk to the reader. Full delay narratives are Module B." },
 ];
 
 const faq = [
   {
     q: "What is the format?",
-    a: "Two live days via Google Meet. Working session, not a lecture — you build, update and defend a schedule across both days.",
+    a: "Two live days via Google Meet. Working session, not a lecture — you build, baseline and update a schedule across both days.",
+  },
+  {
+    q: "Is full delay analysis included?",
+    a: "No. Full delay analysis — fragments that prove delay, collapsed as-built, plan vs as-built, windows, and deep delay narratives — is a separate Module B / Delay intensive. This 2-day covers build, baseline, updates, concurrent-delay discipline, and intro fragments only.",
   },
   {
     q: "Is the session recorded?",
@@ -75,7 +79,7 @@ const faq = [
   },
   {
     q: "Do I need P6 or MS Project?",
-    a: "No. This is not software school. Software is a camera. The brain is WBS, logic ties, calendars, updates and as-built.",
+    a: "No. This is not software school. Software is a camera. The brain is activity standards, logic ties, baseline, updates and concurrent-delay discipline.",
   },
   {
     q: "What are the refund terms?",
@@ -112,13 +116,13 @@ export default function CpmIntensive() {
       <main>
         <section className="di-hero">
           <div className="di-hero-copy">
-            <p className="di-kicker">Date TBA · Two live days via Google Meet</p>
+            <p className="di-kicker">Date TBA · 2 days · $1,997 · unlimited seats</p>
             <h1>
               CPM Schedule<br />
               <em>Intensive (2-Day)</em>
             </h1>
             <p className="di-hero-lede">
-              <strong>Own the CPM. Build it. Update it. Prove time with it.</strong> A two-day intensive for contractor CEOs and PMs — WBS, logic, calendars, updates, claims-ready as-built. Not software school.
+              <strong>Own the CPM. Build it. Update it. Prove time with it.</strong> 2 days · $1,997 · unlimited seats · Not software school.
             </p>
             <p className="cpm-soft">Live via Google Meet · recording included for attendees</p>
             <div className="di-hero-actions">
@@ -208,25 +212,25 @@ export default function CpmIntensive() {
               <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
             ))}
           </ul>
+          <p className="cpm-soft">Not included — P6 / MSP click-paths and ribbon tours.</p>
         </section>
 
         <section id="agenda" className="di-schedule">
           <header className="di-section-head">
-            <p className="di-section-label">Agenda — outline TBA</p>
-            <h2>Nine beats. Times still draft.</h2>
-            <p>Agenda expanding to 2-day — outline TBA.</p>
+            <p className="di-section-label">Two-day outline</p>
+            <h2>What we cover, in order.</h2>
           </header>
           <div className="di-schedule-grid cpm-agenda-grid">
             {agenda.map((slot) => (
               <article key={slot.number}>
-                <span>Slot {slot.number}</span>
+                <span>{slot.number}</span>
                 <time>Time TBA</time>
                 <h3>{slot.title}</h3>
                 <p>{slot.body}</p>
               </article>
             ))}
           </div>
-          <p className="di-schedule-note">Beat order is locked. Session times are draft until the two dates are confirmed.</p>
+          <p className="di-schedule-note">Order is locked. Session times are posted once the two dates are confirmed.</p>
         </section>
 
         <section id="checkout" className="di-enroll">
