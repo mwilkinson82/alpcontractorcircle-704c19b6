@@ -39,6 +39,7 @@ const App = () => (
           <Route path="/delay-intensive/confirmed" element={<DelayIntensiveConfirmed />} />
           <Route path="/delay-intensive/onboarding" element={<DelayIntensiveOnboarding />} />
           <Route path="/delay-intensive/terms" element={<DelayIntensiveTerms />} />
+          <Route path="/cpm-intensive" element={<CpmIntensive />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
