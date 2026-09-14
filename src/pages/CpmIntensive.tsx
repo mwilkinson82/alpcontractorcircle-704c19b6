@@ -285,7 +285,7 @@ export default function CpmIntensive() {
       </main>
 
       <footer className="di-footer">
-        <div><strong>ALP</strong><span>CPM Schedule Intensive</span></div>
+        <div><strong>ALP</strong><span>CPM Schedule Intensive (2-Day)</span></div>
         <nav>
           <Link to="/cancellation-policy">Cancellation policy</Link>
           <a href="https://app.alpcontractorcircle.com/login">Member sign in</a>
@@ -295,7 +295,7 @@ export default function CpmIntensive() {
       </footer>
 
       <a className="di-mobile-cta" href="#checkout">
-        <span>Draft $997</span>
+        <span>$1,997</span>
         <strong>See tuition</strong>
       </a>
     </div>
