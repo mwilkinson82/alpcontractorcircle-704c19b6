@@ -114,11 +114,11 @@ const faq = [
   },
   {
     q: "What should I prepare?",
-    a: "Bring one live job you can talk about with names and numbers removed. You will work on real scope, not a textbook example.",
+    a: "Bring one live job you can talk about with names and numbers removed, and have P6 Professional installed and running before Day 1. You will work on real scope, not a textbook example.",
   },
   {
-    q: "Do I need P6 or MS Project?",
-    a: "No. This is not software school. Software is a camera. The brain is activity standards, logic ties, baseline, updates and concurrent-delay discipline.",
+    q: "What software do I need?",
+    a: "A Windows machine running Primavera P6 Professional. A company P6 license is fine. Otherwise start Oracle's 30-day P6 Professional free trial through Oracle Software Delivery Cloud before Day 1 — when you lock in, you get the trial link. Classroom demos use P6 Professional on-screen, not OverWatch. We do not provide Oracle Academy student licenses. This is still not software school: the software is the camera, the method is the work.",
   },
   {
     q: "What are the refund terms?",
