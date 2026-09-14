@@ -974,3 +974,16 @@
 .cpm-track.is-critical .cpm-mini img { aspect-ratio: 2; object-position: right top; }
 @media (prefers-reduced-motion: reduce) { .cpm-page *, .cpm-page *::before, .cpm-page *::after { transition: none; } }
 .cpm-mobile-cta > span { font-family: var(--cpm-mono); font-weight: 500; font-size: 20px; }
+
+/* The existing Stripe Payment Link is live; keep each checkout touch target clear. */
+.cpm-page .cpm-card .cpm-checkout-btn {
+  width: 100%;
+  background: var(--cpm-signal);
+  border-color: var(--cpm-signal);
+  color: var(--cpm-ink);
+}
+.cpm-page .cpm-card .cpm-checkout-btn:hover {
+  background: var(--cpm-paper);
+  border-color: var(--cpm-paper);
+}
+.cpm-mark { min-height: 44px; align-items: center; }

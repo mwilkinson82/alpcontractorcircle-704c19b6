@@ -1,17 +1,19 @@
 import { Helmet } from "react-helmet-async";
 import "./CpmIntensive.css";
 
+const CPM_CHECKOUT_URL = "https://buy.stripe.com/5kQ14oe0h5uSgMo7zkeQM1p";
+
 const CPM_SEO = {
-  title: "CPM Schedule Intensive (2-Day) | ALP Contractor Circle",
+  title: "ALP CPM Schedule Intensive (2-Day) | ALP Contractor Circle",
   description:
-    "Two live days for contractor CEOs and PMs. Day 1 build the CPM, Day 2 delay analysis. Get the Oracle 30-day free trial link for Primavera P6 Professional on enrollment. Live with Marshall Wilkinson. Tuition $1,997.",
+    "Two live days for contractor CEOs and PMs. Day 1 build the CPM, Day 2 delay analysis. Get the Oracle 30-day free trial link for Primavera P6 Professional on enrollment. Live with Marshall Wilkinson. Tuition $1,997 USD per seat, one-time.",
   canonical: "https://alpcontractorcircle.com/cpm-intensive",
   image: "https://alpcontractorcircle.com/og-contractor-circle.png",
 };
 
 const offerStrip = [
   { label: "Format", value: "2 live days" },
-  { label: "Tuition", value: "$1,997" },
+  { label: "Tuition", value: "$1,997 / seat" },
   { label: "Seats", value: "Unlimited" },
   { label: "Date", value: "TBA" },
   { label: "Days", value: "Day 1 CPM · Day 2 Delay analysis" },
@@ -153,15 +155,15 @@ const faq = [
   },
   {
     q: "How many seats?",
-    a: "Enrollment is open — there is no seat cap.",
+    a: "Tuition is $1,997 USD per seat, one-time. There is no cap on enrollment. Each checkout registers one attendee with one attendee portal.",
   },
   {
     q: "When is the date?",
-    a: "The two live days are being set. Checkout opens after the live dates are confirmed.",
+    a: "Live dates are TBA. You can check out now; the two class dates and daily times will be announced once confirmed.",
   },
   {
     q: "What are the refund terms?",
-    a: "Refund and transfer terms are TBD and will be posted before enrollment opens.",
+    a: "Refund and transfer terms are TBD.",
   },
 ];
 
@@ -185,20 +187,20 @@ export default function CpmIntensive() {
         <meta name="twitter:image" content={CPM_SEO.image} />
       </Helmet>
 
-      <div className="cpm-preview-note">Preview · Live dates to be confirmed · Checkout not yet open</div>
+      <div className="cpm-preview-note">Preview · Live dates TBA · Checkout open</div>
 
       <header className="cpm-nav">
         <a className="cpm-mark" href="/" aria-label="ALP Contractor Circle home">
           <span>ALP</span>
-          <small>CPM Schedule Intensive</small>
+          <small>CPM Schedule Intensive (2-Day)</small>
         </a>
-        <a className="cpm-nav-cta" href="#checkout">See tuition</a>
+        <a className="cpm-nav-cta" href={CPM_CHECKOUT_URL}>Checkout</a>
       </header>
 
       <main>
         <section className="cpm-hero">
           <div>
-            <p className="cpm-trial-badge">CPM Schedule Intensive · With Marshall Wilkinson</p>
+            <p className="cpm-trial-badge">ALP CPM Schedule Intensive (2-Day) · With Marshall Wilkinson</p>
             <h1>
               <span className="cpm-hero-number">30 days free.</span>
               Primavera P6<br />Professional.
@@ -208,9 +210,9 @@ export default function CpmIntensive() {
               Use it to prove delay on Day 2. Get Oracle’s 30-day free trial link when you enroll,
               or use your existing company license.
             </p>
-            <p className="cpm-soft">$1,997 · Unlimited seats · Live on Google Meet · Recording included</p>
+            <p className="cpm-soft">$1,997 USD per seat · Unlimited seats · Live on Google Meet · Recording included</p>
             <div className="cpm-hero-actions">
-              <a href="#checkout" className="cpm-btn">See tuition →</a>
+              <a href={CPM_CHECKOUT_URL} className="cpm-btn">Checkout →</a>
               <a href="#agenda" className="cpm-jump">See the two days ↓</a>
             </div>
           </div>
@@ -414,19 +416,19 @@ export default function CpmIntensive() {
           <p className="cpm-label">Tuition</p>
           <h2>Two days. A method you keep.</h2>
           <p className="cpm-setup-lede">
-            Live instruction with Marshall Wilkinson, classroom work in P6 Professional, and the recording afterward. Checkout opens once the live dates are confirmed.
+            Live instruction with Marshall Wilkinson, classroom work in P6 Professional, and the recording afterward. Live dates are TBA; checkout is open.
           </p>
           <div className="cpm-tuition-grid">
             <article className="cpm-card">
-              <span>CPM Schedule Intensive</span>
+              <span>ALP CPM Schedule Intensive (2-Day)</span>
               <div className="cpm-price">$1,997</div>
               <p>
-                One named attendee · two live days · 30-day P6 Professional trial link · recording included
+                $1,997 USD per seat · unlimited seats · one checkout = one attendee portal. Two live days, Oracle’s 30-day P6 Professional trial link and recording included.
               </p>
-              <button className="cpm-btn cpm-btn-pending" type="button" disabled aria-describedby="cpm-checkout-note">
-                Checkout — coming soon
-              </button>
-              <small id="cpm-checkout-note">Dates are being confirmed. Checkout is not connected; no payment is collected.</small>
+              <a className="cpm-btn cpm-checkout-btn" href={CPM_CHECKOUT_URL} aria-describedby="cpm-checkout-note">
+                Checkout — $1,997 →
+              </a>
+              <small id="cpm-checkout-note">One-time payment in USD. Live dates TBA. Each checkout registers one attendee; enrollment has no seat cap.</small>
             </article>
             <aside id="cpm-terms" className="cpm-terms" aria-label="Terms">
               <div><span>Date</span><strong>TBA</strong></div>
@@ -457,12 +459,12 @@ export default function CpmIntensive() {
         <section className="cpm-closing">
           <p className="cpm-label">Time is the money nobody itemizes.</p>
           <h2>Own the CPM or keep paying for the days you cannot prove.</h2>
-          <a href="#checkout" className="cpm-btn">See tuition →</a>
+          <a href={CPM_CHECKOUT_URL} className="cpm-btn">Checkout →</a>
         </section>
       </main>
 
       <footer className="cpm-footer">
-        <div><strong>ALP</strong><span>CPM Schedule Intensive (2-Day)</span></div>
+        <div><strong>ALP</strong><span>ALP CPM Schedule Intensive (2-Day)</span></div>
         <nav>
           <a href="#cpm-terms">Enrollment terms — pending</a>
           <a href="https://app.alpcontractorcircle.com/login">Member sign in</a>
@@ -471,9 +473,9 @@ export default function CpmIntensive() {
         <p>Educational and professional training. Not legal advice. No guarantee of entitlement or recovery.</p>
       </footer>
 
-      <a className="cpm-mobile-cta" href="#checkout">
+      <a className="cpm-mobile-cta" href={CPM_CHECKOUT_URL}>
         <span>$1,997</span>
-        <strong>See tuition</strong>
+        <strong>Checkout →</strong>
       </a>
     </div>
   );

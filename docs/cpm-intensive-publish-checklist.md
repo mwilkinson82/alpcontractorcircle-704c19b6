@@ -1,73 +1,58 @@
-# CPM Schedule Intensive — sandbox handoff
+# ALP CPM Schedule Intensive (2-Day) — landing handoff
 
-Status: HOLD PUBLICATION. Marshall must approve the page and live dates before checkout is opened or the site is published.
+Status: HOLD PRODUCTION PUBLICATION until Marshall explicitly approves. The supplied Stripe Payment Link is live and wired in the preview. Live dates remain TBA; no calendar date is inferred.
 
-## Offer and page
+## Locked offer
 
-- Route: `/cpm-intensive` in Lovable project `ca1f5675-9834-495b-9938-9a3834ec894f`.
-- Repository: `mwilkinson82/alpcontractorcircle-704c19b6`.
-- Two live days on Google Meet; $1,997 tuition; unlimited enrollment.
-- Day 1: full CPM, including activity standards, logic, baseline, updates, critical path, concurrent-delay discipline, fragments/change orders on the path, reports/narrative and P6 as camera.
-- Day 2: plan vs as-built, collapsed as-built, windows, proving delay and delay narratives.
-- P6 Professional classroom build tool. Oracle 30-day trial link supplied on enrollment; existing company license also works.
-- Recording included for attendees; evergreen Learn course after recording. No Learn engineering in this change.
-- ALP House marketing brand: editorial cream #F7F2EA, ink #1C1A17, rationed orange #F76A16, Instrument Serif headings, Helvetica Neue body and JetBrains Mono labels. PS338 critical-path hero in a dark bracket frame, schedule crops and Tallman longest-path example. Source images reused from the verified Lovable/GitHub asset commit `2fd083bae56828705d4b65b4acbe82cb2e31d813`; no new Drive transfer required. Images upright; Tallman title block cropped out of its marketing frame via CSS.
-- Existing take-home pack promises retained from the incoming page; Marshall should confirm those materials before launch.
-- Dates remain TBA. Candidate: Friday–Saturday, September 25–26, 2026. September 27 remains free for Contractor Circle. Daily hours and timezone still needed.
+- Name: ALP CPM Schedule Intensive (2-Day).
+- $1,997 USD per seat, one-time. Unlimited enrollment; each checkout registers one attendee with one attendee portal.
+- Two live days on Google Meet, recording included, evergreen Learn later.
+- Day 1: full CPM — activity IDs/descriptions/durations, logic, baseline, updates, critical path, concurrent-delay discipline, fragments/change orders on path, reports/narrative, P6 as camera.
+- Day 2: delay analysis methods — plan vs as-built, collapsed as-built, windows, proof and delay narratives. Broader damages/money belongs to Damage-for-Delay.
+- Oracle 30-day free trial of Primavera P6 Professional link on enrollment, or existing company license. P6 Professional is the classroom tool.
+- Live dates and times: TBA. Refund/transfer terms: TBD.
 
-## Pending before accepting payment
+## Checkout wired
 
-1. Marshall locks dates, daily times and timezone.
-2. Marshall approves refund/transfer terms. The old membership cancellation link was removed; the page now directs to CPM terms pending.
-3. Restore access to Marshall's existing Stripe account. Connector returned reauthentication required on September 14; no products, prices or payment links were created.
-4. Verify the actual Oracle 30-day trial acceptance screen and training eligibility before enrollment opens. Official P6 installation docs confirm download via https://edelivery.oracle.com; the authenticated trial terms could not be inspected here. Preserve the approved offer, but do not call that license verification complete.
-5. Create and verify the $1,997 one-time Payment Link in the existing account, then wire the checkout button. Do not reuse Delay or membership checkout.
-6. Confirm how attendees receive Google Meet details. Calendar creation and email sending were not performed.
+Every enrollment CTA (navigation, hero, tuition card, closing section, sticky mobile bar) uses one `CPM_CHECKOUT_URL` constant in `src/pages/CpmIntensive.tsx`:
 
-## Exact Stripe Dashboard handoff (after dates are locked)
+https://buy.stripe.com/5kQ14oe0h5uSgMo7zkeQM1p
 
-1. Open https://dashboard.stripe.com/payment-links in Marshall's existing account. Check the account name and live mode; do not create a second account.
-2. Click **+ New**, choose **Products or subscriptions**. Search for **CPM Schedule Intensive** first so an existing product is not duplicated.
-3. If absent, click **+ Add a new product**. Name: **CPM Schedule Intensive**. Price: **USD 1,997.00**, **one time**. Click **Add product**. Do not create alternate SKU names, recurring billing or a subscription trial; the P6 trial is provided by Oracle.
-4. Use quantity 1 for one named attendee. Leave any total-payment/seat limit unset. Collect attendee name and email.
-5. Under **After the payment** → **Confirmation page**, add the enrollment note below. Add the confirmed date/time and approved meeting-delivery instructions before enabling checkout.
-6. Click **Create link**, copy the `https://buy.stripe.com/...` URL, and inspect the hosted checkout for the correct account, product, currency and total. No live charge is needed for this read-only check.
-7. Replace the disabled button in `src/pages/CpmIntensive.tsx` with an anchor to the verified URL labelled **Checkout — $1,997**. Remove the checkout-not-connected copy and preview notice only when Marshall approves launch. Keep publication on hold until the final green light.
+Supplied Stripe configuration:
 
-Stripe references: [Create Payment Links](https://docs.stripe.com/no-code/payment-links), [After payment confirmation](https://docs.stripe.com/payment-links/post-payment).
+- Product: `prod_VGF6PF6ysZKKtV`.
+- Price: `price_1UFibpJdDAUSVXbNO9Fwg6lf`, USD 199700, one-time.
+- After payment: `https://alpcontractorcircle.com/cpm-intensive/onboarding?session_id={CHECKOUT_SESSION_ID}`.
+- Required individual name, phone, Stripe Customer creation, invoices enabled.
 
-### Enrollment note ready to paste
+The hosted checkout was opened read-only and displayed the exact product name and $1,997.00 price. No payment was submitted. The product/price IDs and post-payment settings above are Marshall-supplied; account-level readback remains unavailable because the Stripe connector requires reauthentication. This does not prevent linking the supplied hosted checkout.
 
-You’re enrolled in the CPM Schedule Intensive: two live days with Marshall Wilkinson on Google Meet. The recording is included. For classroom software, use your company’s Primavera P6 Professional license or get Oracle’s 30-day free trial through Oracle Software Delivery Cloud: https://edelivery.oracle.com. Sign in to Oracle, select Primavera P6 Professional Project Management, review Oracle’s trial terms and install P6 Professional on your Windows machine before Day 1.
+No Stripe products, prices, payment links or account settings were created or changed. No onboarding route or hub was built. Post-payment behavior and attendee portal verification belong to Prompt 2, outside this change.
 
-Add the confirmed class dates, daily times/timezone and meeting-delivery instructions here before saving the live link. Do not promise that an email was sent unless delivery is implemented and verified.
+## Brand and visual scope
 
-## Verification
+- ALP marketing kit source: `/Users/marshallwilkinson/Documents/OverWatch-ALP-Brand-Kits.tgz`, Marketing tier. Copies in `docs/marketing-brand-kit/`.
+- Cream #F7F2EA, near-black #1C1A17, orange #F76A16 used sparingly, terracotta #D97757 labels.
+- Instrument Serif headings, Helvetica Neue body, JetBrains Mono labels.
+- Preserve the approved schedule-led layout and real PS338 / Tallman crops; Tallman title block remains outside the marketing frame.
+- User authorization for the real schedule crops takes precedence over the kit's general fictional-data default.
+- Existing take-home pack copy retained. No new curriculum or benefits added.
 
-- Production Vite build and CPM metadata generation pass.
-- TypeScript app check passes.
-- Scoped ESLint passes; `git diff --check` passes.
-- Incoming npm lockfile is stale (missing react-helmet-async entries). Local verification used `npm install --no-package-lock`; dependency manifests/locks were left unchanged. `npm ci` remains a pre-existing limitation.
-- Existing shared bundle-size warning remains; no unrelated bundle refactor.
-- Browser QA at 320px, 375×812, 768×1024 and 1440px desktop; verify loaded images, no horizontal overflow, tuition anchor, disabled checkout, expandable recording FAQ, sticky footer clearance.
-- Schedule source crops remain the incoming resolution: useful visual evidence, not intended as fully legible schedule documents at phone size.
+## QA for this revision
 
-## Publish gate
+- 375px phone, 834px and 900px unfolded-tablet, 1280px desktop.
+- Check no horizontal overflow; all four schedule images load; hero text and schedule image occupy separate columns or stack without collision.
+- Day 1 and Day 2 stack at tablet/phone sizes.
+- All visible interactive targets at least 44px; mobile checkout remains fixed at bottom with safe-area clearance.
+- All five enrollment links point to the exact supplied Stripe URL; no disabled checkout, coming-soon language or one-named-attendee copy remains.
+- Vite production build, scoped ESLint and whitespace checks.
+- Existing shared bundle-size warning remains. The incoming npm lockfile is stale; local dependencies were installed without altering package manifests or locks.
 
-- [ ] Marshall approves the visual preview.
-- [ ] Dates, daily hours and timezone approved and reflected throughout.
-- [ ] Refund/transfer terms and take-home materials confirmed.
-- [ ] Oracle trial flow verified.
-- [ ] Existing-account Stripe checkout and enrollment note verified.
-- [ ] Google Meet fulfillment ready.
-- [ ] Marshall explicitly says publish.
-- [ ] Check the complete pending Lovable publish diff before publishing: Lovable publishes the project bundle, not one independent route. If unrelated pending changes exist, isolate or resolve them first.
-- [ ] After green, publish through Lovable and verify the public `/cpm-intensive` page plus hosted checkout. No DNS changes needed for this existing route.
+## Release gate
 
-Out of scope remains Learn portal, OverWatch/Westside, Delay page changes, outbound email and DNS.
+- [ ] Marshall approves the updated preview and explicitly authorizes production publication.
+- [ ] Coordinate readiness of the separately owned post-payment onboarding destination before public launch; do not implement it in this concern.
+- [ ] Inspect the full pending Lovable publish diff. Lovable publishes the project bundle; isolate unrelated pending changes before release.
+- [ ] After green, publish through Lovable and verify the public `/cpm-intensive` page and its Stripe links.
 
-## Marketing brand alignment
-
-Brand source: `/Users/marshallwilkinson/Documents/OverWatch-ALP-Brand-Kits.tgz`, `Marketing/README.md` and its exact color/type token files. Copies are in `docs/marketing-brand-kit/`. The Marketing tier governs this page; the Application tier does not. The archive's old deploy map is historical: the verified repo and hold-publish instruction above control this release.
-
-Marshall approved the schedule-led composition and asked for its skin to match the local marketing brand kit. The layout, offer and curriculum remain intact. The user's explicit request for real PS338 and Tallman crops governs those images despite the kit's default fictional-data guidance. Orange primary buttons use dark ink labels for readable contrast.
+Dates remain TBA and refunds TBD until Marshall supplies approved values. No Learn, OverWatch/Westside, Delay-page changes, outbound email or DNS work is included.
