@@ -987,3 +987,19 @@
   border-color: var(--cpm-paper);
 }
 .cpm-mark { min-height: 44px; align-items: center; }
+
+/* CPM mastery leads; the P6 trial supports the hands-on class. */
+.cpm-hero h1 em { color: var(--cpm-ink); }
+.cpm-page .cpm-hero-trial {
+  margin: 0 0 20px;
+  padding: 14px 0;
+  border-top: 1px solid var(--cpm-rule);
+  border-bottom: 1px solid var(--cpm-rule);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--cpm-mute);
+  max-width: 60ch;
+}
+.cpm-hero-trial strong { display: block; font-weight: 600; color: var(--cpm-ink); }
+.cpm-page .cpm-impact-note { max-width: 72ch; margin-top: 26px; font-size: 17px; line-height: 1.65; color: var(--cpm-mute); }
+.cpm-page .cpm-session-time { margin-top: 12px; font: 500 11px/1.6 var(--cpm-mono); color: var(--cpm-mute); }

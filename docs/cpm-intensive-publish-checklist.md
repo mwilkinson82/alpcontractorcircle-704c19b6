@@ -1,6 +1,6 @@
 # ALP CPM Schedule Intensive (2-Day) — landing handoff
 
-Status: HOLD PRODUCTION PUBLICATION until Marshall explicitly approves. The supplied Stripe Payment Link is live and wired in the preview. Live dates remain TBA; no calendar date is inferred.
+Status: HOLD PRODUCTION PUBLICATION until Marshall explicitly approves. The supplied Stripe Payment Link is live and wired in the preview. Marshall specified next Friday and Saturday, 10 a.m.–5 p.m. both days. Exact numeric dates and timezone are awaiting clarification because the earlier candidate was September 25–26 and the current date is September 14; no weekend is inferred.
 
 ## Locked offer
 
@@ -10,7 +10,7 @@ Status: HOLD PRODUCTION PUBLICATION until Marshall explicitly approves. The supp
 - Day 1: full CPM — activity IDs/descriptions/durations, logic, baseline, updates, critical path, concurrent-delay discipline, fragments/change orders on path, reports/narrative, P6 as camera.
 - Day 2: delay analysis methods — plan vs as-built, collapsed as-built, windows, proof and delay narratives. Broader damages/money belongs to Damage-for-Delay.
 - Oracle 30-day free trial of Primavera P6 Professional link on enrollment, or existing company license. P6 Professional is the classroom tool.
-- Live dates and times: TBA. Refund/transfer terms: TBD.
+- Friday and Saturday: 10 a.m.–5 p.m. each day. Calendar dates and timezone pending clarification. Refund/transfer terms: TBD.
 
 ## Checkout wired
 
@@ -36,11 +36,11 @@ No Stripe products, prices, payment links or account settings were created or ch
 - Instrument Serif headings, Helvetica Neue body, JetBrains Mono labels.
 - Preserve the approved schedule-led layout and real PS338 / Tallman crops; Tallman title block remains outside the marketing frame.
 - User authorization for the real schedule crops takes precedence over the kit's general fictional-data default.
-- Existing take-home pack copy retained. No new curriculum or benefits added.
+- Existing take-home pack copy retained. Curriculum descriptions now reflect Marshall's CPM mastery, hands-on P6, update discipline and delay-proof direction.
 
 ## QA for this revision
 
-- 375px phone, 834px and 900px unfolded-tablet, 1280px desktop.
+- Passed at 375px phone, 834px and 900px unfolded-tablet, 1280px desktop with the revised CPM mastery copy.
 - Check no horizontal overflow; all four schedule images load; hero text and schedule image occupy separate columns or stack without collision.
 - Day 1 and Day 2 stack at tablet/phone sizes.
 - All visible interactive targets at least 44px; mobile checkout remains fixed at bottom with safe-area clearance.
@@ -55,4 +55,12 @@ No Stripe products, prices, payment links or account settings were created or ch
 - [ ] Inspect the full pending Lovable publish diff. Lovable publishes the project bundle; isolate unrelated pending changes before release.
 - [ ] After green, publish through Lovable and verify the public `/cpm-intensive` page and its Stripe links.
 
-Dates remain TBA and refunds TBD until Marshall supplies approved values. No Learn, OverWatch/Westside, Delay-page changes, outbound email or DNS work is included.
+Calendar dates and timezone remain pending clarification; the approved daily hours are 10 a.m.–5 p.m. both days. Refunds remain TBD. No Learn, OverWatch/Westside, Delay-page changes, outbound email or DNS work is included.
+
+## CPM mastery positioning
+
+The hero now leads with “Master the CPM. Protect your time. Prove your delay.” The Oracle 30-day P6 Professional trial is a supporting benefit. The purpose is hands-on construction scheduling and P6 instruction, with everyone building their own schedule.
+
+The page connects construction sequencing and baseline logic to actual-progress updates, prior-update comparisons, concurrent-delay discipline, delay/change-order fragments, critical-path effects, trade stacking and productivity impacts. It explains how schedule analysis establishes the supported delay period for extensions and the time basis for delay-damage calculations, alongside contract, notice, field and cost records. Broader monetary claim packaging remains distinct from this scheduling class.
+
+Do not open Stripe checkout during agent QA unless Marshall explicitly asks. Link verification text messages were triggered by browser visits. Verify checkout href strings only. The five supplied payment links remain unchanged.

@@ -3,10 +3,12 @@ import "./CpmIntensive.css";
 
 const CPM_CHECKOUT_URL = "https://buy.stripe.com/5kQ14oe0h5uSgMo7zkeQM1p";
 
+const CPM_SESSION_HOURS = "10 a.m.–5 p.m.";
+
 const CPM_SEO = {
   title: "ALP CPM Schedule Intensive (2-Day) | ALP Contractor Circle",
   description:
-    "Two live days for contractor CEOs and PMs. Day 1 build the CPM, Day 2 delay analysis. Get the Oracle 30-day free trial link for Primavera P6 Professional on enrollment. Live with Marshall Wilkinson. Tuition $1,997 USD per seat, one-time.",
+    "Master CPM scheduling in Primavera P6 with Marshall Wilkinson. Build your own baseline, run reliable updates, analyze delay and establish the time record for extensions and delay damages. Two live days. $1,997 USD per seat.",
   canonical: "https://alpcontractorcircle.com/cpm-intensive",
   image: "https://alpcontractorcircle.com/og-contractor-circle.png",
 };
@@ -22,39 +24,42 @@ const offerStrip = [
 const agenda = [
   {
     day: "Day 1",
-    title: "CPM",
+    title: "Build and update the CPM.",
     critical: false,
     image: "/assets/cpm-intensive/schedule-gantt.png",
     imageAlt: "Gantt bars and activity data from a real construction schedule",
     imageCaption: "PS338 · Update #1",
     beats: [
-      "What CPM is",
-      "Activity IDs, descriptions and durations",
-      "Relationships / logic",
-      "Critical path",
-      "Baseline",
-      "Updates",
-      "Concurrent-delay discipline",
-      "Fragments / change orders on the path",
-      "Reports",
-      "Narrative",
-      "P6 as camera",
+      "CPM fundamentals and hands-on Primavera P6 Professional",
+      "Build your own schedule: activity IDs, descriptions and durations",
+      "Construction sequencing, relationships and logic",
+      "Establish a credible baseline and identify the critical path",
+      "Update actual starts, finishes, remaining duration and the data date",
+      "Keep each update traceable to the baseline and prior update",
+      "Concurrent-delay discipline: separate overlapping causes",
+      "Insert delay and change-order fragments into the schedule logic",
+      "Track critical-path changes and effects on the finish date",
+      "Reports and narratives that explain the job to the owner",
+      "P6 as the camera: use the schedule as a leading indicator",
     ],
   },
   {
     day: "Day 2",
-    title: "Delay analysis",
+    title: "Analyze and prove delay.",
     critical: true,
     image: "/assets/cpm-intensive/tallman-longest-path.png",
     imageAlt: "Tallman Island longest-path schedule with critical activities in red",
     imageCaption: "Tallman Island · longest path",
     beats: [
-      "Plan vs as-built",
-      "Collapsed as-built",
-      "Windows",
-      "Prove delay",
-      "Fragments in analysis",
-      "Delay-claim narratives",
+      "Plan vs as-built: compare the intended sequence with the work",
+      "Collapsed as-built analysis",
+      "Windows analysis: follow the path through successive updates",
+      "Prove delay: event, affected activities, critical path and finish",
+      "Test overlapping delays and distinguish responsibility",
+      "Analyze fragments, resequencing and change-order impacts",
+      "Trace trade stacking and disruption alongside productivity records",
+      "Build the time record for extensions and delay-damage calculations",
+      "Write a delay narrative supported by the schedule and job records",
     ],
   },
 ];
@@ -62,23 +67,23 @@ const agenda = [
 const outcomes = [
   {
     number: "01",
-    title: "Build a schedule that holds up.",
-    body: "Activity IDs, descriptions, durations and logic ties that read clean and do not invent float.",
+    title: "Build the baseline you can work from.",
+    body: "Create your own schedule in P6. Set realistic construction sequences, durations and logic so the baseline explains how the job is supposed to be built.",
   },
   {
     number: "02",
-    title: "Set a baseline the right way.",
-    body: "The baseline everything else gets measured against, built so it survives the argument later.",
+    title: "Make every update tell the truth.",
+    body: "Record actual progress, remaining work and changed logic. Explain movement from the baseline and prior update, and examine concurrent delays rather than hiding them in a revised finish date.",
   },
   {
     number: "03",
-    title: "Run honest updates.",
-    body: "Data date, actual progress, remaining duration — updates that reflect the job instead of protecting a story.",
+    title: "Show what actually drove the delay.",
+    body: "Insert delays and change-order fragments into the logic. Trace field conditions, stop-work directions, design problems and resequencing through affected activities to the critical path.",
   },
   {
     number: "04",
-    title: "Prove time on Day 2.",
-    body: "Plan vs as-built, collapsed as-built, windows and narratives — delay analysis run on the schedule you built.",
+    title: "Put time behind the damages calculation.",
+    body: "Quantify the supported delay period for an extension of time and the time basis for delay damages. Connect the schedule to the notices, daily reports and cost records that support the claim.",
   },
 ];
 
@@ -119,20 +124,28 @@ const setup = [
 ];
 
 const fitFor = [
-  "You are a CEO, owner or PM who carries the job, the schedule and the money.",
-  "Your schedules get built once for the owner and never updated again.",
-  "You lose time arguments because the record does not back the field.",
-  "You want your own people running updates instead of paying for every look.",
+  "Construction company owners who need to see time and risk before they turn into a claim.",
+  "Project managers who need to build, understand and maintain the schedule they submit to the owner.",
+  "Teams that want practical Primavera P6 skills and sound construction scheduling habits.",
+  "Contractors who need to explain delay, support extensions and establish the time basis for damages.",
 ];
 
-const fitNot = [
-  "You want P6 click-paths, ribbon tours and software certification.",
-  "You want a pretty Gantt for the wall and nothing behind it.",
-  "You want project-specific legal advice inside a group training.",
-  "You want to watch slides instead of working on a job example.",
+const practice = [
+  "An unforeseen field condition interrupts a planned activity.",
+  "A stop-work direction holds work on the critical path.",
+  "A design error or omission changes the sequence or adds work.",
+  "The CM directs out-of-sequence work, creating trade stacking and disrupted production.",
 ];
 
 const faq = [
+  {
+    q: "Will I actually learn Primavera P6?",
+    a: "Yes. Everyone builds their own schedule in Primavera P6 Professional while learning CPM fundamentals and construction scheduling best practices. You work through the baseline, updates, logic, critical path and delay fragments. The purpose is to use P6 to plan the job, manage risk and support a time argument.",
+  },
+  {
+    q: "How does the schedule help with extensions and damages?",
+    a: "You learn to connect an event to affected activities, test its effect on the critical path and quantify the supported delay period. That time record supports an extension request and provides the time basis for delay-damage calculations. Notices, contract requirements, daily records and cost evidence still matter; a moved finish date alone does not prove the claim.",
+  },
   {
     q: "What does the P6 trial include?",
     a: "When you enroll, you get the link to Oracle's 30-day free trial of Primavera P6 Professional so you can build your own schedule in class. An existing company P6 license also works. Download and trial acceptance take place directly with Oracle.",
@@ -143,11 +156,11 @@ const faq = [
   },
   {
     q: "What is the format?",
-    a: "Two live days via Google Meet. Working session, not a lecture — Day 1 on CPM, Day 2 on delay analysis.",
+    a: "Two live working days via Google Meet. Day 1 covers hands-on P6 and full CPM scheduling, from the baseline through updates and fragments. Day 2 covers delay analysis methods and the schedule evidence behind time and damages.",
   },
   {
     q: "How is this different from the Damage-for-Delay intensive?",
-    a: "Damage-for-Delay is the broader damages and money intensive — LDs and claim packaging beyond schedule method. Day 2 of this intensive is the schedule and analysis method block: how to do delay analysis with the CPM (plan vs as-built, collapsed as-built, windows, prove delay, fragments in analysis, delay-claim narratives).",
+    a: "This intensive teaches the CPM and P6 work that establishes sequence, cause, critical-path impact and the supported delay period. That is the time foundation for extensions and delay damages. Damage-for-Delay covers the broader damages, money and claim-packaging work beyond the scheduling and analysis methods taught here.",
   },
   {
     q: "Is the session recorded?",
@@ -159,7 +172,7 @@ const faq = [
   },
   {
     q: "When is the date?",
-    a: "Live dates are TBA. You can check out now; the two class dates and daily times will be announced once confirmed.",
+    a: "The class runs Friday and Saturday, 10 a.m.–5 p.m. each day. Exact calendar dates and timezone are being confirmed here. Checkout is open.",
   },
   {
     q: "What are the refund terms?",
@@ -187,7 +200,7 @@ export default function CpmIntensive() {
         <meta name="twitter:image" content={CPM_SEO.image} />
       </Helmet>
 
-      <div className="cpm-preview-note">Preview · Live dates TBA · Checkout open</div>
+      <div className="cpm-preview-note">Preview · Friday & Saturday · 10 a.m.–5 p.m. each day · Dates & timezone to confirm</div>
 
       <header className="cpm-nav">
         <a className="cpm-mark" href="/" aria-label="ALP Contractor Circle home">
@@ -202,13 +215,18 @@ export default function CpmIntensive() {
           <div>
             <p className="cpm-trial-badge">ALP CPM Schedule Intensive (2-Day) · With Marshall Wilkinson</p>
             <h1>
-              <span className="cpm-hero-number">30 days free.</span>
-              Primavera P6<br />Professional.
+              Master the CPM.<br />
+              Protect your time.<br />
+              <em>Prove your delay.</em>
             </h1>
             <p className="cpm-hero-sub">
-              <strong>Two live days to own the schedule.</strong> Build the CPM on Day 1.
-              Use it to prove delay on Day 2. Get Oracle’s 30-day free trial link when you enroll,
-              or use your existing company license.
+              <strong>Your most powerful tool for time and risk.</strong> Learn to build and update your own
+              schedule in Primavera P6. See trouble coming, show what drives the critical path, and build
+              the time record behind extensions and delay-damage calculations.
+            </p>
+            <p className="cpm-hero-trial">
+              <strong>30 days of Primavera P6 Professional — free Oracle trial.</strong> Get the link on
+              enrollment and build along in class, or use your existing company license.
             </p>
             <p className="cpm-soft">$1,997 USD per seat · Unlimited seats · Live on Google Meet · Recording included</p>
             <div className="cpm-hero-actions">
@@ -249,20 +267,20 @@ export default function CpmIntensive() {
         <section className="cpm-promise">
           <p className="cpm-label">The point</p>
           <h2>
-            Own the CPM. Build it. Update it. <em>Prove time with it.</em>
+            The baseline is where <em>your protection begins.</em>
           </h2>
           <div className="cpm-promise-cols">
             <p>
-              Jobs slip. Change orders pile up. The office argues with the field about who lost the two weeks, and
-              nobody can point at a schedule that proves it. The money leaves quietly.
+              A baseline should explain the construction sequence, the logic between trades and the work that
+              drives completion. Every update should show what actually happened, what remains and why the path changed.
             </p>
             <p>
-              These are the two working days where you build the schedule yourself, update it honestly, and then use it
-              to show where the time went and what drove the finish date.
+              An update divorced from the baseline and the job record cannot explain that story. Learn to preserve
+              the comparison, identify overlapping delays and show the owner which events affected the work — and how.
             </p>
           </div>
           <blockquote className="cpm-quote">
-            “If you cannot build it and update it, you do not own it — and you cannot prove time with it.”
+            Build the baseline. Keep the updates connected. Show the cause, the path and the time.
           </blockquote>
         </section>
 
@@ -276,8 +294,8 @@ export default function CpmIntensive() {
             />
             <figcaption>
               <span>Real job, real file</span>
-              This is the record a time argument gets decided on — activity data on the left, bars on the
-              right, the path that drives the end date running through it.
+              Sequence, progress and critical path in one working record. Use it to spot risk ahead of the work,
+              explain changes to the owner and support the time argument when delay occurs.
             </figcaption>
           </figure>
         </section>
@@ -285,8 +303,8 @@ export default function CpmIntensive() {
         <section id="agenda" className="cpm-spine">
           <header className="cpm-head">
             <p className="cpm-label">Two-day outline</p>
-            <h2>Day 1 builds the CPM. Day 2 proves delay with it.</h2>
-            <p>Beat by beat, through a working schedule file. Session times post once the two dates are confirmed.</p>
+            <h2>Build it in P6. Update it. Use it to prove time.</h2>
+            <p>Friday and Saturday, 10 a.m.–5 p.m. each day. Build your own working schedule as you learn. Calendar dates and timezone to be confirmed.</p>
           </header>
 
           {agenda.map((day) => (
@@ -294,7 +312,7 @@ export default function CpmIntensive() {
               <div className="cpm-track-id">
                 <span>{day.day}</span>
                 <h3>{day.title}</h3>
-                <time>Times TBA</time>
+                <p className="cpm-session-time">{day.day === "Day 1" ? "Friday" : "Saturday"} · {CPM_SESSION_HOURS}</p>
                 {/* REAL ASSET — schedule crop for this day. Swap for another export any time. */}
                 <figure className="cpm-mini" data-asset-slot={`schedule-${day.day.toLowerCase().replace(" ", "-")}`}>
                   <img src={day.image} alt={day.imageAlt} loading="lazy" />
@@ -319,8 +337,8 @@ export default function CpmIntensive() {
         <section className="cpm-outcomes">
           <header className="cpm-head">
             <p className="cpm-label">What you own after</p>
-            <h2>Four things that are yours when the second day ends.</h2>
-            <p>Every job, contract and calendar is different. The method is the same, and you run it yourself.</p>
+            <h2>A schedule you can use to protect the job.</h2>
+            <p>Learn the software and the scheduling discipline together, then use them to manage risk throughout the job.</p>
           </header>
           <div className="cpm-outcome-list">
             {outcomes.map((item) => (
@@ -362,10 +380,10 @@ export default function CpmIntensive() {
 
         <section className="cpm-setup">
           <p className="cpm-label">Before Day 1</p>
-          <h2 className="cpm-setup-title">You build in the software, on your own machine.</h2>
+          <h2 className="cpm-setup-title">Everyone builds their own schedule.</h2>
           <p className="cpm-setup-lede">
-            When you enroll, you get the link to Oracle’s 30-day P6 Professional trial so you can build your own
-            schedule in class.
+            Learn Primavera P6 Professional as you learn construction scheduling. You build the baseline, enter
+            updates and work with delay fragments on your own machine. The Oracle 30-day free trial link is provided on enrollment.
           </p>
           <dl className="cpm-setup-grid">
             {setup.map((row) => (
@@ -400,16 +418,21 @@ export default function CpmIntensive() {
             </div>
             <div>
               <div>
-                <p className="cpm-label cpm-label-mute">Skip it if</p>
-                <h3>You want a software tour.</h3>
+                <p className="cpm-label">Work through real conditions</p>
+                <h3>Show the cause in the schedule.</h3>
               </div>
-              <ul className="cpm-not">
-                {fitNot.map((item) => (
+              <ul>
+                {practice.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
             </div>
           </div>
+          <p className="cpm-impact-note">
+            Follow the effect into trade stacking, lost productivity and the completion date. Use the CPM to
+            organize the time analysis, supported by field and cost records, so responsibility is examined
+            rather than assumed.
+          </p>
         </section>
 
         <section id="checkout" className="cpm-tuition">
@@ -431,7 +454,9 @@ export default function CpmIntensive() {
               <small id="cpm-checkout-note">One-time payment in USD. Live dates TBA. Each checkout registers one attendee; enrollment has no seat cap.</small>
             </article>
             <aside id="cpm-terms" className="cpm-terms" aria-label="Terms">
-              <div><span>Date</span><strong>TBA</strong></div>
+              <div><span>Date</span><strong>Friday & Saturday · dates TBA</strong></div>
+              <div><span>Hours</span><strong>{CPM_SESSION_HOURS} each day</strong></div>
+              <div><span>Timezone</span><strong>To be confirmed</strong></div>
               <div><span>Seats</span><strong>Unlimited</strong></div>
               <div><span>Software</span><strong>P6 Professional · 30-day trial</strong></div>
               <div><span>Recording</span><strong>Included for attendees</strong></div>
@@ -457,8 +482,8 @@ export default function CpmIntensive() {
         </section>
 
         <section className="cpm-closing">
-          <p className="cpm-label">Time is the money nobody itemizes.</p>
-          <h2>Own the CPM or keep paying for the days you cannot prove.</h2>
+          <p className="cpm-label">Use the schedule to lead the job.</p>
+          <h2>See the risk. Protect the time. Build the proof.</h2>
           <a href={CPM_CHECKOUT_URL} className="cpm-btn">Checkout →</a>
         </section>
       </main>
