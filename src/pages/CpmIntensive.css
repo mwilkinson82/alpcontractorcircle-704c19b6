@@ -574,12 +574,12 @@
   margin: 12px 0 10px;
 }
 .cpm-card p { font-size: 0.94rem; line-height: 1.5; opacity: 0.82; margin-bottom: 20px; }
-.cpm-card .cpm-page .cpm-btn-pending {
+.cpm-page .cpm-card .cpm-btn-pending {
   width: 100%;
   color: rgba(244, 240, 232, 0.72);
   border-color: rgba(244, 240, 232, 0.34);
 }
-.cpm-card .cpm-page .cpm-btn-pending:hover {
+.cpm-page .cpm-card .cpm-btn-pending:hover {
   color: rgba(244, 240, 232, 0.72);
   border-color: rgba(244, 240, 232, 0.34);
 }
