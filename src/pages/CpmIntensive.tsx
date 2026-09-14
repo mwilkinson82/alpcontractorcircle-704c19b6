@@ -29,41 +29,27 @@ const outcomes = [
   },
   {
     number: "04",
-    title: "Stop handing over concurrent delay.",
-    body: "How not to show concurrent delay in your own schedule, plus an intro to change-order and delay fragments and light narrative habits.",
+    title: "Work the delay side on Day 2.",
+    body: "Delay analysis sits inside this intensive — you use the schedule you built to look at time, impact and exposure.",
   },
 ];
 
 const artifacts = [
-  "CPM one-pager",
-  "Activity standards sheet (ID · description · duration)",
-  "Relationship & logic rules sheet",
-  "Baseline best-practices checklist",
-  "Update best-practices runbook",
-  "Concurrent-delay discipline card",
-  "Intro fragment worksheet",
-  "Light narrative habits card",
+  "CPM working templates",
+  "Update runbook",
+  "Delay analysis worksheets",
   "Monday install checklist",
 ];
 
 const agenda = [
-  { number: "01", title: "Basics", body: "What CPM is · activity IDs · descriptions · durations." },
-  { number: "02", title: "Relationships / logic", body: "Ties that don’t invent float." },
-  { number: "03", title: "Baseline", body: "Best practices for creating a baseline schedule." },
-  { number: "04", title: "Updates", body: "Best practices for updates." },
-  { number: "05", title: "Concurrent delay discipline", body: "How to NOT show concurrent delay." },
-  { number: "06", title: "Intro fragments", body: "Impact the critical path with change orders and delay fragments — intro only." },
-  { number: "07", title: "Light narrative habits", body: "Protect risk to the reader. Full delay narratives are Module B." },
+  { number: "Day 1", title: "CPM", body: "Placeholder — outline TBA." },
+  { number: "Day 2", title: "Delay analysis", body: "Placeholder — outline TBA. Delay analysis is Day 2 of this intensive." },
 ];
 
 const faq = [
   {
     q: "What is the format?",
-    a: "Two live days via Google Meet. Working session, not a lecture — you build, baseline and update a schedule across both days.",
-  },
-  {
-    q: "Is full delay analysis included?",
-    a: "No. Full delay analysis — fragments that prove delay, collapsed as-built, plan vs as-built, windows, and deep delay narratives — is a separate Module B / Delay intensive. This 2-day covers build, baseline, updates, concurrent-delay discipline, and intro fragments only.",
+    a: "Two live days via Google Meet. Working session, not a lecture — Day 1 on CPM, Day 2 on delay analysis.",
   },
   {
     q: "Is the session recorded?",
