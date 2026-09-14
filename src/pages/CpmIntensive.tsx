@@ -191,20 +191,20 @@ export default function CpmIntensive() {
           <div className="di-deliverables-intro">
             <p className="di-section-label">Leave-with artifacts</p>
             <h2>Tools, not a giant PDF.</h2>
-            <p>Working files you can hand to a PM on Monday morning.</p>
+            <p>Working files you can hand to a PM on Monday morning. Final pack TBA.</p>
           </div>
           <ul>
             {artifacts.map((item, index) => (
               <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
             ))}
           </ul>
-          <p className="cpm-soft">Not included — P6 / MSP click-paths and ribbon tours.</p>
+          <p className="cpm-soft">Pack list is soft until the outline is set. Not included — P6 / MSP click-paths and ribbon tours.</p>
         </section>
 
         <section id="agenda" className="di-schedule">
           <header className="di-section-head">
-            <p className="di-section-label">Two-day outline</p>
-            <h2>What we cover, in order.</h2>
+            <p className="di-section-label">Agenda TBA — draft</p>
+            <h2>Two days. Outline still being built.</h2>
           </header>
           <div className="di-schedule-grid cpm-agenda-grid">
             {agenda.map((slot) => (
@@ -216,7 +216,7 @@ export default function CpmIntensive() {
               </article>
             ))}
           </div>
-          <p className="di-schedule-note">Order is locked. Session times are posted once the two dates are confirmed.</p>
+          <p className="di-schedule-note">Outline being rebuilt — soft Day 1 / Day 2 only for now.</p>
         </section>
 
         <section id="checkout" className="di-enroll">
