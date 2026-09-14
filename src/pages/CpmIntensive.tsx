@@ -112,27 +112,27 @@ export default function CpmIntensive() {
       <main>
         <section className="di-hero">
           <div className="di-hero-copy">
-            <p className="di-kicker">Date TBA · Live via Google Meet · Seats limited</p>
+            <p className="di-kicker">Date TBA · Two live days via Google Meet</p>
             <h1>
               CPM Schedule<br />
-              <em>Intensive</em>
+              <em>Intensive (2-Day)</em>
             </h1>
             <p className="di-hero-lede">
-              <strong>Own the CPM. Build it. Update it. Prove time with it.</strong> One-day intensive for contractor CEOs and PMs — WBS, logic, calendars, updates, claims-ready as-built. Not software school.
+              <strong>Own the CPM. Build it. Update it. Prove time with it.</strong> A two-day intensive for contractor CEOs and PMs — WBS, logic, calendars, updates, claims-ready as-built. Not software school.
             </p>
             <p className="cpm-soft">Live via Google Meet · recording included for attendees</p>
             <div className="di-hero-actions">
               <a href="#checkout" className="di-button di-button-primary">See tuition</a>
-              <a href="#agenda" className="di-text-link">See the working day ↓</a>
+              <a href="#agenda" className="di-text-link">See the two days ↓</a>
             </div>
           </div>
           <aside className="di-brief" aria-label="Intensive brief">
-            <span className="di-brief-label">ALP CPM Schedule Intensive</span>
+            <span className="di-brief-label">ALP CPM Schedule Intensive (2-Day)</span>
             <div className="di-brief-rule" />
             <dl>
-              <div><dt>Format</dt><dd>One live day</dd></div>
+              <div><dt>Format</dt><dd>Two live days</dd></div>
               <div><dt>Date</dt><dd>TBA</dd></div>
-              <div><dt>Room</dt><dd>Seats limited</dd></div>
+              <div><dt>Room</dt><dd>Open enrollment · no seat cap</dd></div>
               <div><dt>Result</dt><dd>Working CPM ownership</dd></div>
             </dl>
             <p>Software is a camera. The brain is WBS, logic ties, calendars, updates and as-built. You leave owning the schedule instead of renting it.</p>
@@ -143,7 +143,7 @@ export default function CpmIntensive() {
           <div className="di-deadline-copy">
             <span>Date</span>
             <strong>Date TBA</strong>
-            <p>The live day is being set. Tuition and enrollment open once the date is locked.</p>
+            <p>The two live days are being set. Enrollment opens once the date is locked and the payment link lands.</p>
           </div>
         </section>
 
