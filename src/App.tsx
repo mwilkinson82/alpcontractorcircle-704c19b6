@@ -15,6 +15,7 @@ import DelayIntensiveConfirmed from "./pages/DelayIntensiveConfirmed.tsx";
 import DelayIntensiveTerms from "./pages/DelayIntensiveTerms.tsx";
 import DelayIntensiveOnboarding from "./pages/DelayIntensiveOnboarding.tsx";
 import CpmIntensive from "./pages/CpmIntensive.tsx";
+import CpmIntensiveOnboarding from "./pages/CpmIntensiveOnboarding.tsx";
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/delay-intensive/onboarding" element={<DelayIntensiveOnboarding />} />
           <Route path="/delay-intensive/terms" element={<DelayIntensiveTerms />} />
           <Route path="/cpm-intensive" element={<CpmIntensive />} />
+          <Route path="/cpm-intensive/onboarding" element={<CpmIntensiveOnboarding />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

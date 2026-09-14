@@ -200,7 +200,7 @@ export default function CpmIntensive() {
         <meta name="twitter:image" content={CPM_SEO.image} />
       </Helmet>
 
-      <div className="cpm-preview-note">Preview · Friday & Saturday · 10 a.m.–5 p.m. each day · Dates & timezone to confirm</div>
+      <div className="cpm-preview-note">Live online · Friday & Saturday · 10 a.m.–5 p.m. each day · Dates & timezone to confirm</div>
 
       <header className="cpm-nav">
         <a className="cpm-mark" href="/" aria-label="ALP Contractor Circle home">

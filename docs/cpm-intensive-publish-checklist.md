@@ -1,6 +1,6 @@
 # ALP CPM Schedule Intensive (2-Day) — landing handoff
 
-Status: HOLD PRODUCTION PUBLICATION until Marshall explicitly approves. The supplied Stripe Payment Link is live and wired in the preview. Marshall specified next Friday and Saturday, 10 a.m.–5 p.m. both days. Exact numeric dates and timezone are awaiting clarification because the earlier candidate was September 25–26 and the current date is September 14; no weekend is inferred.
+Status: Marshall authorized Lovable production publication on September 14, 2026, including the separately implemented CPM attendee hub. The supplied Stripe Payment Link is live and wired in the preview. Marshall specified next Friday and Saturday, 10 a.m.–5 p.m. both days. Exact numeric dates and timezone are awaiting clarification because the earlier candidate was September 25–26 and the current date is September 14; no weekend is inferred.
 
 ## Locked offer
 
@@ -27,7 +27,7 @@ Supplied Stripe configuration:
 
 The hosted checkout was opened read-only and displayed the exact product name and $1,997.00 price. No payment was submitted. The product/price IDs and post-payment settings above are Marshall-supplied; account-level readback remains unavailable because the Stripe connector requires reauthentication. This does not prevent linking the supplied hosted checkout.
 
-No Stripe products, prices, payment links or account settings were created or changed. No onboarding route or hub was built. Post-payment behavior and attendee portal verification belong to Prompt 2, outside this change.
+No Stripe products, prices, payment links or account settings were created or changed. The attendee hub is now implemented separately under Prompt 2; see `docs/cpm-intensive-attendee-hub.md`.
 
 ## Brand and visual scope
 
@@ -50,8 +50,8 @@ No Stripe products, prices, payment links or account settings were created or ch
 
 ## Release gate
 
-- [ ] Marshall approves the updated preview and explicitly authorizes production publication.
-- [ ] Coordinate readiness of the separately owned post-payment onboarding destination before public launch; do not implement it in this concern.
+- [x] Marshall approved the updated landing page and explicitly authorized Lovable production publication.
+- [ ] Verify the separately implemented post-payment attendee hub before release; see `docs/cpm-intensive-attendee-hub.md`.
 - [ ] Inspect the full pending Lovable publish diff. Lovable publishes the project bundle; isolate unrelated pending changes before release.
 - [ ] After green, publish through Lovable and verify the public `/cpm-intensive` page and its Stripe links.
 

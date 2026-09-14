@@ -11,3 +11,7 @@ verify_jwt = false
 
 [functions.delay-intensive-track]
 verify_jwt = false
+
+# Custom authentication: server-verified paid CPM session or personal token.
+[functions.cpm-intensive-portal]
+verify_jwt = false

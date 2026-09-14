@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@500;700&display=swap');
+.cpm-hub { --paper:#F7F2EA; --ink:#1C1A17; --muted:#6B655D; --clay:#D97757; --edge:#DCD5C8; --orange:#F76A16; min-height:100vh; background:var(--paper); color:var(--ink); font:17px/1.65 "Helvetica Neue",Helvetica,Arial,sans-serif; overflow-wrap:anywhere; }
+.cpm-hub *, .cpm-hub *::before, .cpm-hub *::after { box-sizing:border-box; }
+.cpm-hub a { color:inherit; text-underline-offset:5px; }
+.cpm-hub button, .cpm-hub input { font:inherit; }
+.cpm-hub button { cursor:pointer; }
+.cpm-hub :focus-visible { outline:3px solid var(--ink); outline-offset:5px; }
+.cpm-hub h1,.cpm-hub h2,.cpm-hub h3 { font-family:"Instrument Serif",Georgia,serif; font-weight:400; letter-spacing:-.01em; line-height:1.08; margin:0 0 20px; }
+.cpm-hub h1 { font-size:clamp(44px,6vw,80px); }
+.cpm-hub h2 { font-size:clamp(32px,4vw,48px); }
+.cpm-hub h3 { font-size:30px; }
+.cpm-hub p { margin:0 0 22px; max-width:62ch; }
+.cpm-hub-nav { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:22px max(24px,calc((100vw - 1160px)/2)); border-bottom:1px solid var(--edge); }
+.cpm-hub-nav > a { display:flex; gap:15px; align-items:center; min-height:44px; text-decoration:none; }
+.cpm-hub-nav strong { font-size:29px; letter-spacing:-2px; }
+.cpm-hub-nav a span,.cpm-hub-label { font:500 10px/1.7 "JetBrains Mono",monospace; text-transform:uppercase; letter-spacing:.14em; }
+.cpm-hub .cpm-hub-label { color:#9B4A33; margin-bottom:16px; }
+.cpm-hub-nav > .cpm-hub-label { margin:0; color:var(--muted); }
+.cpm-hub main { max-width:1208px; padding:0 24px; margin:auto; }
+.cpm-hub-welcome { display:grid; grid-template-columns:1.6fr 1fr; align-items:center; gap:64px; padding:64px 0 48px; }
+.cpm-hub-welcome > div > p:last-child { color:var(--muted); max-width:44ch; margin-bottom:0; }
+.cpm-hub-pass { border-left:1px solid var(--edge); padding:10px 0 10px 32px; display:flex; flex-direction:column; gap:5px; min-width:0; }
+.cpm-hub-pass strong { font-size:23px; font-weight:500; }
+.cpm-hub-pass > span:not(.cpm-hub-label) { color:var(--muted); font-size:15px; }
+.cpm-hub-pass small { font:500 11px/2 "JetBrains Mono",monospace; margin-top:12px; }
+.cpm-hub-software { border:1px solid var(--edge); display:grid; grid-template-columns:1.15fr 1fr; margin-bottom:32px; }
+.cpm-hub-software > div { padding:36px; min-width:0; }
+.cpm-hub-prep { background:#171310; color:var(--paper); }
+.cpm-hub-prep ol { padding-left:23px; margin:0 0 18px; }
+.cpm-hub-prep li { padding-left:5px; margin-bottom:14px; font-size:16px; color:#E2DBD1; }
+.cpm-hub-prep a { display:inline-flex; align-items:center; min-height:44px; font-size:14px; }
+.cpm-hub-button { display:inline-flex; align-items:center; justify-content:center; text-align:center; min-height:48px; padding:12px 22px; background:var(--orange); border:1px solid transparent; border-radius:4px; color:var(--ink); font-size:16px; font-weight:600; text-decoration:none; line-height:1.5; }
+.cpm-hub-button:hover { filter:brightness(.94); }
+.cpm-hub .cpm-hub-outline { border-color:var(--ink); background:transparent; }
+.cpm-hub-button:disabled { opacity:.5; cursor:default; }
+.cpm-hub .cpm-hub-fine { font-size:13px; line-height:1.6; color:var(--muted); margin:15px 0 0; }
+.cpm-hub-grid { display:grid; grid-template-columns:1fr 1fr; gap:32px; }
+.cpm-hub-panel { border-top:2px solid var(--ink); padding:30px 0; min-width:0; }
+.cpm-hub-panel > p:not(.cpm-hub-label) { color:var(--muted); }
+.cpm-hub .cpm-hub-session { color:var(--ink); }
+.cpm-hub-days { margin:0 0 25px; padding:0; list-style:none; }
+.cpm-hub-days li { display:flex; gap:20px; border-top:1px solid var(--edge); padding:12px 0; font-size:15px; }
+.cpm-hub-days strong { flex-shrink:0; font-weight:600; }
+.cpm-hub .cpm-hub-placeholder { border:1px solid var(--edge); padding:22px; background:#EFEADE; color:var(--ink); font-size:16px; }
+.cpm-hub-text-link { display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:0; background:transparent; padding:8px 0; text-decoration:underline; text-underline-offset:5px; font-size:15px; }
+.cpm-hub-files { list-style:none; padding:0; margin:0; }
+.cpm-hub-files li { border-top:1px solid var(--edge); padding:12px 0; }
+.cpm-hub-files a { display:flex; justify-content:space-between; align-items:center; gap:15px; min-height:48px; }
+.cpm-hub-files p { color:var(--muted); font-size:14px; margin:0; }
+.cpm-hub-personal { display:flex; flex-wrap:wrap; gap:24px 50px; justify-content:space-between; border-top:1px solid var(--edge); padding:38px 0 52px; margin-top:15px; }
+.cpm-hub-personal h2 { font-size:32px; margin-bottom:12px; }
+.cpm-hub-personal p { max-width:58ch; font-size:15px; color:var(--muted); margin:0; }
+.cpm-hub-actions { display:flex; flex-wrap:wrap; gap:12px 22px; align-items:center; }
+.cpm-hub-personal .cpm-hub-actions { align-content:center; }
+.cpm-hub-copy { width:100%; }
+.cpm-hub-copy input { display:block; width:100%; padding:12px; margin-top:8px; border:1px solid var(--edge); background:white; }
+.cpm-hub-state { padding:85px 0 100px; min-height:65vh; max-width:760px; }
+.cpm-hub-state > p:not(.cpm-hub-label) { color:var(--muted); }
+.cpm-hub-footer { border-top:1px solid var(--edge); padding:22px max(24px,calc((100vw - 1160px)/2)); display:flex; justify-content:space-between; align-items:center; gap:20px; color:var(--muted); font-size:13px; }
+.cpm-hub-footer a { min-height:44px; display:flex; align-items:center; }
+.cpm-hub-preview { padding:15px 0; font:500 11px/1.6 "JetBrains Mono",monospace; }
+@media(max-width:950px) { .cpm-hub-welcome { gap:30px; grid-template-columns:1.3fr 1fr; } .cpm-hub-software { grid-template-columns:1fr; } .cpm-hub-software > div { padding:30px; } .cpm-hub-grid { gap:28px; } }
+@media(max-width:600px) { .cpm-hub-nav { padding:15px 20px; gap:10px; flex-wrap:wrap; } .cpm-hub-nav > .cpm-hub-label { font-size:9px; } .cpm-hub main { padding:0 20px; } .cpm-hub-welcome { grid-template-columns:1fr; padding:40px 0 32px; gap:26px; } .cpm-hub-pass { padding:18px 0 0; border-left:0; border-top:1px solid var(--edge); } .cpm-hub-software > div { padding:24px 20px; } .cpm-hub-grid { grid-template-columns:1fr; gap:10px; } .cpm-hub-button { width:100%; } .cpm-hub-actions { width:100%; } .cpm-hub-personal { padding:30px 0; } .cpm-hub-footer { padding:20px; flex-direction:column; align-items:flex-start; gap:6px; } .cpm-hub-state { padding:50px 0 70px; } }
