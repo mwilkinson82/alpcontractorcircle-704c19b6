@@ -152,7 +152,7 @@ export default function CpmIntensive() {
           <h2>Contractors who need to build and own the schedule — not sit through a ribbon tour.</h2>
           <div className="di-problem-grid">
             <p>Jobs slip. Change orders pile up. The office argues with the field about who lost the two weeks, and nobody can point at a schedule that proves it. The money leaves quietly.</p>
-            <p>This is the working day where you build the schedule yourself, update it honestly, and keep the record that protects the profit when time becomes a fight.</p>
+            <p>These are the two working days where you build the schedule yourself, update it honestly, and keep the record that protects the profit when time becomes a fight.</p>
           </div>
           <blockquote>“If you cannot build it and update it, you do not own it — and you cannot prove time with it.”</blockquote>
         </section>
