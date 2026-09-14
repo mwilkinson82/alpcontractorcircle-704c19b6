@@ -212,8 +212,9 @@ export default function CpmIntensive() {
 
         <section id="agenda" className="di-schedule">
           <header className="di-section-head">
-            <p className="di-section-label">Agenda TBA — draft slots</p>
+            <p className="di-section-label">Agenda — outline TBA</p>
             <h2>Nine beats. Times still draft.</h2>
+            <p>Agenda expanding to 2-day — outline TBA.</p>
           </header>
           <div className="di-schedule-grid cpm-agenda-grid">
             {agenda.map((slot) => (
@@ -225,42 +226,40 @@ export default function CpmIntensive() {
               </article>
             ))}
           </div>
-          <p className="di-schedule-note">Beat order is locked. Session times are draft until the date is confirmed.</p>
+          <p className="di-schedule-note">Beat order is locked. Session times are draft until the two dates are confirmed.</p>
         </section>
 
         <section id="checkout" className="di-enroll">
           <header>
-            <p className="di-section-label">Tuition <span className="cpm-draft">Draft</span></p>
-            <h2>Draft pricing. Not yet open.</h2>
-            <p>Pricing below is a draft and may change before enrollment opens. No checkout is live yet.</p>
+            <p className="di-section-label">Tuition</p>
+            <h2>Tuition is set. Enrollment opens next.</h2>
+            <p>The price below is final. Enrollment opens once the date and the payment link land.</p>
           </header>
 
           <div className="di-price-grid cpm-price-grid">
-            <article className="cpm-price-draft">
+            <article>
               <div className="di-price-topline">
                 <span>Individual seat</span>
-                <b className="cpm-draft">Draft</b>
               </div>
               <div className="di-price">
-                <del>$1,497</del>
-                <strong>$997</strong>
+                <strong>$1,997</strong>
               </div>
-              <p>One named attendee · early rate vs list, both draft</p>
+              <p>One named attendee · two live days · recording included</p>
               <a className="di-button di-button-primary cpm-button-pending" href="#checkout" aria-disabled="true">
-                Checkout opens when Marshall greens price
+                Checkout opens when date + Payment Link land
               </a>
               <small>No payment is being collected on this page.</small>
             </article>
           </div>
 
-          <aside className="di-terms-callout" aria-label="Draft terms">
+          <aside className="di-terms-callout" aria-label="Terms">
             <div><span>Date</span><strong>TBA</strong></div>
             <div><span>Recording</span><strong>Attendees only</strong></div>
             <div><span>Refunds</span><strong>TBD</strong></div>
             <p>Educational and professional training. Not legal advice.</p>
           </aside>
 
-          <p className="di-capacity">Seats limited. Enrollment opens once the date and price are confirmed.</p>
+          <p className="di-capacity">Open enrollment — no seat cap. Enrollment opens once the date and payment link are live.</p>
         </section>
 
         <section className="di-faq">
