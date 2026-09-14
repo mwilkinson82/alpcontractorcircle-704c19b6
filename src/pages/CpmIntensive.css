@@ -816,3 +816,10 @@
 @media (max-width: 640px) {
   .cpm-wide img { max-height: 300px; }
 }
+
+.cpm-mini { max-width: 100%; }
+.cpm-mini img {
+  max-height: 210px;
+  object-fit: cover;
+  object-position: 62% 30%;
+}
