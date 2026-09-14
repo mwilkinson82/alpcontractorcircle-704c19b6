@@ -23,6 +23,9 @@ const agenda = [
     day: "Day 1",
     title: "CPM",
     critical: false,
+    image: "/assets/cpm-intensive/schedule-gantt.png",
+    imageAlt: "Gantt bars and activity data from a real construction schedule",
+    imageCaption: "PS338 · baseline bars",
     beats: [
       "What CPM is",
       "IDs",
@@ -43,6 +46,9 @@ const agenda = [
     day: "Day 2",
     title: "Delay analysis",
     critical: true,
+    image: "/assets/cpm-intensive/tallman-longest-path.png",
+    imageAlt: "Tallman Island longest-path schedule with critical activities in red",
+    imageCaption: "Tallman Island · longest path",
     beats: [
       "Plan vs as-built",
       "Collapsed as-built",
@@ -162,95 +168,6 @@ const faq = [
   },
 ];
 
-/* Hero schedule board — hand-authored Gantt motif.
-   Rows are activities, bars are durations, the signal-colored chain is the critical path. */
-const boardRows = [
-  { label: "Mobilize", x: 0, w: 46, critical: false },
-  { label: "Submittals", x: 20, w: 74, critical: false },
-  { label: "Underground", x: 46, w: 96, critical: true },
-  { label: "Foundations", x: 118, w: 84, critical: true },
-  { label: "Steel", x: 176, w: 108, critical: true },
-  { label: "Envelope", x: 232, w: 92, critical: false },
-  { label: "MEP rough", x: 258, w: 96, critical: true },
-  { label: "Finishes", x: 318, w: 74, critical: false },
-];
-
-function ScheduleBoard() {
-  const rowH = 26;
-  const height = boardRows.length * rowH + 24;
-  return (
-    <svg viewBox={`0 0 480 ${height}`} role="img" aria-label="Schedule board showing activity bars and a highlighted critical path">
-      <g stroke="rgba(17,17,15,0.12)" strokeWidth="1">
-        {[0, 96, 192, 288, 384, 479].map((x) => (
-          <line key={x} x1={x + 0.5} y1="0" x2={x + 0.5} y2={height} />
-        ))}
-      </g>
-      {boardRows.map((row, i) => {
-        const y = 14 + i * rowH;
-        const next = boardRows[i + 1];
-        return (
-          <g key={row.label}>
-            <line x1="0" y1={y - 7} x2="480" y2={y - 7} stroke="rgba(17,17,15,0.08)" strokeWidth="1" />
-            <rect
-              x={row.x}
-              y={y}
-              width={row.w}
-              height="8"
-              fill={row.critical ? "#c9482e" : "#11110f"}
-            />
-            {row.critical && next?.critical ? (
-              <path
-                d={`M ${row.x + row.w} ${y + 4} H ${next.x - 5} V ${y + rowH} h 4`}
-                fill="none"
-                stroke="#c9482e"
-                strokeWidth="1"
-                strokeDasharray="2 2"
-              />
-            ) : null}
-            <text
-              x={row.x + row.w + 8}
-              y={y + 8}
-              fontFamily="DM Mono, monospace"
-              fontSize="8"
-              letterSpacing="0.08em"
-              fill="rgba(17,17,15,0.55)"
-            >
-              {row.label.toUpperCase()}
-            </text>
-          </g>
-        );
-      })}
-    </svg>
-  );
-}
-
-/* Compact motif used inside each day track.
-   ASSET SWAP SLOT — replace with the matching Tallman Island screenshot when paths arrive. */
-function MiniBoard({ critical }: { critical: boolean }) {
-  const rows = [12, 30, 22, 40, 26, 34];
-  return (
-    <svg viewBox="0 0 120 78" role="presentation" aria-hidden="true">
-      {rows.map((w, i) => (
-        <rect
-          key={i}
-          x={i * 12}
-          y={4 + i * 12}
-          width={w}
-          height="5"
-          fill={critical ? "#c9482e" : "#11110f"}
-          opacity={critical ? 0.85 : 0.7}
-        />
-      ))}
-      <path
-        d="M 2 2 V 76"
-        stroke={critical ? "#c9482e" : "rgba(17,17,15,0.3)"}
-        strokeWidth="1"
-        strokeDasharray="2 3"
-      />
-    </svg>
-  );
-}
-
 export default function CpmIntensive() {
   return (
     <div className="cpm-page">
@@ -300,19 +217,23 @@ export default function CpmIntensive() {
             </div>
           </div>
 
-          {/* ASSET SWAP SLOT — replace <ScheduleBoard /> with the Tallman Island schedule screenshot
-              when Khan sends the PDF exports. Keep the frame and caption. */}
+          {/* HERO VISUAL — real schedule export. Swap the src for another crop when needed. */}
           <figure className="cpm-board cpm-slot" data-asset-slot="tallman-hero-schedule">
             <div className="cpm-board-head">
               <span>Schedule board</span>
               <time>Data date TBA</time>
             </div>
-            <ScheduleBoard />
+            {/* REAL ASSET — PS338 Update #1 critical-path staircase (Marshall's job). */}
+            <img
+              src="/assets/cpm-intensive/hero-critical-path.png"
+              alt="Critical path staircase from a real construction schedule update"
+              loading="eager"
+            />
             <div className="cpm-board-foot">
               <span className="cpm-board-key"><i />Activity</span>
               <span className="cpm-board-key is-critical"><i />Critical path</span>
             </div>
-            <figcaption>Illustrative schedule motif — real job exports drop in here.</figcaption>
+            <figcaption>PS338 · Update #1 — critical path on a live job</figcaption>
           </figure>
         </section>
 
@@ -345,6 +266,22 @@ export default function CpmIntensive() {
           </blockquote>
         </section>
 
+        {/* REAL ASSET — wide schedule board crop. */}
+        <section className="cpm-wide" aria-label="Schedule board">
+          <figure data-asset-slot="schedule-board-wide">
+            <img
+              src="/assets/cpm-intensive/schedule-board.png"
+              alt="Wide schedule board showing activity data, bars and milestones on a live job"
+              loading="lazy"
+            />
+            <figcaption>
+              <span>Real job, real file</span>
+              This is the record a time argument gets decided on — activity data on the left, bars on the
+              right, the path that drives the end date running through it.
+            </figcaption>
+          </figure>
+        </section>
+
         <section id="agenda" className="cpm-spine">
           <header className="cpm-head">
             <p className="cpm-label">Two-day outline</p>
@@ -359,8 +296,10 @@ export default function CpmIntensive() {
                 <h3>{day.title}</h3>
                 <time>Times TBA</time>
                 {/* ASSET SWAP SLOT — Tallman Island export for this day drops in here. */}
-                <figure className="cpm-mini" data-asset-slot={`tallman-${day.day.toLowerCase().replace(" ", "-")}`}>
-                  <MiniBoard critical={day.critical} />
+                {/* REAL ASSET — schedule crop for this day. Swap for another export any time. */}
+                <figure className="cpm-mini" data-asset-slot={`schedule-${day.day.toLowerCase().replace(" ", "-")}`}>
+                  <img src={day.image} alt={day.imageAlt} loading="lazy" />
+                  <figcaption>{day.imageCaption}</figcaption>
                 </figure>
               </div>
               <ol className="cpm-bars">
