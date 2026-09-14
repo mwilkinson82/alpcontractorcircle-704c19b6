@@ -754,3 +754,6 @@
   }
   .cpm-page main { padding-bottom: 84px; }
 }
+
+.cpm-setup .cpm-setup-lede { margin-bottom: 52px; }
+.cpm-tuition .cpm-setup-lede { max-width: 52ch; }
