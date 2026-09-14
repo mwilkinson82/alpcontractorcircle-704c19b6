@@ -217,8 +217,7 @@ export default function CpmIntensive() {
             </div>
           </div>
 
-          {/* ASSET SWAP SLOT — replace <ScheduleBoard /> with the Tallman Island schedule screenshot
-              when Khan sends the PDF exports. Keep the frame and caption. */}
+          {/* HERO VISUAL — real schedule export. Swap the src for another crop when needed. */}
           <figure className="cpm-board cpm-slot" data-asset-slot="tallman-hero-schedule">
             <div className="cpm-board-head">
               <span>Schedule board</span>
@@ -265,6 +264,22 @@ export default function CpmIntensive() {
           <blockquote className="cpm-quote">
             “If you cannot build it and update it, you do not own it — and you cannot prove time with it.”
           </blockquote>
+        </section>
+
+        {/* REAL ASSET — wide schedule board crop. */}
+        <section className="cpm-wide" aria-label="Schedule board">
+          <figure data-asset-slot="schedule-board-wide">
+            <img
+              src="/assets/cpm-intensive/schedule-board.png"
+              alt="Wide schedule board showing activity data, bars and milestones on a live job"
+              loading="lazy"
+            />
+            <figcaption>
+              <span>Real job, real file</span>
+              This is the record a time argument gets decided on — activity data on the left, bars on the
+              right, the path that drives the end date running through it.
+            </figcaption>
+          </figure>
         </section>
 
         <section id="agenda" className="cpm-spine">

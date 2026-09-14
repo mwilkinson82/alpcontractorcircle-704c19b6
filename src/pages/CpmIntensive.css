@@ -386,7 +386,16 @@
   background: var(--cpm-paper-2);
   max-width: 220px;
 }
-.cpm-mini svg { display: block; width: 100%; height: auto; }
+.cpm-mini svg,
+.cpm-mini img { display: block; width: 100%; height: auto; }
+.cpm-mini figcaption {
+  margin-top: 8px;
+  font-family: var(--cpm-mono);
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cpm-mute);
+}
 @media (max-width: 900px) { .cpm-mini { display: none; } }
 
 /* ---------- asset swap slot ---------- */
@@ -757,3 +766,53 @@
 
 .cpm-setup .cpm-setup-lede { margin-bottom: 52px; }
 .cpm-tuition .cpm-setup-lede { max-width: 52ch; }
+
+/* ---------- wide schedule board band ---------- */
+.cpm-wide {
+  padding: clamp(44px, 6vw, 80px) var(--cpm-pad);
+  border-top: 1px solid var(--cpm-rule);
+  background: var(--cpm-paper-2);
+}
+.cpm-wide figure {
+  margin: 0;
+  border: 1px solid var(--cpm-rule);
+  background: var(--cpm-paper);
+  padding: 14px;
+}
+.cpm-wide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  object-fit: cover;
+  object-position: left top;
+}
+.cpm-wide figcaption {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--cpm-hair);
+  max-width: 74ch;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  color: var(--cpm-mute);
+}
+.cpm-wide figcaption span {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--cpm-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cpm-signal);
+}
+.cpm-board img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 420px;
+  object-fit: cover;
+  object-position: left top;
+}
+@media (max-width: 640px) {
+  .cpm-wide img { max-height: 300px; }
+}
