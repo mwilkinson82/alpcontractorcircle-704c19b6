@@ -130,3 +130,49 @@
   .cpm-day + .cpm-day { border-left: 0; }
   .cpm-pack-grid { gap: 32px; }
 }
+
+/* Before Day 1 — P6 access */
+.cpm-prereq {
+  padding: 72px 6vw;
+  border-top: 1px solid rgba(17, 17, 15, 0.16);
+}
+.cpm-prereq h2 {
+  margin: 12px 0 20px;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  line-height: 1.03;
+  max-width: 22ch;
+}
+.cpm-prereq-line {
+  max-width: 62ch;
+  font-size: 1.05rem;
+  line-height: 1.5;
+  margin: 0 0 28px;
+}
+.cpm-prereq-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 40px;
+  margin: 0 0 20px;
+}
+.cpm-prereq-list > div {
+  padding: 14px 0;
+  border-top: 1px solid rgba(17, 17, 15, 0.12);
+}
+.cpm-prereq-list dt {
+  font-family: "DM Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin-bottom: 6px;
+}
+.cpm-prereq-list dd {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 900px) {
+  .cpm-prereq { padding: 56px 6vw; }
+  .cpm-prereq-list { grid-template-columns: minmax(0, 1fr); }
+}

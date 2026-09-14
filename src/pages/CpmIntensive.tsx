@@ -114,11 +114,11 @@ const faq = [
   },
   {
     q: "What should I prepare?",
-    a: "Bring one live job you can talk about with names and numbers removed. You will work on real scope, not a textbook example.",
+    a: "Bring one live job you can talk about with names and numbers removed, and have P6 Professional installed and running before Day 1. You will work on real scope, not a textbook example.",
   },
   {
-    q: "Do I need P6 or MS Project?",
-    a: "No. This is not software school. Software is a camera. The brain is activity standards, logic ties, baseline, updates and concurrent-delay discipline.",
+    q: "What software do I need?",
+    a: "A Windows machine running Primavera P6 Professional. A company P6 license is fine. Otherwise start Oracle's 30-day P6 Professional free trial through Oracle Software Delivery Cloud before Day 1 — when you lock in, you get the trial link. Classroom demos use P6 Professional on-screen, not OverWatch. We do not provide Oracle Academy student licenses. This is still not software school: the software is the camera, the method is the work.",
   },
   {
     q: "What are the refund terms?",
@@ -259,6 +259,21 @@ export default function CpmIntensive() {
             ))}
           </div>
           <p className="cpm-soft">Not included — P6 / MSP click-path tourism.</p>
+        </section>
+
+        <section className="cpm-prereq" aria-label="What you need before Day 1">
+          <p className="di-section-label">Before Day 1</p>
+          <h2>You build in the software, on your own machine.</h2>
+          <p className="cpm-prereq-line">
+            <strong>When you lock in, you get the link to Oracle’s 30-day P6 Professional trial so you can build your own schedule in class.</strong>
+          </p>
+          <dl className="cpm-prereq-list">
+            <div><dt>Machine</dt><dd>Windows machine that can run Primavera P6 Professional.</dd></div>
+            <div><dt>License</dt><dd>Company P6 license works. Otherwise use Oracle’s 30-day P6 Professional free trial from Oracle Software Delivery Cloud — installed and running before Day 1.</dd></div>
+            <div><dt>On screen</dt><dd>Classroom demos run in P6 Professional, not OverWatch.</dd></div>
+            <div><dt>Job</dt><dd>One live job you can talk through with names and numbers removed.</dd></div>
+          </dl>
+          <p className="cpm-soft">We do not provide Oracle Academy student licenses. Software is the camera — you still need it installed to build in class.</p>
         </section>
 
         <section id="agenda" className="di-schedule">
