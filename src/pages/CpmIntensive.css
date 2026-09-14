@@ -827,3 +827,116 @@
 .cpm-mini img { height: 190px; width: 100%; }
 
 .cpm-mini img { object-position: 100% 25%; }
+
+/* CPM edition: technical type, midnight ink and high-visibility lime. */
+.cpm-page {
+  --cpm-paper: #f6f7f3;
+  --cpm-paper-2: #e8ece7;
+  --cpm-ink: #142a32;
+  --cpm-signal: #b13c26;
+  --cpm-rule: rgba(20, 42, 50, 0.2);
+  --cpm-hair: rgba(20, 42, 50, 0.12);
+  --cpm-mute: #526168;
+  --cpm-serif: "Inter", system-ui, sans-serif;
+  --cpm-lime: #d7f36b;
+}
+.cpm-page h1, .cpm-page h2, .cpm-page h3 {
+  font-weight: 650;
+  letter-spacing: -0.045em;
+}
+.cpm-page :is(a, button, summary):focus-visible {
+  outline: 3px solid #b13c26;
+  outline-offset: 5px;
+}
+.cpm-page :is(#agenda, #checkout) { scroll-margin-top: 88px; }
+.cpm-preview-note {
+  padding: 10px 20px;
+  background: var(--cpm-lime);
+  text-align: center;
+  font-family: var(--cpm-mono);
+  font-size: 11px;
+  line-height: 1.5;
+}
+.cpm-nav { background: rgba(246, 247, 243, 0.96); }
+.cpm-mark > span { font-family: var(--cpm-sans); font-size: 25px; font-weight: 800; letter-spacing: -0.07em; }
+.cpm-mark .cpm-logo-dot { color: var(--cpm-signal); }
+.cpm-nav-cta { min-height: 44px; display: inline-flex; align-items: center; }
+.cpm-hero {
+  background-color: var(--cpm-ink);
+  background-image: linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 52px 52px;
+  color: var(--cpm-paper);
+  grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr);
+  gap: clamp(28px, 4vw, 64px);
+}
+.cpm-page .cpm-trial-badge {
+  display: block;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cpm-lime);
+  font-family: var(--cpm-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  line-height: 1.65;
+  margin-bottom: 25px;
+}
+.cpm-hero h1 { font-size: clamp(2.5rem, 4.6vw, 4.8rem); line-height: 1.05; }
+.cpm-hero-number { display: block; color: var(--cpm-lime); margin-bottom: 7px; }
+.cpm-page .cpm-hero-sub { margin-bottom: 20px; font-size: clamp(1rem, 1.4vw, 1.16rem); color: #e2e8e5; }
+.cpm-hero .cpm-soft { color: #c1cfc9; }
+.cpm-hero .cpm-btn { color: var(--cpm-ink); background: var(--cpm-lime); border-color: var(--cpm-lime); }
+.cpm-hero .cpm-btn:hover { background: #e5ff8c; }
+.cpm-hero .cpm-jump { color: var(--cpm-paper); border-color: var(--cpm-lime); }
+.cpm-hero .cpm-board { color: var(--cpm-ink); padding: 16px; background: #fff; border: 0; box-shadow: 16px 16px 0 rgba(215,243,107,.14); }
+.cpm-board-head span:last-child { color: var(--cpm-mute); }
+.cpm-board img { aspect-ratio: 1.25; object-fit: cover; max-height: none; }
+.cpm-strip { background: var(--cpm-lime); color: var(--cpm-ink); border: 0; }
+.cpm-strip > div { border-right: 1px solid var(--cpm-rule); }
+.cpm-strip dt { opacity: 1; color: #405238; }
+.cpm-strip dd { font-size: clamp(1rem, 1.6vw, 1.3rem); font-weight: 600; letter-spacing: -.025em; line-height: 1.3; }
+.cpm-promise h2 em { font-style: normal; }
+.cpm-quote { font-size: clamp(1.15rem, 2vw, 1.5rem); letter-spacing: -.02em; }
+.cpm-head { max-width: 72ch; }
+.cpm-head h2 { font-size: clamp(1.85rem, 3.6vw, 3rem); line-height: 1.12; }
+.cpm-track { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); }
+.cpm-mini { display: block; padding: 8px; max-width: 100%; }
+.cpm-mini img { height: auto; max-height: none; aspect-ratio: 1.9; object-fit: cover; object-position: right center; }
+.cpm-mini figcaption { line-height: 1.5; }
+.cpm-bar b { max-width: 54px; }
+.cpm-tuition .cpm-label { color: var(--cpm-lime); }
+.cpm-page .cpm-mobile-cta { color: var(--cpm-paper); }
+.cpm-price { font-weight: 650; letter-spacing: -.06em; }
+.cpm-card { border-color: #64777b; }
+.cpm-page .cpm-btn { min-height: 48px; }
+.cpm-card small { font-size: 12px; line-height: 1.6; opacity: .8; }
+.cpm-terms strong { text-align: right; }
+.cpm-footer a { display: inline-flex; align-items: center; min-height: 44px; }
+.cpm-footer > p { line-height: 1.7; }
+@media (max-width: 900px) {
+  .cpm-hero { grid-template-columns: minmax(0, 1fr); }
+  .cpm-hero h1 { font-size: clamp(2.4rem, 7vw, 4.8rem); }
+  .cpm-board { max-width: 650px; }
+  .cpm-track { grid-template-columns: minmax(0, 1fr); }
+  .cpm-mini { max-width: 560px; }
+}
+@media (max-width: 640px) {
+  .cpm-mark { gap: 10px; }
+  .cpm-mark small { font-size: 9px; letter-spacing: .08em; }
+  .cpm-hero { padding-bottom: 48px; }
+  .cpm-hero h1 { font-size: clamp(2.2rem, 9.7vw, 3.5rem); }
+  .cpm-hero .cpm-board { box-shadow: 8px 8px 0 rgba(215,243,107,.14); }
+  .cpm-strip > div { padding: 18px 20px; border-color: var(--cpm-rule); }
+  .cpm-strip > div:nth-child(3) { border-right: 1px solid var(--cpm-rule); }
+  .cpm-bar { gap: 9px; }
+  .cpm-bar b { max-width: 28px; }
+  .cpm-bar span { font-size: .94rem; }
+  .cpm-card { padding: 22px; }
+  .cpm-footer { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+  .cpm-page main { padding-bottom: 0; }
+  .cpm-mobile-cta strong { color: var(--cpm-lime); }
+}
+/* Keep the Tallman title block outside the marketing crop. */
+.cpm-track.is-critical .cpm-mini img { aspect-ratio: 2; object-position: right top; }
+.cpm-page #cpm-terms { scroll-margin-top: 88px; }

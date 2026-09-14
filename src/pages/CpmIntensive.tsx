@@ -1,11 +1,10 @@
-import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import "./CpmIntensive.css";
 
-export const CPM_SEO = {
+const CPM_SEO = {
   title: "CPM Schedule Intensive (2-Day) | ALP Contractor Circle",
   description:
-    "Two live days for contractor CEOs and PMs. Day 1 build the CPM, Day 2 delay analysis. Includes 30 days of Primavera P6 Professional free from Oracle so you build your own schedule in class. Tuition $1,997. Not software school.",
+    "Two live days for contractor CEOs and PMs. Day 1 build the CPM, Day 2 delay analysis. Get the Oracle 30-day free trial link for Primavera P6 Professional on enrollment. Live with Marshall Wilkinson. Tuition $1,997.",
   canonical: "https://alpcontractorcircle.com/cpm-intensive",
   image: "https://alpcontractorcircle.com/og-contractor-circle.png",
 };
@@ -13,7 +12,7 @@ export const CPM_SEO = {
 const offerStrip = [
   { label: "Format", value: "2 live days" },
   { label: "Tuition", value: "$1,997" },
-  { label: "Seats", value: "No cap" },
+  { label: "Seats", value: "Unlimited" },
   { label: "Date", value: "TBA" },
   { label: "Days", value: "Day 1 CPM · Day 2 Delay analysis" },
 ];
@@ -25,18 +24,16 @@ const agenda = [
     critical: false,
     image: "/assets/cpm-intensive/schedule-gantt.png",
     imageAlt: "Gantt bars and activity data from a real construction schedule",
-    imageCaption: "PS338 · baseline bars",
+    imageCaption: "PS338 · Update #1",
     beats: [
       "What CPM is",
-      "IDs",
-      "Descriptions",
-      "Durations",
+      "Activity IDs, descriptions and durations",
       "Relationships / logic",
       "Critical path",
       "Baseline",
       "Updates",
       "Concurrent-delay discipline",
-      "Intro fragments / COs",
+      "Fragments / change orders on the path",
       "Reports",
       "Narrative",
       "P6 as camera",
@@ -115,8 +112,8 @@ const packs = [
 const setup = [
   { term: "Machine", detail: "A Windows machine that can run Primavera P6 Professional." },
   { term: "License", detail: "Company P6 license works. Otherwise use the free 30-day P6 Professional trial from Oracle Software Delivery Cloud — installed and running before Day 1." },
-  { term: "On screen", detail: "Classroom demos run in P6 Professional, not OverWatch." },
-  { term: "Bring", detail: "One live job you can talk through with names and numbers removed." },
+  { term: "On screen", detail: "You build and update in Primavera P6 Professional throughout the classroom exercises." },
+  { term: "Bring", detail: "A job example with names and sensitive information removed, for classroom practice." },
 ];
 
 const fitFor = [
@@ -130,17 +127,17 @@ const fitNot = [
   "You want P6 click-paths, ribbon tours and software certification.",
   "You want a pretty Gantt for the wall and nothing behind it.",
   "You want project-specific legal advice inside a group training.",
-  "You want to watch slides instead of working on a live job.",
+  "You want to watch slides instead of working on a job example.",
 ];
 
 const faq = [
   {
     q: "What does the P6 trial include?",
-    a: "When you lock in, you get the link to Oracle's 30-day free trial of Primavera P6 Professional so you can build your own schedule in class. A company P6 license works just as well. We do not provide Oracle Academy student licenses.",
+    a: "When you enroll, you get the link to Oracle's 30-day free trial of Primavera P6 Professional so you can build your own schedule in class. An existing company P6 license also works. Download and trial acceptance take place directly with Oracle.",
   },
   {
     q: "What software and machine do I need?",
-    a: "A Windows machine running Primavera P6 Professional, installed and opening before Day 1. Classroom demos are shown in P6 Professional, not OverWatch. This is still not software school — the software is the camera, the method is the work.",
+    a: "A Windows machine running Primavera P6 Professional, installed and opening before Day 1. Classroom builds and demos use P6 Professional. Think of P6 as the camera: it captures the logic, progress and path you need to explain.",
   },
   {
     q: "What is the format?",
@@ -152,7 +149,7 @@ const faq = [
   },
   {
     q: "Is the session recorded?",
-    a: "Yes. The recording goes to attendees only. It is not added to a Contractor Circle library or resold.",
+    a: "Yes. The live class is recorded, and the recording is included for attendees. After recording, the class will be packaged as an evergreen course on Learn.",
   },
   {
     q: "How many seats?",
@@ -160,7 +157,7 @@ const faq = [
   },
   {
     q: "When is the date?",
-    a: "The two live days are being set. Enrollment opens once the date is locked and the payment link lands.",
+    a: "The two live days are being set. Checkout opens after the live dates are confirmed.",
   },
   {
     q: "What are the refund terms?",
@@ -186,9 +183,11 @@ export default function CpmIntensive() {
         <meta name="twitter:image" content={CPM_SEO.image} />
       </Helmet>
 
+      <div className="cpm-preview-note">Preview · Live dates to be confirmed · Checkout not yet open</div>
+
       <header className="cpm-nav">
         <a className="cpm-mark" href="/" aria-label="ALP Contractor Circle home">
-          <span>ALP</span>
+          <span>ALP<span className="cpm-logo-dot">.</span></span>
           <small>CPM Schedule Intensive</small>
         </a>
         <a className="cpm-nav-cta" href="#checkout">See tuition</a>
@@ -197,20 +196,17 @@ export default function CpmIntensive() {
       <main>
         <section className="cpm-hero">
           <div>
-            <p className="cpm-trial-badge">
-              <b>Included</b>
-              <span>30 days of Primavera P6 Professional — free Oracle trial</span>
-            </p>
+            <p className="cpm-trial-badge">CPM Schedule Intensive · With Marshall Wilkinson</p>
             <h1>
-              Own the CPM.<br />
-              Build it in P6.<br />
-              <em>Prove time with it.</em>
+              <span className="cpm-hero-number">30 days free.</span>
+              Primavera P6<br />Professional.
             </h1>
             <p className="cpm-hero-sub">
-              <strong>Two live days.</strong> You build your own schedule in class on a free 30-day P6 Professional
-              trial — the link comes when you lock in. Day 1 builds the CPM. Day 2 proves delay with it.
+              <strong>Two live days to own the schedule.</strong> Build the CPM on Day 1.
+              Use it to prove delay on Day 2. Get Oracle’s 30-day free trial link when you enroll,
+              or use your existing company license.
             </p>
-            <p className="cpm-soft">Not software school · Live via Google Meet · Recording for attendees</p>
+            <p className="cpm-soft">$1,997 · Unlimited seats · Live on Google Meet · Recording included</p>
             <div className="cpm-hero-actions">
               <a href="#checkout" className="cpm-btn">See tuition</a>
               <a href="#agenda" className="cpm-jump">See the two days ↓</a>
@@ -218,10 +214,10 @@ export default function CpmIntensive() {
           </div>
 
           {/* HERO VISUAL — real schedule export. Swap the src for another crop when needed. */}
-          <figure className="cpm-board cpm-slot" data-asset-slot="tallman-hero-schedule">
+          <figure className="cpm-board cpm-slot" data-asset-slot="ps338-hero-schedule">
             <div className="cpm-board-head">
-              <span>Schedule board</span>
-              <time>Data date TBA</time>
+              <span>Inside a real schedule</span>
+              <span>PS338 / Update 01</span>
             </div>
             {/* REAL ASSET — PS338 Update #1 critical-path staircase (Marshall's job). */}
             <img
@@ -258,7 +254,7 @@ export default function CpmIntensive() {
             </p>
             <p>
               These are the two working days where you build the schedule yourself, update it honestly, and then use it
-              to show where the time went and what it cost.
+              to show where the time went and what drove the finish date.
             </p>
           </div>
           <blockquote className="cpm-quote">
@@ -286,7 +282,7 @@ export default function CpmIntensive() {
           <header className="cpm-head">
             <p className="cpm-label">Two-day outline</p>
             <h2>Day 1 builds the CPM. Day 2 proves delay with it.</h2>
-            <p>Beat by beat, on your own job, in your own file. Session times post once the two dates are confirmed.</p>
+            <p>Beat by beat, through a working schedule file. Session times post once the two dates are confirmed.</p>
           </header>
 
           {agenda.map((day) => (
@@ -295,7 +291,6 @@ export default function CpmIntensive() {
                 <span>{day.day}</span>
                 <h3>{day.title}</h3>
                 <time>Times TBA</time>
-                {/* ASSET SWAP SLOT — Tallman Island export for this day drops in here. */}
                 {/* REAL ASSET — schedule crop for this day. Swap for another export any time. */}
                 <figure className="cpm-mini" data-asset-slot={`schedule-${day.day.toLowerCase().replace(" ", "-")}`}>
                   <img src={day.image} alt={day.imageAlt} loading="lazy" />
@@ -357,7 +352,7 @@ export default function CpmIntensive() {
             ))}
           </div>
           <p className="cpm-soft" style={{ marginTop: "20px" }}>
-            Not included — P6 / MSP click-path tourism.
+            Use P6 to capture the work. Use the method to explain it.
           </p>
         </section>
 
@@ -365,7 +360,7 @@ export default function CpmIntensive() {
           <p className="cpm-label">Before Day 1</p>
           <h2 className="cpm-setup-title">You build in the software, on your own machine.</h2>
           <p className="cpm-setup-lede">
-            When you lock in, you get the link to Oracle’s 30-day P6 Professional trial so you can build your own
+            When you enroll, you get the link to Oracle’s 30-day P6 Professional trial so you can build your own
             schedule in class.
           </p>
           <dl className="cpm-setup-grid">
@@ -377,8 +372,8 @@ export default function CpmIntensive() {
             ))}
           </dl>
           <p className="cpm-soft">
-            We do not provide Oracle Academy student licenses. Software is the camera — you still need it installed to
-            build in class.
+            P6 is the camera. The schedule logic, progress record and analysis are the work. Have your trial or
+            company license ready before Day 1.
           </p>
         </section>
 
@@ -415,27 +410,27 @@ export default function CpmIntensive() {
 
         <section id="checkout" className="cpm-tuition">
           <p className="cpm-label">Tuition</p>
-          <h2>Tuition is set. Enrollment opens next.</h2>
+          <h2>Two days. A method you keep.</h2>
           <p className="cpm-setup-lede">
-            The price below is final. Enrollment opens once the date and the payment link land.
+            Live instruction with Marshall Wilkinson, classroom work in P6 Professional, and the recording afterward. Checkout opens once the live dates are confirmed.
           </p>
           <div className="cpm-tuition-grid">
             <article className="cpm-card">
-              <span>Individual seat</span>
+              <span>CPM Schedule Intensive</span>
               <div className="cpm-price">$1,997</div>
               <p>
                 One named attendee · two live days · 30-day P6 Professional trial link · recording included
               </p>
-              <a className="cpm-btn cpm-btn-pending" href="#checkout" aria-disabled="true">
-                Checkout opens when date + Payment Link land
-              </a>
-              <small>No payment is being collected on this page.</small>
+              <button className="cpm-btn cpm-btn-pending" type="button" disabled aria-describedby="cpm-checkout-note">
+                Checkout — coming soon
+              </button>
+              <small id="cpm-checkout-note">Dates are being confirmed. Checkout is not connected; no payment is collected.</small>
             </article>
-            <aside className="cpm-terms" aria-label="Terms">
+            <aside id="cpm-terms" className="cpm-terms" aria-label="Terms">
               <div><span>Date</span><strong>TBA</strong></div>
-              <div><span>Seats</span><strong>No cap</strong></div>
+              <div><span>Seats</span><strong>Unlimited</strong></div>
               <div><span>Software</span><strong>P6 Professional · 30-day trial</strong></div>
-              <div><span>Recording</span><strong>Attendees only</strong></div>
+              <div><span>Recording</span><strong>Included for attendees</strong></div>
               <div><span>Refunds</span><strong>TBD</strong></div>
               <p>Educational and professional training. Not legal advice.</p>
             </aside>
@@ -467,7 +462,7 @@ export default function CpmIntensive() {
       <footer className="cpm-footer">
         <div><strong>ALP</strong><span>CPM Schedule Intensive (2-Day)</span></div>
         <nav>
-          <Link to="/cancellation-policy">Cancellation policy</Link>
+          <a href="#cpm-terms">Enrollment terms — pending</a>
           <a href="https://app.alpcontractorcircle.com/login">Member sign in</a>
           <a href="/">Contractor Circle</a>
         </nav>

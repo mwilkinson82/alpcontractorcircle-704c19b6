@@ -15,7 +15,7 @@ const outDir = resolve(root, "dist/cpm-intensive");
 const SEO = {
   title: "CPM Schedule Intensive (2-Day) | ALP Contractor Circle",
   description:
-    "Two live days for contractor CEOs and PMs. Day 1 build the CPM, Day 2 delay analysis. Includes 30 days of Primavera P6 Professional free from Oracle so you build your own schedule in class. Tuition $1,997. Not software school.",
+    "Two live days for contractor CEOs and PMs. Day 1 build the CPM, Day 2 delay analysis. Get the Oracle 30-day free trial link for Primavera P6 Professional on enrollment. Live with Marshall Wilkinson. Tuition $1,997.",
   canonical: "https://alpcontractorcircle.com/cpm-intensive",
   image: "https://alpcontractorcircle.com/og-contractor-circle.png",
 };
