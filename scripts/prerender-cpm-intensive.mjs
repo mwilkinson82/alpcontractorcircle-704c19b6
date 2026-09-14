@@ -13,9 +13,9 @@ const distIndex = resolve(root, "dist/index.html");
 const outDir = resolve(root, "dist/cpm-intensive");
 
 const SEO = {
-  title: "CPM Schedule Intensive | ALP Contractor Circle",
+  title: "CPM Schedule Intensive (2-Day) | ALP Contractor Circle",
   description:
-    "Own the CPM. Build it. Update it. Prove time with it. One-day live intensive for contractor CEOs and PMs — WBS, logic, calendars, updates, claims-ready as-built. Not software school.",
+    "Own the CPM. Build it. Update it. Prove time with it. A two-day live intensive for contractor CEOs and PMs — WBS, logic, calendars, updates, claims-ready as-built. Tuition $1,997. Not software school.",
   canonical: "https://alpcontractorcircle.com/cpm-intensive",
   image: "https://alpcontractorcircle.com/og-contractor-circle.png",
 };
