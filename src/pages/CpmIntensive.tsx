@@ -261,6 +261,21 @@ export default function CpmIntensive() {
           <p className="cpm-soft">Not included — P6 / MSP click-path tourism.</p>
         </section>
 
+        <section className="cpm-prereq" aria-label="What you need before Day 1">
+          <p className="di-section-label">Before Day 1</p>
+          <h2>You build in the software, on your own machine.</h2>
+          <p className="cpm-prereq-line">
+            <strong>When you lock in, you get the link to Oracle’s 30-day P6 Professional trial so you can build your own schedule in class.</strong>
+          </p>
+          <dl className="cpm-prereq-list">
+            <div><dt>Machine</dt><dd>Windows machine that can run Primavera P6 Professional.</dd></div>
+            <div><dt>License</dt><dd>Company P6 license works. Otherwise use Oracle’s 30-day P6 Professional free trial from Oracle Software Delivery Cloud — installed and running before Day 1.</dd></div>
+            <div><dt>On screen</dt><dd>Classroom demos run in P6 Professional, not OverWatch.</dd></div>
+            <div><dt>Job</dt><dd>One live job you can talk through with names and numbers removed.</dd></div>
+          </dl>
+          <p className="cpm-soft">We do not provide Oracle Academy student licenses. Software is the camera — you still need it installed to build in class.</p>
+        </section>
+
         <section id="agenda" className="di-schedule">
           <header className="di-section-head">
             <p className="di-section-label">Two-day outline</p>
