@@ -1,4 +1,5 @@
 import { CPM_PAYMENT_LINK_ID, objectId, paidCpmPurchase, paymentBlockReason } from "./cpm-intensive-validation.ts";
+import { deliverCpmWelcomeEmail } from "./cpm-intensive-email.ts";
 
 // Called ONLY after the existing dispatcher verifies the Stripe signature.
 // This branch never sends email and never writes Delay enrollment records.
