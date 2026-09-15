@@ -510,7 +510,7 @@ export default function CpmIntensive() {
         <section className="cpm-closing">
           <p className="cpm-label">Use the schedule to lead the job.</p>
           <h2>See the risk. Protect the time. Build the proof.</h2>
-          <a href={CPM_CHECKOUT_URL} className="cpm-btn">Checkout →</a>
+          <a href={checkoutUrl} className="cpm-btn">Checkout →</a>
         </section>
       </main>
 
