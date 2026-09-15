@@ -179,6 +179,7 @@ export type Database = {
         Row: {
           dates_label: string | null
           id: number
+          marshall_personal_welcome_auto: boolean
           materials_release_at: string | null
           meet_release_at: string | null
           meet_url: string | null
@@ -188,6 +189,7 @@ export type Database = {
         Insert: {
           dates_label?: string | null
           id?: number
+          marshall_personal_welcome_auto?: boolean
           materials_release_at?: string | null
           meet_release_at?: string | null
           meet_url?: string | null
@@ -197,6 +199,7 @@ export type Database = {
         Update: {
           dates_label?: string | null
           id?: number
+          marshall_personal_welcome_auto?: boolean
           materials_release_at?: string | null
           meet_release_at?: string | null
           meet_url?: string | null

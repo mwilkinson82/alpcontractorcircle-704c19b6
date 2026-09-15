@@ -1,5 +1,6 @@
 import { handleCpmEvent } from "../_shared/cpm-intensive.ts";
 import { deliverCpmWelcomeEmail } from "../_shared/cpm-intensive-email.ts";
+import { enqueueMarshallPersonalWelcome } from "../_shared/cpm-marshall-personal-welcome.ts";
 import {
   adminClient,
   COMPANY_PAYMENT_LINK,
@@ -188,6 +189,7 @@ Deno.serve(async (request) => {
       adminClient,
       randomToken,
       deliverWelcome: deliverCpmWelcomeEmail,
+      enqueuePersonalWelcome: enqueueMarshallPersonalWelcome,
     });
     if (cpmResult) return json({ received: true, result: cpmResult });
 
