@@ -1,4 +1,4 @@
-import { CPM_PAYMENT_LINK_ID, objectId, paidCpmPurchase, paymentBlockReason } from "./cpm-intensive-validation.ts";
+import { cpmSeatForLink, objectId, paidCpmPurchase, paymentBlockReason } from "./cpm-intensive-validation.ts";
 
 type CpmWelcomeSender = (
   db: { from: (table: string) => any },
