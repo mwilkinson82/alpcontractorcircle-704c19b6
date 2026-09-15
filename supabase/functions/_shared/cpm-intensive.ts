@@ -57,6 +57,7 @@ export async function handleCpmEvent(
   if (readError) throw readError;
   if (!enrollment) return { cpm: true, enrolled: true, welcome: { skipped: true, reason: "enrollment_unavailable" } };
   const { data: settings } = await db.from("cpm_intensive_settings").select("dates_label").eq("id", 1).maybeSingle();
-  const welcome = await (dependencies.deliverWelcome || deliverCpmWelcomeEmail)(db, enrollment, settings?.dates_label ?? null);
+  const send = dependencies.deliverWelcome || await defaultWelcomeSender();
+  const welcome = await send(db, enrollment, settings?.dates_label ?? null);
   return { cpm: true, enrolled: true, welcome };
 }
