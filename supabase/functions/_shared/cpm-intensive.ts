@@ -15,6 +15,10 @@ export async function handleCpmEvent(
     adminClient: () => { from: (table: string) => any };
     randomToken: () => string;
     deliverWelcome?: CpmWelcomeSender;
+    enqueuePersonalWelcome?: (
+      db: { from: (table: string) => any },
+      enrollment: { id: string; purchaser_email: string; purchaser_name: string | null },
+    ) => Promise<unknown>;
   },
 ) {
   const object = event.data?.object;
