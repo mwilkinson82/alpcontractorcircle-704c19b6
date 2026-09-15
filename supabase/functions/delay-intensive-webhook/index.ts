@@ -1,4 +1,5 @@
 import { handleCpmEvent } from "../_shared/cpm-intensive.ts";
+import { deliverCpmWelcomeEmail } from "../_shared/cpm-intensive-email.ts";
 import {
   adminClient,
   COMPANY_PAYMENT_LINK,
@@ -183,7 +184,11 @@ Deno.serve(async (request) => {
     const object = event?.data?.object as Record<string, any> | undefined;
     if (!object) return json({ received: true, ignored: true });
 
-    const cpmResult = await handleCpmEvent(event, { adminClient, randomToken });
+    const cpmResult = await handleCpmEvent(event, {
+      adminClient,
+      randomToken,
+      deliverWelcome: deliverCpmWelcomeEmail,
+    });
     if (cpmResult) return json({ received: true, result: cpmResult });
 
     let result: unknown = { ignored: true, reason: "event_not_used" };
