@@ -6,11 +6,6 @@ type CpmWelcomeSender = (
   datesLabel: string | null,
 ) => Promise<unknown>;
 
-// Loaded lazily so unit tests never pull the Deno-only mailer into scope.
-async function defaultWelcomeSender(): Promise<CpmWelcomeSender> {
-  const module = await import("./cpm-intensive-email.ts");
-  return module.deliverCpmWelcomeEmail as CpmWelcomeSender;
-}
 
 // Called ONLY after the existing dispatcher verifies the Stripe signature.
 // This branch writes no Delay records; its only email is the CPM welcome.
@@ -57,7 +52,7 @@ export async function handleCpmEvent(
   if (readError) throw readError;
   if (!enrollment) return { cpm: true, enrolled: true, welcome: { skipped: true, reason: "enrollment_unavailable" } };
   const { data: settings } = await db.from("cpm_intensive_settings").select("dates_label").eq("id", 1).maybeSingle();
-  const send = dependencies.deliverWelcome || await defaultWelcomeSender();
-  const welcome = await send(db, enrollment, settings?.dates_label ?? null);
+  if (!dependencies.deliverWelcome) return { cpm: true, enrolled: true, welcome: { skipped: true, reason: "no_mailer" } };
+  const welcome = await dependencies.deliverWelcome(db, enrollment, settings?.dates_label ?? null);
   return { cpm: true, enrolled: true, welcome };
 }
