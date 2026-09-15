@@ -41,6 +41,56 @@ export type Database = {
         }
         Relationships: []
       }
+      cpm_intensive_email_events: {
+        Row: {
+          attempt_count: number
+          created_at: string
+          email_kind: string
+          enrollment_id: string
+          id: string
+          last_error: string | null
+          provider_message_id: string | null
+          recipient: string
+          sent_at: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          attempt_count?: number
+          created_at?: string
+          email_kind: string
+          enrollment_id: string
+          id?: string
+          last_error?: string | null
+          provider_message_id?: string | null
+          recipient: string
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          attempt_count?: number
+          created_at?: string
+          email_kind?: string
+          enrollment_id?: string
+          id?: string
+          last_error?: string | null
+          provider_message_id?: string | null
+          recipient?: string
+          sent_at?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cpm_intensive_email_events_enrollment_id_fkey"
+            columns: ["enrollment_id"]
+            isOneToOne: false
+            referencedRelation: "cpm_intensive_enrollments"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       cpm_intensive_enrollments: {
         Row: {
           access_token: string
