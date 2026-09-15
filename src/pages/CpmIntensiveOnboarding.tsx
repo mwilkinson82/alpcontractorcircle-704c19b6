@@ -30,7 +30,7 @@ export default function CpmIntensiveOnboarding() {
       setPortal({ access: "local-preview", attendee: { name: "Sample attendee", email: "attendee@example.com", ticket_number: "CPM-PREVIEW" }, schedule: { dates_label: "September 25–26, 2026", timezone: "America/New_York", hours: "10 a.m.–5 p.m. each day", meet_url: null, sessions: [
         { id: "day-1", title: "Day 1 · Build and update the CPM", starts_at: "2026-09-25T10:00:00-04:00", ends_at: "2026-09-25T17:00:00-04:00", release_at: "2026-09-25T13:00:00Z", ended: false, meet_url: null },
         { id: "day-2", title: "Day 2 · Analyze and prove delay", starts_at: "2026-09-26T10:00:00-04:00", ends_at: "2026-09-26T17:00:00-04:00", release_at: "2026-09-26T13:00:00Z", ended: false, meet_url: null }
-      ] }, materials: { released: false, release_at: null, files: [] } });
+      ] }, materials: { released: false, release_at: "2026-09-24T14:00:00Z", files: [] } });
       setBusy(false);
       return;
     }

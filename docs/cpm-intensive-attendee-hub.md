@@ -66,3 +66,7 @@ Marshall confirmed September 25–26, 2026. Daily hours remain 10 a.m.–5 p.m.;
 ## Eastern Time and host sessions confirmed
 
 Marshall confirmed Eastern Time for all his events. The CPM settings use America/New_York. Private Google Calendar host events were created on marshall@marshallwilkinson.com for September 25 and 26, 2026, 10 a.m.–5 p.m. EDT, each with its own Google Meet conference and no invited attendee list. Meet URLs exist only in private settings and the host calendar, not source code. Each releases in the verified portal at 9 a.m. EDT on its own day (13:00 UTC). Google/Outlook calendar saves are now enabled from these configured sessions.
+
+## Materials release confirmed
+
+Marshall set the class materials release to 24 hours before the intensive: September 24, 2026, 10 a.m. Eastern (2026-09-24T14:00:00Z), ahead of Day 1 on September 25. The production settings row is configured accordingly. The server checks active enrollment and the release timestamp before generating any signed material URLs; the storage bucket remains private. This timing does not establish or change refund terms. No class files have been uploaded yet.
