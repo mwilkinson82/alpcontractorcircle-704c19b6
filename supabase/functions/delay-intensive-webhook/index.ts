@@ -189,6 +189,7 @@ Deno.serve(async (request) => {
       adminClient,
       randomToken,
       deliverWelcome: deliverCpmWelcomeEmail,
+      enqueuePersonalWelcome: enqueueMarshallPersonalWelcome,
     });
     if (cpmResult) return json({ received: true, result: cpmResult });
 
