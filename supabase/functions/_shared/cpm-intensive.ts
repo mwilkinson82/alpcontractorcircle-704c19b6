@@ -5,7 +5,11 @@ import { deliverCpmWelcomeEmail } from "./cpm-intensive-email.ts";
 // This branch never sends email and never writes Delay enrollment records.
 export async function handleCpmEvent(
   event: { livemode?: boolean; type: string; data?: { object?: Record<string, any> } },
-  dependencies: { adminClient: () => { from: (table: string) => any }; randomToken: () => string },
+  dependencies: {
+    adminClient: () => { from: (table: string) => any };
+    randomToken: () => string;
+    deliverWelcome?: typeof deliverCpmWelcomeEmail;
+  },
 ) {
   const object = event.data?.object;
   if (!object || event.livemode !== true) return null;
@@ -36,5 +40,12 @@ export async function handleCpmEvent(
     purchaser_name: object.customer_details?.name || null,
   }, { onConflict: "stripe_checkout_session_id", ignoreDuplicates: true });
   if (error) throw error;
-  return { cpm: true, enrolled: true };
+  // Welcome email carries the personal attendee-hub link; guarded against duplicates.
+  const { data: enrollment, error: readError } = await db.from("cpm_intensive_enrollments")
+    .select("id,access_token,purchaser_email,purchaser_name").eq("stripe_checkout_session_id", object.id).maybeSingle();
+  if (readError) throw readError;
+  if (!enrollment) return { cpm: true, enrolled: true, welcome: { skipped: true, reason: "enrollment_unavailable" } };
+  const { data: settings } = await db.from("cpm_intensive_settings").select("dates_label").eq("id", 1).maybeSingle();
+  const welcome = await (dependencies.deliverWelcome || deliverCpmWelcomeEmail)(db, enrollment, settings?.dates_label ?? null);
+  return { cpm: true, enrolled: true, welcome };
 }
