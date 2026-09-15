@@ -105,6 +105,7 @@ export type Database = {
           materials_release_at: string | null
           meet_release_at: string | null
           meet_url: string | null
+          sessions: Json
           timezone: string | null
         }
         Insert: {
@@ -113,6 +114,7 @@ export type Database = {
           materials_release_at?: string | null
           meet_release_at?: string | null
           meet_url?: string | null
+          sessions?: Json
           timezone?: string | null
         }
         Update: {
@@ -121,6 +123,7 @@ export type Database = {
           materials_release_at?: string | null
           meet_release_at?: string | null
           meet_url?: string | null
+          sessions?: Json
           timezone?: string | null
         }
         Relationships: []
