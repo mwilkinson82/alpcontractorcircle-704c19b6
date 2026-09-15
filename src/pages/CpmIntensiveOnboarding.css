@@ -59,5 +59,19 @@
 .cpm-hub-footer { border-top:1px solid var(--edge); padding:22px max(24px,calc((100vw - 1160px)/2)); display:flex; justify-content:space-between; align-items:center; gap:20px; color:var(--muted); font-size:13px; }
 .cpm-hub-footer a { min-height:44px; display:flex; align-items:center; }
 .cpm-hub-preview { padding:15px 0; font:500 11px/1.6 "JetBrains Mono",monospace; }
+.cpm-ticket-section { margin:0 0 48px; }
+.cpm-ticket-heading { display:flex; justify-content:space-between; align-items:center; gap:24px; margin-bottom:22px; }
+.cpm-ticket-heading h2 { font-size:36px; margin:0; }
+.cpm-ticket-heading .cpm-hub-label { margin-bottom:8px; }
+.cpm-ticket-art { background:var(--ink); padding:28px; border-radius:6px; }
+.cpm-ticket-art img { display:block; width:100%; height:auto; }
+.cpm-class-sessions { margin-top:24px; }
+.cpm-class-session { border-top:1px solid var(--edge); padding:22px 0; }
+.cpm-class-session h3 { font-size:27px; margin-bottom:12px; }
+.cpm-class-session > p { font-size:15px; margin-bottom:10px; }
+.cpm-calendar-actions { display:flex; flex-wrap:wrap; gap:5px 22px; margin-bottom:18px; }
+.cpm-calendar-actions .cpm-hub-text-link { font-size:14px; }
+.cpm-session-status { padding:14px 18px; border-left:3px solid var(--clay); background:#EFEADE; }
+@media(max-width:600px) { .cpm-ticket-heading { flex-direction:column; align-items:flex-start; } .cpm-ticket-art { padding:12px; } .cpm-ticket-heading h2 { font-size:32px; } }
 @media(max-width:950px) { .cpm-hub-welcome { gap:30px; grid-template-columns:1.3fr 1fr; } .cpm-hub-software { grid-template-columns:1fr; } .cpm-hub-software > div { padding:30px; } .cpm-hub-grid { gap:28px; } }
 @media(max-width:600px) { .cpm-hub-nav { padding:15px 20px; gap:10px; flex-wrap:wrap; } .cpm-hub-nav > .cpm-hub-label { font-size:9px; } .cpm-hub main { padding:0 20px; } .cpm-hub-welcome { grid-template-columns:1fr; padding:40px 0 32px; gap:26px; } .cpm-hub-pass { padding:18px 0 0; border-left:0; border-top:1px solid var(--edge); } .cpm-hub-software > div { padding:24px 20px; } .cpm-hub-grid { grid-template-columns:1fr; gap:10px; } .cpm-hub-button { width:100%; } .cpm-hub-actions { width:100%; } .cpm-hub-personal { padding:30px 0; } .cpm-hub-footer { padding:20px; flex-direction:column; align-items:flex-start; gap:6px; } .cpm-hub-state { padding:50px 0 70px; } }

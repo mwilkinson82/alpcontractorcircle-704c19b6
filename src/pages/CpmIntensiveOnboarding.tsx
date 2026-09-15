@@ -1,7 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { CPM_ACCESS_KEY, CPM_PORTAL_PATH, P6_DOWNLOAD_URL, cpmCredentials, loadCpmPortal, type CpmCredentials, type CpmPortalState } from "@/lib/cpm-intensive-portal";
 import "./CpmIntensiveOnboarding.css";
+import { CpmAttendeeTicket } from "@/components/CpmAttendeeTicket";
+import { CpmClassSessions } from "@/components/CpmClassSessions";
 
 function savedAccess() { try { return localStorage.getItem(CPM_ACCESS_KEY); } catch { return null; } }
 
@@ -14,6 +16,10 @@ export default function CpmIntensiveOnboarding() {
   const [copied, setCopied] = useState(false);
   const [copyError, setCopyError] = useState(false);
   const personalLink = useRef<HTMLInputElement>(null);
+  const [refreshing, setRefreshing] = useState(false);
+  const [refreshError, setRefreshError] = useState("");
+  const activeAccess = useRef<string | null>(null);
+  activeAccess.current = portal?.access || null;
   // Local visual fixture only; the production bundle has no preview access path.
   const [localPreview] = useState(() => import.meta.env.DEV && new URLSearchParams(window.location.search).get("preview") === "1");
 
@@ -38,6 +44,35 @@ export default function CpmIntensiveOnboarding() {
     return () => { cancelled = true; };
   }, [credentials, attempt, localPreview]);
 
+  const refreshLive = useCallback(async () => {
+    const access = activeAccess.current;
+    if (!access || localPreview) return;
+    setRefreshing(true); setRefreshError("");
+    try {
+      const next = await loadCpmPortal({ access });
+      if (activeAccess.current === access) setPortal(next);
+    } catch {
+      if (activeAccess.current === access) {
+        setRefreshError("Could not refresh live access. Please try again.");
+        // An unsuccessful recheck must not retain previously returned meeting links.
+        setPortal(previous => previous ? { ...previous, schedule: { ...previous.schedule, meet_url: null, sessions: previous.schedule.sessions?.map(session => ({ ...session, meet_url: null })) } } : null);
+      }
+    } finally { setRefreshing(false); }
+  }, [localPreview]);
+
+  useEffect(() => {
+    if (!portal?.access || localPreview) return;
+    const pending = portal.schedule.sessions?.filter(session => !session.ended) || [];
+    if (!pending.length) return;
+    // Recheck at the release boundary, once a minute thereafter, and on tab focus.
+    const boundaries = pending.flatMap(session => [Date.parse(session.release_at), Date.parse(session.ends_at)]).filter(time => time > Date.now());
+    const delay = Math.max(500, Math.min(60_000, ...boundaries.map(time => time - Date.now() + 100)));
+    const timer = window.setTimeout(refreshLive, delay);
+    const onVisible = () => { if (document.visibilityState === "visible") void refreshLive(); };
+    document.addEventListener("visibilitychange", onVisible);
+    return () => { clearTimeout(timer); document.removeEventListener("visibilitychange", onVisible); };
+  }, [portal, localPreview, refreshLive]);
+
   function closePass() {
     try { localStorage.removeItem(CPM_ACCESS_KEY); } catch { /* Storage can be unavailable. */ }
     setPortal(null); setCredentials(null); setError(""); setCopied(false);
@@ -60,9 +95,10 @@ export default function CpmIntensiveOnboarding() {
       : <>
         {import.meta.env.DEV && localPreview && <p className="cpm-hub-preview">Local design preview · Sample attendee · No purchase verified</p>}
         <section className="cpm-hub-welcome"><div><p className="cpm-hub-label">ALP CPM Schedule Intensive (2-Day)</p><h1>Your CPM classroom.</h1><p>Build the baseline. Keep the updates connected. Put the schedule to work.</p></div><div className="cpm-hub-pass"><span className="cpm-hub-label">{localPreview ? "Sample pass" : "Enrollment confirmed"}</span><strong>{portal.attendee.name || "Registered attendee"}</strong><span>{portal.attendee.email}</span><small>{portal.attendee.ticket_number}</small></div></section>
+        <CpmAttendeeTicket portal={portal} sample={localPreview} />
         <section className="cpm-hub-software" aria-labelledby="cpm-p6-heading"><div><p className="cpm-hub-label">01 · Get ready to build</p><h2 id="cpm-p6-heading">Primavera P6 Professional.</h2><p>Use your company license if you already have P6 Professional. Otherwise, start Oracle’s <strong>30-day free trial</strong> for the classroom exercises.</p><a href={P6_DOWNLOAD_URL} target="_blank" rel="noopener noreferrer" className="cpm-hub-button">Get P6 from Oracle ↗</a><p className="cpm-hub-fine">Oracle account and trial acceptance happen directly with Oracle.</p></div><div className="cpm-hub-prep"><h3>Have it running before Day 1.</h3><ol><li>Sign in to Oracle Software Delivery Cloud.</li><li>Find Primavera P6 Professional and follow Oracle’s download and installation instructions.</li><li>Use a Windows machine that can run P6 Professional. You’ll build your own schedule as you learn.</li></ol><a href="https://docs.oracle.com/cd/G18296_01/English/Installing/p6_pro_install_config_standalone/703.htm" target="_blank" rel="noopener noreferrer">Oracle installation guidance ↗</a></div></section>
         <div className="cpm-hub-grid">
-          <section className="cpm-hub-panel" aria-labelledby="cpm-meet-heading"><p className="cpm-hub-label">02 · Live classroom</p><h2 id="cpm-meet-heading">Google Meet.</h2><p className="cpm-hub-session">{portal.schedule.dates_label || "Friday & Saturday"}<br />{portal.schedule.hours}{portal.schedule.timezone ? ` · ${portal.schedule.timezone}` : " · Timezone to be confirmed"}</p><ul className="cpm-hub-days"><li><strong>Day 1</strong><span>Build and update the CPM in P6.</span></li><li><strong>Day 2</strong><span>Analyze delay and prove the time.</span></li></ul>{portal.schedule.meet_url ? <a className="cpm-hub-button" href={portal.schedule.meet_url} target="_blank" rel="noopener noreferrer">Join Google Meet ↗</a> : <p className="cpm-hub-placeholder">Your Google Meet link will appear here before the intensive.</p>}<p className="cpm-hub-fine">Both live days will be recorded.</p></section>
+          <CpmClassSessions schedule={portal.schedule} refreshing={refreshing} error={refreshError} refresh={refreshLive} />
           <section className="cpm-hub-panel" aria-labelledby="cpm-downloads-heading"><p className="cpm-hub-label">03 · Class materials</p><h2 id="cpm-downloads-heading">Downloads.</h2><p>Your workbooks and leave-with packs will live here.</p>{portal.materials.files.length ? <ul className="cpm-hub-files">{portal.materials.files.map(file => <li key={file.id}><a href={file.url} target="_blank" rel="noopener noreferrer"><strong>{file.title}</strong><span aria-hidden="true">↗</span></a>{file.description && <p>{file.description}</p>}</li>)}</ul> : <p className="cpm-hub-placeholder">{portal.materials.released ? "The shelf is ready. Class packs will appear here as they’re added." : releaseLabel ? `Materials unlock ${releaseLabel}.` : "Materials release timing is TBD. Class packs will appear here once released."}</p>}<button className="cpm-hub-text-link" onClick={() => { setCredentials({ access: portal.access }); setAttempt(n => n + 1); }}>Refresh materials</button></section>
         </div>
         <section className="cpm-hub-personal"><div><h2>Keep your personal pass.</h2><p>Save your link for the live days and downloads. It is private and tied to your attendee identity. Please don’t share it.</p></div><div className="cpm-hub-actions"><button className="cpm-hub-button cpm-hub-outline" onClick={copyPass} disabled={localPreview}>{copied ? "Personal link copied" : "Copy my personal link"}</button><button className="cpm-hub-text-link" onClick={closePass}>Close my pass</button><span className="cpm-hub-fine" role="status">{copied ? "Keep it somewhere private." : ""}</span></div>{copyError && <div className="cpm-hub-copy"><label htmlFor="personal-cpm-link">Copy and save this link privately:</label><input id="personal-cpm-link" ref={personalLink} readOnly value={`${window.location.origin}${CPM_PORTAL_PATH}?access=${portal.access}`} onFocus={() => personalLink.current?.select()} /></div>}</section>

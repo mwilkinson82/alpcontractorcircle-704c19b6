@@ -51,3 +51,14 @@ The Oracle URL supplied in the prompt returned 404. The software CTA uses https:
 ## September 15 date confirmation
 
 Marshall confirmed September 25–26, 2026. Daily hours remain 10 a.m.–5 p.m.; timezone is still unconfirmed. The live settings row and public landing now use these dates. Meet and materials remain pending.
+
+## E-tickets, calendar saves and per-day access (September 15)
+
+- The verified portal includes a personalized e-ticket and downloads a 1800×960 PNG. The ticket contains an attendee name and display ticket number, but no email, access credential or conference URL. It is a keepsake; admission still requires a verified portal pass.
+- `cpm_intensive_settings.sessions` stores private per-day objects with `id`, `title`, `starts_at`, `ends_at`, `meet_url`, and optionally a host event ID. Use explicit RFC3339 start/end timestamps after the timezone is confirmed.
+- The server returns an explicit whitelist. Each Meet URL is withheld until exactly 60 minutes before its own start and withheld again at its end. Host calendar IDs are never returned. The legacy single Meet URL is no longer used by this portal.
+- Google Calendar links and Outlook/Apple `.ics` downloads always contain only the generic portal URL, never a Meet URL or personal token—even after release. Imported calendar events do not gain a conference URL later; attendees return to the gated portal. Calendar reminders are one hour before start for `.ics` imports.
+- Open portals recheck at release, at session end, every minute, and on returning to the tab. A manual Refresh live access control is also provided. A failed recheck removes displayed Meet links.
+- Host Google Calendar events must be private and have no attendee invite list, so their conference URLs are not emailed to buyers early. This does not prevent an attendee from copying a link after release; Google Meet host admission controls remain separate.
+- Timezone confirmation is still required before creating host events and populating sessions. No calendar or payment actions were performed during development.
+- Verification: 42 tests passed, production build, TypeScript, scoped lint and Deno check passed. PNG download verified in the browser. Tests cover exact one-hour boundary, independent days, end time, invalid URLs/timestamps and credential-free exports.

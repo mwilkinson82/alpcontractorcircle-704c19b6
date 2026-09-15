@@ -15,7 +15,7 @@ describe("CPM personal attendee portal",()=>{
     localStorage.setItem(CPM_ACCESS_KEY,"old-pass");load.mockResolvedValue(state);open("?session_id=cs_live_example&access=old-url-pass");
     await screen.findByText("Verified attendee");expect(load).toHaveBeenCalledWith({session_id:"cs_live_example"});expect(window.location.search).toBe("");expect(localStorage.getItem(CPM_ACCESS_KEY)).toBe(state.access);
     expect(screen.getByRole("heading",{name:"Google Meet."})).toBeInTheDocument();expect(screen.getByRole("heading",{name:"Downloads."})).toBeInTheDocument();
-    expect(screen.getByRole("link",{name:"Get P6 from Oracle ↗"})).toHaveAttribute("href","https://edelivery.oracle.com/");expect(screen.getByText("Meet link drops when dates lock.")).toBeInTheDocument();expect(screen.queryByText(/no refunds/i)).not.toBeInTheDocument();
+    expect(screen.getByRole("link",{name:"Get P6 from Oracle ↗"})).toHaveAttribute("href","https://edelivery.oracle.com/");expect(screen.getByText("Calendar saves will be available as soon as the session timezone is confirmed. Meet links unlock one hour before each day begins.")).toBeInTheDocument();expect(screen.queryByText(/no refunds/i)).not.toBeInTheDocument();
   });
   it("shows a retry and never renders attendee content when purchase verification fails",async()=>{
     localStorage.setItem(CPM_ACCESS_KEY,"old-pass");load.mockRejectedValueOnce(new Error("Purchase verification unavailable"));open("?session_id=cs_live_new");
@@ -27,8 +27,8 @@ describe("CPM personal attendee portal",()=>{
     fireEvent.click(screen.getByRole("button",{name:"Close my pass"}));await waitFor(()=>expect(screen.queryByText("Verified attendee")).not.toBeInTheDocument());expect(localStorage.getItem(CPM_ACCESS_KEY)).toBeNull();
   });
   it("renders released downloads and the live Meet from verified server state",async()=>{
-    load.mockResolvedValue({...state,schedule:{...state.schedule,meet_url:"https://meet.google.com/abc-defg-hij"},materials:{released:true,release_at:null,files:[{id:"pack",title:"Day 1 workbook",description:null,url:"https://example.com/signed-file"}]}});
-    open("?access=personal-token");await screen.findByRole("link",{name:"Join Google Meet ↗"});expect(screen.getByRole("link",{name:/Day 1 workbook/})).toHaveAttribute("href","https://example.com/signed-file");
+    load.mockResolvedValue({...state,schedule:{...state.schedule,meet_url:null,sessions:[{id:"day-1",title:"Day 1",starts_at:"2026-09-25T14:00:00Z",ends_at:"2026-09-25T21:00:00Z",release_at:"2026-09-25T13:00:00Z",ended:false,meet_url:"https://meet.google.com/abc-defg-hij"}]},materials:{released:true,release_at:null,files:[{id:"pack",title:"Day 1 workbook",description:null,url:"https://example.com/signed-file"}]}});
+    open("?access=personal-token");await screen.findByRole("link",{name:"Join Day 1 on Google Meet"});expect(screen.getByRole("link",{name:/Day 1 workbook/})).toHaveAttribute("href","https://example.com/signed-file");
   });
   it("never falls back to another attendee for an empty or invalid explicit return",()=>{expect(cpmCredentials("?session_id=","cached")).toEqual({session_id:""});expect(cpmCredentials("?access=","cached")).toEqual({access:""});});
 });

@@ -4,10 +4,12 @@ export const CPM_ACCESS_KEY = "alp.cpm-intensive.access";
 export const CPM_PORTAL_PATH = "/cpm-intensive/onboarding";
 export const P6_DOWNLOAD_URL = "https://edelivery.oracle.com/";
 
+export type CpmSession = { id: string; title: string; starts_at: string; ends_at: string; release_at: string; ended: boolean; meet_url: string | null };
+
 export type CpmPortalState = {
   access: string;
   attendee: { name: string | null; email: string; ticket_number: string };
-  schedule: { dates_label: string | null; timezone: string | null; hours: string; meet_url: string | null };
+  schedule: { dates_label: string | null; timezone: string | null; hours: string; meet_url: string | null; sessions?: CpmSession[] };
   materials: { released: boolean; release_at: string | null; files: Array<{ id: string; title: string; description: string | null; url: string }> };
 };
 export type CpmCredentials = { session_id: string } | { access: string };

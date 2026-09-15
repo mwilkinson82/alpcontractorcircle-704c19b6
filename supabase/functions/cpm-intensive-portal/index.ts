@@ -1,5 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.108.1";
 import { releasedAt, validAccessToken, validSessionId } from "./validation.ts";
+import { publicCpmSessions } from "../_shared/cpm-intensive-sessions.ts";
 
 const allowedOrigins = new Set([
   "https://alpcontractorcircle.com", "https://www.alpcontractorcircle.com",
@@ -58,11 +59,10 @@ Deno.serve(async (req) => {
         files.push({ id: file.id, title: file.title, description: file.description, url: signed.data.signedUrl });
       }
     }
-    const meetReady = settings.dates_label && settings.timezone && /^https:\/\/meet\.google\.com\/[a-z]{3}-[a-z]{4}-[a-z]{3}$/.test(settings.meet_url || "") && (!settings.meet_release_at || releasedAt(settings.meet_release_at));
     return json({
       access: enrollment.access_token,
       attendee: { name: enrollment.purchaser_name, email: enrollment.purchaser_email, ticket_number: `CPM-${enrollment.id.slice(0, 8).toUpperCase()}` },
-      schedule: { dates_label: settings.dates_label, timezone: settings.timezone, hours: "10 a.m.–5 p.m. each day", meet_url: meetReady ? settings.meet_url : null },
+      schedule: { dates_label: settings.dates_label, timezone: settings.timezone, hours: "10 a.m.–5 p.m. each day", meet_url: null, sessions: publicCpmSessions(settings.sessions) },
       materials: { released, release_at: settings.materials_release_at, files },
     });
   } catch {
