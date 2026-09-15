@@ -45,7 +45,7 @@ const xml = (value: string) => value.replace(/[&<>"']/g, c => ({ "&": "&amp;", "
 export function ticketSvg(portal: CpmPortalState, sample = false) {
   const name = portal.attendee.name || "Registered attendee";
   const safeName = xml(name.length > 45 ? `${name.slice(0, 42)}…` : name);
-  const timezone = portal.schedule.timezone ? portal.schedule.timezone.replace(/_/g, " ") : "Timezone to be confirmed";
+  const timezone = portal.schedule.timezone === "America/New_York" ? "Eastern Time" : portal.schedule.timezone ? portal.schedule.timezone.replace(/_/g, " ") : "Timezone to be confirmed";
   // No access token, purchaser email, QR credential, or conference link is embedded.
   return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
   <rect width="1200" height="640" rx="18" fill="#F7F2EA"/>

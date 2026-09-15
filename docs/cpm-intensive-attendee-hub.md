@@ -62,3 +62,7 @@ Marshall confirmed September 25–26, 2026. Daily hours remain 10 a.m.–5 p.m.;
 - Host Google Calendar events must be private and have no attendee invite list, so their conference URLs are not emailed to buyers early. This does not prevent an attendee from copying a link after release; Google Meet host admission controls remain separate.
 - Timezone confirmation is still required before creating host events and populating sessions. No calendar or payment actions were performed during development.
 - Verification: 42 tests passed, production build, TypeScript, scoped lint and Deno check passed. PNG download verified in the browser. Tests cover exact one-hour boundary, independent days, end time, invalid URLs/timestamps and credential-free exports.
+
+## Eastern Time and host sessions confirmed
+
+Marshall confirmed Eastern Time for all his events. The CPM settings use America/New_York. Private Google Calendar host events were created on marshall@marshallwilkinson.com for September 25 and 26, 2026, 10 a.m.–5 p.m. EDT, each with its own Google Meet conference and no invited attendee list. Meet URLs exist only in private settings and the host calendar, not source code. Each releases in the verified portal at 9 a.m. EDT on its own day (13:00 UTC). Google/Outlook calendar saves are now enabled from these configured sessions.

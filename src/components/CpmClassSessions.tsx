@@ -5,7 +5,7 @@ export function CpmClassSessions({ schedule, refreshing, error, refresh }: { sch
   const format = (date: string) => new Intl.DateTimeFormat("en-US", { timeZone: schedule.timezone || "UTC", month: "short", day: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short" }).format(new Date(date));
   return <section className="cpm-hub-panel" aria-labelledby="cpm-meet-heading">
     <p className="cpm-hub-label">02 · Live classroom</p><h2 id="cpm-meet-heading">Google Meet.</h2>
-    <p className="cpm-hub-session">{schedule.dates_label || "Friday & Saturday"}<br />{schedule.hours}{schedule.timezone ? ` · ${schedule.timezone.replace(/_/g, " ")}` : " · Timezone to be confirmed"}</p>
+    <p className="cpm-hub-session">{schedule.dates_label || "Friday & Saturday"}<br />{schedule.hours}{schedule.timezone ? ` · ${schedule.timezone === "America/New_York" ? "Eastern Time" : schedule.timezone.replace(/_/g, " ")}` : " · Timezone to be confirmed"}</p>
     <p className="cpm-hub-fine">Save each day to your calendar now. Return to this portal for the Meet link one hour before that session starts. Calendar entries contain this portal’s address; meeting links appear here.</p>
     <div className="cpm-class-sessions">{schedule.sessions?.length ? schedule.sessions.map(session => <article className="cpm-class-session" key={session.id}>
       <h3>{session.title}</h3><p>{format(session.starts_at)}</p>

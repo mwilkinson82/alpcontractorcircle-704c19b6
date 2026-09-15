@@ -3,7 +3,7 @@ import "./CpmIntensive.css";
 
 const CPM_CHECKOUT_URL = "https://buy.stripe.com/5kQ14oe0h5uSgMo7zkeQM1p";
 
-const CPM_SESSION_HOURS = "10 a.m.–5 p.m.";
+const CPM_SESSION_HOURS = "10 a.m.–5 p.m. Eastern";
 
 const CPM_SEO = {
   title: "ALP CPM Schedule Intensive (2-Day) | ALP Contractor Circle",
@@ -172,7 +172,7 @@ const faq = [
   },
   {
     q: "When is the date?",
-    a: "The class runs Friday, September 25 and Saturday, September 26, 2026, 10 a.m.–5 p.m. each day. Timezone to be confirmed. Checkout is open.",
+    a: "The class runs Friday, September 25 and Saturday, September 26, 2026, 10 a.m.–5 p.m. Eastern each day. Checkout is open.",
   },
   {
     q: "What are the refund terms?",
@@ -200,7 +200,7 @@ export default function CpmIntensive() {
         <meta name="twitter:image" content={CPM_SEO.image} />
       </Helmet>
 
-      <div className="cpm-preview-note">Live online · September 25–26, 2026 · 10 a.m.–5 p.m. each day · Timezone to confirm</div>
+      <div className="cpm-preview-note">Live online · September 25–26, 2026 · 10 a.m.–5 p.m. Eastern each day</div>
 
       <header className="cpm-nav">
         <a className="cpm-mark" href="/" aria-label="ALP Contractor Circle home">
@@ -304,7 +304,7 @@ export default function CpmIntensive() {
           <header className="cpm-head">
             <p className="cpm-label">Two-day outline</p>
             <h2>Build it in P6. Update it. Use it to prove time.</h2>
-            <p>Friday, September 25 and Saturday, September 26, 2026, 10 a.m.–5 p.m. each day. Build your own working schedule as you learn. Timezone to be confirmed.</p>
+            <p>Friday, September 25 and Saturday, September 26, 2026, 10 a.m.–5 p.m. Eastern each day. Build your own working schedule as you learn.</p>
           </header>
 
           {agenda.map((day) => (
@@ -456,7 +456,7 @@ export default function CpmIntensive() {
             <aside id="cpm-terms" className="cpm-terms" aria-label="Terms">
               <div><span>Dates</span><strong>September 25–26, 2026</strong></div>
               <div><span>Hours</span><strong>{CPM_SESSION_HOURS} each day</strong></div>
-              <div><span>Timezone</span><strong>To be confirmed</strong></div>
+              <div><span>Timezone</span><strong>Eastern Time (New York)</strong></div>
               <div><span>Seats</span><strong>Unlimited</strong></div>
               <div><span>Software</span><strong>P6 Professional · 30-day trial</strong></div>
               <div><span>Recording</span><strong>Included for attendees</strong></div>
