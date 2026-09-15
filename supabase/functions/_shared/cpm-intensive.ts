@@ -58,5 +58,16 @@ export async function handleCpmEvent(
   const { data: settings } = await db.from("cpm_intensive_settings").select("dates_label").eq("id", 1).maybeSingle();
   if (!dependencies.deliverWelcome) return { cpm: true, enrolled: true, welcome: { skipped: true, reason: "no_mailer" } };
   const welcome = await dependencies.deliverWelcome(db, enrollment, settings?.dates_label ?? null);
-  return { cpm: true, enrolled: true, welcome };
+  // Additive only: Marshall's hand-sent personal note. Queued behind an ops flag that
+  // defaults to off, and never allowed to fail the enrollment.
+  let personalWelcome: unknown = { skipped: true, reason: "not_wired" };
+  if (dependencies.enqueuePersonalWelcome) {
+    try {
+      personalWelcome = await dependencies.enqueuePersonalWelcome(db, enrollment);
+    } catch (error) {
+      console.error("cpm marshall_personal_welcome enqueue failed", error);
+      personalWelcome = { skipped: true, reason: "enqueue_failed" };
+    }
+  }
+  return { cpm: true, enrolled: true, welcome, personalWelcome };
 }
