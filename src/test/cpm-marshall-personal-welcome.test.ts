@@ -23,7 +23,7 @@ function db(autoFlag: boolean, upsert = vi.fn().mockResolvedValue({ error: null 
 
 describe("Marshall's personal CPM welcome", () => {
   it("greets by first name with an em dash and keeps the exact subject", () => {
-    expect(marshallPersonalWelcomeText(enrollment).startsWith("Phil — ")).toBe(true);
+    expect(marshallPersonalWelcomeText(enrollment).startsWith("Phil —\n\nHello and welcome")).toBe(true);
     expect(personalWelcomeFirstName(null)).toBe("there");
     expect(personalWelcomeFirstName("  ")).toBe("there");
     expect(MARSHALL_PERSONAL_WELCOME_SUBJECT).toBe("Welcome to the ALP CPM Schedule Intensive");

@@ -14,22 +14,28 @@ export function personalWelcomeFirstName(purchaserName: string | null | undefine
   return first || "there";
 }
 
-// PENDING: replace with the exact archived gold body (Gmail 1a0a69894f8217cf).
-// Everything after the greeting line must match that message word for word.
-const GOLD_BODY = `Thanks for enrolling. I wanted to reach out personally rather than let an automated note be the only thing you hear from me.
+// Archived gold body (Gmail 1a0a69894f8217cf). Word for word; the greeting is generated.
+const GOLD_BODY =
+  `Hello and welcome to the ALP Contractor Circle CPM Intensive. I wanted to reach out personally and welcome you. I’m looking forward to meeting you on Friday, September 25 and Saturday, September 26, 2026 (10 a.m.–5 p.m. Eastern each day).
 
-We run Friday, September 25 and Saturday, September 26, 2026, 10 a.m. to 5 p.m. Eastern both days.
+We call it an intensive because it is intense. We’re covering a lot of ground over two days, so come prepared, ready to take notes. Come hydrated, and be ready to focus and commit. We’ll have a few intermissions as we go.
 
-Before Day 1, get Primavera P6 Professional installed on a Windows machine. Start the free 30-day Oracle trial close to the class dates, or use your company license. The setup steps are in your attendee hub.
+Here’s how the two days break down:
 
-Bring a real schedule and a real dispute if you have one. The two days work best when we are building and proving time on live work instead of a sample file.
+Friday (Day 1) — Build and update the CPM.
+We get hands-on in Primavera P6. You build your own schedule: activities, durations, sequencing and logic, a credible baseline, and the critical path. Then we update — actuals, remaining duration, data date — and keep each update tied to the baseline. We work concurrent-delay discipline, insert delay and change-order fragments into the logic, track how the path and finish move, and write reports/narratives the owner can follow. P6 is the camera; the schedule is how you see risk early.
 
-If anything comes up between now and then, reply straight to this note.
+Saturday (Day 2) — Analyze and prove delay.
+We take that schedule work into delay analysis: plan vs as-built, collapsed as-built, windows analysis through successive updates. You learn to prove delay (event → affected activities → critical path → finish), test overlapping delays, follow fragments and resequencing, and connect trade stacking and disruption to the time record behind extensions and delay-damage calculations — then write a delay narrative the schedule and job records support.
+
+You should already have your attendee portal from the automated welcome. Get P6 open before Friday (company license or the Oracle 30-day trial link in your portal). Bring a job example with sensitive info stripped if you can.
+
+Looking forward to working with you.
 
 Marshall`;
 
 export function marshallPersonalWelcomeText(enrollment: PersonalWelcomeEnrollment): string {
-  return `${personalWelcomeFirstName(enrollment.purchaser_name)} — ${GOLD_BODY}`;
+  return `${personalWelcomeFirstName(enrollment.purchaser_name)} —\n\n${GOLD_BODY}`;
 }
 
 export function marshallPersonalWelcomeHtml(enrollment: PersonalWelcomeEnrollment): string {
