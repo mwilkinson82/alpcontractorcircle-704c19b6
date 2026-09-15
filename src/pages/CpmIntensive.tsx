@@ -208,6 +208,7 @@ export default function CpmIntensive() {
         <meta name="twitter:title" content={CPM_SEO.title} />
         <meta name="twitter:description" content={CPM_SEO.description} />
         <meta name="twitter:image" content={CPM_SEO.image} />
+        {isMember ? <meta name="robots" content="noindex, nofollow" /> : null}
       </Helmet>
 
       <div className="cpm-preview-note">Live online · September 25–26, 2026 · 10 a.m.–5 p.m. Eastern each day</div>
@@ -217,8 +218,15 @@ export default function CpmIntensive() {
           <span>ALP</span>
           <small>CPM Schedule Intensive (2-Day)</small>
         </a>
-        <a className="cpm-nav-cta" href={CPM_CHECKOUT_URL}>Checkout</a>
+        <a className="cpm-nav-cta" href={checkoutUrl}>Checkout</a>
       </header>
+
+      {isMember && (
+        <div className="cpm-member-bar">
+          <span>Contractor Circle member access</span>
+          <strong>Your preferred pricing is active — {MEMBER_PRICE} instead of {PUBLIC_PRICE}.</strong>
+        </div>
+      )}
 
       <main>
         <section className="cpm-hero">
