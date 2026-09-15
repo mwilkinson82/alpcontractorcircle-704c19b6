@@ -465,12 +465,17 @@ export default function CpmIntensive() {
           <div className="cpm-tuition-grid">
             <article className="cpm-card">
               <span>ALP CPM Schedule Intensive (2-Day)</span>
-              <div className="cpm-price">$1,997</div>
+              <div className="cpm-price">{price}</div>
               <p>
-                $1,997 USD per seat · unlimited seats · one checkout = one attendee portal. Two live days, Oracle’s 30-day P6 Professional trial link and recording included.
+                {price} USD per seat · unlimited seats · one checkout = one attendee portal. Two live days, Oracle’s 30-day P6 Professional trial link and recording included.
               </p>
-              <a className="cpm-btn cpm-checkout-btn" href={CPM_CHECKOUT_URL} aria-describedby="cpm-checkout-note">
-                Checkout — $1,997 →
+              {isMember && (
+                <p className="cpm-member-note">
+                  Contractor Circle perk: member tuition {MEMBER_PRICE} instead of the public {PUBLIC_PRICE}.
+                </p>
+              )}
+              <a className="cpm-btn cpm-checkout-btn" href={checkoutUrl} aria-describedby="cpm-checkout-note">
+                Checkout — {price} →
               </a>
               <small id="cpm-checkout-note">One-time payment in USD. Live September 25–26, 2026. Each checkout registers one attendee; enrollment has no seat cap.</small>
             </article>
