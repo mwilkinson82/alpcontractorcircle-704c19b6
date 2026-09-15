@@ -1,14 +1,25 @@
 import { CPM_PAYMENT_LINK_ID, objectId, paidCpmPurchase, paymentBlockReason } from "./cpm-intensive-validation.ts";
-import { deliverCpmWelcomeEmail } from "./cpm-intensive-email.ts";
+
+type CpmWelcomeSender = (
+  db: { from: (table: string) => any },
+  enrollment: { id: string; access_token: string; purchaser_email: string; purchaser_name: string | null },
+  datesLabel: string | null,
+) => Promise<unknown>;
+
+// Loaded lazily so unit tests never pull the Deno-only mailer into scope.
+async function defaultWelcomeSender(): Promise<CpmWelcomeSender> {
+  const module = await import("./cpm-intensive-email.ts");
+  return module.deliverCpmWelcomeEmail as CpmWelcomeSender;
+}
 
 // Called ONLY after the existing dispatcher verifies the Stripe signature.
-// This branch never sends email and never writes Delay enrollment records.
+// This branch writes no Delay records; its only email is the CPM welcome.
 export async function handleCpmEvent(
   event: { livemode?: boolean; type: string; data?: { object?: Record<string, any> } },
   dependencies: {
     adminClient: () => { from: (table: string) => any };
     randomToken: () => string;
-    deliverWelcome?: typeof deliverCpmWelcomeEmail;
+    deliverWelcome?: CpmWelcomeSender;
   },
 ) {
   const object = event.data?.object;
