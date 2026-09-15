@@ -1,7 +1,11 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import "./CpmIntensive.css";
 
 const CPM_CHECKOUT_URL = "https://buy.stripe.com/5kQ14oe0h5uSgMo7zkeQM1p";
+const CPM_MEMBER_CHECKOUT_URL = "https://buy.stripe.com/9B6cN6bS96yWeEg9HseQM1q";
+const PUBLIC_PRICE = "$1,997";
+const MEMBER_PRICE = "$1,497";
 
 const CPM_SESSION_HOURS = "10 a.m.–5 p.m. Eastern";
 
@@ -181,6 +185,12 @@ const faq = [
 ];
 
 export default function CpmIntensive() {
+  const isMember = useLocation().pathname.endsWith("/member");
+  const checkoutUrl = isMember ? CPM_MEMBER_CHECKOUT_URL : CPM_CHECKOUT_URL;
+  const price = isMember ? MEMBER_PRICE : PUBLIC_PRICE;
+  // Member view reuses the public copy with Circle tuition swapped in.
+  const rate = (copy: string) => (isMember ? copy.split(PUBLIC_PRICE).join(MEMBER_PRICE) : copy);
+
   return (
     <div className="cpm-page">
       <Helmet>
@@ -198,6 +208,7 @@ export default function CpmIntensive() {
         <meta name="twitter:title" content={CPM_SEO.title} />
         <meta name="twitter:description" content={CPM_SEO.description} />
         <meta name="twitter:image" content={CPM_SEO.image} />
+        {isMember ? <meta name="robots" content="noindex, nofollow" /> : null}
       </Helmet>
 
       <div className="cpm-preview-note">Live online · September 25–26, 2026 · 10 a.m.–5 p.m. Eastern each day</div>
@@ -207,8 +218,15 @@ export default function CpmIntensive() {
           <span>ALP</span>
           <small>CPM Schedule Intensive (2-Day)</small>
         </a>
-        <a className="cpm-nav-cta" href={CPM_CHECKOUT_URL}>Checkout</a>
+        <a className="cpm-nav-cta" href={checkoutUrl}>Checkout</a>
       </header>
+
+      {isMember && (
+        <div className="cpm-member-bar">
+          <span>Contractor Circle member access</span>
+          <strong>Your preferred pricing is active — {MEMBER_PRICE} instead of {PUBLIC_PRICE}.</strong>
+        </div>
+      )}
 
       <main>
         <section className="cpm-hero">
@@ -228,9 +246,12 @@ export default function CpmIntensive() {
               <strong>30 days of Primavera P6 Professional — free Oracle trial.</strong> Get the link on
               enrollment and build along in class, or use your existing company license.
             </p>
-            <p className="cpm-soft">$1,997 USD per seat · Unlimited seats · Live on Google Meet · Recording included</p>
+            <p className="cpm-soft">
+              {price} USD per seat · Unlimited seats · Live on Google Meet · Recording included
+              {isMember ? " · Contractor Circle member rate" : ""}
+            </p>
             <div className="cpm-hero-actions">
-              <a href={CPM_CHECKOUT_URL} className="cpm-btn">Checkout →</a>
+              <a href={checkoutUrl} className="cpm-btn">Checkout →</a>
               <a href="#agenda" className="cpm-jump">See the two days ↓</a>
             </div>
           </div>
@@ -259,7 +280,7 @@ export default function CpmIntensive() {
           {offerStrip.map((item) => (
             <div key={item.label}>
               <dt>{item.label}</dt>
-              <dd>{item.value}</dd>
+              <dd>{rate(item.value)}</dd>
             </div>
           ))}
         </dl>
@@ -444,12 +465,17 @@ export default function CpmIntensive() {
           <div className="cpm-tuition-grid">
             <article className="cpm-card">
               <span>ALP CPM Schedule Intensive (2-Day)</span>
-              <div className="cpm-price">$1,997</div>
+              <div className="cpm-price">{price}</div>
               <p>
-                $1,997 USD per seat · unlimited seats · one checkout = one attendee portal. Two live days, Oracle’s 30-day P6 Professional trial link and recording included.
+                {price} USD per seat · unlimited seats · one checkout = one attendee portal. Two live days, Oracle’s 30-day P6 Professional trial link and recording included.
               </p>
-              <a className="cpm-btn cpm-checkout-btn" href={CPM_CHECKOUT_URL} aria-describedby="cpm-checkout-note">
-                Checkout — $1,997 →
+              {isMember && (
+                <p className="cpm-member-note">
+                  Contractor Circle perk: member tuition {MEMBER_PRICE} instead of the public {PUBLIC_PRICE}.
+                </p>
+              )}
+              <a className="cpm-btn cpm-checkout-btn" href={checkoutUrl} aria-describedby="cpm-checkout-note">
+                Checkout — {price} →
               </a>
               <small id="cpm-checkout-note">One-time payment in USD. Live September 25–26, 2026. Each checkout registers one attendee; enrollment has no seat cap.</small>
             </article>
@@ -475,7 +501,7 @@ export default function CpmIntensive() {
             {faq.map((item) => (
               <details key={item.q}>
                 <summary>{item.q}<span aria-hidden="true" /></summary>
-                <p>{item.a}</p>
+                <p>{rate(item.a)}</p>
               </details>
             ))}
           </div>
@@ -484,7 +510,7 @@ export default function CpmIntensive() {
         <section className="cpm-closing">
           <p className="cpm-label">Use the schedule to lead the job.</p>
           <h2>See the risk. Protect the time. Build the proof.</h2>
-          <a href={CPM_CHECKOUT_URL} className="cpm-btn">Checkout →</a>
+          <a href={checkoutUrl} className="cpm-btn">Checkout →</a>
         </section>
       </main>
 
@@ -498,8 +524,8 @@ export default function CpmIntensive() {
         <p>Educational and professional training. Not legal advice. No guarantee of entitlement or recovery.</p>
       </footer>
 
-      <a className="cpm-mobile-cta" href={CPM_CHECKOUT_URL}>
-        <span>$1,997</span>
+      <a className="cpm-mobile-cta" href={checkoutUrl}>
+        <span>{price}</span>
         <strong>Checkout →</strong>
       </a>
     </div>

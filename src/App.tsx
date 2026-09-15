@@ -41,6 +41,7 @@ const App = () => (
           <Route path="/delay-intensive/onboarding" element={<DelayIntensiveOnboarding />} />
           <Route path="/delay-intensive/terms" element={<DelayIntensiveTerms />} />
           <Route path="/cpm-intensive" element={<CpmIntensive />} />
+          <Route path="/cpm-intensive/member" element={<CpmIntensive />} />
           <Route path="/cpm-intensive/onboarding" element={<CpmIntensiveOnboarding />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
