@@ -1,5 +1,6 @@
 import { handleCpmEvent } from "../_shared/cpm-intensive.ts";
 import { deliverCpmWelcomeEmail } from "../_shared/cpm-intensive-email.ts";
+import { enqueueMarshallPersonalWelcome } from "../_shared/cpm-marshall-personal-welcome.ts";
 import {
   adminClient,
   COMPANY_PAYMENT_LINK,
