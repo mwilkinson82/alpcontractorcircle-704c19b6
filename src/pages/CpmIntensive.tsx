@@ -185,6 +185,12 @@ const faq = [
 ];
 
 export default function CpmIntensive() {
+  const isMember = useLocation().pathname.endsWith("/member");
+  const checkoutUrl = isMember ? CPM_MEMBER_CHECKOUT_URL : CPM_CHECKOUT_URL;
+  const price = isMember ? MEMBER_PRICE : PUBLIC_PRICE;
+  // Member view reuses the public copy with Circle tuition swapped in.
+  const rate = (copy: string) => (isMember ? copy.split(PUBLIC_PRICE).join(MEMBER_PRICE) : copy);
+
   return (
     <div className="cpm-page">
       <Helmet>
