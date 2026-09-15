@@ -524,8 +524,8 @@ export default function CpmIntensive() {
         <p>Educational and professional training. Not legal advice. No guarantee of entitlement or recovery.</p>
       </footer>
 
-      <a className="cpm-mobile-cta" href={CPM_CHECKOUT_URL}>
-        <span>$1,997</span>
+      <a className="cpm-mobile-cta" href={checkoutUrl}>
+        <span>{price}</span>
         <strong>Checkout →</strong>
       </a>
     </div>
