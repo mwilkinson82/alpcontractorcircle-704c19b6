@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      cpm_intensive_complimentary_passes: {
+        Row: {
+          access_token: string
+          created_at: string
+          id: string
+          purchaser_email: string
+          purchaser_name: string | null
+          revoked_at: string | null
+        }
+        Insert: {
+          access_token: string
+          created_at?: string
+          id?: string
+          purchaser_email: string
+          purchaser_name?: string | null
+          revoked_at?: string | null
+        }
+        Update: {
+          access_token?: string
+          created_at?: string
+          id?: string
+          purchaser_email?: string
+          purchaser_name?: string | null
+          revoked_at?: string | null
+        }
+        Relationships: []
+      }
       cpm_intensive_enrollments: {
         Row: {
           access_token: string
