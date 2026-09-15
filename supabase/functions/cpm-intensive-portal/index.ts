@@ -1,6 +1,7 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.108.1";
 import { releasedAt, validAccessToken, validSessionId } from "./validation.ts";
 import { publicCpmSessions } from "../_shared/cpm-intensive-sessions.ts";
+import { resolveCpmAccess } from "../_shared/cpm-intensive-access.ts";
 
 const allowedOrigins = new Set([
   "https://alpcontractorcircle.com", "https://www.alpcontractorcircle.com",
@@ -35,16 +36,27 @@ Deno.serve(async (req) => {
       return json({ error: "Open your personal CPM attendee link or return from your completed checkout." }, 401);
     }
     const db = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!, { auth: { persistSession: false, autoRefreshToken: false } });
-    const query = db.from("cpm_intensive_enrollments").select("*");
-    const { data: existing, error: lookupError } = await (hasSession
-      ? query.eq("stripe_checkout_session_id", body.session_id)
-      : query.eq("access_token", body.access)).maybeSingle();
-    if (lookupError) throw lookupError;
-    if (!existing) return json({ error: hasSession ? "Your payment confirmation is still arriving. Please try again shortly." : "This personal pass is not valid. Use your original CPM purchase return link.", code: hasSession ? "enrollment_pending" : "invalid_pass" }, hasSession ? 409 : 401);
-    const enrollment = existing;
-    const { data: block, error: blockError } = await db.from("cpm_intensive_payment_blocks").select("stripe_payment_intent_id").eq("stripe_payment_intent_id", enrollment.stripe_payment_intent_id).maybeSingle();
-    if (blockError) throw blockError;
-    if (enrollment.revoked_at || block) return json({ error: "This attendee pass is no longer active. Contact ALP for help." }, 403);
+    const access = await resolveCpmAccess(hasSession, {
+      paid: async () => {
+        const query = db.from("cpm_intensive_enrollments").select("*");
+        const { data, error } = await (hasSession ? query.eq("stripe_checkout_session_id", body.session_id) : query.eq("access_token", body.access)).maybeSingle();
+        if (error) throw error;
+        return data;
+      },
+      complimentary: async () => {
+        const { data, error } = await db.from("cpm_intensive_complimentary_passes").select("*").eq("access_token", body.access).maybeSingle();
+        if (error) throw error;
+        return data;
+      },
+      blocked: async paymentIntent => {
+        const { data, error } = await db.from("cpm_intensive_payment_blocks").select("stripe_payment_intent_id").eq("stripe_payment_intent_id", paymentIntent).maybeSingle();
+        if (error) throw error;
+        return Boolean(data);
+      },
+    });
+    if (access.status === "missing") return json({ error: hasSession ? "Your payment confirmation is still arriving. Please try again shortly." : "This personal pass is not valid. Use your original CPM attendee link.", code: hasSession ? "enrollment_pending" : "invalid_pass" }, hasSession ? 409 : 401);
+    if (access.status === "revoked") return json({ error: "This attendee pass is no longer active. Contact ALP for help." }, 403);
+    const enrollment = access.enrollment;
     const { data: settings, error: settingsError } = await db.from("cpm_intensive_settings").select("*").eq("id", 1).single();
     if (settingsError) throw settingsError;
     const released = releasedAt(settings.materials_release_at);
