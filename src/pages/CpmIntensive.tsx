@@ -246,9 +246,12 @@ export default function CpmIntensive() {
               <strong>30 days of Primavera P6 Professional — free Oracle trial.</strong> Get the link on
               enrollment and build along in class, or use your existing company license.
             </p>
-            <p className="cpm-soft">$1,997 USD per seat · Unlimited seats · Live on Google Meet · Recording included</p>
+            <p className="cpm-soft">
+              {price} USD per seat · Unlimited seats · Live on Google Meet · Recording included
+              {isMember ? " · Contractor Circle member rate" : ""}
+            </p>
             <div className="cpm-hero-actions">
-              <a href={CPM_CHECKOUT_URL} className="cpm-btn">Checkout →</a>
+              <a href={checkoutUrl} className="cpm-btn">Checkout →</a>
               <a href="#agenda" className="cpm-jump">See the two days ↓</a>
             </div>
           </div>
