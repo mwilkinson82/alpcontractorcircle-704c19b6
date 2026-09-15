@@ -280,7 +280,7 @@ export default function CpmIntensive() {
           {offerStrip.map((item) => (
             <div key={item.label}>
               <dt>{item.label}</dt>
-              <dd>{item.value}</dd>
+              <dd>{rate(item.value)}</dd>
             </div>
           ))}
         </dl>
