@@ -855,6 +855,32 @@
   font: 500 11px/1.5 var(--cpm-mono);
   border-bottom: 1px solid var(--cpm-rule);
 }
+.cpm-member-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  gap: 14px;
+  padding: 11px 20px;
+  background: var(--cpm-signal, #C9482E);
+  color: #fff;
+  text-align: center;
+}
+.cpm-member-bar span {
+  font: 700 10px/1.4 var(--cpm-mono);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  opacity: .85;
+}
+.cpm-member-bar strong { font: 500 13px/1.5 var(--cpm-mono); }
+.cpm-member-note {
+  margin: 10px 0 0;
+  font: 500 12px/1.6 var(--cpm-mono);
+  color: var(--cpm-signal, #C9482E);
+}
+@media (max-width: 640px) {
+  .cpm-member-bar { flex-direction: column; gap: 3px; }
+}
 .cpm-nav { background: rgba(247,242,234,.82); backdrop-filter: saturate(140%) blur(10px); }
 .cpm-mark > span { font-family: var(--cpm-sans); font-size: 25px; font-weight: 800; letter-spacing: -.05em; }
 .cpm-nav-cta { min-height: 44px; display: inline-flex; align-items: center; border-radius: 11px; }
