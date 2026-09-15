@@ -21,7 +21,7 @@ The UI includes P6 trial access, Google Meet, the downloads shelf, personal-link
 Open the Contractor Circle project → Cloud → Database.
 
 1. In `cpm_intensive_settings`, edit row `id=1`:
-   - `dates_label`: Marshall's confirmed calendar dates, once supplied.
+   - `dates_label`: `September 25–26, 2026`, confirmed by Marshall on September 15, 2026.
    - `timezone`: an IANA timezone, e.g. use `America/New_York` only if Marshall confirms it.
    - `meet_url`: the actual `https://meet.google.com/xxx-xxxx-xxx` URL.
    - `meet_release_at`: optional time to reveal the Meet link; null reveals it as soon as dates, timezone and the link exist.
@@ -47,3 +47,7 @@ The Oracle URL supplied in the prompt returned 404. The software CTA uses https:
 - Four tables have RLS and no anon/authenticated SELECT privileges. Private storage bucket verified, with zero browser storage policies. Meet URL, calendar dates, timezone and material-release timestamp remain null as intended.
 - All 37 project tests passed in Lovable (including 25 CPM tests and 2 Delay regression tests); production build and type checks passed. No local design-fixture data remains in production JS.
 - Existing Stripe connection returned zero completed CPM sessions, so no earlier purchases need backfill. No live payment was created during verification.
+
+## September 15 date confirmation
+
+Marshall confirmed September 25–26, 2026. Daily hours remain 10 a.m.–5 p.m.; timezone is still unconfirmed. The live settings row and public landing now use these dates. Meet and materials remain pending.

@@ -8,7 +8,7 @@ const CPM_SESSION_HOURS = "10 a.m.–5 p.m.";
 const CPM_SEO = {
   title: "ALP CPM Schedule Intensive (2-Day) | ALP Contractor Circle",
   description:
-    "Master CPM scheduling in Primavera P6 with Marshall Wilkinson. Build your own baseline, run reliable updates, analyze delay and establish the time record for extensions and delay damages. Two live days. $1,997 USD per seat.",
+    "Master CPM scheduling in Primavera P6 with Marshall Wilkinson. Build your own baseline, run reliable updates, analyze delay and establish the time record for extensions and delay damages. September 25–26, 2026. Two live days. $1,997 USD per seat.",
   canonical: "https://alpcontractorcircle.com/cpm-intensive",
   image: "https://alpcontractorcircle.com/og-contractor-circle.png",
 };
@@ -17,7 +17,7 @@ const offerStrip = [
   { label: "Format", value: "2 live days" },
   { label: "Tuition", value: "$1,997 / seat" },
   { label: "Seats", value: "Unlimited" },
-  { label: "Date", value: "TBA" },
+  { label: "Dates", value: "September 25–26, 2026" },
   { label: "Days", value: "Day 1 CPM · Day 2 Delay analysis" },
 ];
 
@@ -172,7 +172,7 @@ const faq = [
   },
   {
     q: "When is the date?",
-    a: "The class runs Friday and Saturday, 10 a.m.–5 p.m. each day. Exact calendar dates and timezone are being confirmed here. Checkout is open.",
+    a: "The class runs Friday, September 25 and Saturday, September 26, 2026, 10 a.m.–5 p.m. each day. Timezone to be confirmed. Checkout is open.",
   },
   {
     q: "What are the refund terms?",
@@ -200,7 +200,7 @@ export default function CpmIntensive() {
         <meta name="twitter:image" content={CPM_SEO.image} />
       </Helmet>
 
-      <div className="cpm-preview-note">Live online · Friday & Saturday · 10 a.m.–5 p.m. each day · Dates & timezone to confirm</div>
+      <div className="cpm-preview-note">Live online · September 25–26, 2026 · 10 a.m.–5 p.m. each day · Timezone to confirm</div>
 
       <header className="cpm-nav">
         <a className="cpm-mark" href="/" aria-label="ALP Contractor Circle home">
@@ -304,7 +304,7 @@ export default function CpmIntensive() {
           <header className="cpm-head">
             <p className="cpm-label">Two-day outline</p>
             <h2>Build it in P6. Update it. Use it to prove time.</h2>
-            <p>Friday and Saturday, 10 a.m.–5 p.m. each day. Build your own working schedule as you learn. Calendar dates and timezone to be confirmed.</p>
+            <p>Friday, September 25 and Saturday, September 26, 2026, 10 a.m.–5 p.m. each day. Build your own working schedule as you learn. Timezone to be confirmed.</p>
           </header>
 
           {agenda.map((day) => (
@@ -312,7 +312,7 @@ export default function CpmIntensive() {
               <div className="cpm-track-id">
                 <span>{day.day}</span>
                 <h3>{day.title}</h3>
-                <p className="cpm-session-time">{day.day === "Day 1" ? "Friday" : "Saturday"} · {CPM_SESSION_HOURS}</p>
+                <p className="cpm-session-time">{day.day === "Day 1" ? "Friday, September 25" : "Saturday, September 26"} · {CPM_SESSION_HOURS}</p>
                 {/* REAL ASSET — schedule crop for this day. Swap for another export any time. */}
                 <figure className="cpm-mini" data-asset-slot={`schedule-${day.day.toLowerCase().replace(" ", "-")}`}>
                   <img src={day.image} alt={day.imageAlt} loading="lazy" />
@@ -439,7 +439,7 @@ export default function CpmIntensive() {
           <p className="cpm-label">Tuition</p>
           <h2>Two days. A method you keep.</h2>
           <p className="cpm-setup-lede">
-            Live instruction with Marshall Wilkinson, classroom work in P6 Professional, and the recording afterward. Live dates are TBA; checkout is open.
+            Live instruction with Marshall Wilkinson, classroom work in P6 Professional, and the recording afterward. Join us September 25–26, 2026; checkout is open.
           </p>
           <div className="cpm-tuition-grid">
             <article className="cpm-card">
@@ -451,10 +451,10 @@ export default function CpmIntensive() {
               <a className="cpm-btn cpm-checkout-btn" href={CPM_CHECKOUT_URL} aria-describedby="cpm-checkout-note">
                 Checkout — $1,997 →
               </a>
-              <small id="cpm-checkout-note">One-time payment in USD. Live dates TBA. Each checkout registers one attendee; enrollment has no seat cap.</small>
+              <small id="cpm-checkout-note">One-time payment in USD. Live September 25–26, 2026. Each checkout registers one attendee; enrollment has no seat cap.</small>
             </article>
             <aside id="cpm-terms" className="cpm-terms" aria-label="Terms">
-              <div><span>Date</span><strong>Friday & Saturday · dates TBA</strong></div>
+              <div><span>Dates</span><strong>September 25–26, 2026</strong></div>
               <div><span>Hours</span><strong>{CPM_SESSION_HOURS} each day</strong></div>
               <div><span>Timezone</span><strong>To be confirmed</strong></div>
               <div><span>Seats</span><strong>Unlimited</strong></div>
