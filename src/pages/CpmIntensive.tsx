@@ -501,7 +501,7 @@ export default function CpmIntensive() {
             {faq.map((item) => (
               <details key={item.q}>
                 <summary>{item.q}<span aria-hidden="true" /></summary>
-                <p>{item.a}</p>
+                <p>{rate(item.a)}</p>
               </details>
             ))}
           </div>
