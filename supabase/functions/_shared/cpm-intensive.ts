@@ -1,4 +1,4 @@
-import { CPM_PAYMENT_LINK_ID, objectId, paidCpmPurchase, paymentBlockReason } from "./cpm-intensive-validation.ts";
+import { cpmSeatForLink, objectId, paidCpmPurchase, paymentBlockReason } from "./cpm-intensive-validation.ts";
 
 type CpmWelcomeSender = (
   db: { from: (table: string) => any },
@@ -31,7 +31,7 @@ export async function handleCpmEvent(
     return null;
   }
   if (event.type !== "checkout.session.completed" && event.type !== "checkout.session.async_payment_succeeded") return null;
-  if (objectId(object.payment_link) !== CPM_PAYMENT_LINK_ID) return null;
+  if (!cpmSeatForLink(object.payment_link)) return null;
   if (!paidCpmPurchase(object)) return { cpm: true, ignored: true, reason: "not_a_paid_cpm_seat" };
   const intentId = objectId(object.payment_intent)!;
   const { data: blocked, error: blockError } = await db.from("cpm_intensive_payment_blocks").select("stripe_payment_intent_id").eq("stripe_payment_intent_id", intentId).maybeSingle();

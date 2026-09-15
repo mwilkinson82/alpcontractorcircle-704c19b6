@@ -1,6 +1,20 @@
-// Verified through the existing Stripe connection: this live link has exactly
-// one $1,997 seat at price_1UFibpJdDAUSVXbNO9Fwg6lf / prod_VGF6PF6ysZKKtV.
+// Verified through the existing Stripe connection: both live links sell one seat
+// of prod_VGF6PF6ysZKKtV (offer=cpm-intensive), at their own fixed amount.
+//   public  plink_1UFijSJdDAUSVXbNu3vdGChq -> $1,997 (price_1UFibpJdDAUSVXbNO9Fwg6lf)
+//   member  plink_1UG1VXJdDAUSVXbNxHMdIQYa -> $1,497 (price_1UG1VSJdDAUSVXbNZnSc0j89)
 export const CPM_PAYMENT_LINK_ID = "plink_1UFijSJdDAUSVXbNu3vdGChq";
+export const CPM_MEMBER_PAYMENT_LINK_ID = "plink_1UG1VXJdDAUSVXbNxHMdIQYa";
+
+export type CpmSeat = { paymentLinkId: string; amountSubtotal: number; audience: "public" | "member" };
+// Allowlist: a link is only valid paired with its own exact subtotal.
+export const CPM_SEATS: readonly CpmSeat[] = [
+  { paymentLinkId: CPM_PAYMENT_LINK_ID, amountSubtotal: 199700, audience: "public" },
+  { paymentLinkId: CPM_MEMBER_PAYMENT_LINK_ID, amountSubtotal: 149700, audience: "member" },
+];
+export function cpmSeatForLink(value: unknown): CpmSeat | null {
+  const id = objectId(value);
+  return CPM_SEATS.find((seat) => seat.paymentLinkId === id) ?? null;
+}
 
 type Checkout = {
   id?: unknown; payment_link?: unknown; payment_intent?: unknown;
@@ -16,11 +30,14 @@ export function objectId(value: unknown): string | null {
 export function paidCpmPurchase(value: unknown): boolean {
   if (!value || typeof value !== "object") return false;
   const s = value as Checkout;
-  return validSessionId(s.id) && objectId(s.payment_link) === CPM_PAYMENT_LINK_ID &&
+  const seat = cpmSeatForLink(s.payment_link);
+  if (!seat) return false;
+  return validSessionId(s.id) &&
     Boolean(objectId(s.payment_intent)?.startsWith("pi_")) &&
     s.livemode === true && s.mode === "payment" && s.status === "complete" &&
-    s.payment_status === "paid" && s.currency === "usd" && s.amount_subtotal === 199700 &&
-    typeof s.amount_total === "number" && s.amount_total >= 199700 &&
+    s.payment_status === "paid" && s.currency === "usd" &&
+    s.amount_subtotal === seat.amountSubtotal &&
+    typeof s.amount_total === "number" && s.amount_total >= seat.amountSubtotal &&
     typeof (s.customer_details?.email || s.customer_email) === "string" &&
     Boolean(String(s.customer_details?.email || s.customer_email).trim());
 }
