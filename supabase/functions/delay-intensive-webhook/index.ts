@@ -7,6 +7,7 @@ import {
   INDIVIDUAL_PAYMENT_LINK,
   json,
   randomToken,
+  sendEmail,
   timingSafeEqual,
 } from "../_shared/intensive.ts";
 
@@ -183,7 +184,7 @@ Deno.serve(async (request) => {
     const object = event?.data?.object as Record<string, any> | undefined;
     if (!object) return json({ received: true, ignored: true });
 
-    const cpmResult = await handleCpmEvent(event, { adminClient, randomToken });
+    const cpmResult = await handleCpmEvent(event, { adminClient, randomToken, sendEmail });
     if (cpmResult) return json({ received: true, result: cpmResult });
 
     let result: unknown = { ignored: true, reason: "event_not_used" };

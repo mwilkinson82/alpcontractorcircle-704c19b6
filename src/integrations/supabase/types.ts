@@ -51,6 +51,11 @@ export type Database = {
           revoked_at: string | null
           stripe_checkout_session_id: string
           stripe_payment_intent_id: string
+          welcome_email_attempts: number
+          welcome_email_error: string | null
+          welcome_email_provider_id: string | null
+          welcome_email_sent_at: string | null
+          welcome_email_status: string
         }
         Insert: {
           access_token: string
@@ -61,6 +66,11 @@ export type Database = {
           revoked_at?: string | null
           stripe_checkout_session_id: string
           stripe_payment_intent_id: string
+          welcome_email_attempts?: number
+          welcome_email_error?: string | null
+          welcome_email_provider_id?: string | null
+          welcome_email_sent_at?: string | null
+          welcome_email_status?: string
         }
         Update: {
           access_token?: string
@@ -71,6 +81,11 @@ export type Database = {
           revoked_at?: string | null
           stripe_checkout_session_id?: string
           stripe_payment_intent_id?: string
+          welcome_email_attempts?: number
+          welcome_email_error?: string | null
+          welcome_email_provider_id?: string | null
+          welcome_email_sent_at?: string | null
+          welcome_email_status?: string
         }
         Relationships: []
       }
