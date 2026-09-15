@@ -1,7 +1,11 @@
 import { Helmet } from "react-helmet-async";
+import { useLocation } from "react-router-dom";
 import "./CpmIntensive.css";
 
 const CPM_CHECKOUT_URL = "https://buy.stripe.com/5kQ14oe0h5uSgMo7zkeQM1p";
+const CPM_MEMBER_CHECKOUT_URL = "https://buy.stripe.com/9B6cN6bS96yWeEg9HseQM1q";
+const PUBLIC_PRICE = "$1,997";
+const MEMBER_PRICE = "$1,497";
 
 const CPM_SESSION_HOURS = "10 a.m.–5 p.m. Eastern";
 
