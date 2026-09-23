@@ -13858,6 +13858,68 @@ body:has(.cc-page) {
   letter-spacing: 0.06em;
 }
 
+.cc-field-circle-grid {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: clamp(14px, 1.6vw, 22px);
+  border-top: 1px solid var(--cc-line);
+  padding-top: clamp(18px, 2vw, 28px);
+}
+
+.cc-field-circle-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(14px, 1.8vw, 26px);
+  align-items: start;
+}
+
+.cc-field-circle {
+  margin: 0;
+  border: 1px solid var(--cc-line);
+  border-radius: 3px;
+  background: var(--cc-white);
+  padding: clamp(16px, 1.6vw, 24px);
+}
+
+.cc-field-circle > span {
+  display: inline-block;
+  color: var(--cc-orange-dark);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+.cc-field-circle blockquote {
+  margin: 12px 0 0;
+  color: rgb(21 21 21 / 0.82);
+  font-size: clamp(0.95rem, 1vw, 1.06rem);
+  line-height: 1.6;
+}
+
+.cc-field-circle figcaption {
+  display: grid;
+  gap: 4px;
+  margin-top: 16px;
+  border-top: 1px solid rgb(21 21 21 / 0.08);
+  padding-top: 12px;
+  color: var(--cc-muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.cc-field-circle figcaption strong {
+  color: var(--cc-ink);
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 900px) {
+  .cc-field-circle-cards {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .cc-field-social-grid {
   grid-column: 1 / -1;
   display: grid;
