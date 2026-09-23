@@ -392,6 +392,28 @@ const fieldNotes = [
   },
 ] as const;
 
+/* Designed quote cards from inside the Circle. Text only — no platform screenshots. */
+const circleNotes = [
+  {
+    name: "Delbuilder1",
+    role: "Contractor Circle member",
+    quote:
+      "The bot and OverWatch just came back $1,707,068. I literally just bid this house and submitted the bid three days ago. We bid the house for three weeks. My actual number was $1,742,000. Great work Marshall.",
+  },
+  {
+    name: "William Maloney",
+    role: "Contractor Circle member",
+    quote:
+      "Marshall helped me with our fire station bid and I had been worrying and stressing it — come to find out it was off by less than $10K on its first run. Did a takeoff and an estimate. We were comparing to Grey's Number.",
+  },
+  {
+    name: "Preston Falbo",
+    role: "Contractor Circle member",
+    quote:
+      "I've got a team of 12 working these bots now. Marshall, you're a guru for this one — how many people are really doing this in the industry right now?",
+  },
+] as const;
+
 /* Instagram / feed screenshots. Add new shots here — the grid scales on its own. */
 const socialShots = [
   {
@@ -1630,6 +1652,24 @@ export default function ContractorCircle() {
                     </figcaption>
                   </figure>
                 ))}
+              </div>
+
+              <div className="cc-field-circle-grid">
+                <p className="cc-eyebrow cc-field-social-label" data-caption>
+                  From Contractor Circle
+                </p>
+                <div className="cc-field-circle-cards">
+                  {circleNotes.map((note, index) => (
+                    <figure className="cc-field-circle cc-lower-motion" key={note.name}>
+                      <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+                      <blockquote>"{note.quote}"</blockquote>
+                      <figcaption>
+                        <strong>{note.name}</strong>
+                        {note.role ? <small>{note.role}</small> : null}
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
               </div>
 
               <div className="cc-field-social-grid">
