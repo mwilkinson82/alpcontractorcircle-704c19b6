@@ -57,6 +57,7 @@ const HERO_AMBIENT_WEBM = "/assets/hero/ambient.webm?v=3";
 const HERO_AMBIENT_POSTER = "/assets/hero/ambient-poster.jpg?v=3";
 const AOS_URL = "https://alpos.alpcontractorcircle.com";
 const HANDBOOK_URL = "https://alphandbook.com";
+const LEARN_URL = "https://learn.alpcontractorcircle.com";
 const PORTAL_LOGIN_URL = "https://app.alpcontractorcircle.com/login";
 const WHY_AOS_URL = "https://why.alpcontractorcircle.com";
 const IOR_ZOOM_EMBED_URL =
@@ -1847,6 +1848,29 @@ export default function ContractorCircle() {
           </div>
         </section>
 
+
+        <section
+          className="cc-lower-section cc-learn-door"
+          aria-label="ALP Learn"
+        >
+          <div className="cc-lower-inner">
+            <a
+              className="cc-learn-card cc-lower-motion"
+              href={LEARN_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="cc-eyebrow">ALP Learn</span>
+              <strong>The learning room</strong>
+              <p>
+                Delay intensive, IOR, AOS. Members unlock catalog.
+              </p>
+              <span className="cc-learn-cta" aria-hidden="true">
+                Enter ALP Learn →
+              </span>
+            </a>
+          </div>
+        </section>
 
         <section
           className="cc-mega-close"
