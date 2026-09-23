@@ -13858,6 +13858,44 @@ body:has(.cc-page) {
   letter-spacing: 0.06em;
 }
 
+.cc-learn-card {
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--cc-line);
+  border-radius: 3px;
+  background: var(--cc-white);
+  padding: clamp(20px, 2vw, 32px);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color 0.2s ease;
+}
+
+.cc-learn-card:hover {
+  border-color: var(--cc-orange-dark);
+}
+
+.cc-learn-card strong {
+  color: var(--cc-ink);
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  letter-spacing: -0.01em;
+}
+
+.cc-learn-card p {
+  margin: 0;
+  color: rgb(21 21 21 / 0.72);
+  font-size: clamp(0.95rem, 1vw, 1.05rem);
+  line-height: 1.6;
+}
+
+.cc-learn-cta {
+  margin-top: 6px;
+  color: var(--cc-orange-dark);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
 .cc-field-circle-grid {
   grid-column: 1 / -1;
   display: grid;
