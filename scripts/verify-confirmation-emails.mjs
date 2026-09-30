@@ -60,11 +60,17 @@ for (const kind of ['seven_day','onboarding_reminder_1','onboarding_reminder_2',
   assert.equal(JSON.stringify(current.reminderEmail(sample, kind)), JSON.stringify(old.reminderEmail(sample, kind)));
 }
 assert.equal(JSON.stringify(current.claimReceiptEmail('Jordan', 'Synthetic project')), JSON.stringify(old.claimReceiptEmail('Jordan', 'Synthetic project')));
-// Protect all existing function bodies except the two approved presentation builders.
+// Protect legacy code outside approved presentation and cohort-only claim date changes.
 const normalize = (text, fn) => text.replaceAll('\r\n','\n').replace(/^import .*\n/gm,'').replace('  stripe_payment_link_id?: string | null;\n','').replace(new RegExp(`export function ${fn}[\\s\\S]*?\\n}`), '');
-assert.equal(normalize(source('intensive.ts'), 'onboardingEmail'), normalize(source('intensive.ts',true), 'onboardingEmail'));
+const normalizeDelay = text => normalize(text, 'onboardingEmail')
+  .replace(/export function claimReceiptEmail[\s\S]*?\n}/, '')
+  .replace(',payment_status,stripe_payment_link_id)', ',payment_status)')
+  .replace(', Boolean(delayConfirmationCohort(enrollment.stripe_payment_link_id))', '');
+assert.equal(normalizeDelay(source('intensive.ts')), normalizeDelay(source('intensive.ts',true)));
+assert.ok(current.claimReceiptEmail('Jordan','Synthetic project',true).html.includes('October 16\u201318'));
+assert.ok(!current.claimReceiptEmail('Jordan','Synthetic project',true).html.includes('September'));
 assert.equal(normalize(source('cpm-intensive-email.ts'), 'cpmWelcomeEmail'), normalize(source('cpm-intensive-email.ts',true), 'cpmWelcomeEmail'));
-for (const file of ['supabase/functions/delay-intensive-webhook/index.ts', shared+'cpm-marshall-personal-welcome.ts', shared+'cpm-intensive.ts']) {
+for (const file of [shared+'cpm-marshall-personal-welcome.ts', shared+'cpm-intensive.ts']) {
   assert.equal(fs.readFileSync(path.join(root,file),'utf8').replaceAll('\r\n','\n'),git('show',`${base}:${file}`));
 }
 const out = path.join(root, 'artifacts/confirmation-emails');
@@ -81,7 +87,7 @@ for (const id of octoberIds) {
     const result=current.onboardingEmail(row), before=old.onboardingEmail(row);
     assert.equal(result.subject,before.subject);
     assert.deepEqual(links(result.html),links(before.html));
-    for (const phrase of ['October 16–18, 2026','Friday, October 16 · 1:00–5:00 p.m. ET','Saturday, October 17 · 9:00 a.m.–5:00 p.m. ET','Sunday, October 18 · 10:00 a.m.–1:00 p.m. ET','material availability and live room access.','$1,234.56','ALP-ABCD1234']) assert.ok(result.html.includes(phrase),phrase);
+    for (const phrase of ['October 16–18, 2026','Friday, October 16 · 1:00–5:00 p.m. ET','Saturday, October 17 · 9:00 a.m.–5:00 p.m. ET','Sunday, October 18 · 10:00 a.m.–1:00 p.m. ET','October materials and live-room access details are pending confirmation.','$1,234.56','ALP-ABCD1234']) assert.ok(result.html.includes(phrase),phrase);
     assert.ok(!/September|October 15|Live via Zoom|meet\.google\.com/.test(result.html));
     if (pass.pass_kind || pass.can_submit_claim===false) assert.ok(!result.html.includes('submit a live claim candidate'));
     cases++;
@@ -103,4 +109,4 @@ for (const [name, fn, args] of [
   ['cpm', 'cpmWelcomeEmail', [sample,'Example cohort dates — preview only']],
   ['cpm-fallback', 'cpmWelcomeEmail', [sample,null]],
 ]) fs.writeFileSync(path.join(out,name+'.html'),current[fn](...args).html);
-console.log(`PASS: ${cases} confirmation cases; verified October copy only for eight mapped offers; preserved legacy/CPM content, subjects, hrefs, reminder/claim output, and unchanged delivery/webhook/queue logic. Six synthetic HTML previews written to ${out}`);
+console.log(`PASS: ${cases} confirmation cases; verified October copy only for eight mapped offers; preserved legacy/CPM content, subjects, hrefs, reminder/claim output, and unchanged legacy delivery and personal-queue logic. Six synthetic HTML previews written to ${out}`);
