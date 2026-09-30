@@ -1,5 +1,29 @@
 [
   {
+    "name": "delay-october",
+    "label": "desktop",
+    "width": 800,
+    "scroll": 800,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay-october",
+    "label": "mobile",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay-october",
+    "label": "dark",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
     "name": "delay",
     "label": "desktop",
     "width": 800,

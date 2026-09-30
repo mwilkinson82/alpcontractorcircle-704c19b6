@@ -14,7 +14,7 @@ const git = (...args) => execFileSync('git', ['-c', `safe.directory=${root.repla
 const source = (file, original = false) => original ? git('show', `${base}:${shared}${file}`) : fs.readFileSync(path.join(root, shared, file), 'utf8');
 function load(original = false) {
   const context = vm.createContext({ Intl, TextEncoder, URL, console, createClient() { throw Error('Database forbidden'); }, fetch() { throw Error('Network forbidden'); }, Deno: { env: { get() { throw Error('Credentials forbidden'); } } } });
-  for (const file of [...(original ? [] : ['confirmation-email-frame.ts']), 'intensive.ts', 'cpm-intensive-email.ts']) {
+  for (const file of [...(original ? [] : ['confirmation-email-frame.ts', 'delay-confirmation-cohort.ts']), 'intensive.ts', 'cpm-intensive-email.ts']) {
     const code = source(file, original).replace(/^import .*;\r?\n/gm, '').replace(/^export /gm, '');
     vm.runInContext(stripTypeScriptTypes(code), context);
   }
@@ -61,7 +61,7 @@ for (const kind of ['seven_day','onboarding_reminder_1','onboarding_reminder_2',
 }
 assert.equal(JSON.stringify(current.claimReceiptEmail('Jordan', 'Synthetic project')), JSON.stringify(old.claimReceiptEmail('Jordan', 'Synthetic project')));
 // Protect all existing function bodies except the two approved presentation builders.
-const normalize = (text, fn) => text.replaceAll('\r\n','\n').replace(/^import .*\n/gm,'').replace(new RegExp(`export function ${fn}[\\s\\S]*?\\n}`), '');
+const normalize = (text, fn) => text.replaceAll('\r\n','\n').replace(/^import .*\n/gm,'').replace('  stripe_payment_link_id?: string | null;\n','').replace(new RegExp(`export function ${fn}[\\s\\S]*?\\n}`), '');
 assert.equal(normalize(source('intensive.ts'), 'onboardingEmail'), normalize(source('intensive.ts',true), 'onboardingEmail'));
 assert.equal(normalize(source('cpm-intensive-email.ts'), 'cpmWelcomeEmail'), normalize(source('cpm-intensive-email.ts',true), 'cpmWelcomeEmail'));
 for (const file of ['supabase/functions/delay-intensive-webhook/index.ts', shared+'cpm-marshall-personal-welcome.ts', shared+'cpm-intensive.ts']) {
@@ -69,11 +69,38 @@ for (const file of ['supabase/functions/delay-intensive-webhook/index.ts', share
 }
 const out = path.join(root, 'artifacts/confirmation-emails');
 fs.mkdirSync(out, {recursive:true});
+const octoberIds = [
+  'plink_1UBOioJdDAUSVXbNw0nBuTMh', 'plink_1UBOiqJdDAUSVXbNnZaiIeFf',
+  'plink_1UBOiyJdDAUSVXbNxbJsnSJ7', 'plink_1UBOiuJdDAUSVXbNulbGSceG',
+  'plink_1UBOjGJdDAUSVXbNt4u5wMHJ', 'plink_1UBOjHJdDAUSVXbNY01Rra5m',
+  'plink_1UBOjIJdDAUSVXbNAOlmW5yY', 'plink_1UBOjJJdDAUSVXbNCcWckNyO',
+];
+for (const id of octoberIds) {
+  for (const pass of [{}, {pass_kind:'named_seat'}, {can_submit_claim:false}]) {
+    const row={...sample,...pass,stripe_payment_link_id:id};
+    const result=current.onboardingEmail(row), before=old.onboardingEmail(row);
+    assert.equal(result.subject,before.subject);
+    assert.deepEqual(links(result.html),links(before.html));
+    for (const phrase of ['October 16–18, 2026','Friday, October 16 · 1:00–5:00 p.m. ET','Saturday, October 17 · 9:00 a.m.–5:00 p.m. ET','Sunday, October 18 · 10:00 a.m.–1:00 p.m. ET','material availability and live room access.','$1,234.56','ALP-ABCD1234']) assert.ok(result.html.includes(phrase),phrase);
+    assert.ok(!/September|October 15|Live via Zoom|meet\.google\.com/.test(result.html));
+    if (pass.pass_kind || pass.can_submit_claim===false) assert.ok(!result.html.includes('submit a live claim candidate'));
+    cases++;
+  }
+}
+for (const id of [undefined,null,'','unknown','evergreen-synthetic','plink_1U7n37JdDAUSVXbNG7XStxnN','plink_1U7n39JdDAUSVXbNIreq7bTB','plink_1UFijSJdDAUSVXbNu3vdGChq']) {
+  // No date or amount heuristics may assign October to unknown/evergreen/legacy/CPM offers.
+  const row={...sample,stripe_payment_link_id:id,created_at:'2026-10-01T00:00:00Z'};
+  assert.ok(!current.onboardingEmail(row).html.includes('October'));
+  compare('onboardingEmail',[row]);
+}
+assert.ok(!current.cpmWelcomeEmail(sample,null).html.includes('October'));
+const octoberSample={...sample,stripe_payment_link_id:octoberIds[0]};
 for (const [name, fn, args] of [
+  ['delay-october', 'onboardingEmail', [octoberSample]],
   ['delay', 'onboardingEmail', [sample]],
   ['delay-company', 'onboardingEmail', [{...sample, enrollment_type:'company', seats:2, amount_total:234567}]],
   ['delay-named-seat', 'onboardingEmail', [{...sample,pass_kind:'named_seat',amount_total:null}]],
   ['cpm', 'cpmWelcomeEmail', [sample,'Example cohort dates — preview only']],
   ['cpm-fallback', 'cpmWelcomeEmail', [sample,null]],
 ]) fs.writeFileSync(path.join(out,name+'.html'),current[fn](...args).html);
-console.log(`PASS: ${cases} confirmation cases; exact subjects, hrefs, original content, reminder/claim output, and unchanged delivery/webhook/queue logic. Five synthetic HTML previews written to ${out}`);
+console.log(`PASS: ${cases} confirmation cases; verified October copy only for eight mapped offers; preserved legacy/CPM content, subjects, hrefs, reminder/claim output, and unchanged delivery/webhook/queue logic. Six synthetic HTML previews written to ${out}`);

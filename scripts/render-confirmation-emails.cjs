@@ -6,7 +6,7 @@ const path = require('node:path');
 (async()=>{
  const browser = await chromium.launch({headless:true, channel:'msedge'});
  const results=[];
- for(const name of ['delay','delay-company','delay-named-seat','cpm','cpm-fallback']) {
+ for(const name of ['delay-october','delay','delay-company','delay-named-seat','cpm','cpm-fallback']) {
   for(const [label,width,scheme] of [['desktop',800,'light'],['mobile',375,'light'],['dark',375,'dark']]) {
    const page=await browser.newPage({viewport:{width,height:900},colorScheme:scheme});
    await page.route('**/*',route=>route.abort());
@@ -19,5 +19,5 @@ const path = require('node:path');
   }
  }
  fs.writeFileSync('artifacts/confirmation-emails/render-results.json',JSON.stringify(results,null,2));
- await browser.close(); console.log('PASS: 15 offline Edge renders; no horizontal overflow at 375px or 800px.');
+ await browser.close(); console.log('PASS: 18 offline Edge renders; no horizontal overflow at 375px or 800px.');
 })().catch(e=>{console.error(e);process.exit(1)});
