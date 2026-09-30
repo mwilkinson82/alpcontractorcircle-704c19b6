@@ -1,0 +1,122 @@
+[
+  {
+    "name": "delay",
+    "label": "desktop",
+    "width": 800,
+    "scroll": 800,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay",
+    "label": "mobile",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay",
+    "label": "dark",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay-company",
+    "label": "desktop",
+    "width": 800,
+    "scroll": 800,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay-company",
+    "label": "mobile",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay-company",
+    "label": "dark",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay-named-seat",
+    "label": "desktop",
+    "width": 800,
+    "scroll": 800,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay-named-seat",
+    "label": "mobile",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "delay-named-seat",
+    "label": "dark",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "cpm",
+    "label": "desktop",
+    "width": 800,
+    "scroll": 800,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "cpm",
+    "label": "mobile",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "cpm",
+    "label": "dark",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "cpm-fallback",
+    "label": "desktop",
+    "width": 800,
+    "scroll": 800,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "cpm-fallback",
+    "label": "mobile",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  },
+  {
+    "name": "cpm-fallback",
+    "label": "dark",
+    "width": 375,
+    "scroll": 375,
+    "headings": 1,
+    "hero": "rgb(28, 26, 23)"
+  }
+]
