@@ -1,7 +1,9 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.4";
 
-export const INDIVIDUAL_PAYMENT_LINK = "plink_1U7n37JdDAUSVXbNG7XStxnN";
-export const COMPANY_PAYMENT_LINK = "plink_1U7n39JdDAUSVXbNIreq7bTB";
+export {
+  COMPANY_PAYMENT_LINK,
+  INDIVIDUAL_PAYMENT_LINK,
+} from "./delay-payment-links.ts";
 export const PORTAL_URL = "https://alpcontractorcircle.com/delay-intensive/onboarding";
 
 export const CORS_HEADERS = {

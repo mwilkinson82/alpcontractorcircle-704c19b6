@@ -3,13 +3,15 @@ export const PASS_KIND_NAMED_SEAT = "named_seat" as const;
 
 export type IntensivePassKind = typeof PASS_KIND_PURCHASER | typeof PASS_KIND_NAMED_SEAT;
 
-export const INDIVIDUAL_PAYMENT_LINK = "plink_1U7n37JdDAUSVXbNG7XStxnN";
-export const COMPANY_PAYMENT_LINK = "plink_1U7n39JdDAUSVXbNIreq7bTB";
-
-export const RECOGNIZED_PURCHASER_PAYMENT_LINKS = [
-  INDIVIDUAL_PAYMENT_LINK,
+import {
+  ACCEPTED_DELAY_PAYMENT_LINKS,
   COMPANY_PAYMENT_LINK,
-] as const;
+  INDIVIDUAL_PAYMENT_LINK,
+} from "../../supabase/functions/_shared/delay-payment-links";
+
+export { COMPANY_PAYMENT_LINK, INDIVIDUAL_PAYMENT_LINK };
+
+export const RECOGNIZED_PURCHASER_PAYMENT_LINKS = ACCEPTED_DELAY_PAYMENT_LINKS;
 
 /** Paid buyers who must keep the live-claim form. Do not infer from seats. */
 export const KNOWN_PURCHASER_ENROLLMENT_IDS = [

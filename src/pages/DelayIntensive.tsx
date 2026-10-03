@@ -12,12 +12,12 @@ import oliverTestimonial from "@/assets/oliver-fernandez-testimonial.mp4.asset.j
 import "./DelayIntensive.css";
 
 const PUBLIC_CHECKOUT = {
-  individual: "https://buy.stripe.com/6oU4gA8FX1eC67K6vgeQM1f",
-  company: "https://buy.stripe.com/4gMeVef4lbTgbs48DoeQM1g",
+  individual: "https://buy.stripe.com/5kQdRaf4lbTg2Vy9HseQM1j",
+  company: "https://buy.stripe.com/4gM28s5tL7D0gMog5QeQM1k",
 };
 const MEMBER_CHECKOUT = {
-  individual: "https://buy.stripe.com/fZu9AU8FX9L853Gg5QeQM1i",
-  company: "https://buy.stripe.com/9B63cw7BT3mK8fS1aWeQM1h",
+  individual: "https://buy.stripe.com/cNieVe7BT1eC2Vy7zkeQM1l",
+  company: "https://buy.stripe.com/8x2cN609r1eC9jW1aWeQM1m",
 };
 const CHECKOUT_PENDING = "#checkout-pending";
 const LOCK_IN_DEADLINE = new Date("2026-10-01T03:59:59Z").getTime();
