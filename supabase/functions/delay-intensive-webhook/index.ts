@@ -1,12 +1,11 @@
 import { handleCpmEvent } from "../_shared/cpm-intensive.ts";
 import { deliverCpmWelcomeEmail } from "../_shared/cpm-intensive-email.ts";
 import { enqueueMarshallPersonalWelcome } from "../_shared/cpm-marshall-personal-welcome.ts";
+import { delayEnrollmentType } from "../_shared/delay-payment-links.ts";
 import {
   adminClient,
-  COMPANY_PAYMENT_LINK,
   deliverEnrollmentEmail,
   type Enrollment,
-  INDIVIDUAL_PAYMENT_LINK,
   json,
   randomToken,
   timingSafeEqual,
@@ -76,10 +75,8 @@ function checkoutAttribution(value: unknown) {
 
 async function enrollFromCheckout(session: Record<string, any>) {
   const paymentLinkId = asId(session.payment_link);
-  if (
-    paymentLinkId !== INDIVIDUAL_PAYMENT_LINK &&
-    paymentLinkId !== COMPANY_PAYMENT_LINK
-  ) {
+  const enrollmentType = delayEnrollmentType(paymentLinkId);
+  if (!enrollmentType) {
     return { ignored: true, reason: "unrelated_payment_link" };
   }
   if (session.livemode !== true || session.payment_status !== "paid") {
@@ -92,9 +89,6 @@ async function enrollFromCheckout(session: Record<string, any>) {
   if (!email) {
     throw new Error("Paid Checkout Session did not include an email address.");
   }
-  const enrollmentType = paymentLinkId === COMPANY_PAYMENT_LINK
-    ? "company"
-    : "individual";
   const attribution = checkoutAttribution(session.client_reference_id);
   const validAttribution = attribution?.enrollmentType === enrollmentType
     ? attribution
