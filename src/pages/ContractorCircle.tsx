@@ -413,6 +413,11 @@ const circleNotes = [
     quote:
       "I've got a team of 12 working these bots now. Marshall, you're a guru for this one — how many people are really doing this in the industry right now?",
   },
+  {
+    name: "Joshua Christian",
+    role: "Contractor Circle member",
+    quote: "Your work is next level. This group is exactly where I want to be 💯",
+  },
 ] as const;
 
 /* Instagram / feed screenshots. Add new shots here — the grid scales on its own. */
