@@ -1,4 +1,6 @@
 import { handleCpmEvent } from "../_shared/cpm-intensive.ts";
+import { octoberDelayOffer } from "../_shared/delay-confirmation-cohort.ts";
+import { enrollOctoberDelayCheckout } from "../_shared/october-delay-fulfillment.ts";
 import { deliverCpmWelcomeEmail } from "../_shared/cpm-intensive-email.ts";
 import { enqueueMarshallPersonalWelcome } from "../_shared/cpm-marshall-personal-welcome.ts";
 import { delayEnrollmentType } from "../_shared/delay-payment-links.ts";
@@ -192,7 +194,14 @@ Deno.serve(async (request) => {
       event.type === "checkout.session.completed" ||
       event.type === "checkout.session.async_payment_succeeded"
     ) {
-      result = await enrollFromCheckout(object);
+      result = octoberDelayOffer(asId(object.payment_link))
+        ? await enrollOctoberDelayCheckout(object, event.livemode, {
+          enabled: Deno.env.get("OCTOBER_DELAY_FULFILLMENT_ENABLED") === "true",
+          adminClient,
+          randomToken,
+          deliver: deliverEnrollmentEmail,
+        })
+        : await enrollFromCheckout(object);
     } else if (event.type === "charge.refunded" && object.refunded === true) {
       result = await revokeByPaymentIntent(
         asId(object.payment_intent),
