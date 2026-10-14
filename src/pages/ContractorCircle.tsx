@@ -1179,9 +1179,6 @@ export default function ContractorCircle() {
           <span className="cc-brand-name">Contractor Circle</span>
         </a>
         <nav className="cc-nav-actions" aria-label="Primary">
-          <a href="/delay-intensive" className="cc-nav-link cc-nav-intensive">
-            Oct 16–18 Intensive
-          </a>
           <a href={PORTAL_LOGIN_URL} className="cc-nav-link">
             Sign In
           </a>
@@ -1627,9 +1624,6 @@ export default function ContractorCircle() {
               <p className="cc-subhead" data-caption>
                 Notes from operators who sat in the room. Unedited.
               </p>
-              <a className="cc-field-link" href="/delay-intensive" data-caption>
-                See the Delay &amp; Damages Intensive
-              </a>
             </div>
 
             <div className="cc-field-grid">
