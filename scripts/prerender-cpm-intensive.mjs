@@ -17,7 +17,7 @@ const SEO = {
   description:
     "Master CPM scheduling in Primavera P6 with Marshall Wilkinson. Build your own baseline, run reliable updates, analyze delay and establish the time record for extensions and delay damages. Two live days. $1,997 USD per seat.",
   canonical: "https://alpcontractorcircle.com/cpm-intensive",
-  image: "https://alpcontractorcircle.com/og-contractor-circle.png",
+  image: "https://alpcontractorcircle.com/og-contractor-circle.png?v=linked-c-1",
 };
 
 const esc = (value) => value.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");

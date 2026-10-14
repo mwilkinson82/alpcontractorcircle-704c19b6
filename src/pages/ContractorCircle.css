@@ -14025,3 +14025,12 @@ body:has(.cc-page) {
   transform: none !important;
   filter: none !important;
 }
+
+/* A quiet cream surface keeps the identity readable over the moving hero. */
+.cc-nav { display: flex; }
+.cc-nav .cc-brand { width: auto; max-width: none; flex: 0 0 auto; background: #F7F2EA; border-radius: 2px; }
+.cc-nav .circle-logo { display: block; }
+@media (max-width: 389px) {
+  .cc-nav { flex-wrap: wrap; gap: 8px; }
+  .cc-nav .cc-nav-actions { margin-left: auto; }
+}

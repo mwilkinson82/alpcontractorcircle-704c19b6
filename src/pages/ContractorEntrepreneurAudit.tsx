@@ -1,8 +1,9 @@
+import ContractorCircleLogo from "@/components/ContractorCircleLogo";
 import { useEffect } from "react";
 import { ArrowDownToLine, ArrowRight, Check } from "lucide-react";
 import "./ContractorEntrepreneurAudit.css";
 
-const DOWNLOAD_URL = "/downloads/contractor-entrepreneur-operating-audit.pdf";
+const DOWNLOAD_URL = "/downloads/contractor-entrepreneur-operating-audit.pdf?v=linked-c-1";
 
 const disciplines = [
   "Entrepreneurial leadership",
@@ -41,11 +42,7 @@ const ContractorEntrepreneurAudit = () => {
     <main className="audit-page">
       <header className="audit-nav">
         <a href="/" aria-label="ALP Contractor Circle home">
-          <img
-            src="/assets/brand/contractor-circle-horizontal.svg"
-            alt="ALP Contractor Circle"
-            className="audit-logo"
-          />
+          <ContractorCircleLogo />
         </a>
         <a className="audit-nav-link" href="/">
           Learn about Contractor Circle <ArrowRight size={15} />
@@ -71,7 +68,7 @@ const ContractorEntrepreneurAudit = () => {
         <a className="audit-document" href={DOWNLOAD_URL} download aria-label="Download the Contractor Entrepreneur Operating Audit">
           <div className="audit-document-frame">
             <img
-              src="/assets/resources/contractor-entrepreneur-operating-audit-preview.png"
+              src="/assets/resources/contractor-entrepreneur-operating-audit-preview.png?v=linked-c-1"
               alt="Preview of the Contractor Entrepreneur Operating Audit"
             />
           </div>
@@ -136,7 +133,7 @@ const ContractorEntrepreneurAudit = () => {
       </section>
 
       <footer className="audit-footer">
-        <img src="/assets/brand/contractor-circle-horizontal.svg" alt="ALP Contractor Circle" />
+        <ContractorCircleLogo />
         <div className="audit-footer-links">
           <a href="/">Learn more about Contractor Circle</a>
           <a href="https://marshallinbio.com" target="_blank" rel="noreferrer">

@@ -1,3 +1,4 @@
+import ContractorCircleLogo from "@/components/ContractorCircleLogo";
 import {
   useCallback,
   useEffect,
@@ -1175,8 +1176,7 @@ export default function ContractorCircle() {
           className="cc-brand"
           aria-label="ALP Contractor Circle home"
         >
-          <span className="cc-brand-mark">ALP</span>
-          <span className="cc-brand-name">Contractor Circle</span>
+          <ContractorCircleLogo />
         </a>
         <nav className="cc-nav-actions" aria-label="Primary">
           <a href={PORTAL_LOGIN_URL} className="cc-nav-link">
