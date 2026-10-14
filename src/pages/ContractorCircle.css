@@ -14026,10 +14026,14 @@ body:has(.cc-page) {
   filter: none !important;
 }
 
-/* A quiet cream surface keeps the identity readable over the moving hero. */
+/* Transparent masthead: ink on the paper intro, cream on the playing video. */
 .cc-nav { display: flex; }
-.cc-nav .cc-brand { width: auto; max-width: none; flex: 0 0 auto; background: #F7F2EA; border-radius: 2px; }
-.cc-nav .circle-logo { display: block; }
+.cc-nav .cc-brand { width: auto; max-width: none; flex: 0 0 auto; background: transparent; }
+.cc-nav .circle-logo { display: block; width: 280px; padding: 0; }
+.cc-nav .circle-logo img { width: 280px; }
+@media (max-width: 639px) {
+  .cc-nav .circle-logo, .cc-nav .circle-logo img { width: 180px; }
+}
 @media (max-width: 389px) {
   .cc-nav { flex-wrap: wrap; gap: 8px; }
   .cc-nav .cc-nav-actions { margin-left: auto; }

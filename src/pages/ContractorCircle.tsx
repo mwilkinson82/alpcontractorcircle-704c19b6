@@ -1176,7 +1176,7 @@ export default function ContractorCircle() {
           className="cc-brand"
           aria-label="ALP Contractor Circle home"
         >
-          <ContractorCircleLogo />
+          <ContractorCircleLogo tone={heroIntroComplete ? "dark" : "light"} />
         </a>
         <nav className="cc-nav-actions" aria-label="Primary">
           <a href={PORTAL_LOGIN_URL} className="cc-nav-link">
