@@ -1,0 +1,31 @@
+Contractor Circle linked-C release — 2026-10-14
+
+Approved source: Library libfile_5d9dbd4faf68819185d81c1d7baa3214, kit v1.0.
+Outlined horizontal/compact masters copied unchanged. Full logo 280px; compact 180px on mobile. Optical small favicons and standard avatar icons. Updated homepage, lead magnets, cancellation, audit header/footer, PDF and preview, social card, app icons and manifest. Cache version linked-c-1. Existing parent ALP/AOS/intensive/customer brands preserved.
+
+Verification:
+- Production build and prerenders passed; 12 test files / 60 tests passed.
+- Changed TSX files pass ESLint. Repository lint has 24 errors / 8 warnings in untouched files.
+- 24 browser checks: six updated routes at 320/390/768/1440px. Logos loaded, no horizontal overflow, links inside viewport.
+- Ten icon/manifest/social/PDF URLs returned HTTP 200 with correct MIME types.
+- Both audit PDF pages inspected; normalized text unchanged including affiliation. Preview regenerated from page 1.
+- Final social card and desktop/mobile hero screenshots inspected.
+Evidence outside repo: ../output/playwright/{responsive-final.txt,assets-final.txt,*-home-final.png}; ../tmp/pdfs/updated-{1,2}.png; ../build-result.txt; ../test-result.txt; ../lint-result.txt.
+
+Original clean checkout left untouched: /Users/marshallwilkinson/Documents/ALP Contractor Circle Public Site (bb68c40).
+Private checkout: /Users/marshallwilkinson/Documents/Codex/2026-10-14/task-2/marketing-site.
+Branch branding/linked-c-2026-10-14, base freshly fetched origin/main fb7f7afba27e598b7e3802d1f0c2fdf94b0384f0.
+No applicable AGENTS.md found in original ancestors or repository. contractor-command untouched.
+
+Deployment:
+Production https://alpcontractorcircle.com/ returns 200; Cloudflare; A record 185.158.133.1.
+Confirmed Lovable project ALP Contractor Circle Website: ca1f5675-9834-495b-9938-9a3834ec894f.
+Editor https://lovable.dev/projects/ca1f5675-9834-495b-9938-9a3834ec894f
+Preview https://id-preview--ca1f5675-9834-495b-9938-9a3834ec894f.lovable.app
+Authorized get_project confirms is_published=true and latest_commit_sha=fb7f7afba27e598b7e3802d1f0c2fdf94b0384f0.
+Workspace 8jBcUXGsryLkctOZ8OTV; authorized account wilkinson.marshall@gmail.com.
+Path: GitHub active branch sync -> Lovable preview -> Publish / Publish changes to production.
+Official docs state changes pushed to active branch sync into Lovable; new changes are not automatically published live. No GitHub workflows, deployments, or commit status integrations returned. Main appears active from matching head; branch-setting confirmation is not exposed by connector. No evidence of additional auto-publish integration.
+https://docs.lovable.dev/integrations/github
+https://docs.lovable.dev/features/publish
+Before rollout verify synced commit, then existing Publish changes action and production URLs. Parent coordinates approval and Hub rollout. No push, PR, merge, or publication performed.

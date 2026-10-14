@@ -111,3 +111,11 @@
     font-family: var(--font-sans);
   }
 }
+
+/* Contractor Circle release 1.0: preserve master proportions and clear space. */
+.circle-logo { display: block; flex: 0 0 auto; width: 304px; padding: 12px; }
+.circle-logo img { display: block; width: 280px; height: auto; max-width: none; }
+@media (max-width: 639px) {
+  .circle-logo { width: 200px; padding: 10px; }
+  .circle-logo img { width: 180px; height: auto; aspect-ratio: 580 / 130; }
+}

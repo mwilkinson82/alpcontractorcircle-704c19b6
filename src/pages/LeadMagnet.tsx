@@ -1,3 +1,4 @@
+import ContractorCircleLogo from "@/components/ContractorCircleLogo";
 import { Link } from "react-router-dom";
 import { LEAD_MAGNETS, type LeadMagnetKey } from "@/content/site";
 import LeadForm from "@/components/LeadForm";
@@ -10,13 +11,8 @@ const LeadMagnet = ({ magnet }: Props) => {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <header className="border-b border-border">
-        <div className="container-edit h-14 flex items-center justify-between">
-          <Link to="/" className="flex items-baseline gap-2">
-            <span className="font-display text-base leading-none">ALP</span>
-            <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-              Contractor Circle
-            </span>
-          </Link>
+        <div className="container-edit min-h-24 py-3 flex items-center justify-between gap-4">
+          <Link to="/" aria-label="Contractor Circle home"><ContractorCircleLogo /></Link>
           <Link to="/" className="text-xs text-muted-foreground hover:text-foreground">← Home</Link>
         </div>
       </header>
