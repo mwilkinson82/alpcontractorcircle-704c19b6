@@ -1,3 +1,5 @@
+import { delayConfirmationCohort } from "../_shared/delay-confirmation-cohort.ts";
+import { octoberDelayPortalConfig } from "../_shared/october-delay-portal.ts";
 import {
   CLAIM_ACTION_FORBIDDEN,
   CORS_HEADERS,
@@ -48,7 +50,9 @@ async function resolveEnrollment(request: Request, body: Record<string, any>) {
 async function portalState(enrollment: Enrollment) {
   const supabase = adminClient();
   const now = new Date();
-  const materialsReleased = now >= new Date(enrollment.materials_release_at);
+  const october = delayConfirmationCohort(enrollment.stripe_payment_link_id);
+  const octoberConfig = october ? octoberDelayPortalConfig((name) => Deno.env.get(name), now) : null;
+  const materialsReleased = octoberConfig ? octoberConfig.materialsReleased : now >= new Date(enrollment.materials_release_at);
   const canSubmitClaim = enrollmentCanSubmitClaim(enrollment);
   const [{ data: claim }, { data: materials }] = await Promise.all([
     canSubmitClaim
@@ -59,7 +63,13 @@ async function portalState(enrollment: Enrollment) {
           .eq("submitted_via_portal", true)
           .maybeSingle()
       : Promise.resolve({ data: null }),
-    materialsReleased
+    materialsReleased && octoberConfig
+      ? supabase.from("intensive_materials")
+          .select("id,title,description,storage_path,sort_order")
+          .eq("is_published", true)
+          .in("id", octoberConfig.fileIds)
+          .order("sort_order")
+      : materialsReleased
       ? supabase
           .from("intensive_materials")
           .select("id,title,description,storage_path,sort_order")
@@ -82,6 +92,7 @@ async function portalState(enrollment: Enrollment) {
   }
 
   return {
+    ...(octoberConfig ? { cohort: { id: "delay-2026-10", dates: october!.dates, sessions: octoberConfig.sessions } } : {}),
     access: enrollment.access_token,
     pass_kind: enrollment.pass_kind === "named_seat" ? "named_seat" : "purchaser",
     can_submit_claim: canSubmitClaim,
@@ -100,9 +111,9 @@ async function portalState(enrollment: Enrollment) {
     claim: canSubmitClaim ? claim || null : null,
     materials: {
       released: materialsReleased,
-      release_at: enrollment.materials_release_at,
+      release_at: octoberConfig ? octoberConfig.releaseAt : enrollment.materials_release_at,
       files: signedMaterials,
-      zoom_url: materialsReleased ? Deno.env.get("INTENSIVE_ZOOM_URL") || null : null,
+      zoom_url: octoberConfig ? null : materialsReleased ? Deno.env.get("INTENSIVE_ZOOM_URL") || null : null,
     },
   };
 }

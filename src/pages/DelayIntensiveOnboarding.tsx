@@ -20,7 +20,7 @@ const agenda = [
   ["Sunday · September 6", "10:00 a.m.–1:00 p.m. ET", "Build", "Claim assembly, red-team review and submission architecture."],
 ];
 
-type Session = { id: string; day: string; time: string; title: string; date: string; start: string; end: string };
+type Session = { id: string; day: string; time: string; title: string; date: string; start: string; end: string; room_url?: string | null; room_status?: string };
 
 // September 2026 in America/New_York is EDT (UTC-4).
 const sessions: Session[] = [
@@ -32,6 +32,8 @@ const sessions: Session[] = [
 const SESSION_DETAILS = "Open your personal attendee portal one hour before the session for the live-room link.";
 const etToday = () => new Intl.DateTimeFormat("en-CA", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
 
+const sessionDetails = (session: Session) => session.room_status === "pending" ? "October live-room access details are pending confirmation. Return to your personal attendee portal for updates." : SESSION_DETAILS;
+
 const sessionTitle = (session: Session) => `ALP Delay & Damages Intensive · ${session.title}`;
 
 function googleCalendarUrl(session: Session) {
@@ -39,7 +41,7 @@ function googleCalendarUrl(session: Session) {
     action: "TEMPLATE",
     text: sessionTitle(session),
     dates: `${session.start}/${session.end}`,
-    details: SESSION_DETAILS,
+    details: sessionDetails(session),
     ctz: "America/New_York",
   });
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
@@ -56,7 +58,7 @@ function downloadIcs(session: Session) {
     `DTSTART:${session.start}`,
     `DTEND:${session.end}`,
     `SUMMARY:${sessionTitle(session)}`,
-    `DESCRIPTION:${SESSION_DETAILS}`,
+    `DESCRIPTION:${sessionDetails(session)}`,
     "END:VEVENT",
     "END:VCALENDAR",
   ].join("\r\n");
@@ -126,7 +128,7 @@ export default function DelayIntensiveOnboarding() {
   }, []);
 
   const releaseLabel = useMemo(() => {
-    if (!portal) return "September 3 at noon ET";
+    if (!portal?.materials.release_at) return null;
     return new Date(portal.materials.release_at).toLocaleString("en-US", {
       timeZone: "America/New_York",
       month: "long",
@@ -204,6 +206,9 @@ export default function DelayIntensiveOnboarding() {
   if (loading) return <PortalShell><div className="dip-state"><span className="dip-spinner" />Confirming your enrollment with Stripe…</div></PortalShell>;
   if (!portal) return <PortalShell><div className="dip-state dip-state-error"><h1>We could not open your pass.</h1><p>{error}</p><a href="mailto:marshall@marshallwilkinson.com">Contact ALP</a></div></PortalShell>;
 
+  const isOctober = portal.cohort?.id === "delay-2026-10";
+  const activeSessions: Session[] = portal.cohort?.sessions || sessions;
+  const activeAgenda = portal.cohort?.sessions.map((session) => [session.day, session.time, session.title, session.detail]) || agenda;
   const onboarded = Boolean(portal.attendee.onboarding_completed_at);
   const canSubmitClaim = enrollmentCanSubmitClaim(portal);
   const claimSubmitted = Boolean(portal.claim || claimComplete);
@@ -217,20 +222,20 @@ export default function DelayIntensiveOnboarding() {
       <section className="dip-ticket">
         <div className="dip-ticket-top"><span>Official e-ticket</span><strong>{portal.attendee.ticket_number}</strong></div>
         <div className="dip-ticket-main">
-          <div><p>ALP Professional Intensive</p><h1>Delay &amp; Damages</h1><h2>September 4–6, 2026 · Live online</h2></div>
+          <div><p>ALP Professional Intensive</p><h1>Delay &amp; Damages</h1><h2>{portal.cohort?.dates || "September 4–6, 2026 · Live online"}</h2></div>
           <div className="dip-ticket-status"><span>Payment</span><strong>Confirmed</strong></div>
         </div>
         <dl>
           <div><dt>Pass</dt><dd>{passLabel}</dd></div>
           <div><dt>{nameLabel}</dt><dd>{portal.attendee.name || portal.attendee.email}</dd></div>
-          <div><dt>Materials</dt><dd>{portal.materials.released ? "Released" : `Unlock ${releaseLabel}`}</dd></div>
+          <div><dt>Materials</dt><dd>{portal.materials.released ? "Released" : releaseLabel ? `Unlock ${releaseLabel}` : "Release details pending"}</dd></div>
         </dl>
       </section>
 
       <section className={`dip-progress${canSubmitClaim ? "" : " dip-progress-two"}`} aria-label="Attendee readiness">
         <div className={onboarded ? "complete" : "active"}><span>01</span><strong>Onboarding</strong><small>{onboarded ? "Complete" : "Required"}</small></div>
         {canSubmitClaim ? <div className={claimSubmitted ? "complete" : ""}><span>02</span><strong>Live claim</strong><small>{claimSubmitted ? "Submitted" : "Optional"}</small></div> : null}
-        <div className={portal.materials.released ? "complete" : ""}><span>03</span><strong>Materials</strong><small>{portal.materials.released ? "Available" : "Timed release"}</small></div>
+        <div className={portal.materials.released ? "complete" : ""}><span>03</span><strong>Materials</strong><small>{portal.materials.released ? "Available" : releaseLabel ? "Timed release" : "Details pending"}</small></div>
       </section>
 
       <section className="dip-grid">
@@ -249,22 +254,22 @@ export default function DelayIntensiveOnboarding() {
 
         <article className="dip-panel dip-agenda">
           <header><p>The working agenda</p><h2>Three days. One claim-development sequence.</h2></header>
-          <ol>{agenda.map(([date, time, title, detail], index) => <li key={date}><span>0{index + 1}</span><div><strong>{date}</strong><time>{time}</time><h3>{title}</h3><p>{detail}</p></div></li>)}</ol>
+          <ol>{activeAgenda.map(([date, time, title, detail], index) => <li key={date}><span>0{index + 1}</span><div><strong>{date}</strong><time>{time}</time><h3>{title}</h3><p>{detail}</p></div></li>)}</ol>
         </article>
       </section>
 
       <section className={`dip-materials ${portal.materials.released ? "released" : "locked"}`}>
-        <div><p>Step 03 · Controlled release</p><h2>{portal.materials.released ? "Your working files are ready." : "Your materials are protected until the room opens."}</h2><p>{portal.materials.released ? "Use these files during the live working sessions. Download links are private and last 30 minutes; if one expires, refresh this page for a new link. Your personal attendee portal remains active." : `The playbook, templates, workbooks, and class files unlock ${releaseLabel}. We will email you when they are available.`}</p></div>
+        <div><p>Step 03 · Controlled release</p><h2>{portal.materials.released ? "Your working files are ready." : isOctober && !releaseLabel ? "October material-release details are pending." : "Your materials are protected until the room opens."}</h2><p>{portal.materials.released ? "Use these files during the live working sessions. Download links are private and last 30 minutes; if one expires, refresh this page for a new link. Your personal attendee portal remains active." : isOctober ? (releaseLabel ? `Materials are scheduled for ${releaseLabel}. Availability will be shown here once the files are posted.` : "The October materials-release time has not been confirmed. Contact ALP if you need help before class.") : `The playbook, templates, workbooks, and class files unlock ${releaseLabel}. We will email you when they are available.`}</p></div>
         <div className="dip-material-list">
           {!portal.materials.released ? <div className="dip-lock"><span>Locked</span><strong>Claims Recovery Playbook</strong><small>+ editable notices, CPM worksheets, damages workbooks and claim index</small></div> : null}
-          {sessions.map((session) => (
+          {activeSessions.map((session) => (
             <div className="dip-lock dip-session" key={session.id}>
               <span>Attendance</span>
               <strong>{session.day} · {session.title}</strong>
               <small>{session.time}</small>
-              {portal.materials.zoom_url && session.date === etToday()
-                ? <a className="dip-session-live" href={portal.materials.zoom_url} target="_blank" rel="noreferrer">Open live room</a>
-                : <small>The live-room link will appear here one hour before this session. Return to this personal attendee portal to enter the room.</small>}
+              {(isOctober ? session.room_url : portal.materials.zoom_url && session.date === etToday())
+                ? <a className="dip-session-live" href={(isOctober ? session.room_url : portal.materials.zoom_url) || undefined} target="_blank" rel="noreferrer">Open live room</a>
+                : <small>{isOctober && session.room_status === "pending" ? "October live-room access details are pending confirmation. Contact ALP if you need help before class." : "The live-room link will appear here one hour before this session. Return to this personal attendee portal to enter the room."}</small>}
               <div className="dip-session-actions">
                 <a href={googleCalendarUrl(session)} target="_blank" rel="noreferrer">Add to Google Calendar</a>
                 <button type="button" onClick={() => downloadIcs(session)}>Download .ics</button>

@@ -6,6 +6,11 @@ import {
 } from "@/lib/intensive-pass";
 
 export type PortalState = {
+  cohort?: {
+    id: "delay-2026-10";
+    dates: string;
+    sessions: Array<{ id: string; date: string; day: string; time: string; title: string; detail: string; start: string; end: string; room_url: string | null; room_status: string }>;
+  };
   access: string;
   pass_kind: IntensivePassKind;
   can_submit_claim: boolean;
@@ -30,7 +35,7 @@ export type PortalState = {
   };
   materials: {
     released: boolean;
-    release_at: string;
+    release_at: string | null;
     zoom_url: string | null;
     files: Array<{ id: string; title: string; description: string | null; url: string }>;
   };
