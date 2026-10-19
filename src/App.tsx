@@ -16,10 +16,6 @@ import DelayIntensiveTerms from "./pages/DelayIntensiveTerms.tsx";
 import DelayIntensiveOnboarding from "./pages/DelayIntensiveOnboarding.tsx";
 import CpmIntensive from "./pages/CpmIntensive.tsx";
 import CpmIntensiveOnboarding from "./pages/CpmIntensiveOnboarding.tsx";
-import AthenaHome from "./pages/athena/AthenaHome.tsx";
-import AthenaPrivacy from "./pages/athena/AthenaPrivacy.tsx";
-import AthenaTerms from "./pages/athena/AthenaTerms.tsx";
-import AthenaSupport from "./pages/athena/AthenaSupport.tsx";
 
 const queryClient = new QueryClient();
 
@@ -47,10 +43,6 @@ const App = () => (
           <Route path="/cpm-intensive" element={<CpmIntensive />} />
           <Route path="/cpm-intensive/member" element={<CpmIntensive />} />
           <Route path="/cpm-intensive/onboarding" element={<CpmIntensiveOnboarding />} />
-          <Route path="/athena" element={<AthenaHome />} />
-          <Route path="/athena/privacy" element={<AthenaPrivacy />} />
-          <Route path="/athena/terms" element={<AthenaTerms />} />
-          <Route path="/athena/support" element={<AthenaSupport />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
