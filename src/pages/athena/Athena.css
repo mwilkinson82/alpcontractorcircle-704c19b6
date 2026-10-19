@@ -1,0 +1,30 @@
+.athena {
+  --a-ink: 0 0% 7%;
+  --a-charcoal: 0 0% 18%;
+  --a-cream: 40 33% 95%;
+  --a-gray: 0 0% 40%;
+  --a-rule: 30 10% 82%;
+  --a-accent: 20 78% 44%;
+  --a-link: 214 80% 40%;
+  min-height: 100vh;
+  background: hsl(var(--a-cream));
+  color: hsl(var(--a-ink));
+  font-family: "Inter Tight", Inter, system-ui, sans-serif;
+  line-height: 1.6;
+}
+.athena-top { padding: 22px 24px; border-bottom: 1px solid hsl(var(--a-rule)); }
+.athena-brand { font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; font-size: 13px; color: hsl(var(--a-ink)); text-decoration: none; }
+.athena-main { max-width: 760px; margin: 0 auto; padding: 56px 24px 72px; }
+.athena h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.1; letter-spacing: -0.02em; margin: 0 0 18px; font-weight: 700; }
+.athena h2 { font-size: 20px; margin: 44px 0 12px; padding-top: 18px; border-top: 1px solid hsl(var(--a-rule)); font-weight: 650; }
+.athena-accent { width: 56px; height: 3px; background: hsl(var(--a-accent)); margin: 0 0 22px; border: 0; }
+.athena p { margin: 0 0 14px; color: hsl(var(--a-charcoal)); }
+.athena-meta { font-size: 13px; color: hsl(var(--a-gray)); }
+.athena-list { padding-left: 20px; margin: 0 0 14px; color: hsl(var(--a-charcoal)); }
+.athena-list li { margin-bottom: 8px; }
+.athena-button { display: inline-block; margin-top: 10px; padding: 12px 22px; background: hsl(var(--a-ink)); color: hsl(var(--a-cream)); text-decoration: none; font-weight: 600; border-radius: 4px; }
+.athena-button:hover { background: hsl(var(--a-charcoal)); }
+.athena-link { color: hsl(var(--a-link)); }
+.athena-placeholder { outline: 2px solid hsl(var(--a-accent)); outline-offset: 1px; background: hsl(var(--a-accent) / 0.1); color: hsl(var(--a-accent)); font-weight: 600; padding: 0 4px; border-radius: 2px; }
+.athena-footer { border-top: 1px solid hsl(var(--a-rule)); padding: 24px; text-align: center; font-size: 14px; color: hsl(var(--a-gray)); }
+.athena-footer p { margin: 0; color: inherit; }
