@@ -15,7 +15,7 @@ const outDir = resolve(root, "dist/delay-intensive");
 const SEO = {
   title: "Damage & Delay Intensive | ALP Contractor Circle — Oct 16–18 2026",
   description:
-    "A live 3-day intensive for construction owners on delay, claims, and money — preserve entitlement, prove delay, quantify damages, assemble a defensible claim. October 16–18, 2026, live via Zoom. Tuition: $3,500 individual / $5,000 company.",
+    "A live 3-day intensive for construction owners on delay, claims, and money — preserve entitlement, prove delay, quantify damages, assemble a defensible claim. October 16–18, 2026, live via Zoom.",
   canonical: "https://alpcontractorcircle.com/delay-intensive",
   image: "https://alpcontractorcircle.com/og-delay-intensive.png",
 };
