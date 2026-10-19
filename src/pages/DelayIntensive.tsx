@@ -1,45 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import {
-  buildAttributedCheckoutUrl,
-  funnelSessionId,
   trackIntensiveEvent,
-  visitorId,
   type IntensiveAudience,
 } from "@/lib/intensive-attribution";
 import oliverTestimonial from "@/assets/oliver-fernandez-testimonial.mp4.asset.json";
 import "./DelayIntensive.css";
 
-const PUBLIC_CHECKOUT = {
-  individual: "https://buy.stripe.com/5kQdRaf4lbTg2Vy9HseQM1j",
-  company: "https://buy.stripe.com/4gM28s5tL7D0gMog5QeQM1k",
-};
-const MEMBER_CHECKOUT = {
-  individual: "https://buy.stripe.com/cNieVe7BT1eC2Vy7zkeQM1l",
-  company: "https://buy.stripe.com/8x2cN609r1eC9jW1aWeQM1m",
-};
-const CHECKOUT_PENDING = "#checkout-pending";
-const LOCK_IN_DEADLINE = new Date("2026-10-01T03:59:59Z").getTime();
-const ENROLLMENT_CLOSE = new Date("2026-10-15T16:00:00Z").getTime();
-
-type Enrollment = "individual" | "company";
-
-const publicPricing = {
-  individual: { early: 2500, standard: 3500 },
-  company: { early: 3500, standard: 5000 },
-};
-
-const memberPricing = {
-  individual: {
-    early: 2000,
-    standard: 2800,
-  },
-  company: {
-    early: 2800,
-    standard: 4000,
-  },
-};
 
 const gates = [
   {
@@ -163,33 +131,12 @@ const faq = [
     q: "What does the company pass include?",
     a: "Two named attendees from the same company. It is designed for an owner or executive to attend with a project manager, scheduler or commercial lead.",
   },
-  {
-    q: "What are the transfer and refund terms?",
-    a: "Tuition is refundable through October 9, 2026. After that date, it is non-refundable but may be transferred to another attendee in the same company before the intensive begins.",
-  },
 ];
-
-const money = (value: number) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-
-const remaining = (now: number) => {
-  const distance = Math.max(0, LOCK_IN_DEADLINE - now);
-  return {
-    days: Math.floor(distance / 86_400_000),
-    hours: Math.floor((distance / 3_600_000) % 24),
-    minutes: Math.floor((distance / 60_000) % 60),
-    seconds: Math.floor((distance / 1_000) % 60),
-  };
-};
 
 export const INTENSIVE_SEO = {
   title: "Damage & Delay Intensive | ALP Contractor Circle — Oct 16–18 2026",
   description:
-    "A live 3-day intensive for construction owners on delay, claims, and money — preserve entitlement, prove delay, quantify damages, assemble a defensible claim. October 16–18, 2026, live via Zoom. Tuition: $3,500 individual / $5,000 company.",
+    "A live 3-day intensive for construction owners on delay, claims, and money — preserve entitlement, prove delay, quantify damages, assemble a defensible claim. October 16–18, 2026, live via Zoom.",
   canonical: "https://alpcontractorcircle.com/delay-intensive",
   image: "https://alpcontractorcircle.com/og-delay-intensive.png",
 };
@@ -198,52 +145,18 @@ export default function DelayIntensive() {
   const location = useLocation();
   const isMember = location.pathname.endsWith("/member");
   const audience: IntensiveAudience = isMember ? "contractor_circle" : "public";
-  const [now, setNow] = useState(Date.now());
-  const soldOut = false;
-  const isEarly = now <= LOCK_IN_DEADLINE;
-  const enrollmentOpen = !soldOut && now < ENROLLMENT_CLOSE;
-  const clock = remaining(now);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(Date.now()), 1000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     void trackIntensiveEvent("landing_view", audience);
   }, [audience]);
 
 
-  const pricing = isMember ? memberPricing : publicPricing;
-  const currentRateLabel = `${money(pricing.individual.early)} individual / ${money(pricing.company.early)} company`;
-  const standardRateLabel = `${money(pricing.individual.standard)} individual / ${money(pricing.company.standard)} company`;
-
-  const checkoutUrl = useMemo(
-    () => (type: Enrollment) => {
-      const base = (isMember ? MEMBER_CHECKOUT : PUBLIC_CHECKOUT)[type];
-      if (!enrollmentOpen) return "#enrollment-closed";
-      if (!base) return CHECKOUT_PENDING;
-      return buildAttributedCheckoutUrl({
-        base,
-        audience,
-        ticketType: type,
-        visitor: visitorId(),
-        session: funnelSessionId(),
-      });
-    },
-    [audience, enrollmentOpen, isMember],
-  );
-
   return (
     <div className="di-page">
       <Helmet>
         <title>{INTENSIVE_SEO.title}</title>
         <meta name="description" content={INTENSIVE_SEO.description} />
-        {isMember ? (
-          <meta name="robots" content="noindex, nofollow" />
-        ) : (
-          <link rel="canonical" href={INTENSIVE_SEO.canonical} />
-        )}
+        <meta name="robots" content="noindex, nofollow" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={INTENSIVE_SEO.canonical} />
         <meta property="og:title" content={INTENSIVE_SEO.title} />
@@ -259,19 +172,12 @@ export default function DelayIntensive() {
           <span>ALP</span>
           <small>Professional Intensive</small>
         </a>
-        {soldOut ? (
-          <span className="di-nav-cta di-soldout" aria-label="Intensive sold out">Sold out</span>
-        ) : (
-          <a className="di-nav-cta" href="#enroll">Reserve your seat</a>
-        )}
       </header>
 
-      {isMember && (
-        <div className="di-member-bar">
-          <span>Contractor Circle member access</span>
-          <strong>Your preferred pricing is active.</strong>
-        </div>
-      )}
+      <div className="di-member-bar" role="status">
+        <span>This intensive isn't currently running. Join Contractor Circle, or check back for the next cohort.</span>
+        <a href="/">Join Contractor Circle</a>
+      </div>
 
       <main>
         <section className="di-hero">
@@ -287,11 +193,6 @@ export default function DelayIntensive() {
               A live, advanced working intensive for contractors, project executives, project managers and schedulers who need to develop a defensible extension-of-time and delay-damages claim—not merely understand the vocabulary.
             </p>
             <div className="di-hero-actions">
-              {soldOut ? (
-                <span className="di-button di-button-primary di-soldout" aria-disabled="true">Sold out</span>
-              ) : (
-                <a href="#enroll" className="di-button di-button-primary">Reserve your seat</a>
-              )}
               <a href="#curriculum" className="di-text-link">See the working sequence ↓</a>
             </div>
           </div>
@@ -308,42 +209,6 @@ export default function DelayIntensive() {
           </aside>
         </section>
 
-        {soldOut ? (
-          <section className="di-deadline" aria-label="Enrollment status">
-            <div className="di-deadline-copy">
-              <span>Enrollment status</span>
-              <strong>Sold out</strong>
-              <p>The September 4–6, 2026 cohort is full. No seats remain.</p>
-            </div>
-          </section>
-        ) : (
-          <section className="di-deadline" aria-label="Pricing deadline">
-            <div className="di-deadline-copy">
-              <span>{isEarly ? "Current tuition expires" : "Standard tuition is now in effect"}</span>
-              <strong>{isEarly ? "Wednesday, September 30 at 11:59 PM ET" : "Enrollment closes October 15 at noon ET"}</strong>
-              <p>{isEarly ? "Reserve now or pay the higher rate beginning October 1." : "The September 30 early-attendee window has ended."}</p>
-            </div>
-            <div className="di-deadline-prices" aria-label="Current and standard tuition">
-              <div className={isEarly ? "is-current" : ""}>
-                <span>Through September 30</span>
-                <b>{currentRateLabel}</b>
-              </div>
-              <div className={!isEarly ? "is-current" : ""}>
-                <span>Beginning October 1</span>
-                <b>{standardRateLabel}</b>
-              </div>
-            </div>
-            {isEarly ? (
-              <div className="di-clock" aria-label="Time remaining for lock-in pricing">
-                {Object.entries(clock).map(([label, value]) => (
-                  <div key={label}><b>{String(value).padStart(2, "0")}</b><small>{label}</small></div>
-                ))}
-              </div>
-            ) : (
-              <p className="di-deadline-close">Enrollment closes October 15 at noon ET, or when the room is full.</p>
-            )}
-          </section>
-        )}
 
         <section className="di-problem">
           <p className="di-section-label">The commercial reality</p>
@@ -493,69 +358,6 @@ export default function DelayIntensive() {
           </div>
         </section>
 
-        <section id="enroll" className="di-enroll">
-          <header>
-            <p className="di-section-label">October 16–18, 2026 cohort</p>
-            <h2>{enrollmentOpen ? "Choose your seat." : soldOut ? "Sold out." : "Enrollment is closed."}</h2>
-            <p>
-              {soldOut
-                ? "This live cohort is full. No seats remain."
-                : isEarly
-                  ? `The inaugural September 4–6 room is full. October is open. ${isMember ? "Contractor Circle member tuition" : "Early-attendee tuition"} through September 30: ${currentRateLabel}. Beginning October 1: ${standardRateLabel}.`
-                  : `${isMember ? "Contractor Circle member tuition" : "Standard tuition"}: ${standardRateLabel}.`}
-            </p>
-          </header>
-
-          {enrollmentOpen ? (
-            <>
-              <figure className="di-pass-visual">
-                <img src="/assets/delay-intensive/enrollment-passes.jpg" alt="Individual and company-pass credentials for the ALP Delay and Damages Intensive" loading="lazy" />
-                <figcaption>Individual: one attendee · Company pass: two attendees from the same company</figcaption>
-              </figure>
-              <div className="di-price-grid">
-                {(["individual", "company"] as Enrollment[]).map((type) => {
-                  const plan = pricing[type];
-                  const current = isEarly ? plan.early : plan.standard;
-                  return (
-                    <article key={type} className={type === "company" ? "di-price-featured" : ""}>
-                      <div className="di-price-topline">
-                        <span>{type === "individual" ? "Individual" : "Company pass"}</span>
-                        {type === "company" && <b>Recommended</b>}
-                      </div>
-                      <div className="di-price">
-                        {isEarly && <del>{money(plan.standard)}</del>}
-                        <strong>{money(current)}</strong>
-                      </div>
-                      <p>{type === "individual" ? "One named participant" : "Two named participants from the same company"}</p>
-                      <a
-                        className="di-button di-button-primary"
-                        href={checkoutUrl(type)}
-                        onClick={() => void trackIntensiveEvent("checkout_started", audience, type)}
-                      >Reserve {type === "individual" ? "my seat" : "the company pass"}</a>
-                      <small>One-time tuition · Secure checkout through Stripe</small>
-                    </article>
-                  );
-                })}
-              </div>
-              <aside className="di-terms-callout" aria-label="Key enrollment terms">
-                <div><span>Refund cutoff</span><strong>October 9, 2026</strong></div>
-                <div><span>After cutoff</span><strong>Non-refundable; transferable inside your company</strong></div>
-                <div><span>Materials</span><strong>Internal company-use license</strong></div>
-                <p>By enrolling, you agree to the <Link to="/delay-intensive/terms">complete Intensive Enrollment Terms</Link>, including the educational-purpose, live-claim and recording provisions.</p>
-              </aside>
-            </>
-          ) : (
-            <div id="enrollment-closed" className="di-closed">
-              <p>{soldOut ? "Online enrollment is closed for this cohort." : "The live room is no longer accepting online enrollment."}</p>
-              {!soldOut && <a href="mailto:marshall@marshallwilkinson.com">Ask about the next cohort</a>}
-            </div>
-          )}
-
-          {!isMember && (
-            <p className="di-member-note">Current Contractor Circle member? Your private enrollment link is inside the member room.</p>
-          )}
-          {soldOut ? null : <p className="di-capacity">Limited to 10 companies. Enrollment closes October 15 at noon ET, or when all company positions are filled.</p>}
-        </section>
 
         <section className="di-faq">
           <header className="di-section-head">
@@ -575,11 +377,7 @@ export default function DelayIntensive() {
         <section className="di-closing">
           <p className="di-section-label">The claim is already being built.</p>
           <h2>The question is whether your company is building it deliberately.</h2>
-          {soldOut ? (
-            <span className="di-button di-button-light di-soldout" aria-disabled="true">Sold out</span>
-          ) : (
-            <a href="#enroll" className="di-button di-button-light">Reserve your seat</a>
-          )}
+          <a href="/" className="di-button di-button-light">Join Contractor Circle</a>
         </section>
       </main>
 
@@ -592,16 +390,6 @@ export default function DelayIntensive() {
         </nav>
         <p>Educational and professional training. Not legal advice. No guarantee of entitlement or recovery.</p>
       </footer>
-      {soldOut ? (
-        <div className="di-mobile-cta di-soldout" aria-label="Intensive sold out">
-          <strong>Sold out</strong>
-        </div>
-      ) : (
-        <a className="di-mobile-cta" href="#enroll">
-          <span>{isEarly ? `From ${money(pricing.individual.early)}` : `From ${money(pricing.individual.standard)}`}</span>
-          <strong>Reserve your seat</strong>
-        </a>
-      )}
     </div>
   );
 }
