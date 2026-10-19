@@ -40,6 +40,7 @@ const main = async () => {
 
   const metas = [
     ['name', "description", SEO.description],
+    ['name', "robots", "noindex, nofollow"],
     ['property', "og:url", SEO.canonical],
     ['property', "og:title", SEO.title],
     ['property', "og:description", SEO.description],
