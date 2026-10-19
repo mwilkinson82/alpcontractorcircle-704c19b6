@@ -1,45 +1,13 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import {
-  buildAttributedCheckoutUrl,
-  funnelSessionId,
   trackIntensiveEvent,
-  visitorId,
   type IntensiveAudience,
 } from "@/lib/intensive-attribution";
 import oliverTestimonial from "@/assets/oliver-fernandez-testimonial.mp4.asset.json";
 import "./DelayIntensive.css";
 
-const PUBLIC_CHECKOUT = {
-  individual: "https://buy.stripe.com/5kQdRaf4lbTg2Vy9HseQM1j",
-  company: "https://buy.stripe.com/4gM28s5tL7D0gMog5QeQM1k",
-};
-const MEMBER_CHECKOUT = {
-  individual: "https://buy.stripe.com/cNieVe7BT1eC2Vy7zkeQM1l",
-  company: "https://buy.stripe.com/8x2cN609r1eC9jW1aWeQM1m",
-};
-const CHECKOUT_PENDING = "#checkout-pending";
-const LOCK_IN_DEADLINE = new Date("2026-10-01T03:59:59Z").getTime();
-const ENROLLMENT_CLOSE = new Date("2026-10-15T16:00:00Z").getTime();
-
-type Enrollment = "individual" | "company";
-
-const publicPricing = {
-  individual: { early: 2500, standard: 3500 },
-  company: { early: 3500, standard: 5000 },
-};
-
-const memberPricing = {
-  individual: {
-    early: 2000,
-    standard: 2800,
-  },
-  company: {
-    early: 2800,
-    standard: 4000,
-  },
-};
 
 const gates = [
   {
@@ -163,28 +131,7 @@ const faq = [
     q: "What does the company pass include?",
     a: "Two named attendees from the same company. It is designed for an owner or executive to attend with a project manager, scheduler or commercial lead.",
   },
-  {
-    q: "What are the transfer and refund terms?",
-    a: "Tuition is refundable through October 9, 2026. After that date, it is non-refundable but may be transferred to another attendee in the same company before the intensive begins.",
-  },
 ];
-
-const money = (value: number) =>
-  new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-    maximumFractionDigits: 0,
-  }).format(value);
-
-const remaining = (now: number) => {
-  const distance = Math.max(0, LOCK_IN_DEADLINE - now);
-  return {
-    days: Math.floor(distance / 86_400_000),
-    hours: Math.floor((distance / 3_600_000) % 24),
-    minutes: Math.floor((distance / 60_000) % 60),
-    seconds: Math.floor((distance / 1_000) % 60),
-  };
-};
 
 export const INTENSIVE_SEO = {
   title: "Damage & Delay Intensive | ALP Contractor Circle — Oct 16–18 2026",
@@ -198,41 +145,11 @@ export default function DelayIntensive() {
   const location = useLocation();
   const isMember = location.pathname.endsWith("/member");
   const audience: IntensiveAudience = isMember ? "contractor_circle" : "public";
-  const [now, setNow] = useState(Date.now());
-  const soldOut = false;
-  const isEarly = now <= LOCK_IN_DEADLINE;
-  const enrollmentOpen = !soldOut && now < ENROLLMENT_CLOSE;
-  const clock = remaining(now);
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(Date.now()), 1000);
-    return () => window.clearInterval(timer);
-  }, []);
 
   useEffect(() => {
     void trackIntensiveEvent("landing_view", audience);
   }, [audience]);
 
-
-  const pricing = isMember ? memberPricing : publicPricing;
-  const currentRateLabel = `${money(pricing.individual.early)} individual / ${money(pricing.company.early)} company`;
-  const standardRateLabel = `${money(pricing.individual.standard)} individual / ${money(pricing.company.standard)} company`;
-
-  const checkoutUrl = useMemo(
-    () => (type: Enrollment) => {
-      const base = (isMember ? MEMBER_CHECKOUT : PUBLIC_CHECKOUT)[type];
-      if (!enrollmentOpen) return "#enrollment-closed";
-      if (!base) return CHECKOUT_PENDING;
-      return buildAttributedCheckoutUrl({
-        base,
-        audience,
-        ticketType: type,
-        visitor: visitorId(),
-        session: funnelSessionId(),
-      });
-    },
-    [audience, enrollmentOpen, isMember],
-  );
 
   return (
     <div className="di-page">
